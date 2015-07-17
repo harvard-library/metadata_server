@@ -142,7 +142,8 @@ $(function() {
   });
 
   $('.user-buttons').slicknav({
-    prependTo: '.mirador-main-menu-bar'
+    prependTo: '.mirador-main-menu-bar',
+    label: 'Tools'
   });
 
   var ftype_alias = {
