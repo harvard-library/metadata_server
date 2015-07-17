@@ -141,6 +141,10 @@ $(function() {
     "windowObjects": l.MIRADOR_WOBJECTS
   });
 
+  $('.user-buttons').slicknav({
+    prependTo: '.mirador-main-menu-bar'
+  });
+
   var ftype_alias = {
     'ImageView': 'i',
     'BookView': 'b',
