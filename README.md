@@ -45,6 +45,22 @@ ELASTICSEARCH_URL=localhost:9200                        # omit for default
 ELASTICSEARCH_INDEX=manifests                           # omit for default
 ```
 
+## Refreshing Manifests
+
+A Django manage.py task has been provided to recreate a manifest that is loaded into the system (say, because the parser changed).  To use it, run the following from inside the application's virtualenv:
+
+```Shell
+manage.py refresh_manifests $SOURCE(:$IDENTIFIER)
+```
+
+If an $IDENTIFIER isn't provided, it will refresh all manifests of $SOURCE.
+
+This task can be run from a remote host via capistrano, e.g.:
+
+```Shell
+cap $STAGE manage:refresh $SOURCE(:$IDENTIFIER)
+```
+
 ## Dev Notes
 
 Additional notes of interest to developers located [here](DEV_NOTES.md).
