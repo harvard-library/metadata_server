@@ -190,6 +190,9 @@ $(function() {
         if (drs_match) {
           return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id,
                   "uri": mirWindow.manifest.uri, "n": n, "slotID": mirSlotID, "slot_idx": i};
+        } else {// throw up error window
+          $error = $('<div id="not-available" style="display:none" />');
+          $error.dialog().dialog('open');
         }
       }
       // else omit manifest because we don't know how to cite/view it
@@ -294,7 +297,8 @@ $(function() {
                 var thumbUrl = currWindow.imagesList[sequence].images[0].resource.service['@id'];
                 thumbUrl = thumbUrl + "/full/150,/0/native.jpg";
                 var cell = "<div style='text-align:left; float:left;'><img src='" + thumbUrl +
-                  "' style='float:left' width='80' height='80' hspace='4' /> <i>" + label + "</i><br>" + record.context + "</div>";
+                  "' style='float:left' width='80' height='80' hspace='4' /> <i>" + label + "</i><br>" + record.context +
+                  "<br>" + record.uri + "</div>";
                 return cell;
             }
             return "";
