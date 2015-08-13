@@ -138,6 +138,8 @@
   <script id="links-tmpl" type="text/x-handlebars-template">
     <div title="links" class="links dialog {{ op }}">
      <!--<header><h3>Related Links</h3></header>-->
+     <b>Related Links></b> take you to information outside of PDS that relates to the displayed document. E.g., a link to a description of the document in HOLLIS, to a finding aid in OASIS, or to a specialized web site with additional information.
+       Click on the link and the information will display in a new browser window.
       <ul>
         {{#each links}}
         <li>{{{ type }}} {{#isLink value }}<a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}}{{{ identifier }}}{{#isLink value}}</a>{{/isLink}}</li>
