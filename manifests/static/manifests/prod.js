@@ -359,7 +359,7 @@ $(function() {
         $("#searchbox").on("keypress", function (event) {
           if(event.which === 13){
              fts_source.url = "/proxy/find/" + $("#search_drs_id").val() +
-                "?Q=" + $("#searchbox").val() + "&P=50";
+                "?Q=" + $("#searchbox").val() + "&P=100&O=" + $('input[name=searchOpt]:checked').val();
               if (me.timer) clearTimeout(me.timer);
               me.timer = setTimeout(function () {
                 dataAdapter.dataBind();
@@ -371,7 +371,7 @@ $(function() {
         var me2 = this;
         $("#searchbutton").on("click", function (event) {
            fts_source.url = "/proxy/find/" + $("#search_drs_id").val() +
-              "?Q=" + $("#searchbox").val();
+              "?Q=" + $("#searchbox").val() + "&P=100&O=" + $('input[name=searchOpt]:checked').val();
             if (me2.timer) clearTimeout(me2.timer);
             me2.timer = setTimeout(function () {
                   dataAdapter.dataBind();
