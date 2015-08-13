@@ -65,7 +65,7 @@
         <input type="hidden" name="id" id="search_drs_id" value="{{ drs_id }}"/>
         <input type="hidden" name="current_slot_idx" id="current_slot_idx" value="{{ slot_idx }}"/>
         <div id="hints"  style="margin-left: auto; margin-right: auto; text-align: center">
-             <b>Search Citation</b> searches the entire document (or group of documents) and returns an ordered list of links to pages that contain the search term. You can click on the link to view the page.
+             <b>Search Citation</b> searches the entire document (or group of documents) and returns an ordered list of links to pages that contain the search term.<br> You can click on the link to view the page.
             <br>
            <i>Hints: Use * as a wildcard. Examples: cat*, oper* and Harv*</i>
         </div>
@@ -138,7 +138,7 @@
   <script id="links-tmpl" type="text/x-handlebars-template">
     <div title="links" class="links dialog {{ op }}">
      <!--<header><h3>Related Links</h3></header>-->
-     <b>Related Links></b> take you to information outside of PDS that relates to the displayed document. E.g., a link to a description of the document in HOLLIS, to a finding aid in OASIS, or to a specialized web site with additional information.
+     <b>Related Links</b> take you to information outside of the Viewer that relates to the displayed document. E.g., a link to a description of the document in HOLLIS, to a finding aid in OASIS, or to a specialized web site with additional information.
        Click on the link and the information will display in a new browser window.
       <ul>
         {{#each links}}
