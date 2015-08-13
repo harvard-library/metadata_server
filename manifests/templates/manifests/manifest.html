@@ -64,11 +64,13 @@
 
         <input type="hidden" name="id" id="search_drs_id" value="{{ drs_id }}"/>
         <input type="hidden" name="current_slot_idx" id="current_slot_idx" value="{{ slot_idx }}"/>
-        <div id="hints"  style="margin-left: auto; margin-right: auto; text-align: center">
-             <b>Search within citation:</b> <i>{{ label }}</i>
+        <div id="searchhelp">
+           <b>Search within citation:</b> <i>{{ label }}</i>
              <p/>
              <b>Search Citation</b> searches the entire document (or group of documents) and returns an ordered list of links to pages that contain the search term.<br> You can click on the link to view the page.
             <p/>
+        </div>
+        <div id="hints"  style="margin-left: auto; margin-right: auto; text-align: center">
             <b>Hints:</b> Use * as a wildcard. Examples: cat*, oper* and Harv
         </div>
         <div style="text-align: center">
