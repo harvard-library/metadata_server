@@ -432,7 +432,7 @@ $(function() {
             // Normalize to array for Handlebars
             if (!json.link.length) { json.link = [json.link]}
 
-            $dialog.html(t['links-tmpl']({links: json.link, op: "links"}));
+            $dialog.html(t['links-tmpl']({links: json.link, op: "links", citation: json.citation}));
             $dialog.appendTo('body');
             $dialog
                 .dialog($.extend({title: 'Related Links'}, dialogBaseOpts))
