@@ -458,6 +458,14 @@ $(function() {
                 .dialog($.extend({title: 'View Text'}, dialogBaseOpts))
                 .dialog('open');
           }
+          else {// throw up error window
+            $error = $('<div id="error-modal" style="display:none" />');
+            $error.html(t['error-tmpl']({ op: "error", text: "No text available" }));
+            $error.appendTo('body');
+            $error.dialog()
+               .dialog($.extend({title: 'No Text Available'}, dialogBaseOpts))
+               .dialog('open');
+          }
         }); //TODO: Else graceful error display
       }
     }
