@@ -4,6 +4,27 @@ body {
 #viewer {
   background: #333 url('./dev/images/debut_dark.png') left top repeat; width: 100%; height: 100%; position: fixed;
 }
+.mirador-main-menu.user-buttons {
+  padding-right: 0;
+}
+.slicknav_menu {
+	display:none;
+}
+
+@media screen and (max-width: 1280px) {
+	/* #menu is the original menu */
+	.user-buttons {
+		display:none;
+	}
+
+	.slicknav_menu {
+		display:block;
+    position: absolute;
+    right: 100px;
+    top: 2px;
+	}
+}
+
 .user-buttons li .fa {
   color: #888;
   font-size: 18px;
