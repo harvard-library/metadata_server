@@ -459,7 +459,8 @@ $(function() {
                 .dialog('open');
           }
           else {// throw up error window
-            if ($dialog.get().length > 0) { $dialog.dialog('close'); }
+            //if ($dialog.get().length > 0) { $dialog.dialog('close'); }
+            var $error = $('#error-modal');
             $error = $('<div id="error-modal" style="display:none" />');
             $error.html(t['error-tmpl']({ text: "No text available" }));
             $error.appendTo('body');
