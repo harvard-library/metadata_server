@@ -459,8 +459,9 @@ $(function() {
                 .dialog('open');
           }
           else {// throw up error window
+            if ($dialog.get().length > 0) { $dialog.dialog('close'); }
             $error = $('<div id="error-modal" style="display:none" />');
-            $error.html(t['error-tmpl']({ op: "error", text: "No text available" }));
+            $error.html(t['error-tmpl']({ text: "No text available" }));
             $error.appendTo('body');
             $error.dialog()
                .dialog($.extend({title: 'No Text Available'}, dialogBaseOpts))
