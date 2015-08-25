@@ -142,7 +142,8 @@ $(function() {
   });
 
   $('.user-buttons').slicknav({
-    label: 'Menu'
+    label: 'Menu',
+    prependTo: '.mirador-main-menu-bar'
   });
 
   var ftype_alias = {
