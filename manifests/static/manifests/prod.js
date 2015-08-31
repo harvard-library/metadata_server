@@ -111,25 +111,25 @@ $(function() {
       "userButtons": [
         {"label": "Help",
          "iconClass": "fa fa-question-circle",
-         "attributes": { "id": "help", "href": "http://nrs.harvard.edu/urn-3:hul.ois:hlviewerhelp"}},
+         "attributes": { "class": "help", "href": "http://nrs.harvard.edu/urn-3:hul.ois:hlviewerhelp"}},
         {"label": "View in PDS",
          "iconClass": "fa fa-external-link",
-         "attributes": { "id": "view-in-pds", "href": "#no-op"}},
+         "attributes": { "class": "view-in-pds", "href": "#no-op"}},
         {"label": "Cite",
          "iconClass": "fa fa-quote-left",
-         "attributes": { "id": "cite", "href": "#no-op"}},
+         "attributes": { "class": "cite", "href": "#no-op"}},
         {"label": "Search",
          "iconClass": "fa fa-search",
-         "attributes": { "id": "search", "href": "#no-op"}},
+         "attributes": { "class": "search", "href": "#no-op"}},
         {"label": "Print",
          "iconClass": "fa fa-print",
-         "attributes": { "id": "print", "href": "#no-op"}},
+         "attributes": { "class": "print", "href": "#no-op"}},
         {"label": "View Text",
          "iconClass": "fa fa-font",
-         "attributes": { "id": "viewtext", "href": "#no-op"}},
+         "attributes": { "class": "viewtext", "href": "#no-op"}},
         {"label": "Related Links",
          "iconClass": "fa fa-link",
-         "attributes": { "id": "links", "href": "#no-op"}},
+         "attributes": { "class": "links", "href": "#no-op"}},
 
       ],
     	"userLogo": {
@@ -139,6 +139,11 @@ $(function() {
 
     "data": l.MIRADOR_DATA,
     "windowObjects": l.MIRADOR_WOBJECTS
+  });
+
+  $('.user-buttons').slicknav({
+    label: 'Menu',
+    prependTo: '.mirador-main-menu-bar'
   });
 
   var ftype_alias = {
@@ -175,7 +180,8 @@ $(function() {
 
   var present_choices = function (e) {
     e.preventDefault();
-    var op = e.currentTarget.id;
+    $('.user-buttons').slicknav('close');
+    var op = e.currentTarget.className.replace(/\s/g, '');
     var choices = $.map(Mirador.viewer.workspace.slots, function (slot, i) {
       var mirWindow = slot.window;
       var mirSlotID = slot.slotID;
@@ -475,7 +481,7 @@ $(function() {
 
   };
 
-  $(document).on('click', "#cite, #view-in-pds, #search, #print, #viewtext, #links", present_choices);
+  $(document).on('click', "a.cite, a.view-in-pds, a.search, a.print, a.viewtext, a.links", present_choices);
 
   History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
     var State = History.getState(); // Note: We are using History.getState() instead of event.state

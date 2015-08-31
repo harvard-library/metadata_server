@@ -196,6 +196,9 @@ $(function() {
         if (drs_match) {
           return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id,
                   "uri": mirWindow.manifest.uri, "n": n, "slotID": mirSlotID, "slot_idx": i};
+        } else {// throw up error window
+          $error = $('<div id="not-available" style="display:none" />');
+          $error.dialog().dialog('open');
         }
       }
       // else omit manifest because we don't know how to cite/view it
@@ -247,7 +250,10 @@ $(function() {
       }
     },
     "search": function(drs_id, n, slot_idx) {
-      var content = { drs_id: drs_id, n: n, slot_idx: slot_idx };
+      var cSlot = Mirador.viewer.workspace.slots[slot_idx];
+      var cWindow = cSlot.window;
+      var citLabel = cWindow.manifest.jsonLd.label;
+      var content = { drs_id: drs_id, n: n, slot_idx: slot_idx, label: citLabel };
       var $dialog = $('#search-modal');
       if ($dialog.get().length > 0) {
         $dialog.dialog('close');
@@ -300,7 +306,8 @@ $(function() {
                 var thumbUrl = currWindow.imagesList[sequence].images[0].resource.service['@id'];
                 thumbUrl = thumbUrl + "/full/150,/0/native.jpg";
                 var cell = "<div style='text-align:left; float:left;'><img src='" + thumbUrl +
-                  "' style='float:left' width='80' height='80' hspace='4' /> <i>" + label + "</i><br>" + record.context + "</div>";
+                  "' style='float:left' width='80' height='80' hspace='4' /> <i>" + label + "</i><br>" + record.context +
+                  "<br>" + record.uri + "</div>";
                 return cell;
             }
             return "";
@@ -358,7 +365,7 @@ $(function() {
         $("#searchbox").on("keypress", function (event) {
           if(event.which === 13){
              fts_source.url = "/proxy/find/" + $("#search_drs_id").val() +
-                "?Q=" + $("#searchbox").val() + "&P=50";
+                "?Q=" + $("#searchbox").val() + "&P=100&O=" + $('input[name=searchOpt]:checked').val();
               if (me.timer) clearTimeout(me.timer);
               me.timer = setTimeout(function () {
                 dataAdapter.dataBind();
@@ -370,7 +377,7 @@ $(function() {
         var me2 = this;
         $("#searchbutton").on("click", function (event) {
            fts_source.url = "/proxy/find/" + $("#search_drs_id").val() +
-              "?Q=" + $("#searchbox").val();
+              "?Q=" + $("#searchbox").val() + "&P=100&O=" + $('input[name=searchOpt]:checked').val();
             if (me2.timer) clearTimeout(me2.timer);
             me2.timer = setTimeout(function () {
                   dataAdapter.dataBind();
@@ -431,7 +438,7 @@ $(function() {
             // Normalize to array for Handlebars
             if (!json.link.length) { json.link = [json.link]}
 
-            $dialog.html(t['links-tmpl']({links: json.link, op: "links"}));
+            $dialog.html(t['links-tmpl']({links: json.link, op: "links", citation: json.citation}));
             $dialog.appendTo('body');
             $dialog
                 .dialog($.extend({title: 'Related Links'}, dialogBaseOpts))
@@ -456,6 +463,16 @@ $(function() {
             $dialog
                 .dialog($.extend({title: 'View Text'}, dialogBaseOpts))
                 .dialog('open');
+          }
+          else {// throw up error window
+            //if ($dialog.get().length > 0) { $dialog.dialog('close'); }
+            var $error = $('#error-modal');
+            $error = $('<div id="error-modal" style="display:none" />');
+            $error.html(t['error-tmpl']({ text: "No text available" }));
+            $error.appendTo('body');
+            $error.dialog()
+               .dialog($.extend({title: 'No Text Available'}, dialogBaseOpts))
+               .dialog('open');
           }
         }); //TODO: Else graceful error display
       }

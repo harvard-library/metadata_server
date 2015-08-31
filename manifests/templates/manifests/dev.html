@@ -28,6 +28,12 @@
   <div id="viewer"></div>
 
   {% verbatim %}
+  <script id="error-tmpl" type="text/x-handlebars-template">
+  <div class="dialog" title="Not Available" >
+     <p>{{ text }}</p>
+  </div>
+  </script>
+
   <script id="citation-tmpl" type="text/x-handlebars-template">
     <div class="dialog" title="citation">
       <header>
@@ -62,8 +68,18 @@
 
         <input type="hidden" name="id" id="search_drs_id" value="{{ drs_id }}"/>
         <input type="hidden" name="current_slot_idx" id="current_slot_idx" value="{{ slot_idx }}"/>
-        <div id="hints"  style="margin-left: auto; margin-right: auto; text-align: center">
-           <i>Hints: Use * as a wildcard. Examples: cat*, oper* and Harv*</i>
+        <div id="searchhelp">
+           <b>Search within citation:</b> <i>{{ label }}</i>
+             <p/>
+             <b>Search Citation</b> searches the entire document (or group of documents) and returns an ordered list of links to pages that contain the search term.<br> You can click on the link to view the page.
+            <p/>
+            <b>Hints:</b> Use * as a wildcard. Examples: cat*, oper* and Harv*
+        </div>
+        <div id="orderResults"  style="margin-left: auto; margin-right: auto; text-align: center">
+            <b>Order results:</b>
+            <label for="searchOptDefault"> <input type="radio" name="searchOpt" value="R" id="searchOptDefault" checked />By relevance</label>
+            <label for="searchOptAlpha"> <input type="radio" name="searchOpt" value="A" id="searchOptAlpha"/>Alphabetically</label>
+            <label for="searchOptDate"> <input type="radio" name="searchOpt" value="D" id="searchOptDate"/>By Date</label>
         </div>
         <div style="text-align: center">
           <input class='jqx-input' name="searchbox" type="text" id="searchbox" placeholder="" style="width: 800px" />
@@ -126,7 +142,7 @@
 
   <script id="viewtext-tmpl" type="text/x-handlebars-template">
      <div title="viewtext" class="viewtext dialog {{ op }}">
-       <!--<h3>View Text</h3>-->
+        <!--<h3>View Text</h3>-->
           <div>{{ text }}</div>
      </div>
   </script>
@@ -134,6 +150,10 @@
   <script id="links-tmpl" type="text/x-handlebars-template">
     <div title="links" class="links dialog {{ op }}">
      <!--<header><h3>Related Links</h3></header>-->
+     <b>Links relating to:</b> {{ citation }}
+     <p/>
+     <b>Related Links</b> take you to information outside of the Viewer that relates to the displayed document. E.g., a link to a description of the document in HOLLIS, to a finding aid in OASIS, or to a specialized web site with additional information.
+       Click on the link and the information will display in a new browser window.
       <ul>
         {{#each links}}
         <li>{{{ type }}} {{#isLink value }}<a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}}{{{ identifier }}}{{#isLink value}}</a>{{/isLink}}</li>
