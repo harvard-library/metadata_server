@@ -180,6 +180,7 @@ $(function() {
 
   var present_choices = function (e) {
     e.preventDefault();
+    $('.user-buttons').slicknav('close');
     var op = e.currentTarget.className.replace(/\s/g, '');
     var choices = $.map(Mirador.viewer.workspace.slots, function (slot, i) {
       var mirWindow = slot.window;
