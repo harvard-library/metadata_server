@@ -466,11 +466,11 @@ $(function() {
           }
           else {// throw up error window
             //if ($dialog.get().length > 0) { $dialog.dialog('close'); }
-            var $error = $('#error-modal');
-            $error = $('<div id="error-modal" style="display:none" />');
-            $error.html(t['error-tmpl']({ text: "No text available" }));
-            $error.appendTo('body');
-            $error.dialog()
+            //var $error = $('#error-modal');
+            //$dialog = $('<div id="error-modal" style="display:none" />');
+            $dialog.html(t['viewtext-tmpl']({ op: "viewtext", text: "No text available" }));
+            $dialog.appendTo('body');
+            $dialog.dialog()
                .dialog($.extend({title: 'No Text Available'}, dialogBaseOpts))
                .dialog('open');
           }
