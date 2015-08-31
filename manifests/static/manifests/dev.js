@@ -107,7 +107,7 @@ $(function() {
     "layout": l.LAYOUT,
     "saveSession": false,
     "mainMenuSettings" : {
-      "buttons": { bookmark: false},
+      "buttons": { bookmark: false, layout: false},
       "userButtons": [
         {"label": "Help",
          "iconClass": "fa fa-question-circle",
