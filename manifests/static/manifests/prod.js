@@ -197,8 +197,16 @@ $(function() {
           return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id,
                   "uri": mirWindow.manifest.uri, "n": n, "slotID": mirSlotID, "slot_idx": i};
         } else {// throw up error window
-          $error = $('<div id="not-available" style="display:none" />');
-          $error.dialog().dialog('open');
+          var $error = $('#error-modal');
+          if ($error.get().length > 0) {
+             $error.dialog('close');
+          }
+          $error = $('<div id="error-modal" style="display:none" />');
+          $error.html(t['error-tmpl']({ op: "error", text: "This function is not available for non-DRS objects." }));
+          $error.appendTo('body');
+          $error
+               .dialog($.extend({title: 'Function Unavailable'}, dialogBaseOpts))
+               .dialog('open');
         }
       }
       // else omit manifest because we don't know how to cite/view it
@@ -465,9 +473,6 @@ $(function() {
                 .dialog('open');
           }
           else {// throw up error window
-            //if ($dialog.get().length > 0) { $dialog.dialog('close'); }
-            //var $error = $('#error-modal');
-            //$dialog = $('<div id="error-modal" style="display:none" />');
             $dialog.html(t['viewtext-tmpl']({ op: "viewtext", text: "No text is available for this page." }));
             $dialog.appendTo('body');
             $dialog
