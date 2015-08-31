@@ -470,7 +470,7 @@ $(function() {
             //$dialog = $('<div id="error-modal" style="display:none" />');
             $dialog.html(t['viewtext-tmpl']({ op: "viewtext", text: "No text is available for this page." }));
             $dialog.appendTo('body');
-            $dialog.
+            $dialog
                .dialog($.extend({title: 'Text Unavailable'}, dialogBaseOpts))
                .dialog('open');
           }
