@@ -468,10 +468,10 @@ $(function() {
             //if ($dialog.get().length > 0) { $dialog.dialog('close'); }
             //var $error = $('#error-modal');
             //$dialog = $('<div id="error-modal" style="display:none" />');
-            $dialog.html(t['viewtext-tmpl']({ op: "viewtext", text: "No text available" }));
+            $dialog.html(t['viewtext-tmpl']({ op: "viewtext", text: "No text is available for this page." }));
             $dialog.appendTo('body');
-            $dialog.dialog()
-               .dialog($.extend({title: 'No Text Available'}, dialogBaseOpts))
+            $dialog.
+               .dialog($.extend({title: 'Text Unavailable'}, dialogBaseOpts))
                .dialog('open');
           }
         }); //TODO: Else graceful error display
