@@ -197,37 +197,24 @@ $(function() {
           return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id,
                   "uri": mirWindow.manifest.uri, "n": n, "slotID": mirSlotID, "slot_idx": i};
         } else {// throw up error window
-          /*var $error = $('#error-modal');
-          if ($error.get().length > 0) {
-             $error.dialog('close');
-          }
-          $error = $('<div id="error-modal" style="display:none" />');
-          $error.html(t['error-tmpl']({ op: "error", text: "This function is not available for non-DRS objects." }));
-          $error.appendTo('body');
-          $error
+          if (choices.length == 1) {
+            var $error = $('#error-modal');
+            if ($error.get().length > 0) {
+               $error.dialog('close');
+            }
+            $error = $('<div id="error-modal" style="display:none" />');
+            $error.html(t['error-tmpl']({ op: "error", text: "This function is not available for non-DRS objects." }));
+            $error.appendTo('body');
+            $error
                .dialog($.extend({title: 'Function Unavailable'}, dialogBaseOpts))
-               .dialog('open');*/
+               .dialog('open');
+          }
         }
       }
       // else omit manifest because we don't know how to cite/view it
     });
     if (choices.length == 1) {
-      var drs_match = choices[0].drs_id.match(/drs:(\d+)/);
-      console(drs_match);
-      if (drs_match) {
         operations[op](choices[0].drs_id, choices[0].n, choices[0].slot_idx);
-      } else {
-        var $error = $('#error-modal');
-          if ($error.get().length > 0) {
-             $error.dialog('close');
-          }
-          $error = $('<div id="error-modal" style="display:none" />');
-          $error.html(t['error-tmpl']({ op: "error", text: "This function is not available for non-DRS objects." }));
-          $error.appendTo('body');
-          $error
-               .dialog($.extend({title: 'Function Unavailable'}, dialogBaseOpts))
-               .dialog('open');
-      }
     }
     else {
       var $dialog = $('#choice-modal');
