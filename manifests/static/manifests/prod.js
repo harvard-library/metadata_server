@@ -197,7 +197,25 @@ $(function() {
           return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id,
                   "uri": mirWindow.manifest.uri, "n": n, "slotID": mirSlotID, "slot_idx": i};
         } else {// throw up error window
-          var $error = $('#error-modal');
+          /*var $error = $('#error-modal');
+          if ($error.get().length > 0) {
+             $error.dialog('close');
+          }
+          $error = $('<div id="error-modal" style="display:none" />');
+          $error.html(t['error-tmpl']({ op: "error", text: "This function is not available for non-DRS objects." }));
+          $error.appendTo('body');
+          $error
+               .dialog($.extend({title: 'Function Unavailable'}, dialogBaseOpts))
+               .dialog('open');*/
+        }
+      }
+      // else omit manifest because we don't know how to cite/view it
+    });
+    if (choices.length == 1) {
+      if (choices[0].drs_id) {
+        operations[op](choices[0].drs_id, choices[0].n, choices[0].slot_idx);
+      } else {
+        var $error = $('#error-modal');
           if ($error.get().length > 0) {
              $error.dialog('close');
           }
@@ -207,12 +225,7 @@ $(function() {
           $error
                .dialog($.extend({title: 'Function Unavailable'}, dialogBaseOpts))
                .dialog('open');
-        }
       }
-      // else omit manifest because we don't know how to cite/view it
-    });
-    if (choices.length == 1) {
-      operations[op](choices[0].drs_id, choices[0].n, choices[0].slot_idx);
     }
     else {
       var $dialog = $('#choice-modal');
