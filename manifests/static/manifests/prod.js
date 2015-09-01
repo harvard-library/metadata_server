@@ -212,7 +212,9 @@ $(function() {
       // else omit manifest because we don't know how to cite/view it
     });
     if (choices.length == 1) {
-      if (choices[0].drs_id) {
+      var drs_match = choices[0].drs_id.match(/drs:(\d+)/);
+      console(drs_match);
+      if (drs_match) {
         operations[op](choices[0].drs_id, choices[0].n, choices[0].slot_idx);
       } else {
         var $error = $('#error-modal');
