@@ -401,7 +401,10 @@ $(function() {
       }
     },
     "print": function(drs_id, n, slot_idx) {
-      var content = { drs_id: drs_id, n: n, slot_idx: slot_idx };
+      var cSlot = Mirador.viewer.workspace.slots[slot_idx];
+      var cWindow = cSlot.window;
+      var citLabel = cWindow.manifest.jsonLd.label;
+      var content = { drs_id: drs_id, n: n, slot_idx: slot_idx, label: citLabel };
       var $dialog = $('#print-modal');
 
       if ($dialog.get().length > 0) {
