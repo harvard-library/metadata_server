@@ -197,7 +197,7 @@ $(function() {
           return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id,
                   "uri": mirWindow.manifest.uri, "n": n, "slotID": mirSlotID, "slot_idx": i};
         } else {// throw up error window
-          if (choices.length == 1) {
+          /*if (choices.length == 1) {
             var $error = $('#error-modal');
             if ($error.get().length > 0) {
                $error.dialog('close');
@@ -208,13 +208,14 @@ $(function() {
             $error
                .dialog($.extend({title: 'Function Unavailable'}, dialogBaseOpts))
                .dialog('open');
-          }
+          }*/
         }
       }
       // else omit manifest because we don't know how to cite/view it
     });
     if (choices.length == 1) {
-        operations[op](choices[0].drs_id, choices[0].n, choices[0].slot_idx);
+      console.log(choices[0].drs_id);
+      operations[op](choices[0].drs_id, choices[0].n, choices[0].slot_idx);
     }
     else {
       var $dialog = $('#choice-modal');
