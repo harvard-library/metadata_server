@@ -176,6 +176,10 @@
        {{ manifests_wobjects|join:"," }}
        {% endautoescape %}
      ],
+     PATH_DATA:
+     {% autoescape off %}
+     {{ path_data }}
+     {% endautoescape %},
      LAYOUT: "{{ layout_string }}"
    };
   </script>
