@@ -75,21 +75,21 @@
             <p/>
             <b>Hints:</b> Use * as a wildcard. Examples: cat*, oper* and Harv*
         </div>
-        <div id="orderResults"  style="margin-left: auto; margin-right: auto; text-align: center">
+        <div id="orderResults"  style="margin: 30px auto 10px auto; text-align: center">
             <b>Order results:</b>
-            <label for="searchOptDefault"> <input type="radio" name="searchOpt" value="R" id="searchOptDefault" checked />By relevance</label>
-            <label for="searchOptAlpha"> <input type="radio" name="searchOpt" value="A" id="searchOptAlpha"/>Alphabetically</label>
-            <label for="searchOptDate"> <input type="radio" name="searchOpt" value="D" id="searchOptDate"/>By Date</label>
+            <label for="searchOptDefault"> <input type="radio" style=”margin-left: 5px;” name="searchOpt" value="R" id="searchOptDefault" checked />By relevance</label>
+            <label for="searchOptAlpha"> <input type="radio" style=”margin-left: 5px;” name="searchOpt" value="A" id="searchOptAlpha"/>Alphabetically</label>
+            <label for="searchOptDate"> <input type="radio" style=”margin-left: 5px;” name="searchOpt" value="D" id="searchOptDate"/>By Date</label>
         </div>
         <div style="text-align: center">
-          <input class='jqx-input' name="searchbox" type="text" id="searchbox" placeholder="" style="width: 800px" />
+          <input class='jqx-input' name="searchbox" type="text" id="searchbox" placeholder="" style="padding: 3px; width: 500px;" />
         </div>
         <div id="hits"  style="display:none; margin-left: auto; margin-right: auto; text-align: center"></div>
         <div id="hitlist" style="display:none; margin-left: auto; margin-right: auto;"></div>
         <div id="nohits"  style="display:none; margin-left: auto; margin-right: auto; text-align: center">
             <b>No Search Results Found</b>
         </div>
-        <div style="float: right;">
+        <div style=”margin: 10px; text-align: center;”>
             <input id="clearsearch" type="button" value="Clear" />
             <input id="searchbutton" type="button" value="Search" />
         </div>
@@ -177,6 +177,10 @@
        {{ manifests_wobjects|join:"," }}
        {% endautoescape %}
      ],
+     PATH_DATA:
+     {% autoescape off %}
+     {{ path_data }}
+     {% endautoescape %},
      LAYOUT: "{{ layout_string }}"
    };
   </script>
