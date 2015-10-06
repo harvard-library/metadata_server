@@ -108,10 +108,17 @@ def view(request, view_type, document_id):
                 uri = "http://%s/manifests/%s:%s" % (host,real_source,real_id)
                 location = "Harvard University"
 
+
+            jsdir = "dev" if view_type == "view-dev" else "prod"
+            path_data = json.dumps({
+                "i18nPath": "/static/manifests/%s/locales/" % jsdir,
+                "logosLocation": "/static/manifests/%s/images/logos/" % jsdir
+            })
+
             # Data - what gets loaded
             mfdata = { "manifestUri": uri,
                        "location": location,
-                       "title": title}
+                       "title": title }
 
             manifests_data.append(json.dumps(mfdata))
 
@@ -130,12 +137,13 @@ def view(request, view_type, document_id):
             manifests_wobjects.append(json.dumps(mfwobject))
 
     if len(manifests_data) > 0:
-        view_locals = {'manifests_data' : manifests_data,
+        view_locals = {'path_data':          path_data,
+                       'manifests_data' :    manifests_data,
                        'manifests_wobjects': manifests_wobjects,
-                       'num_manifests': len(manifests_data),
-                       'pds_view_url': PDS_VIEW_URL,
-                       'pds_ws_url': PDS_WS_URL,
-                       'layout_string': layout_string(len(manifests_data)),
+                       'num_manifests':      len(manifests_data),
+                       'pds_view_url':       PDS_VIEW_URL,
+                       'pds_ws_url':         PDS_WS_URL,
+                       'layout_string':      layout_string(len(manifests_data)),
                    }
         # Check if its an experimental/dev Mirador codebase, otherwise use production
         if (view_type == "view-dev"):
