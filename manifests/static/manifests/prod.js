@@ -6,7 +6,7 @@ $(function() {
     modal: true,
     draggable: false,
     resizable: false,
-    width: "90%",
+    width: "50%",
     classes: "qtip-bootstrap",
     close: function (e) { $(this).remove()}
   };
