@@ -261,145 +261,157 @@ $(function() {
       }
     },
     "search": function(drs_id, n, slot_idx) {
-      var cSlot = Mirador.viewer.workspace.slots[slot_idx];
-      var cWindow = cSlot.window;
-      var citLabel = cWindow.manifest.jsonLd.label;
-      var content = { drs_id: drs_id, n: n, slot_idx: slot_idx, label: citLabel };
-      var $dialog = $('#search-modal');
-      if ($dialog.get().length > 0) {
-        $dialog.dialog('close');
-      }
-      else {
-        $dialog = $('<div id="search-modal" style="display:none" />');
-        $dialog.html(t['search-tmpl'](content));
-        $dialog
-          .dialog($.extend({title: "Search"}, dialogBaseOpts))
-          .dialog('open');
-
-        //init search grid and data sources
-
-        //data source for jq dataadapter
-        var fts_source = {
-          datatype: "xml",
-          datafields: [
-            { name: 'label', map: 'displayLabel', type: 'string'},
-            { name: 'uri', map: 'deliveryUri', type: 'string'},
-            { name: 'context', map: 'context', type: 'string'}
-          ],
-          root: "resultSet",
-          record: "result"
-          //pager
-        };
-
-        //adapter for search form
-        var dataAdapter = new $.jqx.dataAdapter(fts_source, {
-          autoBind: false,
-          beforeSend: function (xhr) {
-             xhr.cache = true;
+      var has_ocr = false;
+      //first check to see if page has text
+      $.get( '/proxy/get/' + drs_id + '?n=' + n, function(xml){
+          var json = $.xml2json(xml);
+          if (json.text) {
+             has_ocr = true;
           }
-        });
+      }); //TODO: Else graceful error display
+      if (has_ocr) {
+        var cSlot = Mirador.viewer.workspace.slots[slot_idx];
+        var cWindow = cSlot.window;
+        var citLabel = cWindow.manifest.jsonLd.label;
+        var content = { drs_id: drs_id, n: n, slot_idx: slot_idx, label: citLabel };
+        var $dialog = $('#search-modal');
+        if ($dialog.get().length > 0) {
+          $dialog.dialog('close');
+        }
+        else {
+          $dialog = $('<div id="search-modal" style="display:none" />');
+          $dialog.html(t['search-tmpl'](content));
+          $dialog
+            .dialog($.extend({title: "Search"}, dialogBaseOpts))
+            .dialog('open');
 
-        //search hitlist
-        $("#hitlist").jqxListBox(
-        { source: dataAdapter,
-          displayMember: "context",
-          valueMember: "uri",
-          width: 800,
-          height: 200,
-          renderer: function (index, label, value) {
-            var record = dataAdapter.records[index];
-            if (record != null) {
-                var sequence = parseInt((record.uri.split("="))[1]);
-                sequence = sequence - 1;
-                var curr_slot_idx = $("#current_slot_idx").val();
-                var currSlot = Mirador.viewer.workspace.slots[curr_slot_idx];
-                var currWindow = currSlot.window;
-                var thumbUrl = currWindow.imagesList[sequence].images[0].resource.service['@id'];
-                thumbUrl = thumbUrl + "/full/150,/0/native.jpg";
-                var cell = "<div style='text-align:left; float:left;'><img src='" + thumbUrl +
-                  "' style='float:left' width='80' height='80' hspace='4' /> <i>" + label + "</i><br>" + record.context +
-                  "<br>" + record.uri + "</div>";
-                return cell;
+          //init search grid and data sources
+
+          //data source for jq dataadapter
+          var fts_source = {
+            datatype: "xml",
+            datafields: [
+              { name: 'label', map: 'displayLabel', type: 'string'},
+              { name: 'uri', map: 'deliveryUri', type: 'string'},
+              { name: 'context', map: 'context', type: 'string'}
+            ],
+            root: "resultSet",
+            record: "result"
+            //pager
+          };
+
+          //adapter for search form
+          var dataAdapter = new $.jqx.dataAdapter(fts_source, {
+            autoBind: false,
+            beforeSend: function (xhr) {
+               xhr.cache = true;
             }
-            return "";
-          }
+          });
 
-        });
+          //search hitlist
+          $("#hitlist").jqxListBox(
+          { source: dataAdapter,
+            displayMember: "context",
+            valueMember: "uri",
+            width: 800,
+            height: 200,
+            renderer: function (index, label, value) {
+              var record = dataAdapter.records[index];
+              if (record != null) {
+                  var sequence = parseInt((record.uri.split("="))[1]);
+                  sequence = sequence - 1;
+                  var curr_slot_idx = $("#current_slot_idx").val();
+                  var currSlot = Mirador.viewer.workspace.slots[curr_slot_idx];
+                  var currWindow = currSlot.window;
+                  var thumbUrl = currWindow.imagesList[sequence].images[0].resource.service['@id'];
+                  thumbUrl = thumbUrl + "/full/150,/0/native.jpg";
+                  var cell = "<div style='text-align:left; float:left;'><img src='" + thumbUrl +
+                    "' style='float:left' width='80' height='80' hspace='4' /> <i>" + label + "</i><br>" + record.context +
+                    "<br>" + record.uri + "</div>";
+                  return cell;
+              }
+              return "";
+            }
 
-        $("#hitlist").on('bindingComplete', function (event) {
-          if ( dataAdapter.records.length > 0) {
-            $('#hits').html("<b>" + dataAdapter.records.length + "</b> Search Results Found");
-            $('#nohits').hide();
-            $('#hits').show();
-            $('#hitlist').show();
-          } else {
-            $('#hits').hide();
-            $('#hits').text('');
+          });
+
+          $("#hitlist").on('bindingComplete', function (event) {
+            if ( dataAdapter.records.length > 0) {
+              $('#hits').html("<b>" + dataAdapter.records.length + "</b> Search Results Found");
+              $('#nohits').hide();
+              $('#hits').show();
+              $('#hitlist').show();
+            } else {
+              $('#hits').hide();
+              $('#hits').text('');
+              $('#hitlist').hide();
+              $('#nohits').show();
+            }
+          });
+
+
+          var clearSearch = function () {
+            $("#searchbox").val('');
+            $('#hitlist').jqxListBox('clear');
             $('#hitlist').hide();
-            $('#nohits').show();
-          }
-        });
+            $('#nohits').hide();
+          };
 
-
-        var clearSearch = function () {
-          $("#searchbox").val('');
-          $('#hitlist').jqxListBox('clear');
-          $('#hitlist').hide();
-          $('#nohits').hide();
-        };
-
-        //handler for select -> move to mirador window
-        $("#hitlist").on('select', function (event) {
-          var curr_slot_idx = $("#current_slot_idx").val();
-          if (event.args) {
-            var item = event.args.item;
-            if (item) {
-                var record = dataAdapter.records[item.index];
-                var sequence = parseInt((record.uri.split("="))[1]);
-                sequence = sequence - 1;
-                clearSearch();
-                $('#search-modal').dialog('close');
-                // TODO - jump active mirador window to this new sequence
-                var currSlot = Mirador.viewer.workspace.slots[curr_slot_idx];
-                var currWindow = currSlot.window;
-                var newCanvasID = currWindow.imagesList[sequence]['@id'];
-                currWindow.setCurrentCanvasID(newCanvasID);
-                //update panels with current image
-                if (currWindow.bottomPanel) { currWindow.bottomPanel.updateFocusImages(currWindow.focusImages); }
-                //currWindow.updatePanelsAndOverlay();
+          //handler for select -> move to mirador window
+          $("#hitlist").on('select', function (event) {
+            var curr_slot_idx = $("#current_slot_idx").val();
+            if (event.args) {
+              var item = event.args.item;
+              if (item) {
+                  var record = dataAdapter.records[item.index];
+                  var sequence = parseInt((record.uri.split("="))[1]);
+                  sequence = sequence - 1;
+                  clearSearch();
+                  $('#search-modal').dialog('close');
+                  // TODO - jump active mirador window to this new sequence
+                  var currSlot = Mirador.viewer.workspace.slots[curr_slot_idx];
+                  var currWindow = currSlot.window;
+                  var newCanvasID = currWindow.imagesList[sequence]['@id'];
+                  currWindow.setCurrentCanvasID(newCanvasID);
+                  //update panels with current image
+                  if (currWindow.bottomPanel) { currWindow.bottomPanel.updateFocusImages(currWindow.focusImages); }
+                  //currWindow.updatePanelsAndOverlay();
+              }
             }
-          }
-        });
+          });
 
-        //handler for automatic search on keyup event in search box
-        var me = this;
-        $("#searchbox").on("keypress", function (event) {
-          if(event.which === 13){
+          //handler for automatic search on keyup event in search box
+          var me = this;
+          $("#searchbox").on("keypress", function (event) {
+            if(event.which === 13){
+               fts_source.url = "/proxy/find/" + $("#search_drs_id").val() +
+                  "?Q=" + $("#searchbox").val() + "&P=100&O=" + $('input[name=searchOpt]:checked').val();
+                if (me.timer) clearTimeout(me.timer);
+                me.timer = setTimeout(function () {
+                  dataAdapter.dataBind();
+               }, 300);
+           }
+          });
+
+          //handler for search button
+          var me2 = this;
+          $("#searchbutton").on("click", function (event) {
              fts_source.url = "/proxy/find/" + $("#search_drs_id").val() +
                 "?Q=" + $("#searchbox").val() + "&P=100&O=" + $('input[name=searchOpt]:checked').val();
-              if (me.timer) clearTimeout(me.timer);
-              me.timer = setTimeout(function () {
-                dataAdapter.dataBind();
-             }, 300);
-         }
-        });
+              if (me2.timer) clearTimeout(me2.timer);
+              me2.timer = setTimeout(function () {
+                    dataAdapter.dataBind();
+              }, 300);
+           });
 
-        //handler for search button
-        var me2 = this;
-        $("#searchbutton").on("click", function (event) {
-           fts_source.url = "/proxy/find/" + $("#search_drs_id").val() +
-              "?Q=" + $("#searchbox").val() + "&P=100&O=" + $('input[name=searchOpt]:checked').val();
-            if (me2.timer) clearTimeout(me2.timer);
-            me2.timer = setTimeout(function () {
-                  dataAdapter.dataBind();
-            }, 300);
-         });
-
-        //handler for clear searchbox form
-        $("#clearsearch").on("click", function (event) {
-          clearSearch();
-        });
-      }
+          //handler for clear searchbox form
+          $("#clearsearch").on("click", function (event) {
+            clearSearch();
+          });
+        }
+     } else { //no ocr
+       console.log("no ocr available");
+     }
     },
     "print": function(drs_id, n, slot_idx) {
       var cSlot = Mirador.viewer.workspace.slots[slot_idx];
