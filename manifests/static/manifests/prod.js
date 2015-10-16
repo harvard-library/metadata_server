@@ -418,9 +418,8 @@ $(function() {
        $error.html(t['error-tmpl']({ op: "error", text: "Text search is not available for this DRS object." }));
        $error.appendTo('body');
        $error
-          .dialog($.extend({title: 'Function Unavailable'}, dialogBaseOpts))
+          .dialog($.extend({title: 'Search Unavailable'}, dialogBaseOpts))
           .dialog('open');
-       console.log("no ocr available");
      }
     },
     "print": function(drs_id, n, slot_idx) {
