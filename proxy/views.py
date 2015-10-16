@@ -12,7 +12,7 @@ methods = {"printpdf": "application/pdf",
            "find": "application/xml",
            "get": "application/xml",
            "related": "application/xml",
-           "hasocr": "application/xml",
+           "hasocr": "application/json",
            "cite": "application/json"}
 
 
