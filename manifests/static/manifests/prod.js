@@ -410,6 +410,16 @@ $(function() {
           });
         }
      } else { //no ocr
+       var $error = $('#error-modal');
+         if ($error.get().length > 0) {
+           $error.dialog('close');
+        }
+       $error = $('<div id="error-modal" style="display:none" />');
+       $error.html(t['error-tmpl']({ op: "error", text: "Text search is not available for this DRS object." }));
+       $error.appendTo('body');
+       $error
+          .dialog($.extend({title: 'Function Unavailable'}, dialogBaseOpts))
+          .dialog('open');
        console.log("no ocr available");
      }
     },
