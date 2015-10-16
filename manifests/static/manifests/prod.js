@@ -263,9 +263,9 @@ $(function() {
     "search": function(drs_id, n, slot_idx) {
       var has_ocr = false;
       //first check to see if page has text
-      $.get( '/proxy/hasocr/' + drs_id + '?n=' + n, function(xml){
-          var json = $.xml2json(xml);
-          if (json.hasocr) {
+      $.getJSON( '/proxy/hasocr/' + drs_id + '?callback=?', {'n':n})
+         .done( function(data) {
+          if (data.hasocr) {
              has_ocr = true;
           }
         //}); //TODO: Else graceful error display
