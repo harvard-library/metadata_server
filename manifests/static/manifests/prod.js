@@ -81,7 +81,7 @@ $(function() {
         window.open(url,'');
       }
     } else if (printMode == "caption")  {
-      window.open(l.PDS_VIEW_URL + d_id + '?x=1200&y=1200&usecap=yes');
+      window.open(l.IDS_VIEW_URL + d_id + '?x=1200&y=1200&usecap=yes');
     } else  { //all
       if (totalSeq >= 10) {
         if (emailValid) {
