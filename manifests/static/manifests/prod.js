@@ -194,11 +194,13 @@ $(function() {
             last_idx = parts.length - 1,
             drs_match = parts[last_idx].match(/drs:(\d+)/),
             drs_id = drs_match && drs_match[1],
+            canvas_id = mirWindow.currentCanvasID,
             focusType = mirWindow.currentFocus,
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
+        var img_id = ((canvas_id.split("-"))[1]).split(".json");
         if (drs_match) {
           return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id,
-                  "uri": mirWindow.manifest.uri, "n": n, "slotID": mirSlotID, "slot_idx": i};
+                  "uri": mirWindow.manifest.uri, "n": n, "slotID": mirSlotID, "slot_idx": i, "img_id": img_id};
         }
         // else omit manifest because we don't know how to cite/view it
       }
