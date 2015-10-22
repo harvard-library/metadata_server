@@ -430,7 +430,7 @@ $(function() {
       var cSlot = Mirador.viewer.workspace.slots[slot_idx];
       var cWindow = cSlot.window;
       var citLabel = cWindow.manifest.jsonLd.label;
-      var img_id = ((cWindow.currentCanvasID.split("-"))[1]).split(".json")[0],
+      var img_id = ((cWindow.currentCanvasID.split("-"))[1]).split(".json")[0];
       var content = { drs_id: drs_id, n: n, slot_idx: slot_idx, label: citLabel, img_id: img_id };
       var $dialog = $('#print-modal');
 
