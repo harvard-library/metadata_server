@@ -35,6 +35,7 @@ $(function() {
   var printPDF = function(e){
     e.preventDefault();
     var d_id = $("#drs_id").val();
+    var img_id = $("#img_id").val();
     var url = "/proxy/printpdf/" + d_id;
     var xmlhttp;
     var n = $("#n").val();
@@ -81,7 +82,7 @@ $(function() {
         window.open(url,'');
       }
     } else if (printMode == "caption")  {
-      window.open(l.IDS_VIEW_URL + d_id + '?x=1200&y=1200&usecap=yes');
+      window.open(l.IDS_VIEW_URL + img_id + '?x=1200&y=1200&usecap=yes');
     } else  { //all
       if (totalSeq >= 10) {
         if (emailValid) {
@@ -194,13 +195,11 @@ $(function() {
             last_idx = parts.length - 1,
             drs_match = parts[last_idx].match(/drs:(\d+)/),
             drs_id = drs_match && drs_match[1],
-            canvas_id = mirWindow.currentCanvasID,
             focusType = mirWindow.currentFocus,
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
-        var img_id = ((canvas_id.split("-"))[1]).split(".json");
         if (drs_match) {
           return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id,
-                  "uri": mirWindow.manifest.uri, "n": n, "slotID": mirSlotID, "slot_idx": i, "img_id": img_id};
+                  "uri": mirWindow.manifest.uri, "n": n, "slotID": mirSlotID, "slot_idx": i};
         }
         // else omit manifest because we don't know how to cite/view it
       }
@@ -431,7 +430,8 @@ $(function() {
       var cSlot = Mirador.viewer.workspace.slots[slot_idx];
       var cWindow = cSlot.window;
       var citLabel = cWindow.manifest.jsonLd.label;
-      var content = { drs_id: drs_id, n: n, slot_idx: slot_idx, label: citLabel };
+      var img_id = ((cWindow.currentCanvasID.split("-"))[1]).split(".json")[0],
+      var content = { drs_id: drs_id, n: n, slot_idx: slot_idx, label: citLabel, img_id: img_id };
       var $dialog = $('#print-modal');
 
       if ($dialog.get().length > 0) {
