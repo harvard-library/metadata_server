@@ -125,11 +125,12 @@
          <input type="hidden" name="print_slot_idx" id="print_slot_idx" value="{{ slot_idx }}"/>
          <input type="hidden" name="n" id="n" value="{{ n }}"/>
          <input type="hidden" name="id" id="drs_id" value="{{ drs_id }}"/>
-         <label for="printOptDefault"><input type="radio" name="printOpt" value="current" id="printOptDefault" checked />&nbsp;Convert current page</label><br />
+         <label for="printOptDefault"><input type="radio" name="printOpt" value="current" id="printOptDefault" checked />&nbsp;Convert current page</label><br/>
          <label for="printOptSequence"><input type="radio" id="printOptSequence" name="printOpt" value="range"  />&nbsp;Convert page sequence</label>
          <input type="text" id="start" name="start" size="6" onclick="javascript:document.printpds.printOpt[1].checked=true;" value="" /> to
-         <input type="text" id="end" name="end" size="6" onclick="javascript:document.printpds.printOpt[1].checked=true;" value=""/><br />
-         <label for="printOptEntire"><input type="radio" name="printOpt" id="printOptEntire" value="all"  />&nbsp;Convert entire document</label><br />
+         <input type="text" id="end" name="end" size="6" onclick="javascript:document.printpds.printOpt[1].checked=true;" value=""/><br/>
+         <label for="printOptEntire"><input type="radio" name="printOpt" id="printOptEntire" value="all"  />&nbsp;Convert entire document</label><br/>
+         <label for="printOptCaption"><input type="radio" name="printOpt" value="caption" id="printOptCaption" />&nbsp;Display image with full caption</label><br/>
          Email address: <input type="text" id="email" name="email" size="50" onclick="" value=""/><br />
 
           <div style="margin-right: 10px; margin-top: 5px;">
@@ -167,6 +168,7 @@
   <script type="text/javascript">
    window.harvard_md_server = {
      PDS_VIEW_URL: "{{ pds_view_url }}",
+     IDS_VIEW_URL: "{{ ids_view_url }}",
      MIRADOR_DATA: [
        {% autoescape off %}
        {{ manifests_data|join:"," }}
