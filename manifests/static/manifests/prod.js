@@ -82,7 +82,7 @@ $(function() {
         window.open(url,'');
       }
     } else if (printMode == "caption")  {
-      window.open(l.IDS_VIEW_URL + img_id + '?x=1200&y=1200&usecap=yes');
+      window.open(l.IDS_VIEW_URL + img_id + '?usecap=yes');
     } else  { //all
       if (totalSeq >= 10) {
         if (emailValid) {
