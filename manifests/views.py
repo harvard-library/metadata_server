@@ -25,6 +25,7 @@ HUAM_API_KEY = environ["HUAM_API_KEY"]
 COOKIE_DOMAIN = environ.get("COOKIE_DOMAIN", ".hul.harvard.edu")
 PDS_VIEW_URL = environ.get("PDS_VIEW_URL", "http://pds.lib.harvard.edu/pds/view/")
 PDS_WS_URL = environ.get("PDS_WS_URL", "http://pds.lib.harvard.edu/pds/")
+IDS_VIEW_URL = environ.get("IDS_VIEW_URL", "http://ids.lib.harvard.edu/ids/")
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext":"ext"}
 
@@ -143,6 +144,7 @@ def view(request, view_type, document_id):
                        'num_manifests':      len(manifests_data),
                        'pds_view_url':       PDS_VIEW_URL,
                        'pds_ws_url':         PDS_WS_URL,
+		       'ids_view_url':       IDS_VIEW_URL,
                        'layout_string':      layout_string(len(manifests_data)),
                    }
         # Check if its an experimental/dev Mirador codebase, otherwise use production
