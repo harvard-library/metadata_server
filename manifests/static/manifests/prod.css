@@ -43,6 +43,7 @@ body {
 
 #citation-modal, #links-modal, #viewtext-modal, #choice-modal, #search-modal, #print-modal {
   z-index: 9002; /* Needs priority over menu */
+  overflow-y: auto;
 }
 
 .user-buttons li .fa {
@@ -152,8 +153,4 @@ body {
 /* HAX: In lieu of being able to disable in config, hide annotations icon */
 .mirador-osd-annotations-layer.hud-control {
   display: none;
-}
-
-.viewtext {
-   overflow-y: auto;
 }
