@@ -500,7 +500,7 @@ $(function() {
           if (json.text) {
             $dialog.html(t['viewtext-tmpl']({op: "viewtext", text: json.text}));
             $dialog.appendTo('body');
-            $dialog.css('overflow-y', 'scroll');
+            $dialog.css('overflow', 'scroll');
             $dialog
                 .dialog($.extend({title: 'View Text'}, dialogBaseOpts))
                 .dialog('open');
