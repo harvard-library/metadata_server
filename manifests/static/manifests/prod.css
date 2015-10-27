@@ -155,6 +155,5 @@ body {
 }
 
 .viewtext {
-   display: flex;
-   overflow: auto;
+   overflow-y: auto;
 }
