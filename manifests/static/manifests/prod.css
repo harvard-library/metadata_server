@@ -153,3 +153,7 @@ body {
 .mirador-osd-annotations-layer.hud-control {
   display: none;
 }
+
+.viewtext {
+   display: flex;
+}
