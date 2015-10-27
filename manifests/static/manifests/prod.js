@@ -8,6 +8,7 @@ $(function() {
     resizable: false,
     width: "50%",
     classes: "qtip-bootstrap",
+    open: function( e, ui) { $(this).css('overflow-y', 'auto'); },
     close: function (e) { $(this).remove()}
   };
 
