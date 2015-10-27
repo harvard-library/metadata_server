@@ -43,7 +43,6 @@ body {
 
 #citation-modal, #links-modal, #viewtext-modal, #choice-modal, #search-modal, #print-modal {
   z-index: 9002; /* Needs priority over menu */
-  overflow-y: auto;
 }
 
 .user-buttons li .fa {
