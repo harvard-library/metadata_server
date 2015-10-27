@@ -161,11 +161,11 @@
         {{#each links}}
         <li>{{{ type }}}
            {{#isLink value }} <a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}}
-              {{{#if description }}}
+              {{#if link.description }}
                  {{{ description }}}
-              {{{else}}}
+              {{else }}
                  {{{ identifier }}}
-              {{{/if }}}
+              {{/if }}
           {{#isLink value}}</a>{{/isLink}}
         </li>
         {{/each}}
