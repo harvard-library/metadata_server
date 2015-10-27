@@ -159,7 +159,15 @@
        Click on the link and the information will display in a new browser window.
       <ul>
         {{#each links}}
-        <li>{{{ type }}} {{#isLink value }}<a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}}{{{ identifier }}}{{#isLink value}}</a>{{/isLink}}</li>
+        <li>{{{ type }}}
+           {{#isLink value }} <a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}}
+              {{{#if description }}}
+                 {{{ description }}}
+              {{{else}}}
+                 {{{ identifier }}}
+              {{{/if }}}
+          {{#isLink value}}</a>{{/isLink}}
+        </li>
         {{/each}}
       </ul>
     </div>
