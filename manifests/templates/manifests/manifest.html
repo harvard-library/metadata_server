@@ -69,9 +69,12 @@
         <input type="hidden" name="id" id="search_drs_id" value="{{ drs_id }}"/>
         <input type="hidden" name="current_slot_idx" id="current_slot_idx" value="{{ slot_idx }}"/>
         <div id="searchhelp">
-           <b>Search within citation:</b> <i>{{ label }}</i>
+           <b>Search Item:</b>
              <p/>
-             <b>Search Citation</b> searches the entire document (or group of documents) and returns an ordered list of links to pages that contain the search term.<br> You can click on the link to view the page.
+             <i>{{ label }}</i>
+             <p/>
+             For search tips, refer to <a href="http://nrs.harvard.edu/urn-3:hul.ois:hlviewerhelp">Viewer Help</a>.
+             See <a href="{{ fds_view_url }}">Full Text Search</a> to search across all available texts.
             <p/>
             <b>Hints:</b> Use * as a wildcard. Examples: cat*, oper* and Harv*
         </div>
@@ -178,7 +181,6 @@
      PDS_VIEW_URL: "{{ pds_view_url }}",
      IDS_VIEW_URL: "{{ ids_view_url }}",
      FDS_VIEW_URL: "{{ fds_view_url }}",
-     FDS_HELP_URL: "{{ fds_help_url }}",
      MIRADOR_DATA: [
        {% autoescape off %}
        {{ manifests_data|join:"," }}
