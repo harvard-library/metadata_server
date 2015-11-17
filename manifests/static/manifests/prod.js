@@ -276,7 +276,7 @@ $(function() {
           var cSlot = Mirador.viewer.workspace.slots[slot_idx];
           var cWindow = cSlot.window;
           var citLabel = cWindow.manifest.jsonLd.label;
-          var content = { drs_id: drs_id, n: n, slot_idx: slot_idx, label: citLabel };
+          var content = { drs_id: drs_id, n: n, slot_idx: slot_idx, label: citLabel, fds_view_url: l.FDS_VIEW_URL };
           var $dialog = $('#search-modal');
           if ($dialog.get().length > 0) {
             $dialog.dialog('close');
