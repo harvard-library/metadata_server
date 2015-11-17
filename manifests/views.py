@@ -27,7 +27,6 @@ PDS_VIEW_URL = environ.get("PDS_VIEW_URL", "http://pds.lib.harvard.edu/pds/view/
 PDS_WS_URL = environ.get("PDS_WS_URL", "http://pds.lib.harvard.edu/pds/")
 IDS_VIEW_URL = environ.get("IDS_VIEW_URL", "http://ids.lib.harvard.edu/ids/")
 FDS_VIEW_URL = environ.get("FDS_VIEW_URL","http://fts.lib.harvard.edu/fts/search")
-FDS_HELP_URL = environ.get("FDS_HELP_URL","http://fts.lib.harvard.edu/fts/help.jsp")
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext":"ext"}
 
@@ -148,7 +147,6 @@ def view(request, view_type, document_id):
                        'pds_ws_url':         PDS_WS_URL,
 		       'ids_view_url':       IDS_VIEW_URL,
 		       'fds_view_url':	     FDS_VIEW_URL,
-		       'fds_help_url':       FDS_HELP_URL,
                        'layout_string':      layout_string(len(manifests_data)),
                    }
         # Check if its an experimental/dev Mirador codebase, otherwise use production
