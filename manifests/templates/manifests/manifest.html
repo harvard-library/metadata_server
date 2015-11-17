@@ -177,6 +177,8 @@
    window.harvard_md_server = {
      PDS_VIEW_URL: "{{ pds_view_url }}",
      IDS_VIEW_URL: "{{ ids_view_url }}",
+     FDS_VIEW_URL: "{{ fds_view_url }}",
+     FDS_HELP_URL: "{{ fds_help_url }}",
      MIRADOR_DATA: [
        {% autoescape off %}
        {{ manifests_data|join:"," }}
