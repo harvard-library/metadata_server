@@ -25,5 +25,7 @@
   	"imageView": "Vista de la Imagen",
   	"bookView": "Vista del Libro",
   	"scrollView": "Vista del rollo de papel",
-    "objectMetadata": "Metadatos"
+    "objectMetadata": "Metadatos",
+    "fullScreen": "Pantalla completa",
+    "logo": "Logo"
 }

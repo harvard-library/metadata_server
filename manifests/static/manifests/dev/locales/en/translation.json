@@ -29,5 +29,7 @@
     "delete": "Delete",
     "url": "URL",
     "newObject": "New Object",
-    "objectMetadata": "Object Metadata"
+    "objectMetadata": "Object Metadata",
+    "fullScreen": "Full Screen",
+    "logo": "Logo"
 }
