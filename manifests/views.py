@@ -145,8 +145,8 @@ def view(request, view_type, document_id):
                        'num_manifests':      len(manifests_data),
                        'pds_view_url':       PDS_VIEW_URL,
                        'pds_ws_url':         PDS_WS_URL,
-		       'ids_view_url':       IDS_VIEW_URL,
-		       'fds_view_url':	     FDS_VIEW_URL,
+		               'ids_view_url':       IDS_VIEW_URL,
+		               'fds_view_url':	     FDS_VIEW_URL,
                        'layout_string':      layout_string(len(manifests_data)),
                    }
         # Check if its an experimental/dev Mirador codebase, otherwise use production
