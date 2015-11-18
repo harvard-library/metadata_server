@@ -26,7 +26,7 @@ COOKIE_DOMAIN = environ.get("COOKIE_DOMAIN", ".hul.harvard.edu")
 PDS_VIEW_URL = environ.get("PDS_VIEW_URL", "http://pds.lib.harvard.edu/pds/view/")
 PDS_WS_URL = environ.get("PDS_WS_URL", "http://pds.lib.harvard.edu/pds/")
 IDS_VIEW_URL = environ.get("IDS_VIEW_URL", "http://ids.lib.harvard.edu/ids/")
-FDS_VIEW_URL = environ.get("FDS_VIEW_URL","http://fts.lib.harvard.edu/fts/search")
+FTS_VIEW_URL = environ.get("FTS_VIEW_URL","http://fts.lib.harvard.edu/fts/search")
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext":"ext"}
 
@@ -146,7 +146,7 @@ def view(request, view_type, document_id):
                        'pds_view_url':       PDS_VIEW_URL,
                        'pds_ws_url':         PDS_WS_URL,
 		               'ids_view_url':       IDS_VIEW_URL,
-		               'fds_view_url':	     FDS_VIEW_URL,
+		               'fts_view_url':	     FTS_VIEW_URL,
                        'layout_string':      layout_string(len(manifests_data)),
                    }
         # Check if its an experimental/dev Mirador codebase, otherwise use production
