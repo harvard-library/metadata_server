@@ -153,11 +153,3 @@ body {
 .mirador-osd-annotations-layer.hud-control {
   display: none;
 }
-
-/* for contextmenu jquery plugin - save image w/ text feature */
-.hasmenu {
-  border: 1px solid #008;
-  margin: 3px;
-  padding: 5px;
-  width: 30px;
-}
