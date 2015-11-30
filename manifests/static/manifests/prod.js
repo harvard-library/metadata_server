@@ -542,7 +542,7 @@ $(function() {
   };
 
 
-  $('canvas').contextmenu({
+  $('.manifest-info').contextmenu({
     //delegate: ".openseadragon-canvas",
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     select: function(event, ui) {
@@ -552,10 +552,6 @@ $(function() {
         }
     }
   });
-
-  $('canvas').click(function(e) {
-    console.log("Hello... it's Adele's canvas!");
-   });
 
 
   $(document).on('click', "a.cite, a.view-in-pds, a.search, a.print, a.viewtext, a.links", present_choices);
