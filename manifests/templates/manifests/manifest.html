@@ -8,6 +8,7 @@
   <link rel="stylesheet" type="text/css" href="{% static 'manifests/prod.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'jqwidgets/styles/jqx.base.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'slicknav.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'saveimage/jquery-ui-smoothness.css' %}">
   <script src="{% static 'manifests/prod/mirador.js' %}"></script>
   <script src="{% static 'base64.min.js' %}"></script>
   <!-- jqwidgets for search and related links -->
@@ -22,10 +23,16 @@
   <script src="{% static 'jqwidgets/jqxlistbox.js' %}"></script>
   <script src="{% static 'jquery.slicknav.min.js' %}"></script>
   <script src="{% static 'xml-to-json/jquery.xml2json.js' %}"></script>
+  <script src="{% static 'saveimage/jquery.ui-contextmenu.min.js' %}"></script>
+  <script src="{% static 'saveimage/FileSaver.js' %}"></script>
+  <script src="{% static 'saveimage/Blob.js' %}"></script>
+  <script src="{% static 'saveimage/canvas-toBlob.js' %}"></script>
   <title>Harvard Mirador Viewer</title>
 </head>
 <body>
   <div id="viewer"></div>
+
+  <canvas id="buffer" style="display:none" ></canvas>
 
   {% verbatim %}
   <script id="error-tmpl" type="text/x-handlebars-template">
