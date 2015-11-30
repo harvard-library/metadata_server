@@ -541,8 +541,8 @@ $(function() {
     });
   };
 
-/*
-  $("canvas").contextmenu({
+
+  $('canvas').contextmenu({
     //delegate: ".openseadragon-canvas",
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     select: function(event, ui) {
@@ -552,7 +552,7 @@ $(function() {
         }
     }
   });
-*/
+
 
   $(document).on('click', "a.cite, a.view-in-pds, a.search, a.print, a.viewtext, a.links", present_choices);
 
