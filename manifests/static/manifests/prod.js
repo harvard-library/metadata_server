@@ -541,8 +541,8 @@ $(function() {
     });
   };
 
-  $("canvas").contextmenu({
-    delegate: ".openseadragon-canvas",
+  $("image").contextmenu({
+    //delegate: ".openseadragon-canvas",
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     select: function(event, ui) {
         console.log("select " + ui.cmd + " on " + ui.target.nodeName);
