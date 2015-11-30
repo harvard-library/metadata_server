@@ -518,6 +518,43 @@ $(function() {
 
   };
 
+
+  var copyCanvas = function(targetCanvas) {
+    var miradorCanvas = targetCanvas; //document.getElementById("canvas");
+    var canvasContext = miradorCanvas.getContext("2d");
+    var bufferCanvas = document.getElementById("buffer");
+    var bufferContext = bufferCanvas.getContext("2d");
+
+    bufferCanvas.width = miradorCanvas.width;
+    bufferCanvas.height = miradorCanvas.height;
+    var oldCanvasHeight = bufferCanvas.height;
+    bufferCanvas.height = bufferCanvas.height + 40;
+
+    bufferContext.drawImage(miradorCanvas, 0, 0);
+
+    //TODO - jquery walk up node tree
+    var label = "Bennette Claude Merlino de Saint Pry Papers and Treat Family Papers, 1764-1843 (MS Fr 501.1). Houghton Library, Harvard University. Bennette Claude Merlino de Saint Pry papers and Treat family papers, 1764-1843";
+    bufferContext.strokeText(label, 10, oldCanvasHeight + 10);
+
+    bufferCanvas.toBlob(function(blob) {
+      saveAs(blob, "download.png");
+    });
+  };
+
+  $("canvas").contextmenu({
+    //delegate: ".openseadragon-canvas",
+    menu: [
+        {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"}
+        ],
+    select: function(event, ui) {
+        console.log("select " + ui.cmd + " on " + ui.target.nodeName);
+        if (ui.cmd === "save") {
+      copyCanvas(this);
+        }
+    }
+  });
+
+
   $(document).on('click', "a.cite, a.view-in-pds, a.search, a.print, a.viewtext, a.links", present_choices);
 
   History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
