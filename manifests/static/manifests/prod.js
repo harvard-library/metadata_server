@@ -542,7 +542,7 @@ $(function() {
   };
 
 
-  $('.image-view' ).contextmenu({
+  $('.view-container' ).contextmenu({
     //delegate: ".openseadragon-canvas",
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     select: function(event, ui) {
