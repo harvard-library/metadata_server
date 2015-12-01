@@ -543,12 +543,12 @@ $(function() {
 
 
   $('.layout-slot').contextmenu({
-    //delegate: ".openseadragon-canvas",
+    delegate: ".openseadragon-canvas",
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     select: function(event, ui) {
         console.log("select " + ui.cmd + " on " + ui.target.nodeName);
         if (ui.cmd === "save") {
-           copyCanvas(this);
+           //copyCanvas(this);
         }
     }
   });
