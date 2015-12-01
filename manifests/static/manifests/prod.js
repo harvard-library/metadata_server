@@ -547,7 +547,7 @@ $(function() {
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     select: function(event, ui) {
       //ui.target.nodeName
-        console.log("select " + ui.cmd + " on " + ui.item.type);
+        console.log("select " + ui.cmd + " on " + ui.item);
         if (ui.cmd === "save") {
            //copyCanvas(this);
         }
