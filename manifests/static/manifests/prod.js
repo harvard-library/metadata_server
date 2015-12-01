@@ -541,8 +541,8 @@ $(function() {
     });
   };
 
-
-  $('.layout-slot' ).contextmenu({
+/*
+  $('canvas' ).contextmenu({
     //delegate: ".openseadragon-canvas",
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     select: function(event, ui) {
@@ -551,6 +551,11 @@ $(function() {
            copyCanvas(this);
         }
     }
+  });*/
+
+  $('canvas').bind("contextmenu", function(e) {
+    event.preventDefault();
+    console.log("right click on canvas");
   });
 
 
