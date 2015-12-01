@@ -551,13 +551,8 @@ $(function() {
            copyCanvas(this);
         }
     }
-  });*/
-
-  $('canvas').bind("contextmenu", function(e) {
-    event.preventDefault();
-    console.log("right click on canvas");
   });
-
+*/
 
   $(document).on('click', "a.cite, a.view-in-pds, a.search, a.print, a.viewtext, a.links", present_choices);
 
