@@ -547,7 +547,7 @@ $(function() {
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     select: function(event, ui) {
       //ui.target.nodeName
-      var targetCanvas = this.find("canvas");
+      //var targetCanvas = this.childNodes[0]
         console.log("ui.target.text: " + ui.target.text() );
         console.log("select " + ui.cmd + " on " + targetCanvas );
         if (ui.cmd === "save") {
