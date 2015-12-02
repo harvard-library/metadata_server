@@ -547,11 +547,12 @@ $(function() {
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     select: function(event, ui) {
       //ui.target.nodeName
-      //var targetCanvas = this.childNodes[0]
-        console.log("ui.target.text: " + ui.target.text() );
-        console.log("select " + ui.cmd + " on " + targetCanvas );
+      var targetCanvas = this.children[0].children[3].children[1].children[1].children[2].children[7].children[0].children[1].children[0];
+      var label = this.children[0].children[3].children[0].children[3].innerText;
+        console.log("label: " + label );
+        console.log("select " + ui.cmd + " on " + targetCanvas.nodeName() );
         if (ui.cmd === "save") {
-           //copyCanvas(this);
+           //copyCanvas(targetCanvas, label);
         }
     }
   });
