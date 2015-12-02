@@ -548,7 +548,7 @@ $(function() {
     select: function(event, ui) {
       //ui.target.nodeName
       var targetCanvas = this.find("canvas");
-        console.log("ui.target.text: " + ui.target.text.() );
+        console.log("ui.target.text: " + ui.target.text() );
         console.log("select " + ui.cmd + " on " + targetCanvas );
         if (ui.cmd === "save") {
            //copyCanvas(this);
