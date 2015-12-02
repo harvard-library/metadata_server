@@ -550,7 +550,7 @@ $(function() {
       var targetCanvas = this.children[0].children[3].children[1].children[1].children[2].children[7].children[0].children[1].children[0];
       var label = this.children[0].children[3].children[0].children[3].innerText;
         console.log("label: " + label );
-        console.log("select " + ui.cmd + " on " + targetCanvas.nodeName() );
+        console.log("select " + ui.cmd + " on " + targetCanvas.nodeName );
         if (ui.cmd === "save") {
            //copyCanvas(targetCanvas, label);
         }
