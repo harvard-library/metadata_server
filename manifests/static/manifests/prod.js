@@ -519,7 +519,7 @@ $(function() {
   };
 
 
-  var copyCanvas = function(targetCanvas) {
+  var copyCanvas = function(targetCanvas, label) {
     var miradorCanvas = targetCanvas; //document.getElementById("canvas");
     var canvasContext = miradorCanvas.getContext("2d");
     var bufferCanvas = document.getElementById("buffer");
@@ -531,9 +531,6 @@ $(function() {
     bufferCanvas.height = bufferCanvas.height + 40;
 
     bufferContext.drawImage(miradorCanvas, 0, 0);
-
-    //TODO - jquery walk up node tree
-    var label = "Bennette Claude Merlino de Saint Pry Papers and Treat Family Papers, 1764-1843 (MS Fr 501.1). Houghton Library, Harvard University. Bennette Claude Merlino de Saint Pry papers and Treat family papers, 1764-1843";
     bufferContext.strokeText(label, 10, oldCanvasHeight + 10);
 
     bufferCanvas.toBlob(function(blob) {
@@ -546,13 +543,12 @@ $(function() {
     //delegate: ".openseadragon-canvas",
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     select: function(event, ui) {
-      //ui.target.nodeName
       var targetCanvas = this.children[0].children[3].children[1].children[1].children[2].children[7].children[0].children[1].children[0];
       var label = this.children[0].children[3].children[0].children[3].innerText;
-        console.log("label: " + label );
+        console.log("canvas label: " + label );
         console.log("select " + ui.cmd + " on " + targetCanvas.nodeName );
         if (ui.cmd === "save") {
-           //copyCanvas(targetCanvas, label);
+           copyCanvas(targetCanvas, label);
         }
     }
   });
