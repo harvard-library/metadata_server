@@ -530,7 +530,7 @@ $(function() {
     var oldCanvasHeight = bufferCanvas.height;
     bufferCanvas.height = bufferCanvas.height + 40;
 
-    //bufferCanvas.crossOrigin = "Anonymous";
+    bufferCanvas.crossOrigin = "Anonymous";
     bufferCanvas.setAttribute('crossOrigin', 'anonymous');
 
     bufferContext.drawImage(miradorCanvas, 0, 0);
