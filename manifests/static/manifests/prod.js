@@ -530,10 +530,15 @@ $(function() {
     var oldCanvasHeight = bufferCanvas.height;
     bufferCanvas.height = bufferCanvas.height + 40;
 
-    bufferCanvas.crossOrigin = "Anonymous";
-    bufferCanvas.setAttribute('crossOrigin', 'anonymous');
+    var img = new Image();
+    //img.crossOrigin = "Anonymous";
+    img.setAttribute('crossOrigin', 'anonymous');
+    img.onload = function() {
+        bufferContext.drawImage(img,0,0);
+     };
+     img.src = miradorCanvas.toDataURL();
 
-    bufferContext.drawImage(miradorCanvas, 0, 0);
+    //bufferContext.drawImage(miradorCanvas, 0, 0);
     bufferContext.strokeText(label, 10, oldCanvasHeight + 10);
 
     bufferCanvas.toBlob(function(blob) {
