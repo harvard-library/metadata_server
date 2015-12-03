@@ -531,8 +531,7 @@ $(function() {
     bufferCanvas.height = bufferCanvas.height + 40;
 
     var img = new Image();
-    img.crossOrigin = "Anonymous";
-    img.setAttribute('crossOrigin', 'anonymous');
+    img.crossOrigin = '';
     img.onload = function() {
         bufferContext.drawImage(img,0,0);
      };
