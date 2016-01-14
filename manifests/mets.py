@@ -199,11 +199,12 @@ def process_structMap(smap):
         divs = smap.xpath('./mets:div[@TYPE="CITATION"]/mets:div', namespaces=XMLNS)
 
         # Check if the object has a stitched version(s) already made.  Use only those
-        for st in divs:
-                stitchCheck = st.xpath('./@LABEL[contains(., "stitched")]', namespaces=XMLNS)
-                if stitchCheck:
-                        divs = st
-                        break
+	# broken per randy's req
+        #for st in divs:
+        #        stitchCheck = st.xpath('./@LABEL[contains(., "stitched")]', namespaces=XMLNS)
+        #        if stitchCheck:
+        #                divs = st
+        #                break
 
 def get_leaf_canvases(ranges, leaf_canvases):
 	for range in ranges:
@@ -324,11 +325,11 @@ def main(data, document_id, source, host, cookie=None):
 
 	# Check if the object has a stitched version(s) already made.  Use only those
 	# randy intentionally broke this so stitched objects now look weird. -cg
-	for st in struct:
-		stitchCheck = st.xpath('./@LABEL[contains(., "stitched")]', namespaces=XMLNS)
-		if stitchCheck:
-			struct = st
-			break
+	#for st in struct:
+	#	stitchCheck = st.xpath('./@LABEL[contains(., "stitched")]', namespaces=XMLNS)
+	#	if stitchCheck:
+	#		struct = st
+	#		break
 
 	for img in images:
 		imageHash[img.xpath('./@ID', namespaces=XMLNS)[0]] = {"img": img.xpath('./mets:FLocat/@xlink:href', namespaces = XMLNS)[0], "mime": img.attrib['MIMETYPE']}
