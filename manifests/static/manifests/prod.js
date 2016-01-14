@@ -549,7 +549,7 @@ $(function() {
   $('.layout-slot').contextmenu({
     //delegate: ".openseadragon-canvas",
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
-    select: function(event, ui) 
+    select: function(event, ui) {
       var targetCanvas = this.children[0].children[4].children[1].children[2].children[1].children[7].children[0].children[1].children[0];
       targetCanvas = targetCanvas.crossOriginPolicy = 'Anonymous';
       var label = this.children[0].children[3].children[0].children[3].innerText;
