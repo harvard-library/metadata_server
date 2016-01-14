@@ -30,6 +30,7 @@ profileLevel = settings.IIIF['profileLevel']
 
 attribution = "Provided by Harvard University"
 
+METS_API_URL = environ.get("METS_API_URL", "http://pds.lib.harvard.edu/pds/get/")
 HOLLIS_API_URL = "http://webservices.lib.harvard.edu/rest/MODS/hollis/"
 HOLLIS_PUBLIC_URL = "http://id.lib.harvard.edu/aleph/{0}/catalog"
  ## Add ISO639-2B language codes here where books are printed right-to-left (not just the language is read that way)
@@ -321,11 +322,12 @@ def main(data, document_id, source, host, cookie=None):
         struct = dom.xpath('/mets:mets/mets:structMap/mets:div[@TYPE="CITATION"]/mets:div', namespaces=XMLNS)
 
 	# Check if the object has a stitched version(s) already made.  Use only those
-	for st in struct:
-		stitchCheck = st.xpath('./@LABEL[contains(., "stitched")]', namespaces=XMLNS)
-		if stitchCheck:
-			struct = st
-			break
+	#randy intentionally broke this so stitched objects now look weird. -cg
+	#for st in struct:
+		#stitchCheck = st.xpath('./@LABEL[contains(., "stitched")]', namespaces=XMLNS)
+		#if stitchCheck:
+			#struct = st
+			#break
 
 	for img in images:
 		imageHash[img.xpath('./@ID', namespaces=XMLNS)[0]] = {"img": img.xpath('./mets:FLocat/@xlink:href', namespaces = XMLNS)[0], "mime": img.attrib['MIMETYPE']}
