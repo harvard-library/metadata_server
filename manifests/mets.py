@@ -322,7 +322,7 @@ def main(data, document_id, source, host, cookie=None):
         struct = dom.xpath('/mets:mets/mets:structMap/mets:div[@TYPE="CITATION"]/mets:div', namespaces=XMLNS)
 
 	# Check if the object has a stitched version(s) already made.  Use only those
-	#randy intentionally broke this so stitched objects now look weird. -cg
+	# randy intentionally broke this so stitched objects now look weird. -cg
 	for st in struct:
 		stitchCheck = st.xpath('./@LABEL[contains(., "stitched")]', namespaces=XMLNS)
 		if stitchCheck:
