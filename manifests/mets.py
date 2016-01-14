@@ -323,11 +323,11 @@ def main(data, document_id, source, host, cookie=None):
 
 	# Check if the object has a stitched version(s) already made.  Use only those
 	#randy intentionally broke this so stitched objects now look weird. -cg
-	#for st in struct:
-		#stitchCheck = st.xpath('./@LABEL[contains(., "stitched")]', namespaces=XMLNS)
-		#if stitchCheck:
-			#struct = st
-			#break
+	for st in struct:
+		stitchCheck = st.xpath('./@LABEL[contains(., "stitched")]', namespaces=XMLNS)
+		if stitchCheck:
+			struct = st
+			break
 
 	for img in images:
 		imageHash[img.xpath('./@ID', namespaces=XMLNS)[0]] = {"img": img.xpath('./mets:FLocat/@xlink:href', namespaces = XMLNS)[0], "mime": img.attrib['MIMETYPE']}
