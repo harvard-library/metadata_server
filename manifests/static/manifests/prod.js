@@ -552,7 +552,7 @@ $(function() {
     select: function(event, ui) {
       var targetCanvas = this.children[0].children[4].children[1].children[2].children[1].children[7].children[0].children[1].children[0];
       targetCanvas = targetCanvas.crossOriginPolicy = 'Anonymous';
-      var label = this.children[0].children[3].children[0].children[3].innerText;
+      var label = this.children[0].children[4].children[0].children[3].innerText;
         console.log("canvas label: " + label );
         console.log("select " + ui.cmd + " on " + targetCanvas.nodeName );
         if (ui.cmd === "save") {
