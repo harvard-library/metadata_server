@@ -5,6 +5,7 @@ import json, sys, re
 import urllib2
 from django.conf import settings
 import webclient
+from os import environ
 
 XMLNS = {
 	'mets':		'http://www.loc.gov/METS/',
