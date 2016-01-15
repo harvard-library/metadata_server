@@ -110,7 +110,10 @@ $(function() {
     "layout": l.LAYOUT,
     "saveSession": false,
     "mainMenuSettings" : {
-      "buttons": { bookmark: false},
+      "buttons": { 
+         bookmark: false,
+	"fullScreenViewer": true
+      },
       "userButtons": [
         {"label": "Help",
          "iconClass": "fa fa-question-circle",
