@@ -112,7 +112,7 @@ $(function() {
     "mainMenuSettings" : {
       "buttons": { 
          bookmark: false,
-	"fullScreenViewer": true
+	fullScreenViewer: false
       },
       "userButtons": [
         {"label": "Help",
