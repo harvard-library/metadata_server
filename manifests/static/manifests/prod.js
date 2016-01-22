@@ -565,7 +565,7 @@ $(function() {
        */
        var label = this.children[0].children[4].children[0].children[3].textContent;
 	var drs_id = "733240"; //TEST
-       $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?', {'n':n})
+       $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?')
           .done(function (data) {
             if (data.caption) {
 		label = data.caption;
