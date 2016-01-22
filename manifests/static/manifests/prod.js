@@ -556,12 +556,23 @@ $(function() {
     select: function(event, ui) {
       var targetCanvas = this.children[0].children[4].children[1].children[2].children[1].children[7].children[0].children[1].children[0];
       targetCanvas.crossOriginPolicy = 'Anonymous';
-      var label = this.children[0].children[4].children[0].children[3].textContent;
+      /*var label = this.children[0].children[4].children[0].children[3].textContent;
         console.log("canvas label: " + label );
         console.log("select " + ui.cmd + " on " + targetCanvas.nodeName );
         if (ui.cmd === "save") {
            copyCanvas(targetCanvas, label);
         }
+       */
+       var label = this.children[0].children[4].children[0].children[3].textContent;
+       $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?', {'n':n})
+          .done(function (data) {
+            if (data.caption) {
+		label = data.caption;
+            } //TODO: Else graceful error display
+	    if (ui.cmd === "save") {
+		copyCanvas(targetCanvas, label);
+	    }
+          });
     }
   });
 
