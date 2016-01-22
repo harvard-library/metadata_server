@@ -568,8 +568,10 @@ $(function() {
           .done(function (data) {
             if (data.caption) {
 		label = data.caption;
+		console.log("pds label: " + data.caption );
             } //TODO: Else graceful error display
 	    if (ui.cmd === "save") {
+		console.log("canvas label: " + label );
 		copyCanvas(targetCanvas, label);
 	    }
           });
