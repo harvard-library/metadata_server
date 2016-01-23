@@ -303,6 +303,13 @@ def main(data, document_id, source, host, cookie=None):
 		hollisCheck = dom.xpath('/mets:mets/mets:dmdSec/mets:mdWrap/mets:xmlData/mods:mods/mods:identifier[@type="hollis"]/text()', namespaces=XMLNS)
 	else:
 		hollisCheck = dom.xpath('/mets:mets/mets:amdSec//hulDrsAdmin:hulDrsAdmin/hulDrsAdmin:drsObject/hulDrsAdmin:harvardMetadataLinks/hulDrsAdmin:metadataIdentifier[../hulDrsAdmin:metadataType/text()="Aleph"]/text()', namespaces=XMLNS)
+		# get info.json dimensions from mets file instead of info.json calls for drs2 objects
+		#drs2ImageIds = dom.xpath('/mets:mets/mets:amdSec//premis:object[@xsi:type="premis:file"]/premis:objectIdentifier/premis:objectIdentifierValue', namespaces=XMLNS)
+		drs2ImageWidths = dom.xpath('/mets:mets/mets:amdSec//mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:imageWidth"', namespaces=XMLNS)
+		drs2ImageHeights = dom.xpath('/mets:mets/mets:amdSec//mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:imageHeight', namespaces=XMLNS)
+		drs2TileWidths = dom.xpath('/mets:mets/mets:amdSec//mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000/mix:EncodingOptions/mix:Tiles/mix:tileWidth', namespaces=XMLNS)
+		drs2TileHeights = dom.xpath('/mets:mets/mets:amdSec//mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000/mix:EncodingOptions/mix:Tiles/mix:tileHeight', namespaces=XMLNS)
+
 	if len(hollisCheck) > 0:
 		hollisID = hollisCheck[0].strip()
 		seeAlso = HOLLIS_PUBLIC_URL.format(hollisID.rjust(9,"0"))
@@ -363,9 +370,18 @@ def main(data, document_id, source, host, cookie=None):
 		mfjson["seeAlso"] = seeAlso
 
 	canvases = []
+	infocount = 0
 	for cvs in canvasInfo:
-                response = webclient.get(imageUriBase + cvs['image'] + imageInfoSuffix, cookie)
-                infojson = json.load(response)
+		if isDrs1:
+                	response = webclient.get(imageUriBase + cvs['image'] + imageInfoSuffix, cookie)
+                	infojson = json.load(response)
+		else:
+			infojson['width'] = drs2ImageWidths[infocount]
+			infojson['height'] = drs2ImageHeights[infocount]
+			infojson['tile_width'] = drs2TileWidths[infocount]
+			infojson['tile_height'] = drs2TileHeights[infocount]
+			fmt = "image/jpeg"
+			infocount = infocount + 1
 
                 if "gif" in infojson['formats']:
                         fmt = "image/gif"
