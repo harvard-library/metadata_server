@@ -273,7 +273,9 @@ def main(data, document_id, source, host, cookie=None):
 	global manifestUriBase
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
 
+	logger.debug("LOADING object " + str(document_id) + " into the DOM tree" )
 	dom = etree.XML(data)
+	logger.debug("object " + str(document_id) + " LOADED into the DOM tree" )
 	# Check if this is a DRS2 object since some things, like hollis ID are in a different location
 	isDrs1 = True;
 	drs_check = dom.xpath('/mets:mets//premis:agentName/text()', namespaces=XMLNS)
