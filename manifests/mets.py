@@ -388,7 +388,7 @@ def main(data, document_id, source, host, cookie=None):
 			infojson['height'] = drs2ImageHeights[infocount]
 			infojson['tile_width'] = drs2TileWidths[infocount]
 			infojson['tile_height'] = drs2TileHeights[infocount]
-			fmt = "image/jpeg"
+			infojson['format'] = ['jpg']
 			infocount = infocount + 1
 
                 if "gif" in infojson['formats']:
