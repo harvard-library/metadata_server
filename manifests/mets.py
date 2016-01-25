@@ -383,6 +383,7 @@ def main(data, document_id, source, host, cookie=None):
                 	infojson = json.load(response)
 		else:
 			logger.debug("Getting iiif cords internally from DRS2 object for image id " + cvs['image'] )
+			infojson= []
 			infojson['width'] = drs2ImageWidths[infocount]
 			infojson['height'] = drs2ImageHeights[infocount]
 			infojson['tile_width'] = drs2TileWidths[infocount]
