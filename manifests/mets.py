@@ -283,17 +283,23 @@ def main(data, document_id, source, host, cookie=None):
 		isDrs1 = False
 		logger.debug("processing DRS2 object " + str(document_id) )
 
+	logger.debug("dom check: mets label candidates..." )
 	mets_label_candidates = dom.xpath('/mets:mets/@LABEL', namespaces=XMLNS)
+	logger.debug("dom check: mets label candidates found" )
 	if len(mets_label_candidates) > 0:
 		manifestLabel = mets_label_candidates[0]
 	else:
+		logger.debug("dom check: title candidates...")
 		mods_title_candidates = dom.xpath('//mods:mods/mods:titleInfo/mods:title', namespaces=XMLNS)
+		logger.debug("dom check: title candidates found")
 		if len(mods_title_candidates) > 0:
 			manifestLabel = mods_title_candidates[0].text
 		else:
 			manifestLabel = 'No Label'
 
+	logger.debug("dom check: manifest types check..." )
 	manifestType = dom.xpath('/mets:mets/@TYPE', namespaces=XMLNS)[0]
+	logger.debug("dom check: manifest type found" )
 
 	if manifestType in ["PAGEDOBJECT", "PDS DOCUMENT"]:
 		viewingHint = "paged"
@@ -309,9 +315,10 @@ def main(data, document_id, source, host, cookie=None):
 	if isDrs1:
 		hollisCheck = dom.xpath('/mets:mets/mets:dmdSec/mets:mdWrap/mets:xmlData/mods:mods/mods:identifier[@type="hollis"]/text()', namespaces=XMLNS)
 	else:
+		logger.debug("dom check: hollis check..." )
 		hollisCheck = dom.xpath('/mets:mets/mets:amdSec//hulDrsAdmin:hulDrsAdmin/hulDrsAdmin:drsObject/hulDrsAdmin:harvardMetadataLinks/hulDrsAdmin:metadataIdentifier[../hulDrsAdmin:metadataType/text()="Aleph"]/text()', namespaces=XMLNS)
+		logger.debug("dom check: hollis check done" )
 		# get info.json dimensions from mets file instead of info.json calls for drs2 objects
-		logger.debug("processing DRS2 object " + str(document_id) )
 		#drs2ImageIds = dom.xpath('/mets:mets/mets:amdSec//premis:object[@xsi:type="premis:file"]/premis:objectIdentifier/premis:objectIdentifierValue', namespaces=XMLNS)
 		logger.debug("DOM parsing iiif width coords for DRS2 object " + str(document_id) )
 		drs2ImageWidths = dom.xpath('/mets:mets/mets:amdSec//mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:imageWidth/text()', namespaces=XMLNS)
@@ -340,8 +347,10 @@ def main(data, document_id, source, host, cookie=None):
 
 	manifest_uri = manifestUriBase + "%s:%s" % (source, document_id)
 
+	logger.debug("dom check: images and structs..." )
 	images = dom.xpath('/mets:mets/mets:fileSec/mets:fileGrp/mets:file[starts-with(@MIMETYPE, "image/")]', namespaces=XMLNS)
         struct = dom.xpath('/mets:mets/mets:structMap/mets:div[@TYPE="CITATION"]/mets:div', namespaces=XMLNS)
+	logger.debug("dom check: images and structs found." )
 
 	# Check if the object has a stitched version(s) already made.  Use only those
 	# randy intentionally broke this so stitched objects now look weird. -cg
@@ -438,7 +447,7 @@ def main(data, document_id, source, host, cookie=None):
 	mfjson['sequences'][0]['canvases'] = canvases
 	mfjson['structures'] = rangesJsonList
 
-	logger.debug("Dumping json for processing DRS2 object " + str(document_id) )
+	logger.debug("Dumping json for DRS2 object " + str(document_id) )
 	output = json.dumps(mfjson, indent=4, sort_keys=True)
 	logger.debug("Dumping complete for DRS2 object " + str(document_id) )
 	return output
