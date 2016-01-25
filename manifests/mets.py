@@ -15,7 +15,8 @@ XMLNS = {
 	'mods':		'http://www.loc.gov/mods/v3',
 	'xlink':	'http://www.w3.org/1999/xlink',
 	'premis':	'info:lc/xmlns/premis-v2',
-	'hulDrsAdmin':	'http://hul.harvard.edu/ois/xml/ns/hulDrsAdmin'
+	'hulDrsAdmin':	'http://hul.harvard.edu/ois/xml/ns/hulDrsAdmin',
+	'mix':		'http://www.loc.gov/mix/v20'
 }
 
 # Globals
