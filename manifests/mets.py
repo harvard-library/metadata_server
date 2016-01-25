@@ -309,11 +309,17 @@ def main(data, document_id, source, host, cookie=None):
 	else:
 		hollisCheck = dom.xpath('/mets:mets/mets:amdSec//hulDrsAdmin:hulDrsAdmin/hulDrsAdmin:drsObject/hulDrsAdmin:harvardMetadataLinks/hulDrsAdmin:metadataIdentifier[../hulDrsAdmin:metadataType/text()="Aleph"]/text()', namespaces=XMLNS)
 		# get info.json dimensions from mets file instead of info.json calls for drs2 objects
+		logger.debug("processing DRS2 object " + str(document_id) )
 		#drs2ImageIds = dom.xpath('/mets:mets/mets:amdSec//premis:object[@xsi:type="premis:file"]/premis:objectIdentifier/premis:objectIdentifierValue', namespaces=XMLNS)
+		logger.debug("DOM parsing iiif width coords for DRS2 object " + str(document_id) )
 		drs2ImageWidths = dom.xpath('/mets:mets/mets:amdSec//mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:imageWidth/text()', namespaces=XMLNS)
+		logger.debug("DOM parsing iiif height coords for DRS2 object " + str(document_id) )
 		drs2ImageHeights = dom.xpath('/mets:mets/mets:amdSec//mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:imageHeight/text()', namespaces=XMLNS)
+		logger.debug("DOM parsing iiif tile width coords for DRS2 object " + str(document_id) )
 		drs2TileWidths = dom.xpath('/mets:mets/mets:amdSec//mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000/mix:EncodingOptions/mix:Tiles/mix:tileWidth/text()', namespaces=XMLNS)
+		logger.debug("DOM parsing iiif tile height coords for DRS2 object " + str(document_id) )
 		drs2TileHeights = dom.xpath('/mets:mets/mets:amdSec//mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000/mix:EncodingOptions/mix:Tiles/mix:tileHeight/text()', namespaces=XMLNS)
+		logger.debug("DOM iiif parsing COMPLETED for DRS2 object " + str(document_id) )
 
 	if len(hollisCheck) > 0:
 		hollisID = hollisCheck[0].strip()
