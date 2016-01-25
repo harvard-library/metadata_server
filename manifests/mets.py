@@ -7,6 +7,9 @@ from django.conf import settings
 import webclient
 from os import environ
 
+from logging import getLogger
+logger = getLogger(__name__)
+
 XMLNS = {
 	'mets':		'http://www.loc.gov/METS/',
 	'mods':		'http://www.loc.gov/mods/v3',
@@ -275,6 +278,7 @@ def main(data, document_id, source, host, cookie=None):
 	drs_check = dom.xpath('/mets:mets//premis:agentName/text()', namespaces=XMLNS)
 	if len(drs_check) > 0 and 'DRS2' in '\t'.join(drs_check):
 		isDrs1 = False
+		logger.debug("processing DRS2 object " + str(document_id) )
 
 	mets_label_candidates = dom.xpath('/mets:mets/@LABEL', namespaces=XMLNS)
 	if len(mets_label_candidates) > 0:
@@ -373,9 +377,11 @@ def main(data, document_id, source, host, cookie=None):
 	infocount = 0
 	for cvs in canvasInfo:
 		if isDrs1:
+			logger.debug("making info.json call for image id " + cvs['image']  )
                 	response = webclient.get(imageUriBase + cvs['image'] + imageInfoSuffix, cookie)
                 	infojson = json.load(response)
 		else:
+			logger.debug("Getting iiif cords internally from DRS2 object for image id " + cvs['image'] )
 			infojson['width'] = drs2ImageWidths[infocount]
 			infojson['height'] = drs2ImageHeights[infocount]
 			infojson['tile_width'] = drs2TileWidths[infocount]
@@ -422,7 +428,9 @@ def main(data, document_id, source, host, cookie=None):
 	mfjson['sequences'][0]['canvases'] = canvases
 	mfjson['structures'] = rangesJsonList
 
+	logger.debug("Dumping json for processing DRS2 object " + str(document_id) )
 	output = json.dumps(mfjson, indent=4, sort_keys=True)
+	logger.debug("Dumping complete for DRS2 object " + str(document_id) )
 	return output
 
 if __name__ == "__main__":
