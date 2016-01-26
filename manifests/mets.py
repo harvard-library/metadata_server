@@ -326,11 +326,13 @@ def main(data, document_id, source, host, cookie=None):
 		drs2ImageWidths = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:objectCharacteristicsExtension/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:imageWidth/text()', namespaces=XMLNS)
 		logger.debug("DOM parsing iiif height coords for DRS2 object " + str(document_id) )
 		drs2ImageHeights = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:objectCharacteristicsExtension/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:imageHeight/text()', namespaces=XMLNS)
-		logger.debug("DOM parsing iiif tile width coords for DRS2 object " + str(document_id) )
-		drs2TileWidths = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:objectCharacteristicsExtension/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000/mix:EncodingOptions/mix:Tiles/mix:tileWidth/text()', namespaces=XMLNS)
+		logger.debug("DOM parsing iiif image format for DRS2 object " + str(document_id) )
+		drs2ImageFormats = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName/text()', namespaces=XMLNS)
+		#logger.debug("DOM parsing iiif tile width coords for DRS2 object " + str(document_id) )
+		#drs2TileWidths = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:objectCharacteristicsExtension/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000/mix:EncodingOptions/mix:Tiles/mix:tileWidth/text()', namespaces=XMLNS)
 		logger.debug("DOM parsing iiif tile height coords for DRS2 object " + str(document_id) )
-		drs2TileHeights = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:objectCharacteristicsExtension/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000/mix:EncodingOptions/mix:Tiles/mix:tileHeight/text()', namespaces=XMLNS)
-		logger.debug("DOM iiif parsing COMPLETED for DRS2 object " + str(document_id) )
+		#drs2TileHeights = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:objectCharacteristicsExtension/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000/mix:EncodingOptions/mix:Tiles/mix:tileHeight/text()', namespaces=XMLNS)
+		#logger.debug("DOM iiif parsing COMPLETED for DRS2 object " + str(document_id) )
 
 	if len(hollisCheck) > 0:
 		hollisID = hollisCheck[0].strip()
@@ -406,8 +408,9 @@ def main(data, document_id, source, host, cookie=None):
 			try:
 				infojson['width'] = drs2ImageWidths[infocount]
 				infojson['height'] = drs2ImageHeights[infocount]
-				infojson['tile_width'] = drs2TileWidths[infocount]
-				infojson['tile_height'] = drs2TileHeights[infocount]
+				#infojson['tile_width'] = drs2TileWidths[infocount]
+				#infojson['tile_height'] = drs2TileHeights[infocount]
+				#note replace this w/ drs2InfoFormats
 				infojson['formats'] = ['jpg']
 				infojson['scale_factors'] = [1]
 				infocount = infocount + 1
@@ -415,8 +418,8 @@ def main(data, document_id, source, host, cookie=None):
 				infojson['width'] = ''
 				infojson['height'] = ''
 				infojson['height'] = ''
-				infojson['tile_width'] = ''
-				infojson['tile_height'] = ''
+				#infojson['tile_width'] = ''
+				#infojson['tile_height'] = ''
 				infojson['formats'] = ['jpg']
 				infojson['scale_factors'] = [1]
 				infocount = infocount + 1
@@ -443,9 +446,6 @@ def main(data, document_id, source, host, cookie=None):
 						"format": fmt,
 						"height": infojson['height'],
 						"width": infojson['width'],
-						"tile_height": infojson['tile_height'],
-						"tile_width": infojson['tile_width'],
-						"scale_factors": infojson['scale_factors'],
 						"service": {
 						  "@id": imageUriBase + cvs['image'],
 						  "profile": profileLevel
