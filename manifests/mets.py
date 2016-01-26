@@ -403,12 +403,23 @@ def main(data, document_id, source, host, cookie=None):
 		else:
 			logger.debug("Getting iiif cords internally from DRS2 object for image id " + cvs['image'] )
 			infojson= {}
-			infojson['width'] = drs2ImageWidths[infocount]
-			infojson['height'] = drs2ImageHeights[infocount]
-			infojson['tile_width'] = drs2TileWidths[infocount]
-			infojson['tile_height'] = drs2TileHeights[infocount]
-			infojson['formats'] = ['jpg']
-			infocount = infocount + 1
+			try:
+				infojson['width'] = drs2ImageWidths[infocount]
+				infojson['height'] = drs2ImageHeights[infocount]
+				infojson['tile_width'] = drs2TileWidths[infocount]
+				infojson['tile_height'] = drs2TileHeights[infocount]
+				infojson['formats'] = ['jpg'],
+				infojson['scale_factors'] = [1],
+				infocount = infocount + 1
+			except: # image not in drs
+				infojson['width'] = ''
+				infojson['height'] = ''
+				infojson['height'] = ''
+				infojson['tile_width'] = ''
+				infojson['tile_height'] = ''
+				infojson['formats'] = ['jpg'],
+				infojson['scale_factors'] = [1],
+				infocount = infocount + 1
 
                 if "gif" in infojson['formats']:
                         fmt = "image/gif"
@@ -432,6 +443,9 @@ def main(data, document_id, source, host, cookie=None):
 						"format": fmt,
 						"height": infojson['height'],
 						"width": infojson['width'],
+						"tile_height": infojson['tile_height'],
+						"tile_width": infojson['tile_width'],
+						"scale_factors": infojson['scale_factors']
 						"service": {
 						  "@id": imageUriBase + cvs['image'],
 						  "profile": profileLevel
