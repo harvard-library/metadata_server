@@ -317,8 +317,7 @@ def main(data, document_id, source, host, cookie=None):
 	else:
 		logger.debug("dom check: hollis check..." )
 		#hollisCheck = dom.xpath('/mets:mets/mets:amdSec//hulDrsAdmin:hulDrsAdmin/hulDrsAdmin:drsObject/hulDrsAdmin:harvardMetadataLinks/hulDrsAdmin:metadataIdentifier[../hulDrsAdmin:metadataType/text()="Aleph"]/text()', namespaces=XMLNS)
-		#hollisCheck = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/hulDrsAdmin:hulDrsAdmin/hulDrsAdmin:drsObject/hulDrsAdmin:harvardMetadataLinks/hulDrsAdmin:metadataIdentifier[../hulDrsAdmin:metadataType/text()="Aleph"]/text()', namespaces=XMLNS)
-		hollisCheck = '400088792'
+		hollisCheck = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/hulDrsAdmin:hulDrsAdmin/hulDrsAdmin:drsObject/hulDrsAdmin:harvardMetadataLinks/hulDrsAdmin:metadataIdentifier[../hulDrsAdmin:metadataType/text()="Aleph"]/text()', namespaces=XMLNS)
 
 		logger.debug("dom check: hollis check done" )
 		# get info.json dimensions from mets file instead of info.json calls for drs2 objects
