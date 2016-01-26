@@ -330,7 +330,7 @@ def main(data, document_id, source, host, cookie=None):
 		drs2ImageFormats = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName/text()', namespaces=XMLNS)
 		#logger.debug("DOM parsing iiif tile width coords for DRS2 object " + str(document_id) )
 		#drs2TileWidths = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:objectCharacteristicsExtension/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000/mix:EncodingOptions/mix:Tiles/mix:tileWidth/text()', namespaces=XMLNS)
-		logger.debug("DOM parsing iiif tile height coords for DRS2 object " + str(document_id) )
+		#logger.debug("DOM parsing iiif tile height coords for DRS2 object " + str(document_id) )
 		#drs2TileHeights = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:objectCharacteristicsExtension/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000/mix:EncodingOptions/mix:Tiles/mix:tileHeight/text()', namespaces=XMLNS)
 		#logger.debug("DOM iiif parsing COMPLETED for DRS2 object " + str(document_id) )
 
