@@ -408,8 +408,8 @@ def main(data, document_id, source, host, cookie=None):
 				infojson['height'] = drs2ImageHeights[infocount]
 				infojson['tile_width'] = drs2TileWidths[infocount]
 				infojson['tile_height'] = drs2TileHeights[infocount]
-				infojson['formats'] = ['jpg'],
-				infojson['scale_factors'] = [1],
+				infojson['formats'] = ['jpg']
+				infojson['scale_factors'] = [1]
 				infocount = infocount + 1
 			except: # image not in drs
 				infojson['width'] = ''
@@ -417,8 +417,8 @@ def main(data, document_id, source, host, cookie=None):
 				infojson['height'] = ''
 				infojson['tile_width'] = ''
 				infojson['tile_height'] = ''
-				infojson['formats'] = ['jpg'],
-				infojson['scale_factors'] = [1],
+				infojson['formats'] = ['jpg']
+				infojson['scale_factors'] = [1]
 				infocount = infocount + 1
 
                 if "gif" in infojson['formats']:
