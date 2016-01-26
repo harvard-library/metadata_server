@@ -445,7 +445,7 @@ def main(data, document_id, source, host, cookie=None):
 						"width": infojson['width'],
 						"tile_height": infojson['tile_height'],
 						"tile_width": infojson['tile_width'],
-						"scale_factors": infojson['scale_factors']
+						"scale_factors": infojson['scale_factors'],
 						"service": {
 						  "@id": imageUriBase + cvs['image'],
 						  "profile": profileLevel
