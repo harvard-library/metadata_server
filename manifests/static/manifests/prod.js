@@ -567,6 +567,7 @@ $(function() {
 	var drs_id = "400627084"; //TEST
        $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?')
           .done(function (data) {
+	    console.log("hello it me")
             if (data.caption) {
 		label = data.caption;
 		console.log("pds label: " + data.caption );
