@@ -12,9 +12,9 @@ methods = {"printpdf": "application/pdf",
            "find": "application/xml",
            "get": "application/xml",
            "related": "application/xml",
-           "hasocr": "application/json",
-	   "getcaption": "application/json",
-           "cite": "application/json"}
+           "hasocr": application/javascript",
+	   "getcaption": "application/javascript",
+           "cite": "application/javascript"}
 
 
 # view for proxy url
