@@ -556,18 +556,18 @@ $(function() {
     select: function(event, ui) {
       var targetCanvas = this.children[0].children[4].children[1].children[2].children[1].children[7].children[0].children[1].children[0];
       targetCanvas.crossOriginPolicy = 'Anonymous';
-      /*var label = this.children[0].children[4].children[0].children[3].textContent;
+      //TODO - replace this with call to PDS WS for DRS caption
+      var label = this.children[0].children[4].children[0].children[3].textContent;
         console.log("canvas label: " + label );
         console.log("select " + ui.cmd + " on " + targetCanvas.nodeName );
         if (ui.cmd === "save") {
            copyCanvas(targetCanvas, label);
         }
-       */
-      var label = this.children[0].children[4].children[0].children[3].textContent;
+
+      /* call to pds ws doesnt work for some reason
       var drs_id = "400627084"; //TEST
       $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?' )
-	.fail( function() { console.log("call failed") }; )
-        .success(function (data) {
+        .done(function (data) {
           console.log("hi");
           if (data.caption) {
 	    label = data.caption;
@@ -578,6 +578,7 @@ $(function() {
 	    copyCanvas(targetCanvas, label);
 	  }
       });
+      */
     }
   });
 
