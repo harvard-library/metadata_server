@@ -13,7 +13,7 @@ methods = {"printpdf": "application/pdf",
            "get": "application/xml",
            "related": "application/xml",
            "hasocr": application/javascript",
-	   "getcaption": "application/javascript",
+           "getcaption": "application/javascript",
            "cite": "application/javascript"}
 
 
