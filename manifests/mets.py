@@ -319,6 +319,7 @@ def main(data, document_id, source, host, cookie=None):
 		#hollisCheck = dom.xpath('/mets:mets/mets:amdSec//hulDrsAdmin:hulDrsAdmin/hulDrsAdmin:drsObject/hulDrsAdmin:harvardMetadataLinks/hulDrsAdmin:metadataIdentifier[../hulDrsAdmin:metadataType/text()="Aleph"]/text()', namespaces=XMLNS)
 		hollisCheck = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/hulDrsAdmin:hulDrsAdmin/hulDrsAdmin:drsObject/hulDrsAdmin:harvardMetadataLinks/hulDrsAdmin:metadataIdentifier[../hulDrsAdmin:metadataType/text()="Aleph"]/text()', namespaces=XMLNS)
 
+		#TODO - fix for gif files / mixed set of image formats
 		logger.debug("dom check: hollis check done" )
 		# get info.json dimensions from mets file instead of info.json calls for drs2 objects
 		#drs2ImageIds = dom.xpath('/mets:mets/mets:amdSec//premis:object[@xsi:type="premis:file"]/premis:objectIdentifier/premis:objectIdentifierValue', namespaces=XMLNS)
