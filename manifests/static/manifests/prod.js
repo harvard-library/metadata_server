@@ -576,8 +576,8 @@ $(function() {
 	    console.log("canvas label: " + label );
 	    copyCanvas(targetCanvas, label);
 	  }
-      });
-     console.log("poop");
+      })
+     console.log(label);
     }
   });
 
