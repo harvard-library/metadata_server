@@ -254,7 +254,7 @@ $(function() {
       }
       else {
         $dialog = $('<div id="citation-modal" style="display:none" />');
-        $.getJSON( '/proxy/cite/' + drs_id + '?callback=?', {'n':n})
+        $.getJSON( '/proxy/cite/' + drs_id + '?callback=?',  {'n':n} )
           .done(function (data) {
             if (data.citation) {
               $dialog.html(t['citation-tmpl'](data.citation));
@@ -565,18 +565,17 @@ $(function() {
        */
       var label = this.children[0].children[4].children[0].children[3].textContent;
       var drs_id = "400627084"; //TEST
-      console.log("trying");
-      $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?', {'n':'1'} )
+      $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?' )
         .done(function (data) {
           console.log("hello it me");
-          if (data.caption) {
+          /*if (data.caption) {
 	    label = data.caption;
 	    console.log("pds label: " + data.caption );
           } //TODO: Else graceful error display
 	  if (ui.cmd === "save") {
 	    console.log("canvas label: " + label );
 	    copyCanvas(targetCanvas, label);
-	  }
+	  }*/
       });
     }
   });
