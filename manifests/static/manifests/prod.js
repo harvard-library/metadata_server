@@ -563,21 +563,21 @@ $(function() {
            copyCanvas(targetCanvas, label);
         }
        */
-       var label = this.children[0].children[4].children[0].children[3].textContent;
-	var drs_id = "400627084"; //TEST
-        console.log("trying")
-       $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?', {'n':'1'} )
-          .done(function (data) {
-	    console.log("hello it me")
-            if (data.caption) {
-		label = data.caption;
-		console.log("pds label: " + data.caption );
-            } //TODO: Else graceful error display
-	    if (ui.cmd === "save") {
-		console.log("canvas label: " + label );
-		copyCanvas(targetCanvas, label);
-	    }
-          });
+      var label = this.children[0].children[4].children[0].children[3].textContent;
+      var drs_id = "400627084"; //TEST
+      console.log("trying");
+      $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?', {'n':'1'} )
+        .done(function (data) {
+          console.log("hello it me");
+          if (data.caption) {
+	    label = data.caption;
+	    console.log("pds label: " + data.caption );
+          } //TODO: Else graceful error display
+	  if (ui.cmd === "save") {
+	    console.log("canvas label: " + label );
+	    copyCanvas(targetCanvas, label);
+	  }
+      });
     }
   });
 
