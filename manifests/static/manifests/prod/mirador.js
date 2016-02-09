@@ -9541,7 +9541,7 @@ this.parent.element.find('.mirador-osd-flip').on('click', function() {
                                  '</a>',
                                  '</div>',
                                  /*--- test ---*/
-                                 '<div class="mirador-img-rotation-controls hud-control">',
+                                 '<div class="hud-control">',
                                  '<a title="Rotate +180 degrees" class="mirador-osd-flip hud-control">',
                                  '<i class="fa fa-refresh"></i>',
                                  '</a>',
