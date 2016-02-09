@@ -9336,7 +9336,7 @@ this.parent.element.find('.mirador-osd-flip').on('click', function() {
       });
 
       jQuery.subscribe('bottomPanelSet.' + _this.windowId, function(event, visible) {
-        var dodgers = _this.parent.element.find('.mirador-osd-toggle-bottom-panel, .mirador-pan-zoom-controls, .mirador-pan-zoom-toggle, .mirador-img-manipulation');
+        var dodgers = _this.parent.element.find('.mirador-osd-toggle-bottom-panel, .mirador-pan-zoom-controls, .mirador-pan-zoom-toggle, .mirador-img-manipulation .mirador-img-rotation-controls');
         var arrows = _this.parent.element.find('.mirador-osd-next, .mirador-osd-previous');
         if (visible === true) {
           dodgers.css({transform: 'translateY(-130px)'});
