@@ -9535,24 +9535,17 @@ this.parent.element.find('.mirador-osd-flip').on('click', function() {
                                  '<i class="fa fa-minus-circle"></i>',
                                  '</a>',
                                  /*----- test ---*/
-                                 /*---*/
-                                 '<a class="mirador-osd-go-home hud-control" role="button" aria-label="Reset image bounds">',
-                                 '<i class="fa fa-home"></i>',
-                                 '</a>',
-                                 '</div>',
-                                 /*--- test ---*/
-                                 '<div class="mirador-img-rotation-controls hud-control">',
-                                 '<a title="Rotate +180 degrees" class="mirador-osd-flip hud-control">',
-                                 '<i class="fa fa-refresh"></i>',
-                                 '</a>',
                                  '<a title="Rotate +90 degrees" class="mirador-osd-positive-rotate hud-control">',
                                  '<i class="fa fa-rotate-right"></i>',
                                  '</a>',
                                  '<a title="Rotate -90 degrees" class="mirador-osd-negative-rotate hud-control">',
                                  '<i class="fa fa-rotate-left"></i>',
                                  '</a>',
+                                 /*---*/
+                                 '<a class="mirador-osd-go-home hud-control" role="button" aria-label="Reset image bounds">',
+                                 '<i class="fa fa-home"></i>',
+                                 '</a>',
                                  '</div>',
-                                 /*------*/
                                  '<div title="View Image Manipulation Tools" class="mirador-pan-zoom-toggle hud-control">',
                                  '<img class="viewImgManip closed" src="../brokenBooks/images/imageadjust.png">',
                                  '</div>',
