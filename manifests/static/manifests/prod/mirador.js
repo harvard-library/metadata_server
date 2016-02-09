@@ -9515,9 +9515,9 @@ this.parent.element.find('.mirador-osd-flip').on('click', function() {
                                  '<i class="fa fa-2x fa-ellipsis-h"></i>',
                                  '</a>',
                                  '{{/if}}',
+                                 '<div class="mirador-pan-zoom-controls hud-control ">',
                                  /*--- test ---*/
-                                 '<div>',
-                                 '<a class="mirador-img-rotation-controls hud-control">',
+                                 '<div class="mirador-img-rotation-controls hud-control">',
                                  '<a title="Rotate +180 degrees" class="mirador-osd-flip hud-control">',
                                  '<i class="fa fa-refresh"></i>',
                                  '</a>',
@@ -9529,7 +9529,6 @@ this.parent.element.find('.mirador-osd-flip').on('click', function() {
                                  '</a>',
                                  '</div>',
                                  /*------*/
-                                 '<div class="mirador-pan-zoom-controls hud-control ">',
                                  '<a class="mirador-osd-up hud-control" role="button" aria-label="Move image up">',
                                  '<i class="fa fa-chevron-circle-up"></i>',
                                  '</a>',
@@ -9574,7 +9573,7 @@ this.parent.element.find('.mirador-osd-flip').on('click', function() {
                                  '<a title="Invert Colors" class="mirador-osd-toggle-invert hud-control">',
                                  '<span>Invert<span><img class="imgManipIcon" src="../brokenBooks/images/invert.png">',
                                  '</a>',
-                                 /*---moved to hud panel--*/
+                                 /*---moved to hud panel--
                                  '<a title="Rotate +180 degrees" class="mirador-osd-flip hud-control">',
                                  '<i class="fa fa-refresh"></i>',
                                  '</a>',
@@ -9584,7 +9583,7 @@ this.parent.element.find('.mirador-osd-flip').on('click', function() {
                                  '<a title="Rotate -90 degrees" class="mirador-osd-negative-rotate hud-control">',
                                  '<i class="fa fa-rotate-left"></i>',
                                  '</a>',
-                                 /*-----*/
+                                 -----*/
                                  '<a title="Remove Tool Effects" class="mirador-osd-filters-off hud-control">',
                                  '<span>RESET</span>',
                                  '</a>',
