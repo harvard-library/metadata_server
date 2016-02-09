@@ -8910,7 +8910,7 @@ this.parent.element.find('.mirador-osd-flip').on('click', function() {
           osd.viewport.applyConstraints();
         }
       });
-      this.parent.element.find('.mirador-osd-positive-rotate .mirador-rotate-pos').on('click', function() {
+      this.parent.element.find('.mirador-osd-positive-rotate, .mirador-rotate-pos').on('click', function() {
         var osd = _this.parent.osd;
         //Can do html rotations if we detect no viewport.
         if ( osd.viewport ) {
@@ -8921,7 +8921,7 @@ this.parent.element.find('.mirador-osd-flip').on('click', function() {
           osd.viewport.applyConstraints();
         }
       });
-      this.parent.element.find('.mirador-osd-negative-rotate .mirador-rotate-neg').on('click', function() {
+      this.parent.element.find('.mirador-osd-negative-rotate, .mirador-rotate-neg').on('click', function() {
         //Can do html rotations if we detect no viewport.
         var osd = _this.parent.osd;
         if ( osd.viewport ) {
