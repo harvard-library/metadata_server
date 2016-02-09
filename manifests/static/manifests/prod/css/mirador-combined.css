@@ -3312,7 +3312,7 @@ li.highlight {
 }
 .mirador-pan-zoom-controls {
   position: absolute;
-  width: 100px;
+  width: 150px;
   height: 65px;
   bottom:0;
   right:0;
