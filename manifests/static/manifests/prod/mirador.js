@@ -9545,7 +9545,8 @@ this.parent.element.find('.mirador-osd-flip').on('click', function() {
                                  '<a class="mirador-osd-go-home hud-control" role="button" aria-label="Reset image bounds">',
                                  '<i class="fa fa-home"></i>',
                                  '</a>',
-                                 '</div>',
+                                 '</div>'
+                                 /*----- disabled until further notice
                                  '<div title="View Image Manipulation Tools" class="mirador-pan-zoom-toggle hud-control">',
                                  '<img class="viewImgManip closed" src="../brokenBooks/images/imageadjust.png">',
                                  '</div>',
@@ -9566,7 +9567,7 @@ this.parent.element.find('.mirador-osd-flip').on('click', function() {
                                  '<a title="Invert Colors" class="mirador-osd-toggle-invert hud-control">',
                                  '<span>Invert<span><img class="imgManipIcon" src="../brokenBooks/images/invert.png">',
                                  '</a>',
-                                 /*---moved to hud panel--
+                                 //---moved to hud panel--
                                  '<a title="Rotate +180 degrees" class="mirador-osd-flip hud-control">',
                                  '<i class="fa fa-refresh"></i>',
                                  '</a>',
@@ -9576,11 +9577,11 @@ this.parent.element.find('.mirador-osd-flip').on('click', function() {
                                  '<a title="Rotate -90 degrees" class="mirador-osd-negative-rotate hud-control">',
                                  '<i class="fa fa-rotate-left"></i>',
                                  '</a>',
-                                 -----*/
                                  '<a title="Remove Tool Effects" class="mirador-osd-filters-off hud-control">',
                                  '<span>RESET</span>',
                                  '</a>',
                                  '</div>'
+                                 -----*/
     ].join(''))
 
   };
