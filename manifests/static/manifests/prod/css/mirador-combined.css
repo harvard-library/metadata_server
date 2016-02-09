@@ -3312,8 +3312,16 @@ li.highlight {
 }
 .mirador-pan-zoom-controls {
   position: absolute;
-  width: 200px;
+  width: 100px;
   height: 65px;
+  bottom:0;
+  right:0;
+  margin:1%;
+}
+.mirador-img-rotation-controls {
+  position: absolute;
+  width: 80px;
+  height: 20px;
   bottom:0;
   right:0;
   margin:1%;
