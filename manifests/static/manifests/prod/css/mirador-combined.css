@@ -3329,13 +3329,13 @@ li.highlight {
 .mirador-rotate-pos {
   font-size:130%;
   position:absolute;
-  right:90px;
+  right:100px;
   top:5px;
 }
 .mirador-rotate-neg {
   font-size:130%;
   position:absolute;
-  right:90px;
+  right:100px;
   top:30px;
 }
 .mirador-osd-up {
