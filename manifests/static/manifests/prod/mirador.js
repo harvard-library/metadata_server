@@ -9535,10 +9535,10 @@ this.parent.element.find('.mirador-osd-flip').on('click', function() {
                                  '<i class="fa fa-minus-circle"></i>',
                                  '</a>',
                                  /*----- test ---*/
-                                 '<a title="Rotate +90 degrees" class="mirador-osd-positive-rotate hud-control">',
+                                 '<a title="Rotate +90 degrees" class="mirador-rotate-pos hud-control" role="button">',
                                  '<i class="fa fa-rotate-right"></i>',
                                  '</a>',
-                                 '<a title="Rotate -90 degrees" class="mirador-osd-negative-rotate hud-control">',
+                                 '<a title="Rotate -90 degrees" class="mirador-rotate-neg hud-control" role="button">',
                                  '<i class="fa fa-rotate-left"></i>',
                                  '</a>',
                                  /*---*/
