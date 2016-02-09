@@ -3326,6 +3326,18 @@ li.highlight {
   right:0;
   margin:1%;
 }
+.mirador-rotate-pos {
+  font-size:130%;
+  position:absolute;
+  right:70px;
+  top:5px;
+}
+.mirador-rotate-neg {
+  font-size:130%;
+  position:absolute;
+  right:70px;
+  top:30px;
+}
 .mirador-osd-up {
   position:absolute;
   right:20px;
