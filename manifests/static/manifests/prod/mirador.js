@@ -9548,7 +9548,7 @@ this.parent.element.find('.mirador-osd-flip').on('click', function() {
                                  '</div>',
                                  '<div title="View Image Manipulation Tools" class="mirador-pan-zoom-toggle hud-control">',
                                  //'<img class="viewImgManip closed" src="../brokenBooks/images/imageadjust.png">',
-                                 '<i class="viewImgManip fa fa-caret-square-o-left"></i>',
+                                 '<i class="viewImgManip closed fa fa-caret-square-o-left"></i>',
                                  '</div>',
                                  '<div class="mirador-img-manipulation hud-control">',
                                  '<div title="Change Image Brightness" class="mirador-osd-brightness hud-control">',
