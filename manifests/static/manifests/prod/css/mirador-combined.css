@@ -3322,7 +3322,7 @@ li.highlight {
   position: absolute;
   width: 150px;
   height: 60px;
-  bottom:0;
+  bottom:100;
   right:0;
   margin:1%;
 }
