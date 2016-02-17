@@ -553,6 +553,8 @@ $(function() {
     //delegate: ".openseadragon-canvas",
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     select: function(event, ui) {
+      var slot_idx = this.attr("data-layout-slot-id");
+      console.log("tgt slot id: : " + slot_idx);
       var targetCanvas = this.children[0].children[4].children[1].children[2].children[1].children[7].children[0].children[1].children[0];
       targetCanvas.crossOriginPolicy = 'Anonymous';
       //TODO - replace this with call to PDS WS for DRS caption
@@ -567,13 +569,10 @@ $(function() {
       var drs_id = "400627084"; //TEST
       $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?' )
         .done(function (data) {
-          console.log("hi");
           if (data.caption) {
 	    label = data.caption;
-	    console.log("pds label: " + data.caption );
           } //TODO: Else graceful error display
 	  if (ui.cmd === "save") {
-	    console.log("canvas label: " + label );
 	    copyCanvas(targetCanvas, label);
 	  }
       });
