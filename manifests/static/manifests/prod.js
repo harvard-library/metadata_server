@@ -554,7 +554,17 @@ $(function() {
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     select: function(event, ui) {
       var slot_idx = this.attributes[1].textContent;
-      console.log("tgt slot id: : " + slot_idx);
+      var slot = Mirador.viewer.workspace.slots[slot_idx];
+      var mirWindow = slot.window;
+      var uri = mirWindow.manifest.uri,
+            parts = uri.split("/"),
+            last_idx = parts.length - 1,
+            drs_match = parts[last_idx].match(/drs:(\d+)/),
+            drs_id = drs_match && drs_match[1],
+            focusType = mirWindow.currentFocus,
+            n = mirWindow.focusModules[focusType].currentImgIndex + 1;
+      console.log("drs_id: " + drs_id);
+      if (drs_id == null) return; 
       var targetCanvas = this.children[0].children[4].children[1].children[2].children[1].children[7].children[0].children[1].children[0];
       targetCanvas.crossOriginPolicy = 'Anonymous';
       //TODO - replace this with call to PDS WS for DRS caption
@@ -566,7 +576,6 @@ $(function() {
         } */
 
       // call to pds ws doesnt work for some reason
-      var drs_id = "400627084"; //TEST
       $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?' )
         .done(function (data) {
           if (data.caption) {
