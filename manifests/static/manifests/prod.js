@@ -553,7 +553,7 @@ $(function() {
     //delegate: ".openseadragon-canvas",
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     select: function(event, ui) {
-      var slot_idx = this.attributes[1];
+      var slot_idx = this.attributes[1].textContent;
       console.log("tgt slot id: : " + slot_idx);
       var targetCanvas = this.children[0].children[4].children[1].children[2].children[1].children[7].children[0].children[1].children[0];
       targetCanvas.crossOriginPolicy = 'Anonymous';
