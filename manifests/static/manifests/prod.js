@@ -554,7 +554,17 @@ $(function() {
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     select: function(event, ui) {
       var slot_idx = this.attributes[1].textContent;
-      var slot = Mirador.viewer.workspace.slots[slot_idx];
+      var slot = null;
+      if (Mirador.viewer.workspace.slots.length == 1) {
+	 slot = Mirador.viewer.workspace.slots[0];
+      else {
+         for (var sl in Mirador.viewer.workspace.slots) {
+	   if (sl.slotID = slot_idx) {
+             slot = sl;
+             break;
+	   }
+         } 
+      }
       var mirWindow = slot.window;
       var uri = mirWindow.manifest.uri,
             parts = uri.split("/"),
