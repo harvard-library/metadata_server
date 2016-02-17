@@ -574,19 +574,9 @@ $(function() {
             drs_id = drs_match && drs_match[1],
             focusType = mirWindow.currentFocus,
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
-      console.log("drs_id: " + drs_id);
       if (drs_id == null) return; 
       var targetCanvas = this.children[0].children[4].children[1].children[2].children[1].children[7].children[0].children[1].children[0];
       targetCanvas.crossOriginPolicy = 'Anonymous';
-      //TODO - replace this with call to PDS WS for DRS caption
-      /*var label = this.children[0].children[4].children[0].children[3].textContent;
-        console.log("canvas label: " + label );
-        console.log("select " + ui.cmd + " on " + targetCanvas.nodeName );
-        if (ui.cmd === "save") {
-           copyCanvas(targetCanvas, label);
-        } */
-
-      // call to pds ws doesnt work for some reason
       $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?' )
         .done(function (data) {
           if (data.caption) {
