@@ -558,7 +558,7 @@ $(function() {
       if (Mirador.viewer.workspace.slots.length == 1) {
 	 slot = Mirador.viewer.workspace.slots[0];
       } else {
-         for (var sl in Mirador.viewer.workspace.slots) {
+         for (var sl = 0; sl < Mirador.viewer.workspace.slots; sl++) {
 	   if (Mirador.viewer.workspace.slots[sl].slotID = slot_idx) {
              slot = Mirador.viewer.workspace.slots[sl];
              break;
