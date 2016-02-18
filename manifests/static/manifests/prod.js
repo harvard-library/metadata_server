@@ -541,6 +541,7 @@ $(function() {
    */
 
     bufferContext.drawImage(miradorCanvas, 0, 0);
+    bufferContext.font="12px Helvetica";
     bufferContext.strokeText(label, 10, oldCanvasHeight + 10);
 
     bufferCanvas.toBlob(function(blob) {
