@@ -11403,6 +11403,7 @@ jQuery.fn.scrollStop = function(callback) {
         alwaysBlend:      false,
         prefixUrl:        'images/openseadragon/',
         crossOriginPolicy:  "Anonymous",
+	ajaxWithCredentials: true,
         showNavigationControl: false
       }, options)
 
