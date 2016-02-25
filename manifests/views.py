@@ -14,6 +14,8 @@ import webclient
 import base64
 from logging import getLogger
 logger = getLogger(__name__)
+from netaddr import IPNetwork, IPAddress
+from django.conf import settings
 
 # Create your views here.
 
@@ -27,10 +29,14 @@ PDS_VIEW_URL = environ.get("PDS_VIEW_URL", "http://pds.lib.harvard.edu/pds/view/
 PDS_WS_URL = environ.get("PDS_WS_URL", "http://pds.lib.harvard.edu/pds/")
 IDS_VIEW_URL = environ.get("IDS_VIEW_URL", "http://ids.lib.harvard.edu/ids/")
 FTS_VIEW_URL = environ.get("FTS_VIEW_URL","http://fts.lib.harvard.edu/fts/search")
+IIIF_MGMT_SUBNET = environ.get("IIIF_MGMT_SUBNET","128.103.151.0/24")
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext":"ext"}
 
 def index(request, source=None):
+    request_ip = request.META['REMOTE_ADDR']
+    if (IPAddress(request_ip) not in IPNetwork(IIIF_MGMT_SUBNET)) and (not settings.DEBUG):
+         return HttpResponse("Access Denied.", status=403)
     source = source if source else "drs"
     document_ids = models.get_all_manifest_ids_with_type(source)
     host = request.META['HTTP_HOST']
@@ -181,6 +187,9 @@ def manifest(request, document_id):
 
 # Delete any document from db
 def delete(request, document_id):
+    request_ip = request.META['REMOTE_ADDR']
+    if (IPAddress(request_ip) not in IPNetwork(IIIF_MGMT_SUBNET)) and (not settings.DEBUG):
+    	return HttpResponse("Access Denied.", status=403)
     # Check if manifest exists
     parts = document_id.split(":")
     if len(parts) != 2:
@@ -198,6 +207,9 @@ def delete(request, document_id):
 # Force refresh a single document
 # Pull METS, MODS or HUAM JSON, rerun conversion script, and store in db
 def refresh(request, document_id):
+    request_ip = request.META['REMOTE_ADDR']
+    if (IPAddress(request_ip) not in IPNetwork(IIIF_MGMT_SUBNET)) and (not settings.DEBUG):
+        return HttpResponse("Access Denied.", status=403)
     parts = document_id.split(":")
     host = request.META['HTTP_HOST']
     cookie = request.COOKIES.get('hulaccess', None)
@@ -218,6 +230,9 @@ def refresh(request, document_id):
 # WARNING: this could take a long time
 # Pull all METS, MODS or HUAM JSON, rerun conversion script, and store in db
 def refresh_by_source(request, source):
+    request_ip = request.META['REMOTE_ADDR']
+    if (IPAddress(request_ip) not in IPNetwork(IIIF_MGMT_SUBNET)) and (not settings.DEBUG):
+        return HttpResponse("Access Denied.", status=403)
     document_ids = models.get_all_manifest_ids_with_type(source)
     counter = 0
     host = request.META['HTTP_HOST']
