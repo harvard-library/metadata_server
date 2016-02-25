@@ -322,7 +322,7 @@ $(function() {
              { source: dataAdapter,
               displayMember: "context",
               valueMember: "uri",
-              width: 800,
+              //width: 500,
               height: 200,
               renderer: function (index, label, value) {
                 var record = dataAdapter.records[index];
