@@ -38,6 +38,9 @@ IIIF = {
     "profileLevel":     "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
 }
 
+#permitted subnet for iiif index/delete/refresh methods
+IIIF_MGMT_SUBNET = os.environ.get('IIIF_MGMT_SUBNET', '128.103.151.0/24')
+
 # Application definition
 
 INSTALLED_APPS = (
