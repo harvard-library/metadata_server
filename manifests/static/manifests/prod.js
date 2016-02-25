@@ -110,7 +110,7 @@ $(function() {
     "layout": l.LAYOUT,
     "saveSession": false,
     "mainMenuSettings" : {
-      "buttons": { 
+      "buttons": {
          bookmark: false,
 	fullScreenViewer: false
       },
@@ -309,7 +309,11 @@ $(function() {
             var dataAdapter = new $.jqx.dataAdapter(fts_source, {
               autoBind: false,
               beforeSend: function (xhr) {
-                 xhr.cache = true;
+                 xhr.cache = false;
+                 $('#loading').show();
+              },
+              loadComplete: function() {
+                 $('#loading').hide();
               }
             });
 
@@ -565,7 +569,7 @@ $(function() {
              slot = Mirador.viewer.workspace.slots[sl];
              break;
 	   }
-         } 
+         }
       }
       var mirWindow = slot.window;
       var uri = mirWindow.manifest.uri,
@@ -575,7 +579,7 @@ $(function() {
             drs_id = drs_match && drs_match[1],
             focusType = mirWindow.currentFocus,
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
-      if (drs_id == null) return; 
+      if (drs_id == null) return;
       var targetCanvas = this.children[0].children[4].children[1].children[2].children[1].children[7].children[0].children[1].children[0];
       targetCanvas.crossOriginPolicy = 'Anonymous';
       $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?' )
@@ -587,7 +591,7 @@ $(function() {
 	    copyCanvas(targetCanvas, label);
 	  }
       });
-      
+
     }
   });
 
