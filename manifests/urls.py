@@ -16,9 +16,9 @@ urlpatterns = patterns('',
     url(r'^(?P<view_type>view(-dev|-annotator|-m1|-m2)?)/+.*skins.*$', views.clean_url),)
 
 # Restricted URLS available only on dev/qa servers
-#if settings.DEBUG:
+# if settings.DEBUG:
 # methods now restricted via ip subnet
-    urlpatterns += patterns('',
+urlpatterns += patterns('',
                             url(r'^index(?:/(?P<source>[a-zA-z]+))?/$', views.index, name="index"),
                             url(r'^delete/(?P<document_id>[a-z]+:[A-Za-z\d]+)$', views.delete, name='delete'),
                             url(r'^refresh/(?P<document_id>[a-z]+:[A-Za-z\d]+)$', views.refresh, name='refresh'),
