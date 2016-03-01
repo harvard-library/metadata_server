@@ -580,7 +580,7 @@ $(function() {
             focusType = mirWindow.currentFocus,
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
       if (drs_id == null) return;
-      var targetCanvas = this.children[0].children[4].children[1].children[2].children[1].children[7].children[0].children[1].children[0];
+      var targetCanvas = this.children[0].children[4].children[1].children[2].children[1].children[7].children[0].children[0].children[1];
       targetCanvas.crossOriginPolicy = 'Anonymous';
       $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?' )
         .done(function (data) {
