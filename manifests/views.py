@@ -30,6 +30,7 @@ PDS_WS_URL = environ.get("PDS_WS_URL", "http://pds.lib.harvard.edu/pds/")
 IDS_VIEW_URL = environ.get("IDS_VIEW_URL", "http://ids.lib.harvard.edu/ids/")
 FTS_VIEW_URL = environ.get("FTS_VIEW_URL","http://fts.lib.harvard.edu/fts/search")
 IIIF_MGMT_ACL = (environ.get("IIIF_MGMT_ACL","128.103.151.0/24,10.34.5.254,10.40.4.69")).split(',')
+CORS_WHITELIST = (environ.get("CORS_WHITELIST", "http://harvard.edu")).split(',') 
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext":"ext"}
 
@@ -310,8 +311,13 @@ def get_huam(document_id, source):
 # Adds headers to Response for returning JSON that other Mirador instances can access
 def add_headers(response, request):
     if 'hulaccess' in request.COOKIES:
-       response["Access-Control-Allow-Origin"] = "http://yale.edu/"
+       origin = request.META.get('HTTP_ORIGIN')
+       if origin in CORS_WHITELIST:
+          response["Access-Control-Allow-Origin"] = origin
+       else:
+          response["Access-Control-Allow-Origin"] = "http://harvard.edu/"
        response["Access-Control-Allow-Credentials"] = "true"
+       response["Vary"] = "Origin"
     else:
        response["Access-Control-Allow-Origin"] = "*"
     response["Content-Type"] = "application/ld+json"
