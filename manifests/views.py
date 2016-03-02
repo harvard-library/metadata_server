@@ -180,7 +180,7 @@ def manifest(request, document_id):
     (success, response_doc, real_id, real_source) = get_manifest(id, source, False, host, cookie)
     if success:
         response = HttpResponse(response_doc)
-        add_headers(response)
+        add_headers(response, request)
         return response
     else:
         return response_doc # 404 HttpResponse
@@ -221,7 +221,7 @@ def refresh(request, document_id):
 
     if success:
         response = HttpResponse(response_doc)
-        add_headers(response)
+        add_headers(response, request)
         return response
     else:
         return response_doc # This is actually the 404 HttpResponse, so return and end the function
@@ -308,8 +308,12 @@ def get_huam(document_id, source):
     return (True, huam)
 
 # Adds headers to Response for returning JSON that other Mirador instances can access
-def add_headers(response):
-    response["Access-Control-Allow-Origin"] = "*"
+def add_headers(response, request):
+    if 'hulaccess' in request.COOKIES:
+       response["Access-Control-Allow-Origin"] = "http://harvard.edu/"
+       response["Access-Control-Allow-Credentials"] = "true"
+    else:
+       response["Access-Control-Allow-Origin"] = "*"
     response["Content-Type"] = "application/ld+json"
     return response
 
