@@ -310,7 +310,7 @@ def get_huam(document_id, source):
 # Adds headers to Response for returning JSON that other Mirador instances can access
 def add_headers(response, request):
     if 'hulaccess' in request.COOKIES:
-       response["Access-Control-Allow-Origin"] = "http://harvard.edu/"
+       response["Access-Control-Allow-Origin"] = "http://yale.edu/"
        response["Access-Control-Allow-Credentials"] = "true"
     else:
        response["Access-Control-Allow-Origin"] = "*"
