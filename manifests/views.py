@@ -31,6 +31,7 @@ IDS_VIEW_URL = environ.get("IDS_VIEW_URL", "http://ids.lib.harvard.edu/ids/")
 FTS_VIEW_URL = environ.get("FTS_VIEW_URL","http://fts.lib.harvard.edu/fts/search")
 IIIF_MGMT_ACL = (environ.get("IIIF_MGMT_ACL","128.103.151.0/24,10.34.5.254,10.40.4.69")).split(',')
 CORS_WHITELIST = (environ.get("CORS_WHITELIST", "http://harvard.edu")).split(',') 
+IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext":"ext"}
 
@@ -40,7 +41,9 @@ def index(request, source=None):
          return HttpResponse("Access Denied.", status=403)
     source = source if source else "drs"
     document_ids = models.get_all_manifest_ids_with_type(source)
-    host = request.META['HTTP_HOST']
+    host = IIIF_MANIFEST_HOST
+    if host == None:
+       host = request.META['HTTP_HOST']
     cookie = request.COOKIES.get('hulaccess', None)
     manifests = ({"uri": "/manifests/view/%s:%s" % (source, d_id), "title": (models.get_manifest_title(d_id, source) or "Untitled Item") + " (id: %s)" % d_id} for d_id in document_ids)
     return render(request, 'manifests/index.html', {'manifests': manifests})
@@ -87,7 +90,9 @@ def view(request, view_type, document_id):
 
     if 'hulaccess' in request.COOKIES:
         ams_cookie = request.COOKIES['hulaccess']
-    host = request.META['HTTP_HOST']
+    host = IIIF_MANIFEST_HOST
+    if host == None:
+      host = request.META['HTTP_HOST']
     for doc_id in doc_ids:
         parts = parse_id(doc_id)
 
@@ -172,7 +177,9 @@ def demo(request):
 # Checks if DB has it, otherwise creates it
 def manifest(request, document_id):
     parts = document_id.split(":")
-    host = request.META['HTTP_HOST']
+    host = IIIF_MANIFEST_HOST
+    if host == None:
+      host = request.META['HTTP_HOST']
     cookie = request.COOKIES.get('hulaccess', None)
     if len(parts) != 2:
         return HttpResponse("Invalid document ID. Format: [data source]:[ID]", status=404)
@@ -212,7 +219,9 @@ def refresh(request, document_id):
     if not all_matching_cidrs(request_ip, IIIF_MGMT_ACL):
         return HttpResponse("Access Denied.", status=403)
     parts = document_id.split(":")
-    host = request.META['HTTP_HOST']
+    host = IIIF_MANIFEST_HOST
+    if host == None:
+      host = request.META['HTTP_HOST']
     cookie = request.COOKIES.get('hulaccess', None)
     if len(parts) != 2:
         return HttpResponse("Invalid document ID. Format: [data source]:[ID]", status=404)
@@ -236,7 +245,9 @@ def refresh_by_source(request, source):
         return HttpResponse("Access Denied.", status=403)
     document_ids = models.get_all_manifest_ids_with_type(source)
     counter = 0
-    host = request.META['HTTP_HOST']
+    host = IIIF_MANIFEST_HOST
+    if host == None:
+       host = request.META['HTTP_HOST']
     cookie = request.COOKIES.get('hulaccess', None)
     for id in document_ids:
         (success, response_doc, real_id, real_source) = get_manifest(id, source, True,  host, cookie)
