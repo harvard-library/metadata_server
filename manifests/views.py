@@ -331,8 +331,9 @@ def add_headers(response, request):
     #   response["Vary"] = "Origin"
     #else:
     #   response["Access-Control-Allow-Origin"] = "*"
-    response["Access-Control-Allow-Origin"] = "http://harvard.edu/"
-    response["Access-Control-Allow-Credentials"] = "true"
+    #response["Access-Control-Allow-Origin"] = "http://harvard.edu/"
+    #response["Access-Control-Allow-Credentials"] = "true"
+    response["Access-Control-Allow-Origin"] = "*"
     response["Content-Type"] = "application/ld+json"
     return response
 
