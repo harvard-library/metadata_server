@@ -321,16 +321,18 @@ def get_huam(document_id, source):
 
 # Adds headers to Response for returning JSON that other Mirador instances can access
 def add_headers(response, request):
-    if 'hulaccess' in request.COOKIES:
-       origin = request.META.get('HTTP_ORIGIN')
-       if origin in CORS_WHITELIST:
-          response["Access-Control-Allow-Origin"] = origin
-       else:
-          response["Access-Control-Allow-Origin"] = "http://harvard.edu/"
-       response["Access-Control-Allow-Credentials"] = "true"
-       response["Vary"] = "Origin"
-    else:
-       response["Access-Control-Allow-Origin"] = "*"
+    #if 'hulaccess' in request.COOKIES:
+    #   origin = request.META.get('HTTP_ORIGIN')
+    #   if origin in CORS_WHITELIST:
+    #      response["Access-Control-Allow-Origin"] = origin
+    #   else:
+    #      response["Access-Control-Allow-Origin"] = "http://harvard.edu/"
+    #   response["Access-Control-Allow-Credentials"] = "true"
+    #   response["Vary"] = "Origin"
+    #else:
+    #   response["Access-Control-Allow-Origin"] = "*"
+    response["Access-Control-Allow-Origin"] = "http://harvard.edu/"
+    response["Access-Control-Allow-Credentials"] = "true"
     response["Content-Type"] = "application/ld+json"
     return response
 
