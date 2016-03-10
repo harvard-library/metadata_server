@@ -10082,7 +10082,7 @@ this.parent.element.find('.mirador-osd-flip').on('click', function() {
 
     addLinksToUris: function(text) {
       // http://stackoverflow.com/questions/8188645/javascript-regex-to-match-a-url-in-a-field-of-text
-      var regexUrl = /(http|ftp|https):\/\/[\w\-]+(\.[\w\-]+)+([\w.,@?\^=%&amp;:\/~+#\-]*[\w@?\^=%&amp;\/~+#\-])?/gi,
+      var regexUrl = /(http|ftp|https):\/\/[\w\-]+(\.[\w\-]+)+([\w.,@?\^=%&amp;:\/~+#\-]*[\w@?\^=%&amp;:\/~+#\-])?/gi,
           textWithLinks = text,
           matches;
 
