@@ -16,6 +16,7 @@ serviceBase = settings.IIIF['serviceBase']
 profileLevel = settings.IIIF['profileLevel']
 
 attribution = "Provided by Harvard University"
+license = "http://nrs.harvard.edu/urn-3:hul.ois:hlviewerterms"
 
 def main(data, document_id, source, host, cookie=None):
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
@@ -68,6 +69,7 @@ def main(data, document_id, source, host, cookie=None):
 		"@type":"sc:Manifest",
 		"label":manifestLabel,
 		"attribution":attribution,
+		"license":license,
 		"sequences": [
 			{
 				"@id": manifest_uri + "/sequence/normal.json",
