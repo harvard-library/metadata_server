@@ -394,7 +394,7 @@ def main(data, document_id, source, host, cookie=None):
 	}
 
 	if (seeAlso != u""):
-		mfjson["seeAlso"] = seeAlso
+		mfjson["related"] = seeAlso
 
 	canvases = []
 	infocount = 0
