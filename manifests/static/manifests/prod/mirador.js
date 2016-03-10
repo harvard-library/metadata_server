@@ -10025,7 +10025,7 @@ this.parent.element.find('.mirador-osd-flip').on('click', function() {
 
    getMetadataRights: function(jsonLd) {
        return {
-           'Terms of use':      jsonLd.license || '',
+           'rights':      jsonLd.license || '',
            'attribution':  jsonLd.attribution || ''
         };
    },
