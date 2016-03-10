@@ -10036,7 +10036,7 @@ this.parent.element.find('.mirador-osd-flip').on('click', function() {
           'related': this.stringifyRelated(jsonLd.related || ''),
           'seeAlso': this.stringifyRelated(jsonLd.seeAlso || ''),
           'within':  this.stringifyObject(jsonLd.within || ''),
-	  'IIIF Manifest': this.stringifyObject(jsonLd['@id'] || '')
+	  'manifest': this.stringifyObject(jsonLd['@id'] || '')
         };
    },
 
