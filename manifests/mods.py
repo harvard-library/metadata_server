@@ -16,7 +16,7 @@ serviceBase = settings.IIIF['serviceBase']
 profileLevel = settings.IIIF['profileLevel']
 
 attribution = "Provided by Harvard University"
-license = "Use of this material is subject to our <a href='http://nrs.harvard.edu/urn-3:hul.ois:hlviewerterms'>Terms of Use</a>."
+license = "Use of this material is subject to our Terms of Use: http://nrs.harvard.edu/urn-3:hul.ois:hlviewerterms"
 
 def main(data, document_id, source, host, cookie=None):
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
