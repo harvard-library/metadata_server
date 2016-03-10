@@ -34,7 +34,7 @@ serviceBase = settings.IIIF['serviceBase']
 profileLevel = settings.IIIF['profileLevel']
 
 attribution = "Provided by Harvard University"
-license = "http://nrs.harvard.edu/urn-3:hul.ois:hlviewerterms"
+license = "Use of this material is subject to our <a href='http://nrs.harvard.edu/urn-3:hul.ois:hlviewerterms'>Terms of Use</a>."
 
 METS_API_URL = environ.get("METS_API_URL", "http://pds.lib.harvard.edu/pds/get/")
 HOLLIS_API_URL = "http://webservices.lib.harvard.edu/rest/MODS/hollis/"
@@ -382,7 +382,7 @@ def main(data, document_id, source, host, cookie=None):
 		"@id": manifest_uri,
 		"@type":"sc:Manifest",
 		"label":manifestLabel,
-		"attribution":attribution,
+		#"attribution":attribution,
 		"license":license,
 		"sequences": [
 			{
