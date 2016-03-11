@@ -236,7 +236,7 @@ def create_range_json(ranges, manifest_uri, range_id, within, label):
 
 	rangejson =  {"@id": range_id,
 		      "@type": "sc:Range",
-		      "label": label,
+		      "label": label.encode('utf-8'),
 		      "canvases": canvases
 		      }
 	# top level "within" equals the manifest_uri, so this range is a top level
@@ -382,7 +382,7 @@ def main(data, document_id, source, host, cookie=None):
 		"@context":"http://www.shared-canvas.org/ns/context.json",
 		"@id": manifest_uri,
 		"@type":"sc:Manifest",
-		"label":manifestLabel,
+		"label":manifestLabel.encode('utf-8'),
 		#"attribution":attribution,
 		"license":license,
 		"sequences": [
@@ -436,7 +436,7 @@ def main(data, document_id, source, host, cookie=None):
 		cvsjson = {
 			"@id": manifest_uri + "/canvas/canvas-%s.json" % cvs['image'],
 			"@type": "sc:Canvas",
-			"label": cvs['label'],
+			"label": cvs['label'].encode('utf-8'),
 			"height": infojson['height'],
 			"width": infojson['width'],
 			"images": [
