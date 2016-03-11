@@ -21,7 +21,8 @@ license = "Use of this material is subject to our Terms of Use: http://nrs.harva
 def main(data, document_id, source, host, cookie=None):
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
 
-	dom = etree.XML(data)
+	utf8_parser = etree.XMLParser(encoding='utf-8')
+	dom = etree.XML(data, parser=utf8_parser)
 
 	manifestLabel = dom.xpath('/mods:mods/mods:titleInfo/mods:title/text()', namespaces=XMLNS)[0]
 	type = dom.xpath('/mods:mods/mods:typeOfResource/text()', namespaces=XMLNS)[0]
