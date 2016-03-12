@@ -236,7 +236,7 @@ def create_range_json(ranges, manifest_uri, range_id, within, label):
 
 	rangejson =  {"@id": range_id,
 		      "@type": "sc:Range",
-		      "label": label.encode('utf-8'),
+		      "label": label,
 		      "canvases": canvases
 		      }
 	# top level "within" equals the manifest_uri, so this range is a top level
@@ -341,7 +341,7 @@ def main(data, document_id, source, host, cookie=None):
 		hollisID = hollisCheck[0].strip()
 		seeAlso = HOLLIS_PUBLIC_URL.format(hollisID.rjust(9,"0"))
 		#response = urllib2.urlopen(HOLLIS_API_URL+hollisID).read()
-		response = webclient.get(HOLLIS_API_URL+hollisID, cookie).read()
+		response = (webclient.get(HOLLIS_API_URL+hollisID, cookie).read()).encode('utf-8') 
 		mods_dom = etree.XML(response)
 		hollis_langs = set(mods_dom.xpath('/mods:mods/mods:language/mods:languageTerm/text()', namespaces=XMLNS))
 		citeAs = mods_dom.xpath('/mods:mods/mods:note[@type="preferred citation"]/text()', namespaces=XMLNS)
@@ -382,7 +382,7 @@ def main(data, document_id, source, host, cookie=None):
 		"@context":"http://www.shared-canvas.org/ns/context.json",
 		"@id": manifest_uri,
 		"@type":"sc:Manifest",
-		"label":manifestLabel.encode('utf-8'),
+		"label":manifestLabel,
 		#"attribution":attribution,
 		"license":license,
 		"sequences": [
@@ -436,7 +436,7 @@ def main(data, document_id, source, host, cookie=None):
 		cvsjson = {
 			"@id": manifest_uri + "/canvas/canvas-%s.json" % cvs['image'],
 			"@type": "sc:Canvas",
-			"label": cvs['label'].encode('utf-8'),
+			"label": cvs['label'],
 			"height": infojson['height'],
 			"width": infojson['width'],
 			"images": [
