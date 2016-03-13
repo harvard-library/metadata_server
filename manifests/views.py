@@ -288,7 +288,7 @@ def get_mets(document_id, source, cookie=None):
             # TODO: FDS often seems to fail on its first request...maybe try again?
             return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 
-    response_doc = response.read().decode('utf-8')
+    response_doc = response.read().encode('utf-8')
     return (True, response_doc)
 
 # Gets MODS XML from Presto API
@@ -303,7 +303,7 @@ def get_mods(document_id, source, cookie=None):
             # document does not exist in DRS
             return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 
-    mods = response.read().decode('utf-8') 
+    mods = response.read().encode('utf-8') 
     return (True, mods)
 
 # Gets HUAM JSON from HUAM API
@@ -316,7 +316,7 @@ def get_huam(document_id, source):
             # document does not exist in DRS
             return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 
-    huam = response.read().decode('utf-8')
+    huam = response.read().encode('utf-8')
     return (True, huam)
 
 # Adds headers to Response for returning JSON that other Mirador instances can access
