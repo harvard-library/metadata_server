@@ -276,7 +276,7 @@ def main(data, document_id, source, host, cookie=None):
 
 	logger.debug("LOADING object " + str(document_id) + " into the DOM tree" )
 	utf8_parser = etree.XMLParser(encoding='utf-8')
-	dom = etree.XML(data) #, parser=utf8_parser)
+	dom = etree.XML(data, parser=utf8_parser)
 	logger.debug("object " + str(document_id) + " LOADED into the DOM tree" )
 	# Check if this is a DRS2 object since some things, like hollis ID are in a different location
 	isDrs1 = True;
