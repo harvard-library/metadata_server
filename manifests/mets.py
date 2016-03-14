@@ -99,7 +99,7 @@ def get_rangeKey(div):
                 label = div.get('LABEL', "").strip()
                 pn = page_num(div)
                 seq = div.get('ORDER')
-                seq_s = "(seq. {0})".format(seq)
+                seq_s = u"(seq. {0})".format(seq)
                 if label:
                         match = page_re.search(label)
                         pn_from_label = match and match.group(1)
@@ -109,13 +109,13 @@ def get_rangeKey(div):
                 if label and pn:
                         # ORDERLABEL duplicates info in LABEL
                         if pn == pn_from_label:
-                                return "{0} {1}".format(label, seq_s)
+                                return u"{0} {1}".format(label, seq_s)
                         else:
-                                return "{0}, p. {1} {2}".format(label, pn, seq_s)
+                                return u"{0}, p. {1} {2}".format(label, pn, seq_s)
                 elif not label and pn:
-                        return "p. {0} {1}".format(pn, seq_s)
+                        return u"p. {0} {1}".format(pn, seq_s)
                 elif label and not pn:
-                        return "{0} {1}".format(label, seq_s)
+                        return u"{0} {1}".format(label, seq_s)
                 else:
                         return seq_s
         # Intermediates
@@ -126,13 +126,13 @@ def get_rangeKey(div):
                 if f["page"] and l["page"]:
                         label += ","
                         if f["page"] == l["page"]:
-                                display_ss = "p. {0} ".format(f["page"])
+                                display_ss = u"p. {0} ".format(f["page"])
                         else:
-                                display_ss =", pp. {0}-{1} ".format(f["page"], l["page"])
+                                display_ss = u", pp. {0}-{1} ".format(f["page"], l["page"])
 
                 return " ".join(filter(None, [label,
                                               display_ss,
-                                              "(seq. {0})".format(f["seq"]) if f["seq"] == l["seq"] else "(seq. {0}-{1})".format(f["seq"], l["seq"])]))
+                                              u"(seq. {0})".format(f["seq"]) if f["seq"] == l["seq"] else u"(seq. {0}-{1})".format(f["seq"], l["seq"])]))
 
 def process_intermediate(div, new_ranges=None):
         """Processes intermediate divs in the structMap."""
