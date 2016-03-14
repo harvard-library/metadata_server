@@ -343,7 +343,7 @@ def main(data, document_id, source, host, cookie=None):
 		#response = urllib2.urlopen(HOLLIS_API_URL+hollisID).read()
 		#response = (webclient.get(HOLLIS_API_URL+hollisID, cookie).read()).encode('utf-8') 
 		response = webclient.get(HOLLIS_API_URL+hollisID, cookie)
-		response_doc = unicode((response.read()).replace("encoding=\"utf-8\"",''), encoding="utf-8")
+		response_doc = unicode((response.read()).replace("encoding=\"UTF-8\"",''), encoding="utf-8")
 		mods_dom = etree.XML(response_doc)
 		hollis_langs = set(mods_dom.xpath('/mods:mods/mods:language/mods:languageTerm/text()', namespaces=XMLNS))
 		citeAs = mods_dom.xpath('/mods:mods/mods:note[@type="preferred citation"]/text()', namespaces=XMLNS)
