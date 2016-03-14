@@ -51,7 +51,7 @@ body {
   vertical-align: middle;
 }
 #harvard-bug {
-  background-image: url('./dev/images/logos/harvard_header.jpg');
+  background-image: url('./prod/images/logos/harvard_header.jpg');
   display: inline-block;
   color: transparent;
   text-indent: 9000px;
