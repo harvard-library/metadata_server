@@ -275,6 +275,7 @@ def main(data, document_id, source, host, cookie=None):
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
 
 	logger.debug("LOADING object " + str(document_id) + " into the DOM tree" )
+	data = re.sub('(?i)encoding=[\'\"]utf\-8[\'\"]','', data)
 	utf8_parser = etree.XMLParser(encoding='utf-8')
 	dom = etree.XML(data, parser=utf8_parser)
 	logger.debug("object " + str(document_id) + " LOADED into the DOM tree" )
