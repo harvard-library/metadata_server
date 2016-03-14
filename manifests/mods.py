@@ -4,7 +4,7 @@ from lxml import etree
 import json, sys
 import urllib2
 from django.conf import settings
-import webclient
+import webclient, re
 
 XMLNS = {'mods': 'http://www.loc.gov/mods/v3'}
 
@@ -21,6 +21,7 @@ license = "Use of this material is subject to our Terms of Use: http://nrs.harva
 def main(data, document_id, source, host, cookie=None):
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
 
+	data = re.sub('(?i)encoding=[\'\"]utf\-8[\'\"]','', data)
 	utf8_parser = etree.XMLParser(encoding='utf-8')
 	dom = etree.XML(data, parser=utf8_parser)
 
