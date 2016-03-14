@@ -288,7 +288,7 @@ def get_mets(document_id, source, cookie=None):
             # TODO: FDS often seems to fail on its first request...maybe try again?
             return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 
-    response_doc = (response.read().encode('utf-8')).replace("encoding=\"utf-8\"",'')
+    response_doc = (response.read()).replace("encoding=\"utf-8\"",'')
     return (True, response_doc)
 
 # Gets MODS XML from Presto API
