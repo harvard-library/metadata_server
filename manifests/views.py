@@ -303,7 +303,7 @@ def get_mods(document_id, source, cookie=None):
             # document does not exist in DRS
             return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 
-    mods = response.read().encode('utf-8') 
+    mods = unicode((response.read()).replace("encoding=\"utf-8\"",''), encoding="utf-8")
     return (True, mods)
 
 # Gets HUAM JSON from HUAM API
@@ -316,7 +316,7 @@ def get_huam(document_id, source):
             # document does not exist in DRS
             return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 
-    huam = response.read().encode('utf-8')
+    huam = unicode((response.read()).replace("encoding=\"utf-8\"",''), encoding="utf-8")
     return (True, huam)
 
 # Adds headers to Response for returning JSON that other Mirador instances can access
