@@ -289,7 +289,7 @@ def main(data, document_id, source, host, cookie=None):
 	logger.debug("dom check: mets label candidates..." )
 	mets_label_candidates = dom.xpath('/mets:mets/@LABEL', namespaces=XMLNS)
 	logger.debug("dom check: mets label candidates found" )
-	if len(mets_label_candidates) > 0:
+	if (len(mets_label_candidates) > 0) and (mets_label_candidates[0] != ""):
 		manifestLabel = mets_label_candidates[0]
 	else:
 		logger.debug("dom check: title candidates...")
