@@ -210,6 +210,7 @@ def delete(request, document_id):
         models.delete_manifest(id, source)
         return HttpResponse("Document ID %s has been deleted" % document_id)
     else:
+	logger.debug("Failed delete request for document id %s - does not exist in db" % document_id)
         return HttpResponse("Document ID %s does not exist in the database" % document_id, status=404)
 
 # Force refresh a single document
@@ -286,6 +287,7 @@ def get_mets(document_id, source, cookie=None):
         if err.code == 500 or err.code == 404:
             # document does not exist in DRS, might need to add more error codes
             # TODO: FDS often seems to fail on its first request...maybe try again?
+	    logger.debug("Failed mets request %s" % mets_url)
             return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 
     response_doc = unicode(response.read(), encoding="utf-8")
@@ -301,6 +303,7 @@ def get_mods(document_id, source, cookie=None):
     except urllib2.HTTPError, err:
         if err.code == 500 or err.code == 403: ## TODO
             # document does not exist in DRS
+	    logger.debug("Failed mods request %s" % mods_url)
             return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 
     mods = unicode(response.read(), encoding="utf-8")
@@ -314,6 +317,7 @@ def get_huam(document_id, source):
     except urllib2.HTTPError, err:
         if err.code == 500 or err.code == 403: ## TODO
             # document does not exist in DRS
+	    logger.debug("Failed huam request %s" % huam_url)
             return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 
     huam = unicode(response.read(), encoding="utf-8")
