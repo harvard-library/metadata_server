@@ -274,35 +274,35 @@ def main(data, document_id, source, host, cookie=None):
 	global manifestUriBase
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
 
-	logger.debug("LOADING object " + str(document_id) + " into the DOM tree" )
+	#logger.debug("LOADING object " + str(document_id) + " into the DOM tree" )
 	data = re.sub('(?i)encoding=[\'\"]utf\-8[\'\"]','', data)
 	utf8_parser = etree.XMLParser(encoding='utf-8')
 	dom = etree.XML(data, parser=utf8_parser)
-	logger.debug("object " + str(document_id) + " LOADED into the DOM tree" )
+	#logger.debug("object " + str(document_id) + " LOADED into the DOM tree" )
 	# Check if this is a DRS2 object since some things, like hollis ID are in a different location
 	isDrs1 = True;
 	drs_check = dom.xpath('/mets:mets//premis:agentName/text()', namespaces=XMLNS)
 	if len(drs_check) > 0 and 'DRS2' in '\t'.join(drs_check):
 		isDrs1 = False
-		logger.debug("processing DRS2 object " + str(document_id) )
+		#logger.debug("processing DRS2 object " + str(document_id) )
 
-	logger.debug("dom check: mets label candidates..." )
+	#logger.debug("dom check: mets label candidates..." )
 	mets_label_candidates = dom.xpath('/mets:mets/@LABEL', namespaces=XMLNS)
-	logger.debug("dom check: mets label candidates found" )
+	#logger.debug("dom check: mets label candidates found" )
 	if (len(mets_label_candidates) > 0) and (mets_label_candidates[0] != ""):
 		manifestLabel = mets_label_candidates[0]
 	else:
-		logger.debug("dom check: title candidates...")
+		#logger.debug("dom check: title candidates...")
 		mods_title_candidates = dom.xpath('//mods:mods/mods:titleInfo/mods:title', namespaces=XMLNS)
-		logger.debug("dom check: title candidates found")
+		#logger.debug("dom check: title candidates found")
 		if len(mods_title_candidates) > 0:
 			manifestLabel = mods_title_candidates[0].text
 		else:
 			manifestLabel = 'No Label'
 
-	logger.debug("dom check: manifest types check..." )
+	#logger.debug("dom check: manifest types check..." )
 	manifestType = dom.xpath('/mets:mets/@TYPE', namespaces=XMLNS)[0]
-	logger.debug("dom check: manifest type found" )
+	#logger.debug("dom check: manifest type found" )
 
 	if manifestType in ["PAGEDOBJECT", "PDS DOCUMENT"]:
 		viewingHint = "paged"
@@ -318,25 +318,25 @@ def main(data, document_id, source, host, cookie=None):
 	if isDrs1:
 		hollisCheck = dom.xpath('/mets:mets/mets:dmdSec/mets:mdWrap/mets:xmlData/mods:mods/mods:identifier[@type="hollis"]/text()', namespaces=XMLNS)
 	else:
-		logger.debug("dom check: hollis check..." )
+		#logger.debug("dom check: hollis check..." )
 		#hollisCheck = dom.xpath('/mets:mets/mets:amdSec//hulDrsAdmin:hulDrsAdmin/hulDrsAdmin:drsObject/hulDrsAdmin:harvardMetadataLinks/hulDrsAdmin:metadataIdentifier[../hulDrsAdmin:metadataType/text()="Aleph"]/text()', namespaces=XMLNS)
 		hollisCheck = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/hulDrsAdmin:hulDrsAdmin/hulDrsAdmin:drsObject/hulDrsAdmin:harvardMetadataLinks/hulDrsAdmin:metadataIdentifier[../hulDrsAdmin:metadataType/text()="Aleph"]/text()', namespaces=XMLNS)
 
 		## TODO: fix for gif files / mixed set of image formats
-		logger.debug("dom check: hollis check done" )
+		#logger.debug("dom check: hollis check done" )
 		# get info.json dimensions from mets file instead of info.json calls for drs2 objects
 		#drs2ImageIds = dom.xpath('/mets:mets/mets:amdSec//premis:object[@xsi:type="premis:file"]/premis:objectIdentifier/premis:objectIdentifierValue', namespaces=XMLNS)
-		logger.debug("DOM parsing iiif width coords for DRS2 object " + str(document_id) )
+		#logger.debug("DOM parsing iiif width coords for DRS2 object " + str(document_id) )
 		drs2ImageWidths = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:objectCharacteristicsExtension/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:imageWidth/text()', namespaces=XMLNS)
-		logger.debug("DOM parsing iiif height coords for DRS2 object " + str(document_id) )
+		#logger.debug("DOM parsing iiif height coords for DRS2 object " + str(document_id) )
 		drs2ImageHeights = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:objectCharacteristicsExtension/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:imageHeight/text()', namespaces=XMLNS)
-		logger.debug("DOM parsing iiif image format for DRS2 object " + str(document_id) )
+		#logger.debug("DOM parsing iiif image format for DRS2 object " + str(document_id) )
 		drs2ImageFormats = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName/text()', namespaces=XMLNS)
-		#logger.debug("DOM parsing iiif tile width coords for DRS2 object " + str(document_id) )
+		##logger.debug("DOM parsing iiif tile width coords for DRS2 object " + str(document_id) )
 		#drs2TileWidths = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:objectCharacteristicsExtension/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000/mix:EncodingOptions/mix:Tiles/mix:tileWidth/text()', namespaces=XMLNS)
-		#logger.debug("DOM parsing iiif tile height coords for DRS2 object " + str(document_id) )
+		##logger.debug("DOM parsing iiif tile height coords for DRS2 object " + str(document_id) )
 		#drs2TileHeights = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:objectCharacteristicsExtension/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000/mix:EncodingOptions/mix:Tiles/mix:tileHeight/text()', namespaces=XMLNS)
-		#logger.debug("DOM iiif parsing COMPLETED for DRS2 object " + str(document_id) )
+		##logger.debug("DOM iiif parsing COMPLETED for DRS2 object " + str(document_id) )
 
 	if len(hollisCheck) > 0:
 		hollisID = hollisCheck[0].strip()
@@ -356,10 +356,10 @@ def main(data, document_id, source, host, cookie=None):
 
 	manifest_uri = manifestUriBase + "%s:%s" % (source, document_id)
 
-	logger.debug("dom check: images and structs..." )
+	#logger.debug("dom check: images and structs..." )
 	images = dom.xpath('/mets:mets/mets:fileSec/mets:fileGrp/mets:file[starts-with(@MIMETYPE, "image/")]', namespaces=XMLNS)
         struct = dom.xpath('/mets:mets/mets:structMap/mets:div[@TYPE="CITATION"]/mets:div', namespaces=XMLNS)
-	logger.debug("dom check: images and structs found." )
+	#logger.debug("dom check: images and structs found." )
 
 	# Check if the object has a stitched version(s) already made.  Use only those
 	# randy intentionally broke this so stitched objects now look weird. -cg
@@ -405,11 +405,11 @@ def main(data, document_id, source, host, cookie=None):
 	infocount = 0
 	for cvs in canvasInfo:
 		if isDrs1:
-			logger.debug("making info.json call for image id " + cvs['image']  )
+			#logger.debug("making info.json call for image id " + cvs['image']  )
                 	response = webclient.get(imageUriBase + cvs['image'] + imageInfoSuffix, cookie)
                 	infojson = json.load(response)
 		else:
-			logger.debug("Getting iiif cords internally from DRS2 object for image id " + cvs['image'] )
+			#logger.debug("Getting iiif cords internally from DRS2 object for image id " + cvs['image'] )
 			infojson= {}
 			try:
 				infojson['width'] = drs2ImageWidths[infocount]
@@ -469,9 +469,9 @@ def main(data, document_id, source, host, cookie=None):
 	mfjson['sequences'][0]['canvases'] = canvases
 	mfjson['structures'] = rangesJsonList
 
-	logger.debug("Dumping json for DRS2 object " + str(document_id) )
+	#logger.debug("Dumping json for DRS2 object " + str(document_id) )
 	output = json.dumps(mfjson, indent=4, sort_keys=True)
-	logger.debug("Dumping complete for DRS2 object " + str(document_id) )
+	#logger.debug("Dumping complete for DRS2 object " + str(document_id) )
 	return output
 
 if __name__ == "__main__":
