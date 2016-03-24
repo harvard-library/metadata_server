@@ -600,6 +600,7 @@ $(function() {
 
   //disable context menu on metadata links
   $('a').contextmenu( function() {
+    event.stopPropagation();
     return true;
   });
 
