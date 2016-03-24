@@ -600,6 +600,7 @@ $(function() {
 
   //disable context menu on metadata links
   $('.mirador-viewer .metadata-listing').contextmenu( function() {
+    console.log("😣"");
     event.stopPropagation();
     return true;
   });
