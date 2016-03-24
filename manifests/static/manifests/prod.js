@@ -599,8 +599,8 @@ $(function() {
   $(document).on('click', "a.cite, a.view-in-pds, a.search, a.print, a.viewtext, a.links", present_choices);
 
   //disable context menu on metadata links
-  $( ".mirador-viewer .metadata-listing a" ).click(function( event ) {
-     event.stopPropagation();
+  $('a').contextmenu( function() {
+    return true;
   });
 
   History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
