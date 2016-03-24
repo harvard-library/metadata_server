@@ -599,7 +599,7 @@ $(function() {
   $(document).on('click', "a.cite, a.view-in-pds, a.search, a.print, a.viewtext, a.links", present_choices);
 
   //disable context menu on metadata links
-  $('.mirador-viewer .metadata-listing').contextmenu( function() {
+  $('a').contextmenu( function() {
     console.log("help");
     event.stopPropagation();
     return true;
