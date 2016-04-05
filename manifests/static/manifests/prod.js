@@ -244,7 +244,6 @@ $(function() {
   var operations = {
     "view-in-pds": function (drs_id, n, slot_idx) {
       //window.open(l.PDS_VIEW_URL + drs_id + "?n=" + n + "&oldpds");
-      window.location.assign(l.PDS_VIEW_URL + drs_id + "?n=" + n + "&oldpds");
     },
     "cite": function (drs_id, n, slot_idx) {
       var $dialog = $('#citation-modal');
