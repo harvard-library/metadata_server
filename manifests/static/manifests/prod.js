@@ -244,6 +244,7 @@ $(function() {
   var operations = {
     "view-in-pds": function (drs_id, n, slot_idx) {
       //window.open(l.PDS_VIEW_URL + drs_id + "?n=" + n + "&oldpds");
+      window.location.assign(l.PDS_VIEW_URL + drs_id + "?n=" + n + "&oldpds");
     },
     "cite": function (drs_id, n, slot_idx) {
       var $dialog = $('#citation-modal');
@@ -599,11 +600,11 @@ $(function() {
   $(document).on('click', "a.cite, a.view-in-pds, a.search, a.print, a.viewtext, a.links", present_choices);
 
   //disable context menu on metadata links
-  #$('a').contextmenu( function() {
-  #  console.log("help");
-  #  event.stopPropagation();
-  #  return true;
-  #});
+  /*$('a').contextmenu( function() {
+    console.log("help");
+    event.stopPropagation();
+    return true;
+  });*/
 
   History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
     var State = History.getState(); // Note: We are using History.getState() instead of event.state
