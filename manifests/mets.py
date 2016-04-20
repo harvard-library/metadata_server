@@ -128,7 +128,7 @@ def get_rangeKey(div):
                         if f["page"] == l["page"]:
                                 display_ss = u"p. {0} ".format(f["page"])
                         else:
-                                display_ss = u", pp. {0}-{1} ".format(f["page"], l["page"])
+                                display_ss = u"pp. {0}-{1} ".format(f["page"], l["page"])
 
                 return " ".join(filter(None, [label,
                                               display_ss,
