@@ -377,8 +377,8 @@ def main(data, document_id, source, host, cookie=None):
 	for st in struct:
 		ranges = process_struct_divs(st, [])
 		rangeList.extend(ranges)
-	if len(rangeList) > 1:
-		rangeInfo = [{"Table of Contents" : rangeList}]
+
+	rangeInfo = [{"Table of Contents" : rangeList}]
 
 	mfjson = {
 		"@context":"http://www.shared-canvas.org/ns/context.json",
