@@ -159,11 +159,17 @@ def process_intermediate(div, new_ranges=None):
 
 # Get page number from ORDERLABEL or, failing that, LABEL, or, failing that, return None
 def page_num(div):
-        if 'ORDERLABEL' in div.attrib:
-                return div.get('ORDERLABEL')
-        else:
-                match = page_re.search(div.get('LABEL', ''))
-                return match and match.group(1)
+#        if 'ORDERLABEL' in div.attrib:
+#                return div.get('ORDERLABEL')
+#        else:
+#                match = page_re.search(div.get('LABEL', ''))
+#                return match and match.group(1)
+# test to fix double pagelabel -cg
+	match = page_re.search(div.get('LABEL', ''))
+	if (match):
+		return match and match.group(1)
+	else:
+		return div.get('ORDERLABEL')
 
 def get_intermediate_seq_values(first, last):
         """Gets bookend values for constructing pp. and seq. range display, e.g. pp. 8-9 (seq. 10-17)."""
