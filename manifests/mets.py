@@ -223,7 +223,6 @@ def get_leaf_canvases(ranges, leaf_canvases):
 			get_leaf_canvases(value, leaf_canvases)
 		else:
 			leaf_canvases.append(value)
-			logger.debug(value)
 
 def create_range_json(ranges, manifest_uri, range_id, within, label):
 	# this is either a nested list of dicts or one or more image ids in the METS
@@ -232,7 +231,13 @@ def create_range_json(ranges, manifest_uri, range_id, within, label):
 		get_leaf_canvases(ranges, leaf_canvases)
 		canvases = []
 		for lc in leaf_canvases:
-			canvases.append(manifest_uri + "/canvas/canvas-%s.json" % lc)
+			if label == "Table of Contents":
+				canvas_txt = manifest_uri + "/canvas/canvas-%s.json" % lc
+				if canvas_txt not in canvases:
+					canvases.append(canvas_txt)
+					logger.debug(canvas_txt)
+			else:
+				canvases.append(manifest_uri + "/canvas/canvas-%s.json" % lc)
 	else:
 		canvases = [manifest_uri + "/canvas/canvas-%s.json" % ranges]
 
