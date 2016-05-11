@@ -377,11 +377,11 @@ def main(data, document_id, source, host, cookie=None):
 	rangeInfo = []
 	for st in struct:
 		ranges = process_struct_divs(st, [])
-		logger.debug(ranges)
-		if ranges not in rangeList: #dedup thumbnail bar
+		if ranges: #dedup thumbnail bar
 			rangeList.extend(ranges)
 
 	rangeInfo = [{"Table of Contents" : rangeList}]
+	logger.debug(rangeInfo)
 
 	mfjson = {
 		"@context":"http://www.shared-canvas.org/ns/context.json",
