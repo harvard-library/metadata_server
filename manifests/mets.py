@@ -223,6 +223,7 @@ def get_leaf_canvases(ranges, leaf_canvases):
 			get_leaf_canvases(value, leaf_canvases)
 		else:
 			leaf_canvases.append(value)
+			logger.debug(value)
 
 def create_range_json(ranges, manifest_uri, range_id, within, label):
 	# this is either a nested list of dicts or one or more image ids in the METS
@@ -381,7 +382,6 @@ def main(data, document_id, source, host, cookie=None):
 			rangeList.extend(ranges)
 
 	rangeInfo = [{"Table of Contents" : rangeList}]
-	logger.debug(rangeInfo)
 
 	mfjson = {
 		"@context":"http://www.shared-canvas.org/ns/context.json",
