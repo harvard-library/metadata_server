@@ -192,7 +192,7 @@ def process_struct_divs(div, ranges):
 	# when the top level div is a PAGE
 	if is_page(div):
 		p_range = process_page(div)
-                if p_range and p_range not in ranges: #deduplification for split nodes 
+                if p_range: 
                         ranges.append(p_range)
         else:
                 subdivs = div.xpath('./mets:div', namespaces = XMLNS)
@@ -377,7 +377,8 @@ def main(data, document_id, source, host, cookie=None):
 	rangeInfo = []
 	for st in struct:
 		ranges = process_struct_divs(st, [])
-		rangeList.extend(ranges)
+		if ranges not in rangeList: #dedup thumbnail bar
+			rangeList.extend(ranges)
 
 	rangeInfo = [{"Table of Contents" : rangeList}]
 
