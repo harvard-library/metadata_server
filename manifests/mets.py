@@ -192,7 +192,7 @@ def process_struct_divs(div, ranges):
 	# when the top level div is a PAGE
 	if is_page(div):
 		p_range = process_page(div)
-                if p_range:
+                if p_range and p_range not in ranges: #deduplification for split nodes 
                         ranges.append(p_range)
         else:
                 subdivs = div.xpath('./mets:div', namespaces = XMLNS)
