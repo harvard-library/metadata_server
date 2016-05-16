@@ -411,6 +411,7 @@ def main(data, document_id, source, host, cookie=None):
 
 	canvases = []
 	infocount = 0
+	uniqCanvases = {}
 	for cvs in canvasInfo:
 		if isDrs1:
 			#logger.debug("making info.json call for image id " + cvs['image']  )
@@ -469,7 +470,10 @@ def main(data, document_id, source, host, cookie=None):
 				}
 			]
 		}
-		canvases.append(cvsjson)
+		#dedup split node canvases
+		if uniqCanvases.has_key(cvs['image']) == False:
+			canvases.append(cvsjson)
+			uniqCanvases[cvs['image']] = True 
 
 	# build table of contents using Range and Structures
 	create_ranges(rangeInfo, manifest_uri, manifest_uri)
