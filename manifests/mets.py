@@ -235,7 +235,6 @@ def create_range_json(ranges, manifest_uri, range_id, within, label):
 				canvas_txt = manifest_uri + "/canvas/canvas-%s.json" % lc
 				if canvas_txt not in canvases:
 					canvases.append(canvas_txt)
-					logger.debug(canvas_txt)
 			else:
 				canvases.append(manifest_uri + "/canvas/canvas-%s.json" % lc)
 	else:
