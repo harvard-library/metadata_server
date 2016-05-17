@@ -231,6 +231,7 @@ def create_range_json(ranges, manifest_uri, range_id, within, label):
 		get_leaf_canvases(ranges, leaf_canvases)
 		canvases = []
 		for lc in leaf_canvases:
+			#dedup table of contents?
 			if label == "Table of Contents":
 				canvas_txt = manifest_uri + "/canvas/canvas-%s.json" % lc
 				if canvas_txt not in canvases:
@@ -368,7 +369,7 @@ def main(data, document_id, source, host, cookie=None):
 	#logger.debug("dom check: images and structs found." )
 
 	# Check if the object has a stitched version(s) already made.  Use only those
-	# randy intentionally broke this so stitched objects now look weird. -cg
+	# this has been intentionally removed to show full drs structure instead -cg
 	#for st in struct:
 	#	stitchCheck = st.xpath('./@LABEL[contains(., "stitched")]', namespaces=XMLNS)
 	#	if stitchCheck:
