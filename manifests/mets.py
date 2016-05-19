@@ -421,10 +421,10 @@ def main(data, document_id, source, host, cookie=None):
 			#logger.debug("Getting iiif cords internally from DRS2 object for image id " + cvs['image'] )
 			infojson= {}
 			try:
-				infojson['width'] = drs2ImageWidths[infocount]
-				infojson['height'] = drs2ImageHeights[infocount]
-				#infojson['tile_width'] = drs2TileWidths[infocount]
-				#infojson['tile_height'] = drs2TileHeights[infocount]
+				infojson['width'] = int(drs2ImageWidths[infocount])
+				infojson['height'] = int(drs2ImageHeights[infocount])
+				#infojson['tile_width'] = int(drs2TileWidths[infocount])
+				#infojson['tile_height'] = int(drs2TileHeights[infocount])
 				#note replace this w/ drs2InfoFormats
 				infojson['formats'] = ['jpg']
 				infojson['scale_factors'] = [1]
