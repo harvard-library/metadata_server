@@ -457,7 +457,7 @@ def main(data, document_id, source, host, cookie=None):
 					"motivation": "sc:painting",
 					"resource": {
 						"@id": imageUriBase + cvs['image'] + imageUriSuffix,
-						"@type": "dcterms:Image",
+						"@type": "dctypes:Image",
 						"format": fmt,
 						"height": infojson['height'],
 						"width": infojson['width'],
