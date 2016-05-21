@@ -58,6 +58,12 @@ def main(data, document_id, source, host, cookie=None):
 		else:
 			image_id = ids_url[url_idx+1:]
 
+		d_idx = image_id.find('drs:')
+		if d_idx != -1:
+			image_id = image_id[4:]
+		s_idx = image_id.find('$')
+			image_id = image_id[0:s_idx-1]
+
 		if "pds.lib.harvard.edu" in ids_url:
 			# this is a hollis record that points to a PDS/METS object, should not keep processing as a MODS
 			return json.dumps({"pds":image_id}, indent=4, sort_keys=True)
