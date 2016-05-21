@@ -62,6 +62,7 @@ def main(data, document_id, source, host, cookie=None):
 		if d_idx != -1:
 			image_id = image_id[4:]
 		s_idx = image_id.find('$')
+		if s_idx != -1:
 			image_id = image_id[0:s_idx-1]
 
 		if "pds.lib.harvard.edu" in ids_url:
