@@ -555,7 +555,6 @@ $(function() {
   };
 
 
-/* save as temporarily disabled as of 6/10/15 -cg
   $('.layout-slot').contextmenu({
     //delegate: ".openseadragon-canvas",
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
@@ -582,6 +581,7 @@ $(function() {
             focusType = mirWindow.currentFocus,
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
       if (drs_id == null) return;
+     /* canvas copy no longer used 
       var targetCanvas = this.children[0].children[4].children[1].children[2].children[1].children[7].children[0].children[0].children[1];
       targetCanvas.crossOriginPolicy = 'Anonymous';
       $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?' )
@@ -593,10 +593,12 @@ $(function() {
 	    copyCanvas(targetCanvas, label);
 	  }
       });
-
+      */
+      var caption_url = l.PDS_VIEW_URL.replace("view","showcaption") + drs_id + '?n=" + n;
+      window.open(caption_url,'');
+      
     }
   });
-*/
 
   $(document).on('click', "a.cite, a.view-in-pds, a.search, a.print, a.viewtext, a.links", present_choices);
 
