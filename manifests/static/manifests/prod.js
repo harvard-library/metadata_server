@@ -581,7 +581,7 @@ $(function() {
             focusType = mirWindow.currentFocus,
 	    n = mirWindow.focusModules[focusType].currentImgIndex + 1;
 
-       if (focusType !== "imageView") {
+       if (focusType !== "ImageView") {
          var $error = $('#error-modal');
       	 if ($error.get().length > 0) {
        	    $error.dialog('close');
