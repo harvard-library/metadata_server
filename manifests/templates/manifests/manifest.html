@@ -183,6 +183,8 @@
               {{#if description }}
 		 {{#isnt description 'is part of:'}}
                    {{{ description }}}
+		 {{else}}
+		   {{{ identifier }}}
 		 {{/isnt}}
               {{else }}
                  {{{ identifier }}}
