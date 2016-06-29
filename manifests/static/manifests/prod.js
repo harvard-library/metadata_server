@@ -579,20 +579,21 @@ $(function() {
             drs_match = parts[last_idx].match(/drs:(\d+)/),
             drs_id = drs_match && drs_match[1],
             focusType = mirWindow.currentFocus,
+	    if (focusType !== "imageView") return;
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
-      if (drs_id == null) return;
+            if (drs_id == null) return;
      /* canvas copy no longer used 
-      var targetCanvas = this.children[0].children[4].children[1].children[2].children[1].children[7].children[0].children[0].children[1];
-      targetCanvas.crossOriginPolicy = 'Anonymous';
-      $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?' )
-        .done(function (data) {
-          if (data.caption) {
-	    label = data.caption;
-          } //TODO: Else graceful error display
-	  if (ui.cmd === "save") {
-	    copyCanvas(targetCanvas, label);
-	  }
-      });
+            var targetCanvas = this.children[0].children[4].children[1].children[2].children[1].children[7].children[0].children[0].children[1];
+            targetCanvas.crossOriginPolicy = 'Anonymous';
+            $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?' )
+              .done(function (data) {
+                 if (data.caption) {
+	           label = data.caption;
+                 } //TODO: Else graceful error display
+	        if (ui.cmd === "save") {
+	           copyCanvas(targetCanvas, label);
+	        }
+             });
       */
       var caption_url = l.PDS_VIEW_URL.replace("view","showcaption") + drs_id + '?n=' + n;
       window.open(caption_url,'');
