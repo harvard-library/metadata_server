@@ -579,19 +579,21 @@ $(function() {
             drs_match = parts[last_idx].match(/drs:(\d+)/),
             drs_id = drs_match && drs_match[1],
             focusType = mirWindow.currentFocus,
-	    if (focusType !== "imageView") {
-		var $error = $('#error-modal');
-      		if ($error.get().length > 0) {
-        		$error.dialog('close');
-      		}
-      		$error = $('<div id="error-modal" style="display:none" />');
-      		$error.html(t['error-tmpl']({ op: "error", text: "The save image function is not available in this window view." }));
-      		$error.appendTo('body');
-      		$error.dialog($.extend({title: 'Function Unavailable'}, dialogBaseOpts)).dialog('open');
-		return;
-            }
-            n = mirWindow.focusModules[focusType].currentImgIndex + 1;
-            if (drs_id == null) return;
+	    n = mirWindow.focusModules[focusType].currentImgIndex + 1;
+
+       if (focusType !== "imageView") {
+         var $error = $('#error-modal');
+      	 if ($error.get().length > 0) {
+       	    $error.dialog('close');
+      	  }
+      	  $error = $('<div id="error-modal" style="display:none" />');
+      	  $error.html(t['error-tmpl']({ op: "error", text: "The save image function is not available in this window view." }));
+      	  $error.appendTo('body');
+      	  $error.dialog($.extend({title: 'Function Unavailable'}, dialogBaseOpts)).dialog('open');
+	  return;
+       }
+
+       if (drs_id == null) return;
      /* canvas copy no longer used 
             var targetCanvas = this.children[0].children[4].children[1].children[2].children[1].children[7].children[0].children[0].children[1];
             targetCanvas.crossOriginPolicy = 'Anonymous';
@@ -605,8 +607,8 @@ $(function() {
 	        }
              });
       */
-      var caption_url = l.PDS_VIEW_URL.replace("view","showcaption") + drs_id + '?n=' + n;
-      window.open(caption_url,'');
+       var caption_url = l.PDS_VIEW_URL.replace("view","showcaption") + drs_id + '?n=' + n;
+       window.open(caption_url,'');
       
     }
   });
