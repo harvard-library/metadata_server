@@ -30,6 +30,9 @@
   <script src="{% static 'saveimage/Blob.js' %}"></script>
   <script src="{% static 'saveimage/canvas-toBlob.js' %}"></script>
 
+  <script src="{% static 'swag.min.js' %}"></script>
+  <script>Swag.registerHelpers(window.Handlebars);</script>
+
   <title>Harvard Mirador Viewer</title>
 </head>
 <body>
@@ -173,9 +176,14 @@
       <ul>
         {{#each links}}
         <li>{{{ type }}}
+	   {{#is description 'is part of:'}}
+		{{{ description }}}
+	   {{/is}}
            {{#isLink value }} <a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}}
               {{#if description }}
-                 {{{ description }}}
+		 {{#isnt description 'is part of:'}}
+                   {{{ description }}}
+		 {{/isnt}}
               {{else }}
                  {{{ identifier }}}
               {{/if }}
