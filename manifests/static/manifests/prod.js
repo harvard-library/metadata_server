@@ -587,7 +587,7 @@ $(function() {
        	    $error.dialog('close');
       	  }
       	  $error = $('<div id="error-modal" style="display:none" />');
-      	  $error.html(t['error-tmpl']({ op: "error", text: "The save image function is not available in this window view." }));
+      	  $error.html(t['error-tmpl']({ op: "error", text: "The Save Image function is only available in single page viewing mode." }));
       	  $error.appendTo('body');
       	  $error.dialog($.extend({title: 'Function Unavailable'}, dialogBaseOpts)).dialog('open');
 	  return;
