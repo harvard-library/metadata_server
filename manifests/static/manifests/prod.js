@@ -555,14 +555,16 @@ $(function() {
   };
 
 
-  $('.mirador-btn').contextmenu(function(event){
+  $('.layout-slot .mirador-btn').contextmenu(function(event){
     event.stopPropagation();
     event.preventDefault();
+    return;
   });
 
-  $('.mirador-icon-window-menu').contextmenu(function(event){
+  $('.layout-slot .mirador-icon-window-menu').contextmenu(function(event){
     event.stopPropagation();
     event.preventDefault();
+    return;
   });
 
 
