@@ -555,19 +555,6 @@ $(function() {
   };
 
 
-  $('.layout-slot .mirador-btn').contextmenu(function(event){
-    event.stopPropagation();
-    event.preventDefault();
-    console.log("button rt click");
-  });
-
-  $('.layout-slot .mirador-icon-window-menu').contextmenu(function(event){
-    event.stopPropagation();
-    event.preventDefault();
-    console.log("menu rt click");
-  });
-
-
   $('.layout-slot').contextmenu({
     //delegate: ".openseadragon-canvas",
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
