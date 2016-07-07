@@ -555,12 +555,12 @@ $(function() {
   };
 
 
-  $('mirador-btn').contextmenu(function(event){
+  $('.mirador-btn').contextmenu(function(event){
     event.stopPropagation();
     event.preventDefault();
   });
 
-  $('mirador-icon-window-menu').contextmenu(function(event){
+  $('.mirador-icon-window-menu').contextmenu(function(event){
     event.stopPropagation();
     event.preventDefault();
   });
