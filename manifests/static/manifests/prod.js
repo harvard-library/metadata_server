@@ -558,13 +558,13 @@ $(function() {
   $('.layout-slot .mirador-btn').contextmenu(function(event){
     event.stopPropagation();
     event.preventDefault();
-    return;
+    console.log("button rt click");
   });
 
   $('.layout-slot .mirador-icon-window-menu').contextmenu(function(event){
     event.stopPropagation();
     event.preventDefault();
-    return;
+    console.log("menu rt click");
   });
 
 
