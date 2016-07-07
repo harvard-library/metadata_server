@@ -555,6 +555,15 @@ $(function() {
   };
 
 
+$('mirador-btn').contextmenu({
+  event.stopPropagation();
+  });
+
+$('mirador-icon-window-menu').contextmenu({
+  event.stopPropagation();
+  });
+
+
   $('.layout-slot').contextmenu({
     //delegate: ".openseadragon-canvas",
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
