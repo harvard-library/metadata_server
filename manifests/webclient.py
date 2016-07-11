@@ -14,5 +14,5 @@ def get(url, cookie_value=None):
     response = opener.open(url)
     end = timer()
     elapsed = end - start
-    logger.debug("elapsed time for " + url + " " + elapsed + " secs")
+    logger.debug("elapsed time for " + unicode(url) + " " + unicode(str(elapsed)) + " secs")
     return response
