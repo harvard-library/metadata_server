@@ -594,7 +594,7 @@ $(function() {
        }
 
        if (drs_id == null) return;
-     /* canvas copy no longer used */
+     /* canvas copy no longer used bc of cors/tainted canvas side effects
             var targetCanvas = this.children[0].children[4].children[1].children[2].children[1].children[7].children[0].children[0].children[1];
             targetCanvas.crossOriginPolicy = 'Anonymous';
             $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?' )
@@ -606,9 +606,9 @@ $(function() {
 	           copyCanvas(targetCanvas, label);
 	        }
              });
-      /**/
-       /*var caption_url = l.PDS_VIEW_URL.replace("view","showcaption") + drs_id + '?n=' + n;
-       window.open(caption_url,'');*/
+      */
+       var caption_url = l.PDS_VIEW_URL.replace("view","showcaption") + drs_id + '?n=' + n;
+       window.open(caption_url,'');
       
     }
   });
