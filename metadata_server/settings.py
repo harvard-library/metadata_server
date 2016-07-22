@@ -32,7 +32,7 @@ ALLOWED_HOSTS = [x for x in os.environ.get('ALLOWED_HOSTS','').split(";") if x !
 IIIF = {
     "imageUriBase":     os.environ.get('IMAGE_URI_BASE', 'http://ids.lib.harvard.edu/ids/iiif/'),
     "serviceBase":      os.environ.get('SERVICE_BASE', 'http://ids.lib.harvard.edu/ids/iiif/'),
-    "imageUriSuffix":   "/full/full/0/native",
+    "imageUriSuffix":   "/full/full/0/native.jpg",
     "imageInfoSuffix":  "/info.json",
     "manifestUriTmpl":  "http://%s/manifests/",
     "profileLevel":     "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
