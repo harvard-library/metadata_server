@@ -21,7 +21,7 @@ license = "Use of this material is subject to our Terms of Use: http://nrs.harva
 def main(data, document_id, source, host, cookie=None):
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
 
-	logo = settings.IIIF.logo % host
+	logo = settings.IIIF['logo'] % host
 
 	data = re.sub('(?i)encoding=[\'\"]utf\-8[\'\"]','', data)
 	utf8_parser = etree.XMLParser(encoding='utf-8')

@@ -16,7 +16,7 @@ def main(data, document_id, source, host):
 
 	huam_json = json.loads(data)
 	attribution = huam_json["creditline"]
-	logo = settings.IIIF.logo % host
+	logo = settings.IIIF['logo'] % host
 
 	manifestLabel = huam_json["title"]
 	#genres = dom.xpath('/mods:mods/mods:genre/text()', namespaces=ALLNS)

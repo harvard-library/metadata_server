@@ -281,7 +281,7 @@ def main(data, document_id, source, host, cookie=None):
 	global manifestUriBase
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
 
-	logo = settings.IIIF.logo % host
+	logo = settings.IIIF['logo'] % host
 
 	#logger.debug("LOADING object " + str(document_id) + " into the DOM tree" )
 	data = re.sub('(?i)encoding=[\'\"]utf\-8[\'\"]','', data)
