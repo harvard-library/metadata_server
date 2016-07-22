@@ -281,6 +281,8 @@ def main(data, document_id, source, host, cookie=None):
 	global manifestUriBase
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
 
+	logo = settings.IIIF.logo % host
+
 	#logger.debug("LOADING object " + str(document_id) + " into the DOM tree" )
 	data = re.sub('(?i)encoding=[\'\"]utf\-8[\'\"]','', data)
 	utf8_parser = etree.XMLParser(encoding='utf-8')
@@ -395,6 +397,7 @@ def main(data, document_id, source, host, cookie=None):
 		"label":manifestLabel,
 		#"attribution":attribution,
 		"license":license,
+		"logo":logo,
 		"sequences": [
 			{
 				"@id": manifest_uri + "/sequence/normal.json",
