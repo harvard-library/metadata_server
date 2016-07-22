@@ -35,7 +35,8 @@ IIIF = {
     "imageUriSuffix":   "/full/full/0/native.jpg",
     "imageInfoSuffix":  "/info.json",
     "manifestUriTmpl":  "http://%s/manifests/",
-    "profileLevel":     "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+    "profileLevel":     "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1",
+    "logo":		"http://%s/static/manifests/harvard_logo.jpg"
 }
 
 #permitted subnet for iiif index/delete/refresh methods
