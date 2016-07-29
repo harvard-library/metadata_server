@@ -554,7 +554,7 @@ $(function() {
     }, 'image/jpg');
   };
 
-/*
+
   $('.layout-slot').contextmenu({
     //delegate: ".openseadragon-canvas",
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
@@ -578,6 +578,7 @@ $(function() {
             last_idx = parts.length - 1,
             drs_match = parts[last_idx].match(/drs:(\d+)/),
             drs_id = drs_match && drs_match[1],
+	    img_id = ((mirWindow.currentCanvasID.split("-"))[1]).split(".json")[0],
             focusType = mirWindow.currentFocus,
 	    n = mirWindow.focusModules[focusType].currentImgIndex + 1;
 
@@ -594,7 +595,7 @@ $(function() {
        }
 
        if (drs_id == null) return;
-     // canvas copy no longer used bc of cors/tainted canvas side effects
+     /* canvas copy no longer used bc of cors/tainted canvas side effects
             var targetCanvas = this.children[0].children[4].children[1].children[2].children[1].children[7].children[0].children[0].children[1];
             targetCanvas.crossOriginPolicy = 'Anonymous';
             $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?' )
@@ -606,13 +607,14 @@ $(function() {
 	           copyCanvas(targetCanvas, label);
 	        }
              });
-      //
-       var caption_url = l.PDS_VIEW_URL.replace("view","showcaption") + drs_id + '?n=' + n;
-       window.open(caption_url,'');
+      */
+       /*var caption_url = l.PDS_VIEW_URL.replace("view","showcaption") + drs_id + '?n=' + n;
+       window.open(caption_url,'');*/
+       window.open(l.IDS_VIEW_URL + img_id + '?buttons=y');
       
     }
   });
-*/
+
 
   $(document).on('click', "a.cite, a.view-in-pds, a.search, a.print, a.viewtext, a.links", present_choices);
 
