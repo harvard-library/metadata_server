@@ -557,10 +557,11 @@ $(function() {
 
 //target .mirador-icon-save-image
 //.layout-slot .slot .window .content-container .view-container .image-view .mirador-osd .openseadragon-container .openseadragon-canvas canvas
- $(document).on('contextmenu', 'canvas', function() { 
+ /*$(document).on('contextmenu', 'canvas', function() { 
 	console.log("contextmenu bind test successful");
-  });
-  $(".penseadragon-container").contextmenu({
+  });*/
+  //$(".penseadragon-container").contextmenu({
+  $(document).on('contextmenu', 'canvas', function() {
     //delegate: ".openseadragon-canvas",
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     select: function(event, ui) {
@@ -624,13 +625,6 @@ $(function() {
 
 
   $(document).on('click', "a.cite, a.view-in-pds, a.search, a.print, a.viewtext, a.links", present_choices);
-
-  //disable context menu on metadata links
-  /*$('a').contextmenu( function() {
-    console.log("help");
-    event.stopPropagation();
-    return true;
-  });*/
 
   History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
     var State = History.getState(); // Note: We are using History.getState() instead of event.state
