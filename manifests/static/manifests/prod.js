@@ -558,7 +558,7 @@ $(function() {
 //target .mirador-icon-save-image
 //.layout-slot .slot .window .content-container .view-container .image-view .mirador-osd .openseadragon-container .openseadragon-canvas canvas
   $(".openseadragon-container").contextmenu({
-    //delegate: ".openseadragon-canvas",
+    delegate: ".openseadragon-canvas",
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     select: function(event, ui) {
     //$('mirador-icon-save-image').click( function (e){ 
