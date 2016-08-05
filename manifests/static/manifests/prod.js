@@ -560,8 +560,7 @@ $(function() {
  /*$(document).on('contextmenu', 'canvas', function() { 
 	console.log("contextmenu bind test successful");
   });*/
-  //$(".penseadragon-container").contextmenu({
-  $(document).on('contextmenu', 'canvas', function() {
+  $('canvas').contextmenu({
     //delegate: ".openseadragon-canvas",
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     select: function(event, ui) {
