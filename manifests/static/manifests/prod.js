@@ -555,11 +555,14 @@ $(function() {
   };
 
 
-  $('.layout-slot').contextmenu({
+//target .mirador-icon-save-image
+  $('.openseadragon-canvas').contextmenu({
     //delegate: ".openseadragon-canvas",
     menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     select: function(event, ui) {
-      var slot_idx = this.attributes[1].textContent;
+    //$('mirador-icon-save-image').click( function (e){ 
+      var layout_slot = this.parents('.layout-slot');
+      var slot_idx = layout_slot.attributes[1].textContent;
       var slot = null;
       if (Mirador.viewer.workspace.slots.length == 1) {
 	 slot = Mirador.viewer.workspace.slots[0];
