@@ -557,7 +557,7 @@ $(function() {
 
 //target .mirador-icon-save-image
 //.layout-slot .slot .window .content-container .view-container .image-view .mirador-osd .openseadragon-container .openseadragon-canvas canvas
- $('.openseadragon-canvas').on('contextmenu', 'div', function() { 
+ $(document).on('contextmenu', 'canvas', function() { 
 	console.log("contextmenu bind test successful");
   });
   $(".penseadragon-container").contextmenu({
