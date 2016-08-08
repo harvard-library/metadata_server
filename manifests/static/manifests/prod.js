@@ -567,7 +567,7 @@ $(function() {
     //select: function(event, ui) {
     //$('mirador-icon-save-image').click( function (e){ 
       var layout_slot = $(this).parents('.layout-slot');
-      var slot_idx = layout_slot.attributes[1].textContent;
+      var slot_idx = layout_slot[0].attributes[1].textContent;
       var slot = null;
       if (Mirador.viewer.workspace.slots.length == 1) {
 	 slot = Mirador.viewer.workspace.slots[0];
