@@ -561,7 +561,7 @@ $(function() {
 	console.log("contextmenu bind test successful");
   });*/
   //$('canvas').contextmenu({
-  $(document).on('contextmenu', 'canvas', function() {
+  $(document).on('contextmenu', 'canvas, .mirador-icon-save-image', function() {
     //delegate: ".openseadragon-canvas",
     //menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     //select: function(event, ui) {
