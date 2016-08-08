@@ -624,7 +624,7 @@ $(function() {
        window.open(l.IDS_VIEW_URL + img_id + '?buttons=y');
       
     //}
-  });
+  };
 
 
   $(document).on('click', "a.cite, a.view-in-pds, a.search, a.print, a.viewtext, a.links", present_choices);
