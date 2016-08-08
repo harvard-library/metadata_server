@@ -561,10 +561,10 @@ $(function() {
 	console.log("contextmenu bind test successful");
   });*/
   //$('canvas').contextmenu({
-  $(document).on('contextmenu', 'canvas', {
+  $(document).on('contextmenu', 'canvas', function() {
     //delegate: ".openseadragon-canvas",
-    menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
-    select: function(event, ui) {
+    //menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
+    //select: function(event, ui) {
     //$('mirador-icon-save-image').click( function (e){ 
       var layout_slot = this.parents('.layout-slot');
       var slot_idx = layout_slot.attributes[1].textContent;
