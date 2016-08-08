@@ -630,8 +630,8 @@ $(function() {
 
   $(document).on('click', "a.cite, a.view-in-pds, a.search, a.print, a.viewtext, a.links", present_choices);
 
-  $(document).on('contextmenu', 'canvas', saveImage(e) );
-  $(document).on('click', '.mirador-icon-save-image', saveImage(e) );
+  $(document).on('contextmenu', 'canvas', saveImage);
+  $(document).on('click', '.mirador-icon-save-image', saveImage);
 
   History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
     var State = History.getState(); // Note: We are using History.getState() instead of event.state
