@@ -620,7 +620,7 @@ $(function() {
        window.open(caption_url,'');*/
        window.open(l.IDS_VIEW_URL + img_id + '?buttons=y');
       
-    }
+    //}
   });
 
 
