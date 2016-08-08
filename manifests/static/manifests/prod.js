@@ -602,6 +602,7 @@ $(function() {
       	  $error.html(t['error-tmpl']({ op: "error", text: "The Save Image function is only available in single page viewing mode." }));
       	  $error.appendTo('body');
       	  $error.dialog($.extend({title: 'Function Unavailable'}, dialogBaseOpts)).dialog('open');
+	  this.preventDefault();
 	  return;
        }
 
