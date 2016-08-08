@@ -564,11 +564,12 @@ $(function() {
 
   //$(document).on('contextmenu', 'canvas, .mirador-icon-save-image', function() {
 
-  var saveImage = function() {
+  var saveImage = function(e) {
     //delegate: ".openseadragon-canvas",
     //menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     //select: function(event, ui) {
     //$('mirador-icon-save-image').click( function (e){ 
+      e.preventDefault();
       var layout_slot = $(this).parents('.layout-slot');
       var slot_idx = layout_slot[0].attributes[1].textContent;
       var slot = null;
@@ -602,7 +603,6 @@ $(function() {
       	  $error.html(t['error-tmpl']({ op: "error", text: "The Save Image function is only available in single page viewing mode." }));
       	  $error.appendTo('body');
       	  $error.dialog($.extend({title: 'Function Unavailable'}, dialogBaseOpts)).dialog('open');
-	  this.preventDefault();
 	  return;
        }
 
@@ -630,8 +630,8 @@ $(function() {
 
   $(document).on('click', "a.cite, a.view-in-pds, a.search, a.print, a.viewtext, a.links", present_choices);
 
-  $(document).on('contextmenu', 'canvas', saveImage);
-  $(document).on('click', '.mirador-icon-save-image', saveImage);
+  $(document).on('contextmenu', 'canvas', saveImage(e) );
+  $(document).on('click', '.mirador-icon-save-image', saveImage(e) );
 
   History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
     var State = History.getState(); // Note: We are using History.getState() instead of event.state
