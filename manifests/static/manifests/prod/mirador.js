@@ -7960,7 +7960,7 @@ window.Mirador = window.Mirador || function(config) {
                                  '<div class="window">',
                                  '<div class="manifest-info">',
                                  '<div class="window-manifest-navigation">',
-				 '<a href="javascript:;" class="mirador-btn mirador-icon-save-image" role="button" aria-label="Save Image with Caption" title="Save Image"><i class="fa fa-floppy-o fa-lg fa-fw"></i>',
+				 '<a href="javascript:;" class="mirador-btn mirador-icon-save-image" role="button" aria-label="Save Image with Caption" title="Save Image with Caption"><i class="fa fa-floppy-o fa-lg fa-fw"></i>',
                                  '<a href="javascript:;" class="mirador-btn mirador-icon-image-view" role="button" aria-label="Change Image Mode"><i class="fa fa-photo fa-lg fa-fw"></i>',
                                  '<ul class="dropdown image-list">',
                                  '{{#if ImageView}}',
