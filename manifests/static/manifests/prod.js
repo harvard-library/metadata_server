@@ -124,7 +124,7 @@ $(function() {
 	{"label": "View Text",
          "iconClass": "fa fa-font",
          "attributes": { "class": "viewtext", "href": "#no-op"}},
-	{"label": "Print",
+	{"label": "Print/Save",
          "iconClass": "fa fa-print",
          "attributes": { "class": "print", "href": "#no-op"}},
         {"label": "Cite",
