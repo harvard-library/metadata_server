@@ -341,27 +341,31 @@ def main(data, document_id, source, host, cookie=None):
 		drs2ImageHeights = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:objectCharacteristicsExtension/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:imageHeight/text()', namespaces=XMLNS)
 		#logger.debug("DOM parsing iiif image format for DRS2 object " + str(document_id) )
 		drs2ImageFormats = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName/text()', namespaces=XMLNS)
-		##logger.debug("DOM parsing iiif tile width coords for DRS2 object " + str(document_id) )
+		#logger.debug("DOM parsing iiif tile width coords for DRS2 object " + str(document_id) )
 		#drs2TileWidths = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:objectCharacteristicsExtension/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000/mix:EncodingOptions/mix:Tiles/mix:tileWidth/text()', namespaces=XMLNS)
-		##logger.debug("DOM parsing iiif tile height coords for DRS2 object " + str(document_id) )
+		#logger.debug("DOM parsing iiif tile height coords for DRS2 object " + str(document_id) )
 		#drs2TileHeights = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:objectCharacteristicsExtension/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000/mix:EncodingOptions/mix:Tiles/mix:tileHeight/text()', namespaces=XMLNS)
-		##logger.debug("DOM iiif parsing COMPLETED for DRS2 object " + str(document_id) )
+		#logger.debug("DOM iiif parsing COMPLETED for DRS2 object " + str(document_id) )
 
 	if len(hollisCheck) > 0:
 		hollisID = hollisCheck[0].strip()
 		seeAlso = HOLLIS_PUBLIC_URL.format(hollisID.rjust(9,"0"))
-		response = urllib2.urlopen(HOLLIS_API_URL+hollisID).read()
-		response_data = re.sub('(?i)encoding=[\'\"]utf\-8[\'\"]','', response)
-		response_doc = unicode(response_data, encoding="utf-8")
-		mods_dom = etree.XML(response_doc)
-		hollis_langs = set(mods_dom.xpath('/mods:mods/mods:language/mods:languageTerm/text()', namespaces=XMLNS))
-		citeAs = mods_dom.xpath('/mods:mods/mods:note[@type="preferred citation"]/text()', namespaces=XMLNS)
-		titleInfo = mods_dom.xpath('/mods:mods/mods:titleInfo/mods:title/text()', namespaces=XMLNS)[0]
-		if len(citeAs) > 0:
-			manifestLabel = citeAs[0] + " " + titleInfo
-		# intersect both sets and determine if there are common elements
-		if len(hollis_langs & right_to_left_langs) > 0:
-			viewingDirection = 'right-to-left'
+		try:
+			response = urllib2.urlopen(HOLLIS_API_URL+hollisID).read()
+		except HTTPError:
+			logger.debug("HOLLIS lookup failed for Hollis id: " + hollisID)
+		else:
+			response_data = re.sub('(?i)encoding=[\'\"]utf\-8[\'\"]','', response)
+			response_doc = unicode(response_data, encoding="utf-8")
+			mods_dom = etree.XML(response_doc)
+			hollis_langs = set(mods_dom.xpath('/mods:mods/mods:language/mods:languageTerm/text()', namespaces=XMLNS))
+			citeAs = mods_dom.xpath('/mods:mods/mods:note[@type="preferred citation"]/text()', namespaces=XMLNS)
+			titleInfo = mods_dom.xpath('/mods:mods/mods:titleInfo/mods:title/text()', namespaces=XMLNS)[0]
+			if len(citeAs) > 0:
+				manifestLabel = citeAs[0] + " " + titleInfo
+			# intersect both sets and determine if there are common elements
+			if len(hollis_langs & right_to_left_langs) > 0:
+				viewingDirection = 'right-to-left'
 
 	manifest_uri = manifestUriBase + "%s:%s" % (source, document_id)
 
