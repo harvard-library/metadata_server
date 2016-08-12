@@ -352,7 +352,7 @@ def main(data, document_id, source, host, cookie=None):
 		seeAlso = HOLLIS_PUBLIC_URL.format(hollisID.rjust(9,"0"))
 		try:
 			response = urllib2.urlopen(HOLLIS_API_URL+hollisID).read()
-		except HTTPError:
+		except:
 			logger.debug("HOLLIS lookup failed for Hollis id: " + hollisID)
 		else:
 			response_data = re.sub('(?i)encoding=[\'\"]utf\-8[\'\"]','', response)
