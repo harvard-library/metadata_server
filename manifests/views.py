@@ -121,7 +121,7 @@ def view(request, view_type, document_id):
                 title = "Unknown"
             else:
                 title = models.get_manifest_title(real_id, real_source)
-                uri = "http://%s/manifests/%s:%s" % (host,real_source,real_id)
+                uri = "https://%s/manifests/%s:%s" % (host,real_source,real_id)
                 location = "Harvard University"
 
 
