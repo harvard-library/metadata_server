@@ -42,6 +42,9 @@ IIIF = {
 #permitted subnet for iiif index/delete/refresh methods
 IIIF_MGMT_SUBNET = os.environ.get('IIIF_MGMT_SUBNET', '128.103.151.0/24')
 
+#Use SSL or regular http for manifests
+IIIF_USE_SSL = os.environ.get('USE_SSL', False)
+
 # Application definition
 
 INSTALLED_APPS = (
