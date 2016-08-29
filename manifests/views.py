@@ -32,6 +32,7 @@ FTS_VIEW_URL = environ.get("FTS_VIEW_URL","http://fts.lib.harvard.edu/fts/search
 IIIF_MGMT_ACL = (environ.get("IIIF_MGMT_ACL","128.103.151.0/24,10.34.5.254,10.40.4.69")).split(',')
 CORS_WHITELIST = (environ.get("CORS_WHITELIST", "http://harvard.edu")).split(',') 
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
+IIIF_USE_SSL = environ.get("IIIF_USE_SSL", False)
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext":"ext"}
 
@@ -121,7 +122,10 @@ def view(request, view_type, document_id):
                 title = "Unknown"
             else:
                 title = models.get_manifest_title(real_id, real_source)
-                uri = "http://%s/manifests/%s:%s" % (host,real_source,real_id)
+		if (IIIF_USE_SSL):
+		    uri = "https://%s/manifests/%s:%s" % (host,real_source,real_id)
+		else:
+                    uri = "http://%s/manifests/%s:%s" % (host,real_source,real_id)
                 location = "Harvard University"
 
 
