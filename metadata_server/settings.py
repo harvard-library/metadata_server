@@ -34,9 +34,9 @@ IIIF = {
     "serviceBase":      os.environ.get('SERVICE_BASE', 'https://ids.lib.harvard.edu/ids/iiif/'),
     "imageUriSuffix":   "/full/full/0/native.jpg",
     "imageInfoSuffix":  "/info.json",
-    "manifestUriTmpl":  "https://%s/manifests/",
+    "manifestUriTmpl":  "http://%s/manifests/",
     "profileLevel":     "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1",
-    "logo":		"https://%s/static/manifests/harvard_logo.jpg"
+    "logo":		"http://%s/static/manifests/harvard_logo.jpg"
 }
 
 #permitted subnet for iiif index/delete/refresh methods
