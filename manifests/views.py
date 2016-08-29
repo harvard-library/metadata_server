@@ -52,9 +52,9 @@ def index(request, source=None):
 # view any number of MODS, METS, or HUAM objects
 def view(request, view_type, document_id):
     if (IIIF_USE_SSL):
-      logger.debug("SSL enabled")
-     else:
-       logger.debug("SSL disabled")
+        logger.debug("SSL enabled")
+    else:
+        logger.debug("SSL disabled")
     doc_ids = filter(lambda x:x, document_id.split(';'))
     manifests_data = []
     manifests_wobjects = []
