@@ -34,16 +34,14 @@ IIIF = {
     "serviceBase":      os.environ.get('SERVICE_BASE', 'https://ids.lib.harvard.edu/ids/iiif/'),
     "imageUriSuffix":   "/full/full/0/native.jpg",
     "imageInfoSuffix":  "/info.json",
-    "manifestUriTmpl":  "http://%s/manifests/",
+    "manifestUriTmpl":  "https://%s/manifests/",
     "profileLevel":     "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1",
-    "logo":		"http://%s/static/manifests/harvard_logo.jpg"
+    "logo":		"https://%s/static/manifests/harvard_logo.jpg"
 }
 
 #permitted subnet for iiif index/delete/refresh methods
 IIIF_MGMT_SUBNET = os.environ.get('IIIF_MGMT_SUBNET', '128.103.151.0/24')
 
-#Use SSL or regular http for manifests
-IIIF_USE_SSL = os.environ.get('IIIF_USE_SSL') == 'True'
 
 # Application definition
 
