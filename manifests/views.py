@@ -124,8 +124,10 @@ def view(request, view_type, document_id):
                 title = models.get_manifest_title(real_id, real_source)
 		if (IIIF_USE_SSL):
 		    uri = "https://%s/manifests/%s:%s" % (host,real_source,real_id)
+		    logger.debug("SSL enabled")
 		else:
                     uri = "http://%s/manifests/%s:%s" % (host,real_source,real_id)
+		    logger.debug("SSL disabled")
                 location = "Harvard University"
 
 
