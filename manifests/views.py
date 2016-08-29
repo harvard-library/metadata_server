@@ -32,7 +32,7 @@ FTS_VIEW_URL = environ.get("FTS_VIEW_URL","http://fts.lib.harvard.edu/fts/search
 IIIF_MGMT_ACL = (environ.get("IIIF_MGMT_ACL","128.103.151.0/24,10.34.5.254,10.40.4.69")).split(',')
 CORS_WHITELIST = (environ.get("CORS_WHITELIST", "http://harvard.edu")).split(',') 
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
-IIIF_USE_SSL = environ.get("IIIF_USE_SSL", "False")
+IIIF_USE_SSL = environ.get("IIIF_USE_SSL") == 'True'
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext":"ext"}
 
