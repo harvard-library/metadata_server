@@ -6,7 +6,7 @@ from elasticsearch import Elasticsearch
 
 ELASTICSEARCH_URL = settings.ELASTICSEARCH_URL
 ELASTICSEARCH_INDEX = settings.ELASTICSEARCH_INDEX
-MAX_HIT_SIZE = settings.MAX_HIT_SIZE
+ELASTICSEARCH_MAX_HIT_SIZE = settings.ELASTICSEARCH_MAX_HIT_SIZE
 
 # Connect to elasticsearch db
 def get_connection():
@@ -35,7 +35,7 @@ def manifest_exists(manifest_id, source):
 
 def get_all_manifest_ids_with_type(source):
     es = get_connection()
-    results = es.search(index=ELASTICSEARCH_INDEX, doc_type=source, fields="[]", size=MAX_HIT_SIZE)
+    results = es.search(index=ELASTICSEARCH_INDEX, doc_type=source, fields="[]", size=ELASTICSEARCH_MAX_HIT_SIZE)
     ids = []
     for r in results["hits"]["hits"]:
         ids.append(str(r["_id"]))
@@ -43,7 +43,7 @@ def get_all_manifest_ids_with_type(source):
 
 def get_all_manifest_ids():
     es = get_connection()
-    results = es.search(index=ELASTICSEARCH_INDEX, fields="[]", size=MAX_HIT_SIZE)
+    results = es.search(index=ELASTICSEARCH_INDEX, fields="[]", size=ELASTICSEARCH_MAX_HIT_SIZE)
     ids = []
     for r in results["hits"]["hits"]:
         ids.append(str(r["_id"]))
