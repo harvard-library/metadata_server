@@ -26,6 +26,7 @@ DEBUG = TEMPLATE_DEBUG = os.environ.has_key('DEBUG')
 # Elasticsearch vars
 ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL', 'localhost:9200')
 ELASTICSEARCH_INDEX = os.environ.get('ELASTICSEARCH_INDEX', 'manifests')
+ELASTICSEARCH_MAX_HIT_SIZE = os.environ.get('ELASTICSEARCH_MAX_HIT_SIZE', 1000000000)
 
 ALLOWED_HOSTS = [x for x in os.environ.get('ALLOWED_HOSTS','').split(";") if x != '']
 
