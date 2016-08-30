@@ -29,14 +29,16 @@ ELASTICSEARCH_INDEX = os.environ.get('ELASTICSEARCH_INDEX', 'manifests')
 
 ALLOWED_HOSTS = [x for x in os.environ.get('ALLOWED_HOSTS','').split(";") if x != '']
 
+HTTP_PROTOCOL = os.environ.get('HTTP_PROTOCOL', 'http')
+
 IIIF = {
-    "imageUriBase":     os.environ.get('IMAGE_URI_BASE', 'https://ids.lib.harvard.edu/ids/iiif/'),
-    "serviceBase":      os.environ.get('SERVICE_BASE', 'https://ids.lib.harvard.edu/ids/iiif/'),
+    "imageUriBase":     HTTP_PROTOCOL + '://' + os.environ.get('IMAGE_URI_BASE', 'ids.lib.harvard.edu/ids/iiif/'),
+    "serviceBase":      HTTP_PROTOCOL + '://' + os.environ.get('SERVICE_BASE', 'ids.lib.harvard.edu/ids/iiif/'),
     "imageUriSuffix":   "/full/full/0/native.jpg",
     "imageInfoSuffix":  "/info.json",
-    "manifestUriTmpl":  "https://%s/manifests/",
+    "manifestUriTmpl":  HTTP_PROTOCOL + "://%s/manifests/",
     "profileLevel":     "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1",
-    "logo":		"https://%s/static/manifests/harvard_logo.jpg"
+    "logo":		HTTP_PROTOCOL + "://%s/static/manifests/harvard_logo.jpg"
 }
 
 #permitted subnet for iiif index/delete/refresh methods
