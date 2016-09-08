@@ -1,7 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
-import socket
 from os import environ
 import json
 import urllib2
@@ -17,6 +16,7 @@ HUAM_API_URL = "http://api.harvardartmuseums.org/object/"
 HUAM_API_KEY = environ["HUAM_API_KEY"]
 COOKIE_DOMAIN = environ.get("COOKIE_DOMAIN", ".hul.harvard.edu")
 PDS_VIEW_URL = environ.get("PDS_VIEW_URL", "http://pds.lib.harvard.edu/pds/view/")
+IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam"}
 
@@ -44,7 +44,7 @@ class Command(BaseCommand):
         for id in document_ids:
             self.stdout.write("Starting {0}:{1}".format(source, id))
             try:
-                (success, response_doc, real_id, real_source) = views.get_manifest(id, source, True, socket.gethostname(), None)
+                (success, response_doc, real_id, real_source) = views.get_manifest(id, source, True, IIIF_MANIFEST_HOST, None)
             except (urllib2.HTTPError, urllib2.URLError) as e:
                 self.stdout.write( "{0}:{1} failed due to HTTPError:\n".format(source, id))
                 self.stdout.write("\t{0}".format(e.reason))
