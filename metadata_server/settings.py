@@ -37,7 +37,7 @@ IIIF = {
     "serviceBase":      HTTP_PROTOCOL + '://' + os.environ.get('SERVICE_BASE', 'ids.lib.harvard.edu/ids/iiif/'),
     "imageUriSuffix":   "/full/full/0/native.jpg",
     "imageInfoSuffix":  "/info.json",
-    "thumbnailSuffix":	"/full/150/0/native.jpg",
+    "thumbnailSuffix":	"/full/150,/0/native.jpg",
     "manifestUriTmpl":  HTTP_PROTOCOL + "://%s/manifests/",
     "profileLevel":     "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1",
     "context": 		"http://library.stanford.edu/iiif/image-api/1.1/context.json",	
