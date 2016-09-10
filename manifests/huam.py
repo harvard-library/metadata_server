@@ -12,6 +12,7 @@ manifestUriTmpl = settings.IIIF['manifestUriTmpl']
 serviceBase =     settings.IIIF['serviceBase']
 profileLevel =    settings.IIIF['profileLevel']
 serviceContext = settings.IIIF['context']
+license = settings.IIIF['license']
 
 def main(data, document_id, source, host):
 	manifestUriBase = settings.IIIF.manifestUriTmpl % host

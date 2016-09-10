@@ -36,7 +36,9 @@ profileLevel = settings.IIIF['profileLevel']
 serviceContext = settings.IIIF['context']
 
 attribution = "Provided by Harvard University"
-license = "Use of this material is subject to our Terms of Use: http://nrs.harvard.edu/urn-3:hul.ois:hlviewerterms"
+#license = "Use of this material is subject to our Terms of Use: http://nrs.harvard.edu/urn-3:hul.ois:hlviewerterms"
+#license is set to just the urn for manifest validation purposes
+license = settings.IIIF['license']
 
 METS_API_URL = environ.get("METS_API_URL", "http://pds.lib.harvard.edu/pds/get/")
 HOLLIS_API_URL = "http://webservices.lib.harvard.edu/rest/MODS/hollis/"

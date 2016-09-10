@@ -18,7 +18,9 @@ profileLevel = settings.IIIF['profileLevel']
 serviceContext = settings.IIIF['context']
 
 attribution = "Provided by Harvard University"
-license = "Use of this material is subject to our Terms of Use: http://nrs.harvard.edu/urn-3:hul.ois:hlviewerterms"
+#license = "Use of this material is subject to our Terms of Use: http://nrs.harvard.edu/urn-3:hul.ois:hlviewerterms"
+#license is set to just the urn for manifest validation purposes
+license = settings.IIIF['license']
 
 def main(data, document_id, source, host, cookie=None):
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
