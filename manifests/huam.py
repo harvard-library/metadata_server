@@ -7,9 +7,11 @@ from django.conf import settings
 imageUriBase =    settings.IIIF['imageUriBase']
 imageUriSuffix =  settings.IIIF['imageUriSuffix']
 imageInfoSuffix = settings.IIIF['imageInfoSuffix']
+thumbnailSuffix = settings.IIIF['thumbnailSuffix']
 manifestUriTmpl = settings.IIIF['manifestUriTmpl']
 serviceBase =     settings.IIIF['serviceBase']
 profileLevel =    settings.IIIF['profileLevel']
+serviceContext = settings.IIIF['context']
 
 def main(data, document_id, source, host):
 	manifestUriBase = settings.IIIF.manifestUriTmpl % host
@@ -98,12 +100,17 @@ def main(data, document_id, source, host):
 						"width": infojson['width'],
 						"service": {
 						  "@id": imageUriBase + cvs['image'],
+						  "@context": serviceContext,
 						  "profile": profileLevel
 						},
 					},
 					"on": manifest_uri + "/canvas/canvas-%s.json" % cvs['image']
 				}
-			]
+			],
+			"thumbnail": {
+			  "@id": imageUriBase + cvs['image'] + thumbnailSuffix,
+			  "@type": "dcTypes:Image"
+			}
 		}
 		canvases.append(cvsjson)
 

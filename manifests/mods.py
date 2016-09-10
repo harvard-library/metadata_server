@@ -11,9 +11,11 @@ XMLNS = {'mods': 'http://www.loc.gov/mods/v3'}
 imageUriBase = settings.IIIF['imageUriBase']
 imageUriSuffix = settings.IIIF['imageUriSuffix']
 imageInfoSuffix = settings.IIIF['imageInfoSuffix']
+thumbnailSuffix = settings.IIIF['thumbnailSuffix']
 manifestUriTmpl = settings.IIIF['manifestUriTmpl']
 serviceBase = settings.IIIF['serviceBase']
 profileLevel = settings.IIIF['profileLevel']
+serviceContext = settings.IIIF['context']
 
 attribution = "Provided by Harvard University"
 license = "Use of this material is subject to our Terms of Use: http://nrs.harvard.edu/urn-3:hul.ois:hlviewerterms"
@@ -116,12 +118,17 @@ def main(data, document_id, source, host, cookie=None):
 						"width": infojson['width'],
 						"service": {
 						  "@id": imageUriBase + cvs['image'],
+						  "@context": serviceContext,
 						  "profile": profileLevel
 						},
 					},
 					"on": manifest_uri + "/canvas/canvas-%s.json" % cvs['image']
 				}
-			]
+			],
+			"thumbnail": {
+			  "@id": imageUriBase + cvs['image'] + thumbnailSuffix,
+			  "@type": "dcTypes:Image"
+ 			}
 		}
 		canvases.append(cvsjson)
 
