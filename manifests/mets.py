@@ -483,7 +483,7 @@ def main(data, document_id, source, host, cookie=None):
 			],
 			"thumbnail": {
 			  "@id": imageUriBase + cvs['image'] + thumbnailSuffix,
-			  "@type": "dcTypes:Image"
+			  "@type": "dctypes:Image"
 			}
 		}
 		#dedup split node canvases

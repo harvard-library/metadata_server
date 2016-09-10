@@ -95,7 +95,7 @@ def main(data, document_id, source, host):
 					"motivation": "sc:painting",
 					"resource": {
 						"@id": imageUriBase + cvs['image'] + imageUriSuffix,
-						"@type": "dcterms:Image",
+						"@type": "dctypes:Image",
 						"format":"image/jpeg",
 						"height": infojson['height'],
 						"width": infojson['width'],
@@ -110,7 +110,7 @@ def main(data, document_id, source, host):
 			],
 			"thumbnail": {
 			  "@id": imageUriBase + cvs['image'] + thumbnailSuffix,
-			  "@type": "dcTypes:Image"
+			  "@type": "dctypes:Image"
 			}
 		}
 		canvases.append(cvsjson)
