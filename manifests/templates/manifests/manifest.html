@@ -166,53 +166,22 @@
      </div>
   </script>
 
-<!--
-  <script id="linksold-tmpl" type="text/x-handlebars-template">
-    <div title="links" class="links dialog {{ op }}">
-     <!--<header><h3>Related Links</h3></header>-->
-     <b>Links relating to:</b> {{ citation }}
-     <p/>
-     The following links provide more information about this resource.
-       Links open in a new window.
-      <ul>
-        {{#each links}}
-        <li>{{{ type }}}
-	   {{#is description 'is part of:'}}
-		{{{ description }}}
-	   {{/is}}
-           {{#isLink value }} <a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}}
-              {{#if description }}
-		 {{#isnt description 'is part of:'}}
-                   {{{ description }}}
-		 {{else}}
-		   {{{ identifier }}}
-		 {{/isnt}}
-              {{else }}
-                 {{{ identifier }}}
-              {{/if }}
-          {{#isLink value}}</a>{{/isLink}}
-        </li>
-        {{/each}}
-      </ul>
-    </div>
-  </script>
--->
   <script id="links-tmpl" type="text/x-handlebars-template">
     <div title="links" class="links dialog {{ op }}">
      <!--<header><h3>Related Links</h3></header>-->
      <b>Links relating to:</b> {{ citation }}
      <p/>
      The following links provide more information about this resource.
-       Links open in a new window.
+       Links open in a new window.<p/>
       {{#if harvardMetadata }}
-      <b>Harvard Metadata</b>
+      <b>Harvard Metadata</b><p/>
 	{{#each harvardMetadata }}
 	  {{{ displayLabel }}} : {{#isLink value }}<a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}} {{{value}}} {{#isLink value}}</a>{{/isLink}} </br> 
  	{{/each}}
       {{/if}}
-      </p>
+      </p><br>
       {{#if relatedLinks }}
-      <b>Related Links</b>
+      <b>Related Links</b><p/>
 	{{#each relatedLinks }}
 	  {{#if displayLabel }} {{{ displayLabel }}} : {{/if}} {{#isLink value }}<a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}} {{{value}}} {{#isLink value}}</a>{{/isLink}} </br>
 	{{/each}}
