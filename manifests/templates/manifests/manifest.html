@@ -174,16 +174,16 @@
      The following links provide more information about this resource.
        Links open in a new window.<p/>
       {{#if harvardMetadata }}
-      <b>Harvard Metadata</b><p/>
+      <b>Harvard Metadata</b><br>
 	{{#each harvardMetadata }}
-	  {{{ displayLabel }}} : {{#isLink value }}<a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}} {{{value}}} {{#isLink value}}</a>{{/isLink}} </br> 
+	  {{{ displayLabel }}}: {{#isLink value }}<a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}} {{{value}}} {{#isLink value}}</a>{{/isLink}} </br> 
  	{{/each}}
       {{/if}}
       </p><br>
       {{#if relatedLinks }}
-      <b>Related Links</b><p/>
+      <b>Related Links</b><br>
 	{{#each relatedLinks }}
-	  {{#if displayLabel }} {{{ displayLabel }}} : {{/if}} {{#isLink value }}<a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}} {{{value}}} {{#isLink value}}</a>{{/isLink}} </br>
+	  {{#if displayLabel }} {{{ displayLabel }}}: {{/if}} {{#isLink value }}<a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}} {{{value}}} {{#isLink value}}</a>{{/isLink}} </br>
 	{{/each}}
       {{/if}} 
     </div>
