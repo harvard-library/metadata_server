@@ -209,14 +209,14 @@
 	{{#each harvardMetadata }}
 	  {{{ displayLabel }}} : {{#isLink value }}<a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}} {{{value}}} {{#isLink value}}</a>{{/isLink}} </br> 
  	{{/each}}
-      {{/#if}}
+      {{/if}}
       </p>
       {{#if relatedLinks }}
       <b>Related Links</b>
 	{{#each relatedLinks }}
 	  {{#if displayLabel }} {{{ displayLabel }}} : {{/if}} {{#isLink value }}<a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}} {{{value}}} {{#isLink value}}</a>{{/isLink}} </br>
 	{{/each}}
-      {{/#if}} 
+      {{/if}} 
     </div>
   </script>
 
