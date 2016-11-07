@@ -171,21 +171,24 @@
      <!--<header><h3>Related Links</h3></header>-->
      <b>Links relating to:</b> {{ citation }}
      <p/>
-     The following links provide more information about this resource.
-       Links open in a new window.<p/>
+     The following links provide more information about this resource. Links open in a new window.<p/>
       {{#if harvardMetadata }}
-      <b>Harvard Metadata</b><br>
+      <b>Harvard Metadata</b><p/>
+        <ul>
 	{{#each harvardMetadata }}
-	  {{{ displayLabel }}}: {{#isLink value }}<a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}} {{{value}}} {{#isLink value}}</a>{{/isLink}} </br> 
+	  <li>{{{ displayLabel }}}: {{#isLink value }}<a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}} {{{value}}} {{#isLink value}}</a>{{/isLink}} </li>
  	{{/each}}
+        </ul>
       {{/if}}
       </p><br>
       {{#if relatedLinks }}
-      <b>Related Links</b><br>
+      <b>Related Links</b><p/>
+        <ul>
 	{{#each relatedLinks }}
-	  {{#if displayLabel }} {{{ displayLabel }}}: {{/if}} {{#isLink value }}<a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}} {{{value}}} {{#isLink value}}</a>{{/isLink}} </br>
+	  <li>{{#if displayLabel }} {{{ displayLabel }}}: {{/if}} {{#isLink value }}<a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}} {{{value}}} {{#isLink value}}</a>{{/isLink}} </li>
 	{{/each}}
       {{/if}} 
+      </ul>
     </div>
   </script>
 
