@@ -479,7 +479,7 @@ $(function() {
       }
       else {
         $dialog = $('<div id="links-modal" style="display:none" />');
-        $.get( '/proxy/related/' + drs_id + '?n=' + n, function(xml){
+        /*$.get( '/proxy/related/' + drs_id + '?n=' + n, function(xml){
           var json = $.xml2json(xml);
           if (json.link) {
             // Normalize to array for Handlebars
@@ -491,8 +491,33 @@ $(function() {
                 .dialog($.extend({title: 'Related Links'}, dialogBaseOpts))
                 .dialog('open');
           }
-        }); //TODO: Else graceful error display
-      }
+        }); //TODO: Else graceful error display */
+	var has_links = false;
+	var json = null;
+        $.getJSON( '/proxy/related/' + drs_id + '?callback=?', {'n':n})
+         .done( function(json) {
+          if ( (json.harvardMetadata.length > 0) || (json.relatedLinks.length > 0) ){
+             has_links = true;
+          }
+        //}); //TODO: Else graceful error display
+        if (has_links) {
+	   $dialog.html(t['links-tmpl']({relatedLinks: json.relatedLinks, harvardMetadata: json.harvardMetadata, op: "links", citation: json.citation}));
+           $dialog.appendTo('body');
+           $dialog
+                .dialog($.extend({title: 'Related Links'}, dialogBaseOpts))
+                .dialog('open');  
+	} else { //no links
+	   var $error = $('#error-modal');
+           if ($error.get().length > 0) {
+            $error.dialog('close');
+           }
+           $error = $('<div id="error-modal" style="display:none" />');
+           $error.html(t['error-tmpl']({ op: "error", text: "No related links are available for this DRS object." }));
+           $error.appendTo('body');
+           $error
+            .dialog($.extend({title: 'No Related Links available'}, dialogBaseOpts))
+            .dialog('open');
+        }
     },
     "viewtext": function (drs_id, n, slot_idx) {
       var $dialog = $('#viewtext-modal');
