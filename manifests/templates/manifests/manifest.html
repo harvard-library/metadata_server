@@ -166,7 +166,8 @@
      </div>
   </script>
 
-  <script id="links-tmpl" type="text/x-handlebars-template">
+<!--
+  <script id="linksold-tmpl" type="text/x-handlebars-template">
     <div title="links" class="links dialog {{ op }}">
      <!--<header><h3>Related Links</h3></header>-->
      <b>Links relating to:</b> {{ citation }}
@@ -193,6 +194,29 @@
         </li>
         {{/each}}
       </ul>
+    </div>
+  </script>
+-->
+  <script id="links-tmpl" type="text/x-handlebars-template">
+    <div title="links" class="links dialog {{ op }}">
+     <!--<header><h3>Related Links</h3></header>-->
+     <b>Links relating to:</b> {{ citation }}
+     <p/>
+     The following links provide more information about this resource.
+       Links open in a new window.
+      {{#if harvardMetadata }}
+      <b>Harvard Metadata</b>
+	{{#each harvardMetadata }}
+	  {{{ displayLabel }}} : {{#isLink value }}<a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}} {{{value}}} {{#isLink value}}</a>{{/isLink}} </br> 
+ 	{{/each}}
+      {{/#if}}
+      </p>
+      {{#if relatedLinks }}
+      <b>Related Links</b>
+	{{#each relatedLinks }}
+	  {{#if displayLabel }} {{{ displayLabel }}} : {{/if}} {{#isLink value }}<a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}} {{{value}}} {{#isLink value}}</a>{{/isLink}} </br>
+	{{/each}}
+      {{/#if}} 
     </div>
   </script>
 
