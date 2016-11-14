@@ -54,7 +54,7 @@
         <h3>Resource</h3>
       </header>
       <ul>
-        <li><span class="label plink">Persistent Link</span> <a href="{{{resource.urn}}}">{{resource.urn}}</a></li>
+        <li><span class="label plink">Persistent Link</span> {{#isLink resource.urn}}<a href="{{{resource.urn}}}">{{/isLink}}{{resource.urn}}{{#isLink resource.urn}}</a>{{/isLink}}</li>
         <li><span class="label desc">Description</span> {{{resource.description}}}</li>
         <li><span class="label repo">Repository</span> {{{resource.repository}}}</li>
         <li><span class="label inst">Institution</span> {{{resource.institution}}}</li>
@@ -65,7 +65,7 @@
         <h3>Page</h3>
       </header>
       <ul>
-        <li><span class="label plink">Persistent Link</span> <a href="{{{page.urn}}}">{{page.urn}}</a></li>
+        <li><span class="label plink">Persistent Link</span> {{#isLink page.urn}}<a href="{{{page.urn}}}">{{/isLink}}{{page.urn}}{{#isLink page.urn}}</a>{{/isLink}}</li>
         <li><span class="label desc">Description</span> {{{page.description}}}</li>
         <li><span class="label page">Page</span> {{{page.pagelabel}}}</li>
         <li><span class="label repo">Repository</span> {{{page.repository}}}</li>
