@@ -79,7 +79,7 @@ def main(data, document_id, source, host, cookie=None):
 		canvasInfo.append(info)
 
 	mfjson = {
-		"@context":"http://www.shared-canvas.org/ns/context.json",
+		"@context":"http://iiif.io/api/presentation/1/context.json",
 		"@id": manifest_uri,
 		"@type":"sc:Manifest",
 		"label":manifestLabel,

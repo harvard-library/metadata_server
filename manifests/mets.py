@@ -399,7 +399,7 @@ def main(data, document_id, source, host, cookie=None):
 	rangeInfo = [{"Table of Contents" : rangeList}]
 
 	mfjson = {
-		"@context":"http://www.shared-canvas.org/ns/context.json",
+		"@context":"http://iiif.io/api/presentation/1/context.json",
 		"@id": manifest_uri,
 		"@type":"sc:Manifest",
 		"label":manifestLabel,
