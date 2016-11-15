@@ -40,7 +40,7 @@ IIIF = {
     "thumbnailSuffix":	"/full/,150/0/native.jpg",
     "manifestUriTmpl":  HTTP_PROTOCOL + "://%s/manifests/",
     "profileLevel":     "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1",
-    "context": 		"http://library.stanford.edu/iiif/image-api/1.1/context.json",	
+    "context": 		"http://iiif.io/api/image/1/context.json",	
     "logo":		HTTP_PROTOCOL + "://%s/static/manifests/harvard_logo.jpg",
     "license":		"http://nrs.harvard.edu/urn-3:hul.ois:hlviewerterms"
 }
