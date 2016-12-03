@@ -135,7 +135,7 @@ $(function() {
          "attributes": { "class": "links", "href": "#no-op"}},
 	{"label": "Help",
          "iconClass": "fa fa-question-circle",
-         "attributes": { "class": "help", "href": "http://nrs.harvard.edu/urn-3:hul.ois:hlviewerhelp"}}
+         "attributes": { "class": "help", "href": "#no-op"}}
       ],
     	"userLogo": {
         "label": "Harvard Library",
@@ -241,6 +241,11 @@ $(function() {
       }
     }
   };
+
+  var display_help = function(e) {
+    window.open("http://nrs.harvard.edu/urn-3:hul.ois:hlviewerhelp","mirador_help");
+  };
+
   var operations = {
     "view-in-pds": function (drs_id, n, slot_idx) {
       //window.open(l.PDS_VIEW_URL + drs_id + "?n=" + n + "&oldpds");
@@ -638,7 +643,7 @@ $(function() {
 
 
   $(document).on('click', "a.cite, a.view-in-pds, a.search, a.print, a.viewtext, a.links", present_choices);
-
+  $(document).on('click', "a.help", display_help);
   $(document).on('contextmenu', 'canvas', saveImage);
   $(document).on('click', '.mirador-icon-save-image', saveImage);
 
