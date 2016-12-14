@@ -516,23 +516,22 @@ $(function() {
       }
       else {
         $dialog = $('<div id="viewtext-modal" style="display:none" />');
-        $.get( '/proxy/get/' + drs_id + '?n=' + n, function(xml){
-          var json = $.xml2json(xml);
-          if (json.text) {
-            $dialog.html(t['viewtext-tmpl']({op: "viewtext", text: json.text}));
-            $dialog.appendTo('body');
-            $dialog
-                .dialog($.extend({title: 'View Text'}, dialogBaseOpts))
-                .dialog('open');
-          }
-          else {// throw up error window
-            $dialog.html(t['viewtext-tmpl']({ op: "viewtext", text: "No text is available for this page." }));
-            $dialog.appendTo('body');
-            $dialog
-               .dialog($.extend({title: 'Text Unavailable'}, dialogBaseOpts))
-               .dialog('open');
-          }
-        }); //TODO: Else graceful error display
+ 	var json = null;
+	$.getJSON( '/proxy/get/' + drs_id + '?callback=?', {'n':n})	
+	  .done( function(json) {
+	    if ( json.page.text.length > 0 ) {
+	      $dialog.html(t['viewtext-tmpl']({op: "viewtext", text: json.page.text}));
+	      $dialog.appendTo('body');
+	      $dialog
+		.dialog($.extend({title: 'View Text'}, dialogBaseOpts))
+		.dialog('open');
+	    } else //no text {
+	      dialog.html(t['viewtext-tmpl']({ op: "viewtext", text: "No text is available for this page." }));
+	      $dialog.appendTo('body');
+	        .dialog($.extend({title: 'Text Unavailable'}, dialogBaseOpts))
+	        .dialog('open');
+	    }
+        });
       }
     }
 
