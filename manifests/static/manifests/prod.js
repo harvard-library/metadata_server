@@ -519,7 +519,7 @@ $(function() {
  	var json = null;
 	$.getJSON( '/proxy/get/' + drs_id + '?callback=?', {'n':n})	
 	  .done( function(json) {
-	    if ( json.page.text.length > 0 ) {
+	    if ( json.page.text ) {
 	      $dialog.html(t['viewtext-tmpl']({op: "viewtext", text: json.page.text}));
 	      $dialog.appendTo('body');
 	      $dialog
