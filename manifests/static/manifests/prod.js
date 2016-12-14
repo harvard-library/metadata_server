@@ -527,7 +527,7 @@ $(function() {
 		.dialog('open');
 	    } else //no text {
 	      dialog.html(t['viewtext-tmpl']({ op: "viewtext", text: "No text is available for this page." }));
-	      $dialog.appendTo('body');
+	      $dialog.appendTo('body')
 	        .dialog($.extend({title: 'Text Unavailable'}, dialogBaseOpts))
 	        .dialog('open');
 	    }
