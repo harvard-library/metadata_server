@@ -15,7 +15,7 @@ serviceContext = settings.IIIF['context']
 license = settings.IIIF['license']
 
 def main(data, document_id, source, host):
-	manifestUriBase = settings.IIIF.manifestUriTmpl % host
+	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
 
 	huam_json = json.loads(data)
 	attribution = huam_json["creditline"]
