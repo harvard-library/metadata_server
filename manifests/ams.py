@@ -17,12 +17,18 @@ def getAccessFlag(drsId):
     if req.status_code != 200: #obj call failed, try file access flag
         req = requests.get(oliviaServletURL2)
     regex = re.compile('Restrict Flag: ([A-Z])')
+    regex2 = re.compile('Is Drs2: \b(true|false)\b')
     match = regex.search(req.text)
+    match2 = regex2.search(req.text) 
     flag = None
+    drs2 = None
+
+    if match2:
+	drs2 = match2.group(1)
     if match:
         flag = match.group(1)
     if flag:
-        return flag
+        return [flag, drs2]
     else:
         return ''
 
@@ -34,9 +40,9 @@ def checkCookie(cookies, drsId):
 
 def getAMSredirectUrl(cookies, drsId):
     flag = getAccessFlag(drsId)
-    if flag == 'R':
-        return checkCookie(cookies, drsId)
-    elif flag == 'N':
-	return 'N'
+    if flag[1] == 'R':
+        return ['R', checkCookie(cookies, drsId)]
+    elif flag[1] == 'N':
+	return ['N', None]
     else:
-    	return None
+    	return ['OK', flag[2]]
