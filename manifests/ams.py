@@ -40,9 +40,9 @@ def checkCookie(cookies, drsId):
 
 def getAMSredirectUrl(cookies, drsId):
     flag = getAccessFlag(drsId)
-    if flag[1] == 'R':
+    if flag[0] == 'R':
         return ['R', checkCookie(cookies, drsId)]
-    elif flag[1] == 'N':
+    elif flag[0] == 'N':
 	return ['N', None]
     else:
-    	return ['OK', flag[2]]
+    	return ['OK', flag[1]]
