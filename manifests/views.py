@@ -100,12 +100,12 @@ def view(request, view_type, document_id):
         # TODO:  move this check into get_manifest() for hollis
         if 'drs' == parts["source"]:
             ams_redirect = ams.getAMSredirectUrl(request.COOKIES, parts["id"])
-	    if ams_redirect[1] == 'N':
+	    if ams_redirect[0] == 'N':
                 return HttpResponse("The object you have requested is not intended for delivery", status=403) # 403 HttpResponse object
-            elif ams_redirect[1] == 'R':
-                return HttpResponseRedirect(ams_redirect[2])
-	    elif ams_redirect[1] == 'OK':
-		return ams_redirect[2]
+            elif ams_redirect[0] == 'R':
+                return HttpResponseRedirect(ams_redirect[1])
+	    elif ams_redirect[0] == 'OK':
+		return ams_redirect[1]
 
         if parts['source'] == 'ext':
             success = True
