@@ -105,7 +105,7 @@ def view(request, view_type, document_id):
             elif ams_redirect[0] == 'R':
                 return HttpResponseRedirect(ams_redirect[1])
 	    elif ams_redirect[0] == 'OK':
-		return HttpResponse("This is a %s object." % ams_redirect[1], status=200 )
+		return HttpResponse("Is this a drs2 object: %s" % ams_redirect[1], status=200 )
 
         if parts['source'] == 'ext':
             success = True
