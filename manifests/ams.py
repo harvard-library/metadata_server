@@ -17,7 +17,7 @@ def getAccessFlag(drsId):
     if req.status_code != 200: #obj call failed, try file access flag
         req = requests.get(oliviaServletURL2)
     regex = re.compile('Restrict Flag: ([A-Z])')
-    regex2 = re.compile('Is Drs2: \b(true|false)\b')
+    regex2 = re.compile('Is Drs2: (true|false)')
     match = regex.search(req.text)
     match2 = regex2.search(req.text) 
     flag = None
