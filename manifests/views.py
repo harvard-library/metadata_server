@@ -287,7 +287,7 @@ def clean_url(request, view_type):
 ## HELPER FUNCTIONS ##
 # Gets METS XML from DRS
 def get_mets(document_id, source, cookie=None):
-    if (isDrs2): #try solr fetch
+    if (True): #try solr fetch
 	logger.debug("Using solr to access drs2 id %s" % document_id)
 	mets_url = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_OBJ_QUERY
 	try:
