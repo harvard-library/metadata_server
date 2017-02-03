@@ -35,7 +35,7 @@ IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext":"ext"}
 
-isDrs2 = false;
+isDrs2 = False;
 
 def index(request, source=None):
     request_ip = request.META['REMOTE_ADDR']
