@@ -394,7 +394,7 @@ def get_manifest(document_id, source, force_refresh, host, cookie=None, isDrs2=F
             json_doc = json.loads(converted_json)
             if 'pds' in json_doc:
                 id = json_doc['pds']
-                return get_manifest(id, 'drs', False, host, cookie)
+                return get_manifest(id, 'drs', False, host, cookie, isDrs2)
         elif data_type == "mets":
             converted_json = mets.main(response, document_id, source, host, cookie)
         elif data_type == "huam":
