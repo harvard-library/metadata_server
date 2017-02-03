@@ -35,7 +35,6 @@ IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext":"ext"}
 
-isDrs2 = False;
 
 def index(request, source=None):
     request_ip = request.META['REMOTE_ADDR']
@@ -61,6 +60,7 @@ def view(request, view_type, document_id):
                     "s": "ScrollView",
                     "b": "BookView",
                     None: "ImageView"}
+    isDrs2 = False
 
     # Parse ID from URL
     def parse_id(raw):
@@ -118,7 +118,7 @@ def view(request, view_type, document_id):
             real_source = parts["source"]
         else:
             #print source, id
-            (success, response, real_id, real_source) = get_manifest(parts["id"], parts["source"], False, host, ams_cookie)
+            (success, response, real_id, real_source) = get_manifest(parts["id"], parts["source"], False, host, ams_cookie, isDrs2)
 
         if success:
             if parts['source'] == 'ext':
@@ -286,8 +286,8 @@ def clean_url(request, view_type):
 
 ## HELPER FUNCTIONS ##
 # Gets METS XML from DRS
-def get_mets(document_id, source, cookie=None):
-    if (True): #try solr fetch
+def get_mets(document_id, source, cookie=None, isDrs2=False):
+    if (isDrs2): #try solr fetch
 	logger.debug("Using solr to access drs2 id %s" % document_id)
 	mets_url = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_OBJ_QUERY
 	try:
@@ -363,7 +363,7 @@ def add_headers(response, request):
     return response
 
 # Uses other helper methods to create JSON
-def get_manifest(document_id, source, force_refresh, host, cookie=None):
+def get_manifest(document_id, source, force_refresh, host, cookie=None, isDrs2=False):
     # Check if manifest exists
     has_manifest = models.manifest_exists(document_id, source)
 
@@ -376,7 +376,7 @@ def get_manifest(document_id, source, force_refresh, host, cookie=None):
             ## TODO: check image types??
             (success, response) = get_mods(document_id, source, cookie)
         elif data_type == "mets":
-            (success, response) = get_mets(document_id, source, cookie)
+            (success, response) = get_mets(document_id, source, cookie, isDrs2)
         elif data_type == "huam":
             (success, response) = get_huam(document_id, source)
         else:
