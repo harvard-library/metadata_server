@@ -186,6 +186,8 @@ def demo(request):
 def manifest(request, document_id):
     parts = document_id.split(":")
     host = IIIF_MANIFEST_HOST
+    isDrs2 = False
+
     if host == None:
       host = request.META['HTTP_HOST']
     cookie = request.COOKIES.get('hulaccess', None)
@@ -193,7 +195,18 @@ def manifest(request, document_id):
         return HttpResponse("Invalid document ID. Format: [data source]:[ID]", status=404)
     source = parts[0]
     id = parts[1]
-    (success, response_doc, real_id, real_source) = get_manifest(id, source, False, host, cookie)
+
+    #check ams
+    ams_redirect = ams.getAMSredirectUrl(request.COOKIES, id)
+    if ams_redirect[0] == 'N':
+        return HttpResponse("The object you have requested is not intended for delivery", status=403) # 403 HttpResponse object
+    elif ams_redirect[0] == 'R':
+        return HttpResponseRedirect(ams_redirect[1])
+    elif ams_redirect[0] == 'OK':
+        if ams_redirect[1] == 'Y':
+            isDrs2 = True
+
+    (success, response_doc, real_id, real_source) = get_manifest(id, source, False, host, cookie, isDrs2)
     if success:
         response = HttpResponse(response_doc)
         add_headers(response, request)
