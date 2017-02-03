@@ -35,6 +35,8 @@ IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext":"ext"}
 
+isDrs2 = false;
+
 def index(request, source=None):
     request_ip = request.META['REMOTE_ADDR']
     if not all_matching_cidrs(request_ip, IIIF_MGMT_ACL):
@@ -105,7 +107,9 @@ def view(request, view_type, document_id):
             elif ams_redirect[0] == 'R':
                 return HttpResponseRedirect(ams_redirect[1])
 	    elif ams_redirect[0] == 'OK':
-		return HttpResponse("Is this a drs2 object: %s" % ams_redirect[1], status=200 )
+		if ams_redirect[1] == 'Y':
+			isDrs2 = true
+		#return HttpResponse("Is this a drs2 object: %s" % ams_redirect[1], status=200 )
 
         if parts['source'] == 'ext':
             success = True
@@ -283,18 +287,28 @@ def clean_url(request, view_type):
 ## HELPER FUNCTIONS ##
 # Gets METS XML from DRS
 def get_mets(document_id, source, cookie=None):
-    mets_url = METS_DRS_URL+document_id
-    try:
-        #response = urllib2.urlopen(mets_url)
-        response = webclient.get(mets_url, cookie)
-    except urllib2.HTTPError, err:
-        if err.code == 500 or err.code == 404:
-            # document does not exist in DRS, might need to add more error codes
-            # TODO: FDS often seems to fail on its first request...maybe try again?
-	    logger.debug("Failed mets request %s" % mets_url)
-            return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
+    if (isDrs2): #try solr fetch
+	mets_url = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_OBJ_QUERY
+	try:
+	    response = webclient.get(mets_url, cookie)
+	except urllib2.HTTPError, err:
+	    logger.debug("Failed solr request %s" % mets_url)
+	    return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
+	mets_json = json.load(response.read())
+	response_doc = unicode( settings.METS_HEADER + mets_json['response']['docs'][0]['object_structmap_raw'] + settings.METS_FOOTER, encoding="utf-8")
+    else: #drs1 /use fds
+    	mets_url = METS_DRS_URL+document_id
+    	try:
+            #response = urllib2.urlopen(mets_url)
+            response = webclient.get(mets_url, cookie)
+    	except urllib2.HTTPError, err:
+       	    if err.code == 500 or err.code == 404:
+                # document does not exist in DRS, might need to add more error codes
+                # TODO: FDS often seems to fail on its first request...maybe try again?
+	        logger.debug("Failed mets request %s" % mets_url)
+                return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 
-    response_doc = unicode(response.read(), encoding="utf-8")
+    	response_doc = unicode(response.read(), encoding="utf-8")
     return (True, response_doc)
 
 # Gets MODS XML from Presto API
