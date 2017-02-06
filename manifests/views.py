@@ -303,12 +303,13 @@ def get_mets(document_id, source, cookie=None, isDrs2=False):
     if (isDrs2): #try solr fetch
 	logger.debug("Using solr to access drs2 id %s" % document_id)
 	mets_url = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_OBJ_QUERY
+	header = {'x-requested-with': 'XMLHttpRequest'}
 	try:
 	    response = webclient.get(mets_url, cookie)
 	except urllib2.HTTPError, err:
 	    logger.debug("Failed solr request %s" % mets_url)
 	    return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
-	mets_json = json.load(response.read())
+	mets_json = json.loads(response)
 	response_doc = unicode( settings.METS_HEADER + mets_json['response']['docs'][0]['object_structmap_raw'] + settings.METS_FOOTER, encoding="utf-8")
 	logger.debug("Drs2 solr access for document id %s successful... " % document_id)
 	logger.debug("structmap is %s" % response_doc)
