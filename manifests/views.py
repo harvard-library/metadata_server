@@ -316,6 +316,7 @@ def get_mets(document_id, source, cookie=None, isDrs2=False):
     	mets_url = METS_DRS_URL+document_id
     	try:
             #response = urllib2.urlopen(mets_url)
+	    logger.debug("Using fds to access drs1 id %s" % document_id)
             response = webclient.get(mets_url, cookie)
     	except urllib2.HTTPError, err:
        	    if err.code == 500 or err.code == 404:
