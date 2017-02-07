@@ -389,6 +389,27 @@ def main(data, document_id, source, host, cookie=None):
 	for img in images:
 		imageHash[img.xpath('./@ID', namespaces=XMLNS)[0]] = {"img": img.xpath('./mets:FLocat/@xlink:href', namespaces = XMLNS)[0], "mime": img.attrib['MIMETYPE']}
 
+	#check solr if this is a drs2 request, make call for image md from there if above fails
+	if ( (len(drs2ImageWidths) == 0) and (len(drs2ImageHeights) == 0) and (isDrs1 == False) ):
+        	metadata_url = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_FILE_QUERY
+        	try:
+            		response = webclient.get(metadata_url, cookie)
+        	except urllib2.HTTPError, err:
+            		logger.debug("Failed solr file metadata request %s" % metadata_url)
+            		return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
+        	md_json = json.loads(response.read())
+		mdcount = 0;
+		for md in md_json['response']['docs']:
+			if md['file_mix_imageWidth_num'] != None:
+				#filepath = md['file_path_raw']
+				#file_id = md['file_id_num']
+				access_flag = md['object_huldrsadmin_accessFlag_string']
+				drs2ImageWidths[mdcount] = md['file_mix_imageWidth_num']
+				drs2ImageHeights[mdcount] = md['file_mix_imageHeight_num']
+				mdcount = mdcount + 1
+			
+
+
 	rangeList = []
 	rangeInfo = []
 	for st in struct:
