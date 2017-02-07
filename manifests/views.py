@@ -310,7 +310,8 @@ def get_mets(document_id, source, cookie=None, isDrs2=False):
 	    logger.debug("Failed solr request %s" % mets_url)
 	    return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
 	mets_json = json.loads(response.read())
-	response_doc = settings.METS_HEADER + mets_json['response']['docs'][0]['object_structmap_raw'] + settings.METS_FOOTER
+	response_doc = settings.METS_HEADER + mets_json['response']['docs'][0]['object_file_sec_raw'] + \
+		mets_json['response']['docs'][0]['object_structmap_raw'] + settings.METS_FOOTER
 	logger.debug("Drs2 solr access for document id %s successful... " % document_id)
     else: #drs1 /use fds
     	mets_url = METS_DRS_URL+document_id
