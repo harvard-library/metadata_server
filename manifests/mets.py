@@ -285,6 +285,11 @@ def main(data, document_id, source, host, cookie=None):
 	global manifestUriBase
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
 
+	global drs2ImageWidths
+	drs2ImageWidths = {}
+	global drs2ImageHeights
+	drs2ImageHeights = {}
+
 	logo = settings.IIIF['logo'] % host
 
 	#logger.debug("LOADING object " + str(document_id) + " into the DOM tree" )
