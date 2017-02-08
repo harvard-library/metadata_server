@@ -410,7 +410,7 @@ def main(data, document_id, source, host, cookie=None):
 				#file_id = md['file_id_num']
 				access_flag = md['object_huldrsadmin_accessFlag_string']
 				drs2ImageWidths.append(md['file_mix_imageWidth_num'])
-				drs2ImageHeights=append(md['file_mix_imageHeight_num'])
+				drs2ImageHeights.append(md['file_mix_imageHeight_num'])
 				mdcount = mdcount + 1
 			
 
