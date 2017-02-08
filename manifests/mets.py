@@ -405,7 +405,7 @@ def main(data, document_id, source, host, cookie=None):
         	md_json = json.loads(response.read())
 		mdcount = 0;
 		for md in md_json['response']['docs']:
-			if md['file_mix_imageWidth_num'] != None:
+			if 'file_mix_imageWidth_num' in md:
 				#filepath = md['file_path_raw']
 				#file_id = md['file_id_num']
 				access_flag = md['object_huldrsadmin_accessFlag_string']
