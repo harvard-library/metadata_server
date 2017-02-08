@@ -286,9 +286,9 @@ def main(data, document_id, source, host, cookie=None):
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
 
 	global drs2ImageWidths
-	drs2ImageWidths = {}
+	drs2ImageWidths = []
 	global drs2ImageHeights
-	drs2ImageHeights = {}
+	drs2ImageHeights = []
 
 	logo = settings.IIIF['logo'] % host
 
