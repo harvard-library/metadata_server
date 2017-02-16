@@ -292,6 +292,13 @@ def main(data, document_id, source, host, cookie=None):
 
 	logo = settings.IIIF['logo'] % host
 
+	drs2json = None
+	if 'response' in data:
+		drs2json = data['response']['docs'][0]
+		data = settings.METS_HEADER + drs2json['object_file_sec_raw'] + \
+                   drs2json['object_structmap_raw'] + settings.METS_FOOTER
+
+
 	#logger.debug("LOADING object " + str(document_id) + " into the DOM tree" )
 	data = re.sub('(?i)encoding=[\'\"]utf\-8[\'\"]','', data)
 	utf8_parser = etree.XMLParser(encoding='utf-8')
@@ -317,6 +324,10 @@ def main(data, document_id, source, host, cookie=None):
 			manifestLabel = mods_title_candidates[0].text
 		else:
 			manifestLabel = 'No Label'
+
+	if drs2json != None:
+		if ('object_mods_title_text' in drs2json and len(drs2json['object_mods_title_text']) > 0):
+			manifestLabel = drs2json['object_mods_title_text'][0]
 
 	#logger.debug("dom check: manifest types check..." )
 	manifestType = dom.xpath('/mets:mets/@TYPE', namespaces=XMLNS)[0]
