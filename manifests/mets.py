@@ -353,7 +353,7 @@ def main(data, document_id, source, host, cookie=None):
 
 		#assemble manifestLabel according to drs2 mods format
 		if modsTitle != None:
-			if !(modsTitle.endswith('.')):
+			if (modsTitle.endswith('.') is False):
 				modsTitle = modsTitle + "."
 			manifestLabel = modsTitle
 			if modsName != None:
