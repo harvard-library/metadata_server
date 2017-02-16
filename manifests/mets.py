@@ -375,7 +375,7 @@ def main(data, document_id, source, host, cookie=None):
 					manifestLabel = manifestLabel + ", " + modsDate
 				else:
 					manifestLabel = manifestLabel + " " + modsDate
-			if !(manifestLabel.endswith('.')):
+			if (manifestLabel.endswith('.') is False):
 				manifestLabel = manifestLabel + "."
 
 	
