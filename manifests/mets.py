@@ -326,6 +326,9 @@ def main(data, document_id, source, host, cookie=None):
 			manifestLabel = 'No Label'
 
 	if drs2json != None:
+		modsName = None
+		if ('object_mods_name_text' in drs2json and len(drs2json['object_mods_name_text']) > 0):
+			modsName = drs2json['object_mods_name_text'][0]
 		modsPlace = None
 		if ('object_mods_placeTerm_text' in drs2json and len(drs2json['object_mods_placeTerm_text']) > 1):
 			modsPlace = drs2json['object_mods_placeTerm_text'][1]
