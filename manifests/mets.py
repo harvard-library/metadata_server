@@ -327,7 +327,7 @@ def main(data, document_id, source, host, cookie=None):
 
 	if drs2json != None:
 		if ('object_mods_title_text' in drs2json and len(drs2json['object_mods_title_text']) > 0):
-			manifestLabel = drs2json['object_mods_title_text'][1]
+			manifestLabel = drs2json['object_mods_title_text'][0]
 
 	#logger.debug("dom check: manifest types check..." )
 	manifestType = dom.xpath('/mets:mets/@TYPE', namespaces=XMLNS)[0]
