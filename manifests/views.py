@@ -249,7 +249,17 @@ def refresh(request, document_id):
         return HttpResponse("Invalid document ID. Format: [data source]:[ID]", status=404)
     source = parts[0]
     id = parts[1]
-    (success, response_doc, real_id, real_source) = get_manifest(id, source, True, host, cookie)
+
+    # drs: check AMS to see if this is a restricted obj
+    if 'drs' == source:
+        access_flag = ams.getAccessFlag(id)
+        if access_flag[0] == 'N':
+            return HttpResponse("The object you have requested is not intended for delivery", status=403) # 403 HttpResponse object
+        elif access_flag[0] == 'R' or access_flag[0] == 'P':
+            if access_flag[1] == 'Y':
+                isDrs2 = True
+
+    (success, response_doc, real_id, real_source) = get_manifest(id, source, True, host, cookie, isDrs2)
 
     if success:
         response = HttpResponse(response_doc)
@@ -301,7 +311,6 @@ def clean_url(request, view_type):
 # Gets METS XML from DRS
 def get_mets(document_id, source, cookie=None, isDrs2=False):
     if (isDrs2): #try solr fetch
-	logger.debug("Using solr to access drs2 id %s" % document_id)
 	mets_url = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_OBJ_QUERY
 	header = {'x-requested-with': 'XMLHttpRequest'}
 	try:
@@ -313,7 +322,6 @@ def get_mets(document_id, source, cookie=None, isDrs2=False):
 	#response_doc = settings.METS_HEADER + mets_json['response']['docs'][0]['object_file_sec_raw'] + \
 	#	mets_json['response']['docs'][0]['object_structmap_raw'] + settings.METS_FOOTER
 	response_doc = mets_json
-	logger.debug("Drs2 solr access for document id %s successful... " % document_id)
     else: #drs1 /use fds
     	mets_url = METS_DRS_URL+document_id
     	try:
