@@ -326,6 +326,12 @@ def main(data, document_id, source, host, cookie=None):
 			manifestLabel = 'No Label'
 
 	if drs2json != None:
+		metsLabel = None
+		if ('object_mets_label_text' in drs2json):
+			metsLabel = drs2json['object_mets_label_text']
+		if metsLabel != None:
+			manifestLabel = metsLabel
+
 		modsName = None
 		if ('object_mods_name_text' in drs2json and len(drs2json['object_mods_name_text']) > 0):
 			modsName = drs2json['object_mods_name_text'][0]
