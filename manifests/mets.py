@@ -353,18 +353,18 @@ def main(data, document_id, source, host, cookie=None):
 
 		#assemble manifestLabel according to drs2 mods format
 		if modsTitle != None:
-			if !modsTitle.endswith("."):
+			if !(modsTitle.endswith('.')):
 				modsTitle = modsTitle + "."
 			manifestLabel = modsTitle
 			if modsName != None:
-				if modsName.endswith("."):
+				if modsName.endswith('.'):
 					manifestLabel = modsName + " " + manifestLabel
 				else:
 					manifestLabel = modsName + ". " + manifestLabel
 			if modsPlace != None:
 				manifestLabel = manifestLabel + " " + modsPlace
 			if modsPublisher != None:
-				if modsPublisher.endswith("."): 
+				if modsPublisher.endswith('.'): 
 					modsPublisher = modsPublisher[:-1]
 				if modsPlace != None:
 					manifestLabel = manifestLabel + ": " + modsPublisher
@@ -375,7 +375,7 @@ def main(data, document_id, source, host, cookie=None):
 					manifestLabel = manifestLabel + ", " + modsDate
 				else:
 					manifestLabel = manifestLabel + " " + modsDate
-			if !manifestLabel.endswith("."):
+			if !(manifestLabel.endswith('.')):
 				manifestLabel = manifestLabel + "."
 
 	
