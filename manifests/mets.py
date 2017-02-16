@@ -326,9 +326,59 @@ def main(data, document_id, source, host, cookie=None):
 			manifestLabel = 'No Label'
 
 	if drs2json != None:
+		modsPlace = None
+		if ('object_mods_placeTerm_text' in drs2json and len(drs2json['object_mods_placeTerm_text']) > 1):
+			modsPlace = drs2json['object_mods_placeTerm_text'][1]
+		modsOrigin = None
+		if ('object_mods_origin_text' in drs2json and len(drs2json['object_mods_origin_text']) > 0):
+			modsOrigin = drs2json['object_mods_origin_text'][0]
+		modsDate = None
+		modsDateIssued = None
+		if ('object_mods_dateIssued_date' in drs2json and len(drs2json['object_mods_dateIssued_date']) > 0):
+			modsDateIssued = drs2json['object_mods_dateIssued_date'][0]
+		modsPublisher = None
+		if ('object_mods_publisher_text' in drs2json and len(drs2json['object_mods_publisher_text']) > 0):
+			modsPublisher = drs2json['object_mods_publisher_text'][0]
+		modsDateCreated = None
+		if ('object_mods_dateCreated_date' in drs2json and len(drs2json['object_mods_dateCreated_date']) > 0):
+			modsDateCreated = drs2json['object_mods_dateCreated_date'][0]
+		modsTitle = None
 		if ('object_mods_title_text' in drs2json and len(drs2json['object_mods_title_text']) > 0):
-			manifestLabel = drs2json['object_mods_title_text'][0]
+			modsTitle = drs2json['object_mods_title_text'][0]
+		
+		if modsDateIssued != None:
+			modsDate = modsDateIssued
+		if modsDateCreated != None:
+			modsDate = modsDateCreated
 
+		#assemble manifestLabel according to drs2 mods format
+		if modsTitle != None:
+			if !modsTitle.endswith("."):
+				modsTitle = modsTitle + "."
+			manifestLabel = modsTitle
+			if modsName != None:
+				if modsName.endswith("."):
+					manifestLabel = modsName + " " + manifestLabel
+				else:
+					manifestLabel = modsName + ". " + manifestLabel
+			if modsPlace != None:
+				manifestLabel = manifestLabel + " " + modsPlace
+			if modsPublisher != None:
+				if modsPublisher.endswith("."): 
+					modsPublisher = modsPublisher[:-1]
+				if modsPlace != None:
+					manifestLabel = manifestLabel + ": " + modsPublisher
+				else:
+					manifestLabel = manifestLabel + " " + modsPublisher
+			if modsDate != None:
+				if ( (modsPublisher != None) and (modsPlace != None) ):
+					manifestLabel = manifestLabel + ", " + modsDate
+				else:
+					manifestLabel = manifestLabel + " " + modsDate
+			if !manifestLabel.endswith("."):
+				manifestLabel = manifestLabel + "."
+
+	
 	#logger.debug("dom check: manifest types check..." )
 	manifestType = dom.xpath('/mets:mets/@TYPE', namespaces=XMLNS)[0]
 	#logger.debug("dom check: manifest type found" )
