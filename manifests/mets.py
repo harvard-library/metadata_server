@@ -360,6 +360,7 @@ def main(data, document_id, source, host, cookie=None):
 		if modsDateCreated != None:
 			modsDate = modsDateCreated
 
+		logger.debug("mods: " + modsName + " " + modsTitle + " " + modsPlace + " " + modsOrigin + " " + modsDate + " " + modsPublisher)
 		#assemble manifestLabel according to drs2 mods format
 		if modsTitle != None:
 			if (modsTitle.endswith('.') is False):
