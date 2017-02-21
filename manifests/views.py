@@ -242,6 +242,7 @@ def refresh(request, document_id):
         return HttpResponse("Access Denied.", status=403)
     parts = document_id.split(":")
     host = IIIF_MANIFEST_HOST
+    isDrs2 = False
     if host == None:
       host = request.META['HTTP_HOST']
     cookie = request.COOKIES.get('hulaccess', None)
