@@ -4,6 +4,8 @@ import urllib2, requests
 import re
 from os import environ
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
+from logging import getLogger
+logger = getLogger(__name__)
 
 oliviaServletBase = environ.get("OLIVIA_SERVLET_BASE", "http://olivia.lib.harvard.edu:9016/olivia/servlet/OliviaServlet?storedProcedure=getRestrictFlagForObject&callingApplication=call1&oliviaUserName=iiif&oracleID=")
 oliviaServletBase2 = environ.get("OLIVIA_SERVLET_BASE2","http://olivia.lib.harvard.edu:9016/olivia/servlet/OliviaServlet?storedProcedure=getRestrictFlag&callingApplication=call1&oliviaUserName=iiif&oracleID=");
@@ -28,21 +30,27 @@ def getAccessFlag(drsId):
     if match:
         flag = match.group(1)
     if flag:
+	logger.debug("getaccessflag for id " + drsId + ": " + flag + ", " + drs2)
         return [flag, drs2]
     else:
         return ''
 
 def checkCookie(cookies, drsId):
     if 'hulaccess' in cookies:
+	logger.debug("checkcookie for id " + drsId + " is None")
         return None
     else:  #redirect to AMS
+	logger.debug("checkcookie for id " + drsId + " is " + amsRedirectBase + drsId)
         return amsRedirectBase + drsId
 
 def getAMSredirectUrl(cookies, drsId):
     flag = getAccessFlag(drsId)
     if flag[0] == 'R':
+	logger.debug("getAMSredirectUrl for id " + drsId + ": " + "R, " + checkCookie(cookies, drsId) )
         return ['R', checkCookie(cookies, drsId)]
     elif flag[0] == 'N':
+	logger.debug("getAMSredirectUrl for id " + drsId + ": N, None")
 	return ['N', None]
     else:
+	logger.debug("getAMSredirectUrl for id " + drsId + ": " + "OK, " + flag[1] )
     	return ['OK', flag[1]]
