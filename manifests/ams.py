@@ -30,27 +30,27 @@ def getAccessFlag(drsId):
     if match:
         flag = match.group(1)
     if flag:
-	logger.debug("getaccessflag for id " + string(drsId) + ": " + string(flag) + ", " + string(drs2) )
+	logger.debug("getaccessflag for id " + str(drsId) + ": " + str(flag) + ", " + str(drs2) )
         return [flag, drs2]
     else:
         return ''
 
 def checkCookie(cookies, drsId):
     if 'hulaccess' in cookies:
-	logger.debug("checkcookie for id " + string(drsId) + " is None")
+	logger.debug("checkcookie for id " + str(drsId) + " is None")
         return None
     else:  #redirect to AMS
-	logger.debug("checkcookie for id " + string(drsId) + " is " + amsRedirectBase + string(drsId) )
+	logger.debug("checkcookie for id " + str(drsId) + " is " + amsRedirectBase + str(drsId) )
         return amsRedirectBase + drsId
 
 def getAMSredirectUrl(cookies, drsId):
     flag = getAccessFlag(drsId)
     if flag[0] == 'R':
-	logger.debug("getAMSredirectUrl for id " + string(drsId) + ": " + "R, " + string(checkCookie(cookies, drsId)) )
+	logger.debug("getAMSredirectUrl for id " + str(drsId) + ": " + "R, " + str(checkCookie(cookies, drsId)) )
         return ['R', checkCookie(cookies, drsId)]
     elif flag[0] == 'N':
-	logger.debug("getAMSredirectUrl for id " + string(drsId) + ": N, None")
+	logger.debug("getAMSredirectUrl for id " + str(drsId) + ": N, None")
 	return ['N', None]
     else:
-	logger.debug("getAMSredirectUrl for id " + string(drsId) + ": " + "OK, " + string(flag[1]) )
+	logger.debug("getAMSredirectUrl for id " + str(drsId) + ": " + "OK, " + str(flag[1]) )
     	return ['OK', flag[1]]
