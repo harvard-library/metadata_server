@@ -45,7 +45,7 @@ def getAMSredirectUrl(cookies, drsId):
     flag = getAccessFlag(drsId)
     if flag[0] == 'R':
 	logger.debug("getAMSredirectUrl for id " + str(drsId) + ": " + "R, " + str(checkCookie(cookies, drsId)) )
-        return ['R', checkCookie(cookies, drsId)]
+        return ['R', flag[1], checkCookie(cookies, drsId)]
     elif flag[0] == 'N':
 	logger.debug("getAMSredirectUrl for id " + str(drsId) + ": N, None")
 	return ['N', None]
