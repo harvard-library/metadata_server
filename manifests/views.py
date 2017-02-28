@@ -105,8 +105,10 @@ def view(request, view_type, document_id):
 	    if ams_redirect[0] == 'N':
                 return HttpResponse("The object you have requested is not intended for delivery", status=403) # 403 HttpResponse object
             elif ams_redirect[0] == 'R':
-		if ams_redirect[1] != None:
-                    return HttpResponseRedirect(ams_redirect[1])
+		if ams_redirect[1] == 'Y':
+		    isDrs2 = True
+		if ams_redirect[2] != None:
+                    return HttpResponseRedirect(ams_redirect[2])
 	    elif ams_redirect[0] == 'OK':
 		if ams_redirect[1] == 'Y':
 		    isDrs2 = True
@@ -202,8 +204,10 @@ def manifest(request, document_id):
     if ams_redirect[0] == 'N':
         return HttpResponse("The object you have requested is not intended for delivery", status=403) # 403 HttpResponse object
     elif ams_redirect[0] == 'R':
-	if ams_redirect[1] != None:
-            return HttpResponseRedirect(ams_redirect[1])
+	if ams_redirect[1] == 'Y':
+	    isDrs2 = True
+	if ams_redirect[2] != None:
+            return HttpResponseRedirect(ams_redirect[2])
     elif ams_redirect[0] == 'OK':
         if ams_redirect[1] == 'Y':
             isDrs2 = True
