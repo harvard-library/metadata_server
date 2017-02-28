@@ -37,10 +37,8 @@ def getAccessFlag(drsId):
 
 def checkCookie(cookies, drsId):
     if 'hulaccess' in cookies:
-	logger.debug("checkcookie for id " + str(drsId) + " is None")
         return None
     else:  #redirect to AMS
-	logger.debug("checkcookie for id " + str(drsId) + " is " + amsRedirectBase + str(drsId) )
         return amsRedirectBase + drsId
 
 def getAMSredirectUrl(cookies, drsId):
