@@ -293,8 +293,10 @@ def main(data, document_id, source, host, cookie=None):
 	logo = settings.IIIF['logo'] % host
 
 	drs2json = None
-	if 'response' in data:
-		drs2json = data['response']['docs'][0]
+	#if 'response' in data:
+	if 'object_structmap_raw' in data
+		#drs2json = data['response']['docs'][0]
+		drs2json = data
 		data = settings.METS_HEADER + drs2json['object_file_sec_raw'] + \
                    drs2json['object_structmap_raw'] + settings.METS_FOOTER
 
@@ -474,7 +476,8 @@ def main(data, document_id, source, host, cookie=None):
             		return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
         	md_json = json.loads(response.read())
 		mdcount = 0;
-		for md in md_json['response']['docs']:
+		#for md in md_json['response']['docs']:
+		for md in md_json:
 			if 'file_mix_imageWidth_num' in md:
 				#filepath = md['file_path_raw']
 				#file_id = md['file_id_num']
