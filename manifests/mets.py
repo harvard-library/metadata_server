@@ -295,7 +295,7 @@ def main(data, document_id, source, host, cookie=None):
 
 	drs2json = None
 	#if 'response' in data:
-	if 'object_structmap_raw' in data
+	if 'object_structmap_raw' in data:
 		#drs2json = data['response']['docs'][0]
 		drs2json = data
 		data = settings.METS_HEADER + drs2json['object_file_sec_raw'] + \
