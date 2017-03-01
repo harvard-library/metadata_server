@@ -41,6 +41,7 @@ attribution = "Provided by Harvard University"
 license = settings.IIIF['license']
 
 METS_API_URL = environ.get("METS_API_URL", "http://pds.lib.harvard.edu/pds/get/")
+PDS_WS_URL = environ.get("PDS_WS_URL", "http://pds.lib.harvard.edu/pds/")
 HOLLIS_API_URL = "http://webservices.lib.harvard.edu/rest/MODS/hollis/"
 HOLLIS_PUBLIC_URL = "http://id.lib.harvard.edu/aleph/{0}/catalog"
  ## Add ISO639-2B language codes here where books are printed right-to-left (not just the language is read that way)
@@ -468,7 +469,8 @@ def main(data, document_id, source, host, cookie=None):
 
 	#check solr if this is a drs2 request, make call for image md from there if above fails
 	if ( (len(drs2ImageWidths) == 0) and (len(drs2ImageHeights) == 0) and (isDrs1 == False) ):
-        	metadata_url = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_FILE_QUERY
+        	#metadata_url = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_FILE_QUERY
+		metadata_url = PDS_WS_URL + "objfile/" + document_id
         	try:
             		response = webclient.get(metadata_url, cookie)
         	except urllib2.HTTPError, err:
