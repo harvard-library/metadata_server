@@ -318,8 +318,7 @@ def clean_url(request, view_type):
 # Gets METS XML from DRS
 def get_mets(document_id, source, cookie=None, isDrs2=False):
     if (isDrs2): #try solr fetch
-	#mets_url = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_OBJ_QUERY
-	mets_url = PDS_WS_URL + "objmd/" + document_id
+	mets_url = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_OBJ_QUERY
 	header = {'x-requested-with': 'XMLHttpRequest'}
 	try:
 	    response = webclient.get(mets_url, cookie)
