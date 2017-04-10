@@ -61,7 +61,7 @@ def main(data, document_id, source, host):
 
 	# can add metadata key/value pairs
 	mfjson = {
-		"@context":"http://iiif.io/api/presentation/1/context.json",
+		"@context":"http://iiif.io/api/presentation/2/context.json",
 		"@id": manifest_uri,
 		"@type":"sc:Manifest",
 		"label":manifestLabel,

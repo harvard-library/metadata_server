@@ -499,7 +499,7 @@ def main(data, document_id, source, host, cookie=None):
 	rangeInfo = [{"Table of Contents" : rangeList}]
 
 	mfjson = {
-		"@context":"http://iiif.io/api/presentation/1/context.json",
+		"@context":"http://iiif.io/api/presentation/2/context.json",
 		"@id": manifest_uri,
 		"@type":"sc:Manifest",
 		"label":manifestLabel,
