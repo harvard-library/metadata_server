@@ -166,7 +166,7 @@ $(function() {
         var uri = mirWindow.manifest.uri,
             parts = uri.split("/"),
             last_idx = parts.length - 1,
-            drs_match = parts[last_idx].match(/drs:(\d+)(\$?)(\d+)?([a-z])?/),
+	    drs_match = parts[last_idx].match(/drs:(\d+)/),
             drs_id = drs_match && drs_match[1],
             focusType = mirWindow.currentFocus,
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
@@ -195,7 +195,7 @@ $(function() {
         var uri = mirWindow.manifest.uri,
             parts = uri.split("/"),
             last_idx = parts.length - 1,
-	    drs_match = parts[last_idx].match(/drs:(\d+)(\$?)(\d+)?([a-z])?/),
+	    drs_match = parts[last_idx].match(/drs:(\d+)/),
             drs_id = drs_match && drs_match[1],
             focusType = mirWindow.currentFocus,
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
