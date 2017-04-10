@@ -169,8 +169,10 @@ $(function() {
             drs_match = parts[last_idx].match(/drs:(\d+)(\$?)(\d+)?([a-z])?/),
             drs_id = drs_match && drs_match[1],
             focusType = mirWindow.currentFocus,
-	    n = drs_match && drs_match[3];
-            //n = mirWindow.focusModules[focusType].currentImgIndex + 1;
+	    n = drs_match[3];
+	    if (n === undefined ) {
+              n = mirWindow.focusModules[focusType].currentImgIndex + 1;
+	    }
         if (mirWindow.id === omit_id) {
           //pass
         }
@@ -200,8 +202,10 @@ $(function() {
 	    drs_match = parts[last_idx].match(/drs:(\d+)(\$?)(\d+)?([a-z])?/),
             drs_id = drs_match && drs_match[1],
             focusType = mirWindow.currentFocus,
-	    n = drs_match && drs_match[3];
-            //n = mirWindow.focusModules[focusType].currentImgIndex + 1;
+	    n = drs_match[3];
+	    if (n === undefined) {
+              n = mirWindow.focusModules[focusType].currentImgIndex + 1;
+	    }
         if (drs_match) {
           return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id,
                   "uri": mirWindow.manifest.uri, "n": n, "slotID": mirSlotID, "slot_idx": i};
