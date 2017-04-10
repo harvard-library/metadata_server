@@ -154,7 +154,7 @@ def view(request, view_type, document_id):
             # Load manifest as JSON, get sequence info, use canvasID to page into object
             mfjson = json.loads(response)["sequences"][0]["canvases"]
             try:
-                if parts["seq"] and 0 < parts["seq"] < len(mfjson):
+                if parts["seq"] and 0 < parts["seq"] <= len(mfjson):
                     mfwobject["canvasID"] = mfjson[parts["seq"] - 1]["@id"]
             except(ValueError):
                 pass
