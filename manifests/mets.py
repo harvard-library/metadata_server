@@ -363,7 +363,7 @@ def main(data, document_id, source, host, cookie=None):
 			modsDate = modsDateCreated
 
 		#assemble manifestLabel according to drs2 mods format
-		if modsTitle != None:
+		if (modsTitle != None) and (metsLabel == None):
 			if (modsTitle.endswith('.') is False):
 				modsTitle = modsTitle + "."
 			manifestLabel = modsTitle
