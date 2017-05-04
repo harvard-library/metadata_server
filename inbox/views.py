@@ -21,12 +21,12 @@ sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext
 def index(request):
   res = None
   if request.method == "OPTIONS":
-    do_options(request)
+    res = do_options(request)
   if request.method == "POST":
-    do_post(request)
+    res = do_post(request)
   if request.method == "GET":
-    do_get(request)
-
+    res = do_get(request)
+  return res
 
 def do_options(request):
   response = HttpResponse()
