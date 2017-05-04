@@ -21,12 +21,12 @@ sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext
 def index(request):
   res = None
   if request.method == "OPTIONS":
-    res = do_options(request)
+    do_options(request)
   if request.method == "POST":
-    res = do_post(request)
+    do_post(request)
   if request.method == "GET":
-    res = do_get(request)
-  return res
+    do_get(request)
+
 
 def do_options(request):
   response = HttpResponse()
@@ -41,6 +41,6 @@ def do_get(request):
   return response
 
 
-def do_post(request)
+def do_post(request):
   response = HttpResponse("stub post response", status=200)
   return response
