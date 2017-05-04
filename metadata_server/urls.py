@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     url(r'^demo$', views.demo, name="demo"),
     url(r'^proxy/', include('proxy.urls')),
     url(r'^services/', include('services.urls'))
-    url(r'^inbox/', 'inbox.views.index')
+    url(r'^inbox/', 'inbox.views.index', name='inbox')
     # Same terrible hack from manifests/urls.py, empty view_type is NON OPTIONAL
     url(r'^(?P<view_type>)images/(?P<filename>.*)$', views.get_image),
     url(r'^(?P<view_type>)+.*skins.*$', views.clean_url),
