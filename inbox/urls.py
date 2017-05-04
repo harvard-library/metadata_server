@@ -3,4 +3,4 @@ from django.conf import settings
 
 from inbox import views
 
-urlpatterns = patterns('', url(r'^*$', views.index) )
+urlpatterns = patterns('', url(r'^$', views.index, name='index') )
