@@ -88,7 +88,7 @@ def do_post(request):
 
 
 def get_notification(request, notification_id):
-  doc = models.get_notification(notification_id)
+  doc = models.get_notification(notification_id, DOC_TYPE)
   output = json.dumps(doc, indent=4, sort_keys=True)
   response = HttpResponse(output, status=200)
   response['Content-Type'] = "application/ld+json"
