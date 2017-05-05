@@ -69,13 +69,13 @@ def do_post(request):
   try:
     notification_id = generate_uid(drs_id)
   except:
-    return HttpResponse("Invalid target %s" % drs_id, status=500)
+    return HttpResponse("Invalid target %s \n" % drs_id, status=500)
 
   #add to elasticsearch
   try:
     models.add_or_update_notification(notification_id, document, DOC_TYPE)
   except:
-    return HttpResponse("Target %s could not be indexed at this time.", status=500)
+    return HttpResponse("Target %s could not be indexed at this time. \n", status=500)
 
   #return notification url
   response = HttpResponse("stub post response", status=201)
