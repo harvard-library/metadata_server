@@ -45,19 +45,22 @@ def do_options(request):
 
 
 def do_get(request):
-  #list all of the notifications in the inbox
-  all_ids = models.get_all_notification_ids()
-  contains = map (lambda x: INBOX_BASE_URL + x, all_ids) 
-  resp_json = {
-    "@context": "http://www.w3.org/ns/ldp",
-    "@id": INBOX_BASE_URL,
-    "contains": contains
-  }
-  output = json.dumps(resp_json, indent=4, sort_keys=True)
-  response = HttpResponse(output, status=200)
-  response['Content-Type'] = "application/ld+json"
-  response['Content-Language'] = "en" 
-  return response
+  if request.GET.get('target'):
+    return get_all_notifications_for_target(target)
+  else: #list all of the notifications in the inbox
+    all_ids = models.get_all_notification_ids()
+    contains = map (lambda x: INBOX_BASE_URL + x, all_ids) 
+    resp_json = {
+      "@context": "http://www.w3.org/ns/ldp",
+      "@id": INBOX_BASE_URL,
+      "contains": contains
+    }
+    output = json.dumps(resp_json, indent=4, sort_keys=True)
+    response = HttpResponse(output, status=200)
+    response['Content-Type'] = "application/ld+json"
+    response['Content-Language'] = "en" 
+    return response
+
 
 @csrf_exempt
 def do_post(request):
