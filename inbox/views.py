@@ -145,7 +145,10 @@ def delete(request, notification_id):
         return HttpResponse("Access Denied.", status=403)
 
     # Check if notification exists
-    has_notification = models.notification_exists(notification_id, DOC_TYPE)
+    try:
+      has_notification = models.notification_exists(notification_id, DOC_TYPE)
+    except:
+      return HttpResponse("Notification %s not found.\n" % notification_id, status=404)
 
     if has_notification:
         models.delete_notification(id, DOC_TYPE)
