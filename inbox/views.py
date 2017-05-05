@@ -10,11 +10,17 @@ logger = getLogger(__name__)
 from netaddr import IPNetwork, IPAddress, all_matching_cidrs
 from django.conf import settings
 
+from inbox import models
+from hashids import Hashids
+from time import time
+from inbox import models
+
 # Create your views here.
 
 IIIF_MGMT_ACL = (environ.get("IIIF_MGMT_ACL","128.103.151.0/24,10.34.5.254,10.40.4.69")).split(',')
-IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
-
+IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST", "localhost")
+INBOX_BASE_URL = "https://" + IIIF_MANIFEST_HOST + "/inbox/"
+DOC_TYPE ="notification"
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext":"ext"}
 
 
@@ -28,6 +34,7 @@ def index(request):
     res = do_get(request)
   return res
 
+
 def do_options(request):
   response = HttpResponse()
   response['Allow'] = [ "GET", "HEAD", "OPTIONS", "POST" ]
@@ -37,10 +44,89 @@ def do_options(request):
 
 
 def do_get(request):
-  response = HttpResponse("stub get response", status=200)
+  #list all of the notifications in the inbox
+  all_ids = models.get_all_notification_ids()
+  contains = map (lambda x: INBOX_BASE_URL + x, all_ids) 
+  resp_json = {
+    "@context": "http://www.w3.org/ns/ldp",
+    "@id": "http://example.org/inbox/",
+    "contains": contains
+  }
+  output = json.dumps(resp_json, indent=4, sort_keys=True)
+  response = HttpResponse(output, status=200)
+  response['Content-Type'] = "application/ld+json"
+  response['Content-Language'] = "en" 
   return response
 
 
 def do_post(request):
-  response = HttpResponse("stub post response", status=200)
+  document=json.loads(request.body)
+  target = document['target']
+  parts = parse_id(target)
+  drs_id = parts["id"]
+  source = parts["source"]
+  notification_id = generate_uid(drs_id)
+
+  #add to elasticsearch
+  models.add_or_update_notification(notification_id, document, DOC_TYPE)
+
+  #return notification url
+  response = HttpResponse("stub post response", status=201)
+  response['Location'] = INBOX_BASE_URL + str(uid) 
   return response
+
+
+def get_notification(id):
+  doc = models.get_notification(id)
+  output = json.dumps(doc, indent=4, sort_keys=True)
+  response = HttpResponse(output, status=200)
+  response['Content-Type'] = "application/ld+json"
+  response['Content-Language'] = "en"
+  return response
+
+
+def get_all_notifications_for_target(target)
+  all_ids = models.get_all_notification_ids_for_target(target, DOC_TYPE)
+  contains = map (lambda x: INBOX_BASE_URL + x, all_ids)
+  resp_json = {
+    "@context": "http://www.w3.org/ns/ldp",
+    "@id": "http://example.org/inbox/",
+    "contains": contains
+  }
+  output = json.dumps(resp_json, indent=4, sort_keys=True)
+  response = HttpResponse(output, status=200)
+  response['Content-Type'] = "application/ld+json"
+  response['Content-Language'] = "en"
+  return response
+
+
+def generate_uid(id):
+  ts = int(time())
+  hashids = Hashids()
+  hashid = hashids.encode(int(id), ts)
+  return hashid
+  
+
+# Parse ID from URL
+def parse_id(raw):
+  p = {} # p is for parsed!
+  source_sep = raw.find(":")
+  p["source"] = raw[0:source_sep]
+  id_sep = raw.find("$")
+  if id_sep == -1:
+    id_sep = None
+  p["id"] = raw[source_sep+1:id_sep]
+  if id_sep:
+    m = re.match(r"(\d+)([ibst])?", raw[id_sep+1:])
+    (p["seq"], p["view"]) = [x if x else None for x in m.groups()]
+    try:
+      p["seq"] = int(p["seq"])
+    except(ValueError):
+      p["seq"] = None
+    else:
+      p["seq"] = p["view"] = None
+
+  p["view"] = view_mapping[p["view"]]
+  # TODO: k:v pairs for now, planned structure is "$key=val,..."
+  # TODO: validate id! Throw interesting errors!
+  return p
