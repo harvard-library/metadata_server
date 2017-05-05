@@ -117,17 +117,4 @@ def parse_id(raw):
   if id_sep == -1:
     id_sep = None
   p["id"] = raw[source_sep+1:id_sep]
-  if id_sep:
-    m = re.match(r"(\d+)([ibst])?", raw[id_sep+1:])
-    (p["seq"], p["view"]) = [x if x else None for x in m.groups()]
-    try:
-      p["seq"] = int(p["seq"])
-    except(ValueError):
-      p["seq"] = None
-    else:
-      p["seq"] = p["view"] = None
-
-  p["view"] = view_mapping[p["view"]]
-  # TODO: k:v pairs for now, planned structure is "$key=val,..."
-  # TODO: validate id! Throw interesting errors!
   return p
