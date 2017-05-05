@@ -63,7 +63,8 @@ def do_get(request):
 def do_post(request):
   document=json.loads(request.body)
   target = document['target']
-  parts = parse_id(target)
+  target_id = target[target.rfind('/'):]
+  parts = parse_id(target_id)
   drs_id = parts["id"]
   source = parts["source"]
   try:
@@ -117,7 +118,7 @@ def generate_uid(id):
 # Parse ID from URL
 def parse_id(raw):
   p = {} # p is for parsed!
-  source_sep = raw.rfind(":")
+  source_sep = raw.find(":")
   p["source"] = raw[0:source_sep]
   id_sep = raw.find("$")
   if id_sep == -1:
