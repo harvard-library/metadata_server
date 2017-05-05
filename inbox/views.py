@@ -80,7 +80,7 @@ def do_post(request):
 
   #return notification url
   response = HttpResponse(status=201)
-  response['Location'] = INBOX_BASE_URL + str(uid) 
+  response['Location'] = INBOX_BASE_URL + str(notification_id) 
   return response
 
 
