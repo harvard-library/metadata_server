@@ -79,7 +79,7 @@ def do_post(request):
   try:
     models.add_or_update_notification(notification_id, document, DOC_TYPE)
   except:
-    return HttpResponse("Target %s could not be indexed at this time. \n", % target, status=404)
+    return HttpResponse("Target %s could not be indexed at this time. \n" % target, status=404)
 
   #return notification url
   response = HttpResponse(status=201)
@@ -91,7 +91,7 @@ def get_notification(request, notification_id):
   try:
     doc = models.get_notification(notification_id, DOC_TYPE)
   except:
-    return HttpResponse("Notification %s not found.\n", % notification_id, status=404)
+    return HttpResponse("Notification %s not found.\n" % notification_id, status=404)
   output = json.dumps(doc, indent=4, sort_keys=True)
   response = HttpResponse(output, status=200)
   response['Content-Type'] = "application/ld+json"
@@ -105,7 +105,7 @@ def get_all_notifications_for_target(target):
   try:
     all_ids = models.get_all_notification_ids_for_target(target_id, DOC_TYPE)
   except:
-    return HttpResponse("No notifications found for target %s\n", % target, status=404)
+    return HttpResponse("No notifications found for target %s\n" % target, status=404)
   contains = map (lambda x: INBOX_BASE_URL + x, all_ids)
   resp_json = {
     "@context": "http://www.w3.org/ns/ldp",
