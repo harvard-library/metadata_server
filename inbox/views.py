@@ -130,3 +130,33 @@ def parse_id(raw):
     id_sep = None
   p["id"] = raw[source_sep+1:id_sep]
   return p
+
+# Management methods (delete and empty entire inbox)
+# Delete any notification from inbox
+def delete(request, notification_id):
+    request_ip = request.META['REMOTE_ADDR']
+    if not all_matching_cidrs(request_ip, IIIF_MGMT_ACL):
+        return HttpResponse("Access Denied.", status=403)
+
+    # Check if notification exists
+    has_notification = models.notification_exists(notification_id, DOC_TYPE)
+
+    if has_notification:
+        models.delete_notification(id, DOC_TYPE)
+        return HttpResponse("Notification ID %s has been deleted" % notification_id)
+    else:
+        logger.debug("Failed delete request for notification id %s - does not exist in db" % notification_id)
+        return HttpResponse("Notification ID %s does not exist in the database" % notification_id, status=404)
+
+
+#Empty the entire inbox
+def empty(request):
+  request_ip = request.META['REMOTE_ADDR']
+  if not all_matching_cidrs(request_ip, IIIF_MGMT_ACL):
+    return HttpResponse("Access Denied.", status=403)
+  
+  notification_ids = models.get_all_notification_ids_with_type(DOC_TYPE)
+  for id in notification_ids:
+    models.delete_notification(id, DOC_TYPE) 
+  return HttpResponse("Notification inbox has been emptied, %s notifications deleted." % len(notification_ids), status=200) 
+
