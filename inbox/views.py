@@ -66,10 +66,16 @@ def do_post(request):
   parts = parse_id(target)
   drs_id = parts["id"]
   source = parts["source"]
-  notification_id = generate_uid(drs_id)
+  try:
+    notification_id = generate_uid(drs_id)
+  except:
+    return (False, HttpResponse("Invalid target %s" % drs_id, status=500))
 
   #add to elasticsearch
-  models.add_or_update_notification(notification_id, document, DOC_TYPE)
+  try:
+    models.add_or_update_notification(notification_id, document, DOC_TYPE)
+  except:
+    return (False, HttpResponse("Target %s could not be indexed at this time.", status=500)) 
 
   #return notification url
   response = HttpResponse("stub post response", status=201)
