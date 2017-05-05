@@ -63,7 +63,7 @@ def do_get(request):
 def do_post(request):
   document=json.loads(request.body)
   target = document['target']
-  target_id = target[target.rfind('/'):]
+  target_id = target[target.rfind('/')+1:]
   parts = parse_id(target_id)
   drs_id = parts["id"]
   source = parts["source"]
@@ -79,7 +79,7 @@ def do_post(request):
     return HttpResponse("Target %s could not be indexed at this time. \n", status=500)
 
   #return notification url
-  response = HttpResponse("stub post response", status=201)
+  response = HttpResponse(status=201)
   response['Location'] = INBOX_BASE_URL + str(uid) 
   return response
 
