@@ -24,6 +24,7 @@ DOC_TYPE ="notification"
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext":"ext"}
 
 
+@csrf_exempt
 def index(request):
   res = None
   if request.method == "OPTIONS":
