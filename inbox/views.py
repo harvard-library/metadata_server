@@ -151,7 +151,7 @@ def delete(request, notification_id):
       return HttpResponse("Notification %s not found.\n" % notification_id, status=404)
 
     if has_notification:
-        models.delete_notification(id, DOC_TYPE)
+        models.delete_notification(notification_id, DOC_TYPE)
         return HttpResponse("Notification ID %s has been deleted" % notification_id)
     else:
         logger.debug("Failed delete request for notification id %s - does not exist in db" % notification_id)
