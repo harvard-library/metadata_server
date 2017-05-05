@@ -85,7 +85,7 @@ def get_notification(id):
   return response
 
 
-def get_all_notifications_for_target(target)
+def get_all_notifications_for_target(target):
   all_ids = models.get_all_notification_ids_for_target(target, DOC_TYPE)
   contains = map (lambda x: INBOX_BASE_URL + x, all_ids)
   resp_json = {
