@@ -117,7 +117,7 @@ def generate_uid(id):
 # Parse ID from URL
 def parse_id(raw):
   p = {} # p is for parsed!
-  source_sep = raw.find(":")
+  source_sep = raw.rfind(":")
   p["source"] = raw[0:source_sep]
   id_sep = raw.find("$")
   if id_sep == -1:
