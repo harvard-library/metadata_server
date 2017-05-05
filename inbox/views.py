@@ -50,7 +50,7 @@ def do_get(request):
   contains = map (lambda x: INBOX_BASE_URL + x, all_ids) 
   resp_json = {
     "@context": "http://www.w3.org/ns/ldp",
-    "@id": "http://example.org/inbox/",
+    "@id": INBOX_BASE_URL,
     "contains": contains
   }
   output = json.dumps(resp_json, indent=4, sort_keys=True)
@@ -98,7 +98,7 @@ def get_all_notifications_for_target(target):
   contains = map (lambda x: INBOX_BASE_URL + x, all_ids)
   resp_json = {
     "@context": "http://www.w3.org/ns/ldp",
-    "@id": "http://example.org/inbox/",
+    "@id": INBOX_BASE_URL,
     "contains": contains
   }
   output = json.dumps(resp_json, indent=4, sort_keys=True)
