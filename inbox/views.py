@@ -155,7 +155,7 @@ def empty(request):
   if not all_matching_cidrs(request_ip, IIIF_MGMT_ACL):
     return HttpResponse("Access Denied.", status=403)
   
-  notification_ids = models.get_all_notification_ids_with_type(DOC_TYPE)
+  notification_ids = models.get_all_notification_ids()
   for id in notification_ids:
     models.delete_notification(id, DOC_TYPE) 
   return HttpResponse("Notification inbox has been emptied, %s notifications deleted." % len(notification_ids), status=200) 
