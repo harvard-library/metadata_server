@@ -391,6 +391,8 @@ def add_headers(response, request):
     #response["Access-Control-Allow-Credentials"] = "true"
     response["Access-Control-Allow-Origin"] = "*"
     response["Content-Type"] = "application/ld+json"
+    inbox_url = "https://" + IIIF_MANIFEST_HOST + "/inbox/"
+    response['Link'] = "<" + inbox_url + ">; rel="http://www.w3.org/ns/ldp#inbox"
     return response
 
 # Uses other helper methods to create JSON
