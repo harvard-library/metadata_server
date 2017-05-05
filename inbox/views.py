@@ -79,7 +79,7 @@ def do_post(request):
   try:
     models.add_or_update_notification(notification_id, document, DOC_TYPE)
   except:
-    return HttpResponse("Target %s could not be indexed at this time. \n", % target, status=500)
+    return HttpResponse("Target %s could not be indexed at this time. \n", % target, status=404)
 
   #return notification url
   response = HttpResponse(status=201)
