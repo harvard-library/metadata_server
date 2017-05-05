@@ -9,7 +9,7 @@ from logging import getLogger
 logger = getLogger(__name__)
 from netaddr import IPNetwork, IPAddress, all_matching_cidrs
 from django.conf import settings
-
+from django.views.decorators.csrf import csrf_exempt
 from inbox import models
 from hashids import Hashids
 from time import time
@@ -58,7 +58,7 @@ def do_get(request):
   response['Content-Language'] = "en" 
   return response
 
-
+@csrf_exempt
 def do_post(request):
   document=json.loads(request.body)
   target = document['target']
