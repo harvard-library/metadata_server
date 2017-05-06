@@ -49,7 +49,6 @@ right_to_left_langs = set(['ara','heb'])
 
 # List of mime types: ordering is as defined in pdx_util (internalMets.java), but with txt representations omitted.
 MIME_HIERARCHY = ['image/jp2', 'image/jpx', 'image/jpeg', 'image/gif', 'image/tiff']
-
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST", "localhost")
 INBOX_BASE_URL = "https://" + IIIF_MANIFEST_HOST + "/inbox/"
 
