@@ -50,6 +50,9 @@ right_to_left_langs = set(['ara','heb'])
 # List of mime types: ordering is as defined in pdx_util (internalMets.java), but with txt representations omitted.
 MIME_HIERARCHY = ['image/jp2', 'image/jpx', 'image/jpeg', 'image/gif', 'image/tiff']
 
+IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST", "localhost")
+INBOX_BASE_URL = "https://" + IIIF_MANIFEST_HOST + "/inbox/"
+
 def get_display_image(fids):
         """Goes through list of file IDs for a page, and returns the best choice for delivery (according to mime hierarchy)."""
 
@@ -501,6 +504,7 @@ def main(data, document_id, source, host, cookie=None):
 	mfjson = {
 		"@context":"http://iiif.io/api/presentation/2/context.json",
 		"@id": manifest_uri,
+		"inbox": INBOX_BASE_URL, 
 		"@type":"sc:Manifest",
 		"label":manifestLabel,
 		#"attribution":attribution,
