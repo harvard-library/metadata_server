@@ -212,6 +212,15 @@ def manifest(request, document_id):
         if ams_redirect[1] == 'Y':
             isDrs2 = True
 
+    #return ldn inbox link if this is a HEAD request on a manifest url
+    if request.method == "HEAD":
+      response["Host"] = IIIF_MANIFEST_HOST
+      response["Accept"] = "application/ld+json"
+      inbox_url = "https://" + IIIF_MANIFEST_HOST + "/inbox/"
+      response["Link"] = "<" + inbox_url + ">; rel=\"http://www.w3.org/ns/ldp#inbox\""
+      response.status_code = 200
+      return response
+
     (success, response_doc, real_id, real_source) = get_manifest(id, source, False, host, cookie, isDrs2)
     if success:
         response = HttpResponse(response_doc)
