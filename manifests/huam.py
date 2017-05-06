@@ -3,6 +3,7 @@
 import json, sys
 import urllib2
 from django.conf import settings
+from os import environ
 
 imageUriBase =    settings.IIIF['imageUriBase']
 imageUriSuffix =  settings.IIIF['imageUriSuffix']
