@@ -5,6 +5,7 @@ import json, sys
 import urllib2
 from django.conf import settings
 import webclient, re
+from os import environ
 
 XMLNS = {'mods': 'http://www.loc.gov/mods/v3'}
 
