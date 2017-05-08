@@ -66,7 +66,7 @@ def do_get(request):
 
 @csrf_exempt
 def do_post(request):
-  if request.content_type != "application/json":
+  if (request.content_type != "application/ld+json"):
     return HttpResponse("Unsupported content type %s \n" % request.content_type, status=415)
   document=json.loads(request.body)
   target = document['target']
