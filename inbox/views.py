@@ -40,6 +40,7 @@ def do_options(request):
   response = HttpResponse()
   response['Allow'] = [ "GET", "HEAD", "OPTIONS", "POST" ]
   response['Accept-Post'] = "application/ld+json"
+  response['Access-Control-Allow-Origin'] = "*";
   response.status_code = 200
   return response
 
@@ -59,11 +60,14 @@ def do_get(request):
     response = HttpResponse(output, status=200)
     response['Content-Type'] = "application/ld+json"
     response['Content-Language'] = "en" 
+    response['Access-Control-Allow-Origin'] = "*";
     return response
 
 
 @csrf_exempt
 def do_post(request):
+  if request.content_type != "application/json":
+    return HttpResponse("Unsupported content type %s \n" % request.content_type, status=415)
   document=json.loads(request.body)
   target = document['target']
   target_id = target[target.rfind('/')+1:]
@@ -83,6 +87,7 @@ def do_post(request):
 
   #return notification url
   response = HttpResponse(status=201)
+  response['Access-Control-Allow-Origin'] = "*";
   response['Location'] = INBOX_BASE_URL + str(notification_id) 
   return response
 
@@ -96,6 +101,7 @@ def get_notification(request, notification_id):
   response = HttpResponse(output, status=200)
   response['Content-Type'] = "application/ld+json"
   response['Content-Language'] = "en"
+  response['Access-Control-Allow-Origin'] = "*";
   return response
 
 
@@ -116,6 +122,7 @@ def get_all_notifications_for_target(target):
   response = HttpResponse(output, status=200)
   response['Content-Type'] = "application/ld+json"
   response['Content-Language'] = "en"
+  response['Access-Control-Allow-Origin'] = "*";
   return response
 
 
