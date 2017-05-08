@@ -50,7 +50,7 @@ def do_get(request):
     return get_all_notifications_for_target(request.GET['target'])
   else: #list all of the notifications in the inbox
     all_ids = models.get_all_notification_ids()
-    contains = map (lambda x: INBOX_BASE_URL + x, all_ids) 
+    contains = map (lambda x: { "url" : INBOX_BASE_URL + x, "motivation" : "iiif:supplement" }, all_ids) 
     resp_json = {
       "@context": "http://www.w3.org/ns/ldp",
       "@id": INBOX_BASE_URL,
