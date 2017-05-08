@@ -112,7 +112,7 @@ def get_all_notifications_for_target(target):
     all_ids = models.get_all_notification_ids_for_target(target_id, DOC_TYPE)
   except:
     return HttpResponse("No notifications found for target %s\n" % target, status=404)
-  contains = map (lambda x: INBOX_BASE_URL + x, all_ids)
+  contains = map (lambda x: { "url" : INBOX_BASE_URL + x, "motivation" : "iiif:supplement" }, all_ids)
   resp_json = {
     "@context": "http://www.w3.org/ns/ldp",
     "@id": INBOX_BASE_URL,
