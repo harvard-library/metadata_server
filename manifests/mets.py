@@ -52,6 +52,10 @@ MIME_HIERARCHY = ['image/jp2', 'image/jpx', 'image/jpeg', 'image/gif', 'image/ti
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST", "localhost")
 INBOX_BASE_URL = "https://" + IIIF_MANIFEST_HOST + "/inbox/"
 
+#linked notification demo config
+DEMO_LDN_ID = environ.get("DEMO_LDN_ID", "425873143") #Supplemental info for MS Lat 245. - Super tertio libro sententiarum Petri Lombardi 
+alternate_ranges = None
+
 def get_display_image(fids):
         """Goes through list of file IDs for a page, and returns the best choice for delivery (according to mime hierarchy)."""
 
@@ -490,6 +494,8 @@ def main(data, document_id, source, host, cookie=None):
 				mdcount = mdcount + 1
 			
 
+	if document_id == DEMO_LDN_ID:
+		alternate_ranges = get_alternate_ranges(manifest_uri)
 
 	rangeList = []
 	rangeInfo = []
@@ -599,11 +605,43 @@ def main(data, document_id, source, host, cookie=None):
 
 	mfjson['sequences'][0]['canvases'] = canvases
 	mfjson['structures'] = rangesJsonList
+	#ldn demo- replace w/ scta info if exists
+	if alternate_ranges != None:
+		mfjson['structures'] = alternate_ranges
 
 	#logger.debug("Dumping json for DRS2 object " + str(document_id) )
 	output = json.dumps(mfjson, indent=4, sort_keys=True)
 	#logger.debug("Dumping complete for DRS2 object " + str(document_id) )
 	return output
+
+
+#this is for a 7/2017 linked data notification demo for jeff witt at the vatican. 
+# update a given manifest w/ alt strucutres from a ldn inbox
+def get_alternate_ranges(target_uri):
+	try:
+	  response = webclient(INBOX_BASE_URL + "notifications?target=" + target_uri)	
+	except:
+	  return None
+	data = json.loads(response.read())
+	first_note = data['contains'][0]
+	if first_note != None:
+	  note_url = first_note['url']
+	  try:
+	    notif_res = webclient(note_url)
+	    note_data = json.loads(notif_res.read())
+	    object_url = note_data['object']
+	    try:
+	      obj_res = webclient(object_url)
+	      obj_data = json.loads(obj_res.read())
+	      return obj_data['ranges']
+	    except:
+	      return None
+	  except: 
+	    return None
+	else:
+	  return None
+		
+
 
 if __name__ == "__main__":
 	if (len(sys.argv) < 5):
