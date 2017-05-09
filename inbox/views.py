@@ -70,7 +70,10 @@ def do_post(request):
     return HttpResponse("Unsupported content type %s \n" % request.content_type, status=415)
   document=json.loads(request.body)
   target = document['target']
-  target_id = target[target.rfind('/')+1:]
+  if isinstance(target, list):
+    target_id = target[target[0].rfind('/')+1:]
+  else: 
+    target_id = target[target.rfind('/')+1:]
   parts = parse_id(target_id)
   drs_id = parts["id"]
   source = parts["source"]
