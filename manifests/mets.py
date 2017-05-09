@@ -474,8 +474,8 @@ def main(data, document_id, source, host, cookie=None):
 
 	#check solr if this is a drs2 request, make call for image md from there if above fails
 	if ( (len(drs2ImageWidths) == 0) and (len(drs2ImageHeights) == 0) and (isDrs1 == False) ):
-        	#metadata_url = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_FILE_QUERY
-		metadata_url = PDS_WS_URL + "objfile/" + document_id
+        	metadata_url = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_FILE_QUERY
+		#metadata_url = PDS_WS_URL + "objfile/" + document_id
         	try:
             		response = webclient.get(metadata_url, cookie)
         	except urllib2.HTTPError, err:
@@ -483,8 +483,8 @@ def main(data, document_id, source, host, cookie=None):
             		return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
         	md_json = json.loads(response.read())
 		mdcount = 0;
-		#for md in md_json['response']['docs']:
-		for md in md_json:
+		for md in md_json['response']['docs']:
+		#for md in md_json:
 			if 'file_mix_imageWidth_num' in md:
 				#filepath = md['file_path_raw']
 				#file_id = md['file_id_num']
