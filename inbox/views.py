@@ -71,7 +71,7 @@ def do_post(request):
   document=json.loads(request.body)
   target = document['target']
   if isinstance(target, list):
-    target_id = target[target[0].rfind('/')+1:]
+    target_id = target[0][target[0].rfind('/')+1:]
   else: 
     target_id = target[target.rfind('/')+1:]
   parts = parse_id(target_id)
