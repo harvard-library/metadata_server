@@ -11,5 +11,4 @@ simplejson==3.6.5
 urllib3==1.10
 uWSGI==2.0.9
 netaddr==0.7.18
-iso8601==0.1.11
 hashids==1.2.0
