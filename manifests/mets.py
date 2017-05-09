@@ -54,7 +54,6 @@ INBOX_BASE_URL = "https://" + IIIF_MANIFEST_HOST + "/inbox/"
 
 #linked notification demo config
 DEMO_LDN_ID = environ.get("DEMO_LDN_ID", "425873143") #Supplemental info for MS Lat 245. - Super tertio libro sententiarum Petri Lombardi 
-alternate_ranges = None
 
 def get_display_image(fids):
         """Goes through list of file IDs for a page, and returns the best choice for delivery (according to mime hierarchy)."""
@@ -493,7 +492,7 @@ def main(data, document_id, source, host, cookie=None):
 				drs2ImageHeights.append(md['file_mix_imageHeight_num'])
 				mdcount = mdcount + 1
 			
-
+	alternate_ranges = None
 	if document_id == DEMO_LDN_ID:
 		alternate_ranges = get_alternate_ranges(manifest_uri)
 
