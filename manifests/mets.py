@@ -494,7 +494,7 @@ def main(data, document_id, source, host, cookie=None):
 				mdcount = mdcount + 1
 			
 	alternate_ranges = None
-	if ((LDN_DEMO) and (document_id == DEMO_LDN_ID)):
+	if ((LDN_DEMO) and (document_id == LDN_DEMO_ID)):
 		alternate_ranges = get_alternate_ranges(manifest_uri)
 
 	rangeList = []
