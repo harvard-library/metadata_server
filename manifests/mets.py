@@ -621,9 +621,9 @@ def main(data, document_id, source, host, cookie=None):
 # update a given manifest w/ alt strucutres from a ldn inbox
 def get_alternate_ranges(target_uri):
 	try:
-	  response = webclient(INBOX_BASE_URL + "notifications?target=" + target_uri)	
+	  response = webclient(INBOX_BASE_URL + "?target=" + target_uri)	
 	except:
-	  logger.debug("target call to " + INBOX_BASE_URL + "notifications?target=" + target_uri + " failed")
+	  logger.debug("target call to " + INBOX_BASE_URL + "?target=" + target_uri + " failed")
 	  return None
 	data = json.loads(response.read())
 	logger.debug("notif for " + target_uri + " found")
