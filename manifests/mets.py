@@ -494,7 +494,9 @@ def main(data, document_id, source, host, cookie=None):
 				mdcount = mdcount + 1
 			
 	alternate_ranges = None
+	logger.debug("checking to see if " + str(document_id) + " is demo ldn id " + str(LDN_DEMO_ID) )
 	if ( (LDN_DEMO) and (str(document_id) == str(LDN_DEMO_ID)) ):
+		logger.debug("fetching ldn demo id info")
 		alternate_ranges = get_alternate_ranges(manifest_uri)
 
 	rangeList = []
