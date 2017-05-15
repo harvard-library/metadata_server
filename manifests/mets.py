@@ -640,10 +640,10 @@ def get_alternate_ranges(target_uri):
 	      logger.debug("notification " + note_url + " retrieved")
 	      return obj_data['ranges']
 	    except:
-	      logger.debug("notification call to " + note_url + " failed")
+	      logger.debug("retrieval of object " + object_url + " failed")
 	      return None
 	  except: 
-	    logger.debug("object call to " + object_url + " failed")
+	    logger.debug("retrieval of notification " + note_url + " failed")
 	    return None
 	else:
 	  logger.debug("no notif data found in " + str(data) )
