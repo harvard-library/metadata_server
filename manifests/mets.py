@@ -623,6 +623,7 @@ def get_alternate_ranges(target_uri):
 	except:
 	  return None
 	data = json.loads(response.read())
+	logger.debug("notif for " + target_uri + " found")
 	first_note = data['contains'][0]
 	if first_note != None:
 	  note_url = first_note['url']
@@ -633,6 +634,7 @@ def get_alternate_ranges(target_uri):
 	    try:
 	      obj_res = webclient(object_url)
 	      obj_data = json.loads(obj_res.read())
+	      logger.debug("notification " + note_url + " retrieved")
 	      return obj_data['ranges']
 	    except:
 	      return None
