@@ -623,6 +623,7 @@ def get_alternate_ranges(target_uri):
 	try:
 	  response = webclient(INBOX_BASE_URL + "notifications?target=" + target_uri)	
 	except:
+	  logger.debug("call to " + INBOX_BASE_URL + "notifications?target=" + target_uri + " failed")
 	  return None
 	data = json.loads(response.read())
 	logger.debug("notif for " + target_uri + " found")
@@ -639,10 +640,13 @@ def get_alternate_ranges(target_uri):
 	      logger.debug("notification " + note_url + " retrieved")
 	      return obj_data['ranges']
 	    except:
+	      logger.debug("call to " + note_url + " failed")
 	      return None
 	  except: 
+	    logger.debug("call to " + object_url + " failed")
 	    return None
 	else:
+	  logger.debug("no notif data found in " + str(data) )
 	  return None
 		
 
