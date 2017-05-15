@@ -53,7 +53,8 @@ IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST", "localhost")
 INBOX_BASE_URL = "https://" + IIIF_MANIFEST_HOST + "/inbox/"
 
 #linked notification demo config
-DEMO_LDN_ID = environ.get("DEMO_LDN_ID", "425873143") #Supplemental info for MS Lat 245. - Super tertio libro sententiarum Petri Lombardi 
+LDN_DEMO = environ.get("LDN_DEMO", False)
+LDN_DEMO_ID = environ.get("LDN_DEMO_ID", "425873143") #Supplemental info for MS Lat 245. - Super tertio libro sententiarum Petri Lombardi 
 
 def get_display_image(fids):
         """Goes through list of file IDs for a page, and returns the best choice for delivery (according to mime hierarchy)."""
@@ -493,7 +494,7 @@ def main(data, document_id, source, host, cookie=None):
 				mdcount = mdcount + 1
 			
 	alternate_ranges = None
-	if document_id == DEMO_LDN_ID:
+	if ((LDN_DEMO) and (document_id == DEMO_LDN_ID)):
 		alternate_ranges = get_alternate_ranges(manifest_uri)
 
 	rangeList = []
