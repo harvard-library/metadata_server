@@ -54,7 +54,7 @@ INBOX_BASE_URL = "https://" + IIIF_MANIFEST_HOST + "/inbox/"
 
 #linked notification demo config
 LDN_DEMO = environ.get("LDN_DEMO", False)
-LDN_DEMO_ID = environ.get("LDN_DEMO_ID", "425873143") #Supplemental info for MS Lat 245. - Super tertio libro sententiarum Petri Lombardi 
+LDN_DEMO_ID = environ.get("LDN_DEMO_ID", "123456789") 
 
 def get_display_image(fids):
         """Goes through list of file IDs for a page, and returns the best choice for delivery (according to mime hierarchy)."""
