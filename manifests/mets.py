@@ -654,13 +654,13 @@ def get_alternate_ranges(target_uri):
 	      obj_res = webclient.get(object_url)
 	      obj_data = json.loads(obj_res.read())
 	      logger.debug("notification " + note_url + " retrieved")
+	      #delete notification
+	      logger.debug("deleting notification " + INBOX_BASE_URL + "delete/" + notif_id)
+	      webclient.get(INBOX_BASE_URL + "delete/" + notif_id)
 	      return obj_data['ranges']
 	    except:
 	      logger.debug("retrieval of object " + object_url + " failed")
 	      return None
-	    #delete notification
-	    logger.debug("deleting notification " + INBOX_BASE_URL + "delete/" + notif_id) 
-	    webclient.get(INBOX_BASE_URL + "delete/" + notif_id)
 	  except: 
 	    logger.debug("retrieval of notification " + note_url + " failed")
 	    return None
