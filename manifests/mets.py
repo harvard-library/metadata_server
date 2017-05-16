@@ -644,7 +644,7 @@ def get_alternate_ranges(target_uri):
 	  first_note = data['contains'][0]
 	  notif = None
 	  note_url = first_note['url']
-	  id_sep - note_url.rfind("/")
+	  id_sep = note_url.rfind("/")
 	  notif_id = note_url[id_sep+1:]
 	  try:
 	    notif_res = webclient.get(note_url)
