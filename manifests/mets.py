@@ -282,6 +282,18 @@ def create_ranges(ranges, previous_id, manifest_uri):
 
 def main(data, document_id, source, host, cookie=None):
 
+	#remove this after demo
+	if ( (LDN_DEMO) and (str(document_id) == str(425873143)) ): # pull from prod and create an altered manifest
+		alt_ranges = None
+		orig_json = None
+		alt_ranges = get_alternate_ranges("https://iiif.lib.harvard.edu/manifests/drs:425873143")
+		resp = webclient.get("https://iiif.lib.harvard.edu/manifests/drs:425873143")
+		orig_json = json.loads(resp.read())
+		orig_json['structures'] = alt_ranges
+		out = json.dumps(orig_json, indent=4, sort_keys=True)
+		return out
+
+
 	# clear global variables
 	global imageHash
 	imageHash = {}
