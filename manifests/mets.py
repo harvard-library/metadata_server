@@ -286,8 +286,8 @@ def main(data, document_id, source, host, cookie=None):
 	if ( (LDN_DEMO) and (str(document_id) == str(LDN_DEMO_ID)) ): # pull from prod and create an altered manifest
 		alt_ranges = None
 		orig_json = None
-		alt_ranges = get_alternate_ranges("https://iiif.lib.harvard.edu/manifests/drs:425873143")
-		resp = webclient.get("http://iiif.lib.harvard.edu/manifests/drs:425873143")
+		alt_ranges = get_alternate_ranges("https://iiiftest.lib.harvard.edu/manifests/drs:401416611")
+		resp = webclient.get("http://faulkner.hul.harvard.edu:9005/drs-425873143/manifest")
 		orig_json = json.loads(resp.read())
 		orig_json['structures'] = alt_ranges
 		out = json.dumps(orig_json, indent=4, sort_keys=True)
