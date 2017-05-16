@@ -640,8 +640,11 @@ def get_alternate_ranges(target_uri):
 	data = json.loads(response.read())
 	logger.debug("notif for " + target_uri + " found")
 	first_note = data['contains'][0]
+	notif = None
 	if first_note != None:
 	  note_url = first_note['url']
+	  id_sep - note_url.rfind("/")
+	  notif_id = note_url[id_sep+1:]
 	  try:
 	    notif_res = webclient.get(note_url)
 	    note_data = json.loads(notif_res.read())
@@ -654,6 +657,9 @@ def get_alternate_ranges(target_uri):
 	    except:
 	      logger.debug("retrieval of object " + object_url + " failed")
 	      return None
+	    #delete notification
+	    logger.debug("deleting notification " + INBOX_BASE_URL + "delete/" + notif_id) 
+	    webclient.get(INBOX_BASE_URL + "delete/" + notif_id)
 	  except: 
 	    logger.debug("retrieval of notification " + note_url + " failed")
 	    return None
