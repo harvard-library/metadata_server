@@ -287,11 +287,12 @@ def main(data, document_id, source, host, cookie=None):
 		alt_ranges = None
 		orig_json = None
 		alt_ranges = get_alternate_ranges("https://iiiftest.lib.harvard.edu/manifests/drs:401416611")
-		resp = webclient.get("http://faulkner.hul.harvard.edu:9005/drs-425873143/manifest")
-		orig_json = json.loads(resp.read())
-		orig_json['structures'] = alt_ranges
-		out = json.dumps(orig_json, indent=4, sort_keys=True)
-		return out
+		if alt_ranges != None:
+			resp = webclient.get("http://faulkner.hul.harvard.edu:9005/drs-425873143/manifest")
+			orig_json = json.loads(resp.read())
+			orig_json['structures'] = alt_ranges
+			out = json.dumps(orig_json, indent=4, sort_keys=True)
+			return out
 
 
 	# clear global variables
