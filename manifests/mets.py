@@ -287,7 +287,7 @@ def main(data, document_id, source, host, cookie=None):
 		alt_ranges = None
 		orig_json = None
 		alt_ranges = get_alternate_ranges("https://iiif.lib.harvard.edu/manifests/drs:425873143")
-		resp = webclient.get("https://iiif.lib.harvard.edu/manifests/drs:425873143")
+		resp = webclient.get("http://iiif.lib.harvard.edu/manifests/drs:425873143")
 		orig_json = json.loads(resp.read())
 		orig_json['structures'] = alt_ranges
 		out = json.dumps(orig_json, indent=4, sort_keys=True)
