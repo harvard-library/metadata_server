@@ -50,11 +50,7 @@ right_to_left_langs = set(['ara','heb'])
 # List of mime types: ordering is as defined in pdx_util (internalMets.java), but with txt representations omitted.
 MIME_HIERARCHY = ['image/jp2', 'image/jpx', 'image/jpeg', 'image/gif', 'image/tiff']
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST", "localhost")
-INBOX_BASE_URL = "https://" + IIIF_MANIFEST_HOST + "/inbox/"
 
-#linked notification demo config
-LDN_DEMO = environ.get("LDN_DEMO", False)
-LDN_DEMO_ID = environ.get("LDN_DEMO_ID", "123456789") 
 
 def get_display_image(fids):
         """Goes through list of file IDs for a page, and returns the best choice for delivery (according to mime hierarchy)."""
@@ -282,19 +278,6 @@ def create_ranges(ranges, previous_id, manifest_uri):
 
 def main(data, document_id, source, host, cookie=None):
 
-	#remove this after demo
-	if ( (LDN_DEMO) and (str(document_id) == str(LDN_DEMO_ID)) ): # pull from prod and create an altered manifest
-		alt_ranges = None
-		orig_json = None
-		alt_ranges = get_alternate_ranges("https://iiiftest.lib.harvard.edu/manifests/drs:401416611")
-		if alt_ranges != None:
-			resp = webclient.get("http://faulkner.hul.harvard.edu:9005/drs-425873143/manifest")
-			orig_json = json.loads(resp.read())
-			orig_json['structures'] = alt_ranges
-			out = json.dumps(orig_json, indent=4, sort_keys=True)
-			return out
-
-
 	# clear global variables
 	global imageHash
 	imageHash = {}
@@ -506,12 +489,6 @@ def main(data, document_id, source, host, cookie=None):
 				drs2ImageHeights.append(md['file_mix_imageHeight_num'])
 				mdcount = mdcount + 1
 			
-	alternate_ranges = None
-	logger.debug("checking to see if " + str(document_id) + " is demo ldn id " + str(LDN_DEMO_ID) )
-	if ( (LDN_DEMO) and (str(document_id) == str(LDN_DEMO_ID)) ):
-		logger.debug("fetching ldn demo id info")
-		alternate_ranges = get_alternate_ranges(manifest_uri)
-
 	rangeList = []
 	rangeInfo = []
 	for st in struct:
@@ -524,7 +501,6 @@ def main(data, document_id, source, host, cookie=None):
 	mfjson = {
 		"@context":"http://iiif.io/api/presentation/2/context.json",
 		"@id": manifest_uri,
-		"inbox": INBOX_BASE_URL, 
 		"@type":"sc:Manifest",
 		"label":manifestLabel,
 		#"attribution":attribution,
@@ -620,54 +596,12 @@ def main(data, document_id, source, host, cookie=None):
 
 	mfjson['sequences'][0]['canvases'] = canvases
 	mfjson['structures'] = rangesJsonList
-	#ldn demo- replace w/ scta info if exists
-	if alternate_ranges != None:
-		mfjson['structures'] = alternate_ranges
 
 	#logger.debug("Dumping json for DRS2 object " + str(document_id) )
 	output = json.dumps(mfjson, indent=4, sort_keys=True)
 	#logger.debug("Dumping complete for DRS2 object " + str(document_id) )
 	return output
 
-
-#this is for a 7/2017 linked data notification demo for jeff witt at the vatican. 
-# update a given manifest w/ alt strucutres from a ldn inbox
-def get_alternate_ranges(target_uri):
-	try:
-	  response = webclient.get(INBOX_BASE_URL + "?target=" + target_uri)	
-	except:
-	  logger.debug("target call to " + INBOX_BASE_URL + "?target=" + target_uri + " failed")
-	  return None
-	data = json.loads(response.read())
-	if (len(data['contains']) > 0):
-	  logger.debug("notif for " + target_uri + " found")
-	  first_note = data['contains'][0]
-	  notif = None
-	  note_url = first_note['url']
-	  id_sep = note_url.rfind("/")
-	  notif_id = note_url[id_sep+1:]
-	  try:
-	    notif_res = webclient.get(note_url)
-	    note_data = json.loads(notif_res.read())
-	    object_url = note_data['object']
-	    try:
-	      obj_res = webclient.get(object_url)
-	      obj_data = json.loads(obj_res.read())
-	      logger.debug("notification " + note_url + " retrieved")
-	      #delete notification
-	      logger.debug("deleting notification " + INBOX_BASE_URL + "delete/" + notif_id)
-	      webclient.get(INBOX_BASE_URL + "delete/" + notif_id)
-	      return obj_data['ranges']
-	    except:
-	      logger.debug("retrieval of object " + object_url + " failed")
-	      return None
-	  except: 
-	    logger.debug("retrieval of notification " + note_url + " failed")
-	    return None
-	else:
-	  logger.debug("no notif data found in " + str(data) )
-	  return None
-		
 
 
 if __name__ == "__main__":
