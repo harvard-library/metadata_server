@@ -67,6 +67,12 @@ def main(data, document_id, source, host):
 		"@context":"http://iiif.io/api/presentation/2/context.json",
 		"@id": manifest_uri,
 		"inbox": INBOX_BASE_URL,
+		"service": {
+			"@context": "http://www.w3.org/ns/ldp#inbox",
+			"@id": INBOX_BASE_URL + "?target=" + manifest_uri,
+			"profile": "http://www.w3.org/ns/ldp#inbox",
+			"label": "Linked Data Notifications inbox"
+		},
 		"@type":"sc:Manifest",
 		"label":manifestLabel,
 		"attribution":attribution,
