@@ -15,7 +15,6 @@ profileLevel =    settings.IIIF['profileLevel']
 serviceContext = settings.IIIF['context']
 license = settings.IIIF['license']
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST", "localhost")
-INBOX_BASE_URL = "https://" + IIIF_MANIFEST_HOST + "/inbox/"
 
 def main(data, document_id, source, host):
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
@@ -66,7 +65,6 @@ def main(data, document_id, source, host):
 	mfjson = {
 		"@context":"http://iiif.io/api/presentation/2/context.json",
 		"@id": manifest_uri,
-		"inbox": INBOX_BASE_URL,
 		"@type":"sc:Manifest",
 		"label":manifestLabel,
 		"attribution":attribution,

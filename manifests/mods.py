@@ -23,7 +23,6 @@ attribution = "Provided by Harvard University"
 #license is set to just the urn for manifest validation purposes
 license = settings.IIIF['license']
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST", "localhost")
-INBOX_BASE_URL = "https://" + IIIF_MANIFEST_HOST + "/inbox/"
 
 def main(data, document_id, source, host, cookie=None):
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
@@ -84,7 +83,6 @@ def main(data, document_id, source, host, cookie=None):
 	mfjson = {
 		"@context":"http://iiif.io/api/presentation/2/context.json",
 		"@id": manifest_uri,
-		"inbox": INBOX_BASE_URL,
 		"@type":"sc:Manifest",
 		"label":manifestLabel,
 		#"attribution":attribution,
