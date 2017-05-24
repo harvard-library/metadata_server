@@ -83,7 +83,7 @@ def do_post(request):
   except:
     return HttpResponse("Invalid target %s \n" % drs_id, status=500)
 
-  received = datetime.fromtimestamp(int(time())).strftime('%Y-%m-%d %H:%M:%S')
+  received = datetime.fromtimestamp(int(time()))
   document['received'] = received
 
   #add to elasticsearch
