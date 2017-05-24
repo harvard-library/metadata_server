@@ -53,7 +53,6 @@ IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST", "localhost")
 INBOX_BASE_URL = "https://" + IIIF_MANIFEST_HOST + "/inbox/"
 
 #linked notification demo config
-LDN_DEMO = environ.get("LDN_DEMO", False)
 LDN_DEMO_ID = environ.get("LDN_DEMO_ID", "123456789") 
 
 def get_display_image(fids):
