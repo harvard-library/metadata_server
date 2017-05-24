@@ -74,11 +74,12 @@ def get_all_notifications_for_target(target, source):
 def get_all_notifications():
     es = get_connection()
     results = es.search(index=ELASTICSEARCH_INDEX, fields="[]", size=ELASTICSEARCH_MAX_HIT_SIZE)
+    return results["hits"]["hits"]
     notifications = []
     for r in results["hits"]["hits"]:
 	notification = { 
 		"url" :  INBOX_BASE_URL + str(r["_id"]),
-		"motivation" : str(r["motivation"]),
+		"motivation" : str(r["_source"]["motivation"]),
 		"updated" : str(r["_source"]["updated"]),
 		"source" : str(r["_source"]["source"]),
 		"received" : str(r["_source"]["received"])
