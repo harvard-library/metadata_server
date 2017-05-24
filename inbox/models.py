@@ -61,13 +61,15 @@ def get_all_notifications_for_target(target, source):
       body={ 'query':{ 'match':{ 'target': target } } }, size=ELASTICSEARCH_MAX_HIT_SIZE)
     notifications = []
     for r in results["hits"]["hits"]:
-	notification = {
-		"url" :  INBOX_BASE_URL + str(r["_id"]),
-		"motivation" : str(r["_source"]["motivation"]),
-		"updated" : str(r["_source"]["updated"]),
-		"source" : str(r["_source"]["source"]),
-		"received" : str(r["_source"]["received"])	
-	}
+	notification = { "url" :  INBOX_BASE_URL + str(r["_id"]) }
+	if "motivation" in r["_source"]:
+		notification["motivation"] : str(r["_source"]["motivation"])
+	if "updated" in r["_source"]:
+		notification["updated"] : str(r["_source"]["updated"])
+	if "source" in r["_source"]:
+		notification["source"] : str(r["_source"]["source"])
+	if "received" in r["_source"]:
+		notification["received"] : str(r["_source"]["received"])	
 	notifications.append(notification)
     return notifications
 
@@ -76,13 +78,15 @@ def get_all_notifications():
     results = es.search(index=ELASTICSEARCH_INDEX, size=ELASTICSEARCH_MAX_HIT_SIZE)
     notifications = []
     for r in results["hits"]["hits"]:
-	notification = { 
-		"url" :  INBOX_BASE_URL + str(r["_id"]),
-		"motivation" : str(r["_source"]["motivation"]),
-		"updated" : str(r["_source"]["updated"]),
-		"source" : str(r["_source"]["source"]),
-		"received" : str(r["_source"]["received"])
-	}
+	notification = { "url" :  INBOX_BASE_URL + str(r["_id"]) }
+	if "motivation" in r["_source"]:
+		notification["motivation"] : str(r["_source"]["motivation"])
+	if "updated" in r["_source"]:
+		notification["updated"] : str(r["_source"]["updated"])
+	if "source" in r["_source"]:
+		notification["source"] : str(r["_source"]["source"])
+	if "received" in r["_source"]:
+		notification["received"] : str(r["_source"]["received"])
 	notifications.append(notification)
     return notifications
 
