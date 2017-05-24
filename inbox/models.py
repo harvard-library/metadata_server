@@ -57,7 +57,7 @@ def get_all_notification_ids():
 
 def get_all_notifications_for_target(target, source):
     es = get_connection()
-    results = es.search(index=ELASTICSEARCH_INDEX, doc_type=source, fields="[]",
+    results = es.search(index=ELASTICSEARCH_INDEX, doc_type=source, 
       body={ 'query':{ 'match':{ 'target': target } } }, size=ELASTICSEARCH_MAX_HIT_SIZE)
     notifications = []
     for r in results["hits"]["hits"]:
@@ -73,8 +73,7 @@ def get_all_notifications_for_target(target, source):
 
 def get_all_notifications():
     es = get_connection()
-    results = es.search(index=ELASTICSEARCH_INDEX,  size=ELASTICSEARCH_MAX_HIT_SIZE)
-    return results["hits"]["hits"]
+    results = es.search(index=ELASTICSEARCH_INDEX, size=ELASTICSEARCH_MAX_HIT_SIZE)
     notifications = []
     for r in results["hits"]["hits"]:
 	notification = { 
