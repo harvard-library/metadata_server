@@ -78,7 +78,7 @@ def get_all_notifications():
     for r in results["hits"]["hits"]:
 	notification = { 
 		"url" :  INBOX_BASE_URL + str(r["_id"]),
-		"motivation" : str(r["source"]["motivation"]),
+		"motivation" : str(r["motivation"]),
 		"updated" : str(r["_source"]["updated"]),
 		"source" : str(r["_source"]["source"]),
 		"received" : str(r["_source"]["received"])
