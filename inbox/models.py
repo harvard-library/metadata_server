@@ -73,7 +73,7 @@ def get_all_notifications_for_target(target, source):
 
 def get_all_notifications():
     es = get_connection()
-    results = es.search(index=ELASTICSEARCH_INDEX, fields="[]", size=ELASTICSEARCH_MAX_HIT_SIZE)
+    results = es.search(index=ELASTICSEARCH_INDEX, fields="["_all"]", size=ELASTICSEARCH_MAX_HIT_SIZE)
     return results["hits"]["hits"]
     notifications = []
     for r in results["hits"]["hits"]:
