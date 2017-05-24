@@ -14,6 +14,7 @@ from inbox import models
 from hashids import Hashids
 from time import time
 from inbox import models
+from datetime import datetime
 
 # Create your views here.
 
@@ -81,6 +82,9 @@ def do_post(request):
     notification_id = generate_uid(drs_id)
   except:
     return HttpResponse("Invalid target %s \n" % drs_id, status=500)
+
+  received = datetime.fromtimestamp(int(time())).strftime('%Y-%m-%d %H:%M:%S')
+  document['received'] = received
 
   #add to elasticsearch
   try:
