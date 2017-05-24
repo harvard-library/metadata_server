@@ -282,8 +282,8 @@ def create_ranges(ranges, previous_id, manifest_uri):
 
 def main(data, document_id, source, host, cookie=None):
 
-	#remove this after demo
-	if ( (LDN_DEMO) and (str(document_id) == str(LDN_DEMO_ID)) ): # pull from prod and create an altered manifest
+	#remove this after public beta 
+	if (str(document_id) == str(LDN_DEMO_ID)): # pull from prod and create an altered manifest
 		alt_ranges = None
 		orig_json = None
 		alt_ranges = get_alternate_ranges("https://iiiftest.lib.harvard.edu/manifests/drs:401416611")
@@ -506,11 +506,9 @@ def main(data, document_id, source, host, cookie=None):
 				drs2ImageHeights.append(md['file_mix_imageHeight_num'])
 				mdcount = mdcount + 1
 			
+	#ldn demo: check for alternate ranges for this manifest
 	alternate_ranges = None
-	logger.debug("checking to see if " + str(document_id) + " is demo ldn id " + str(LDN_DEMO_ID) )
-	if ( (LDN_DEMO) and (str(document_id) == str(LDN_DEMO_ID)) ):
-		logger.debug("fetching ldn demo id info")
-		alternate_ranges = get_alternate_ranges(manifest_uri)
+	alternate_ranges = get_alternate_ranges(manifest_uri)
 
 	rangeList = []
 	rangeInfo = []
