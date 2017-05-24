@@ -62,11 +62,11 @@ def get_all_notifications_for_target(target, source):
     notifications = []
     for r in results["hits"]["hits"]:
 	notification = {
-		"url" =  INBOX_BASE_URL + str(r["_id"]),
-		"motivation" = str(r["_source"]["motivation"]),
-		"updated" = str(r["_source"]["updated"]),
-		"source" = str(r["_source"]["source"]),
-		"received" = str(r["_source"]["received"])	
+		"url" :  INBOX_BASE_URL + str(r["_id"]),
+		"motivation" : str(r["_source"]["motivation"]),
+		"updated" : str(r["_source"]["updated"]),
+		"source" : str(r["_source"]["source"]),
+		"received" : str(r["_source"]["received"])	
 	}
 	notifications.append(notification)
     return notifications
@@ -77,11 +77,11 @@ def get_all_notifications():
     notifications = []
     for r in results["hits"]["hits"]:
 	notification = { 
-		"url" =  INBOX_BASE_URL + str(r["_id"]),
-		"motivation" = str(r["_source"]["motivation"]),
-		"updated" = str(r["_source"]["updated"]),
-		"source" = str(r["_source"]["source"]),
-		"received" = str(r["_source"]["received"])
+		"url" :  INBOX_BASE_URL + str(r["_id"]),
+		"motivation" : str(r["_source"]["motivation"]),
+		"updated" : str(r["_source"]["updated"]),
+		"source" : str(r["_source"]["source"]),
+		"received" : str(r["_source"]["received"])
 	}
 	notifications.append(notification)
     return notifications
