@@ -1,12 +1,17 @@
 from django.db import models
 from django.conf import settings
 from elasticsearch import Elasticsearch
+from os import environ
+
 
 # Create your models here.
 
 ELASTICSEARCH_URL = settings.ELASTICSEARCH_URL
 ELASTICSEARCH_INDEX = "notifications"
 ELASTICSEARCH_MAX_HIT_SIZE = settings.ELASTICSEARCH_MAX_HIT_SIZE
+
+IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST", "localhost")
+INBOX_BASE_URL = "https://" + IIIF_MANIFEST_HOST + "/inbox/"
 
 # Connect to elasticsearch db
 def get_connection():
@@ -49,6 +54,37 @@ def get_all_notification_ids():
     for r in results["hits"]["hits"]:
         ids.append(str(r["_id"]))
     return ids
+
+def get_all_notifications_for_target(target, source):
+    es = get_connection()
+    results = es.search(index=ELASTICSEARCH_INDEX, doc_type=source, fields="[]",
+      body={ 'query':{ 'match':{ 'target': target } } }, size=ELASTICSEARCH_MAX_HIT_SIZE)
+    notifications = []
+    for r in results["hits"]["hits"]:
+	notification = {
+		"url" =  INBOX_BASE_URL + str(r["_id"]),
+		"motivation" = str(r["_source"]["motivation"]),
+		"updated" = str(r["_source"]["updated"]),
+		"source" = str(r["_source"]["source"]),
+		"received" = str(r["_source"]["received"])	
+	}
+	notifications.append(notification)
+    return notifications
+
+def get_all_notifications():
+    es = get_connection()
+    results = es.search(index=ELASTICSEARCH_INDEX, fields="[]", size=ELASTICSEARCH_MAX_HIT_SIZE)
+    notifications = []
+    for r in results["hits"]["hits"]:
+	notification = { 
+		"url" =  INBOX_BASE_URL + str(r["_id"]),
+		"motivation" = str(r["_source"]["motivation"]),
+		"updated" = str(r["_source"]["updated"]),
+		"source" = str(r["_source"]["source"]),
+		"received" = str(r["_source"]["received"])
+	}
+	notifications.append(notification)
+    return notifications
 
 def get_notification_title(notification_id, source):
     es = get_connection()
