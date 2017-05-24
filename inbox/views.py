@@ -51,8 +51,9 @@ def do_get(request):
   if request.GET.get('target'):
     return get_all_notifications_for_target(request.GET['target'])
   else: #list all of the notifications in the inbox
-    all_ids = models.get_all_notification_ids()
-    contains = map (lambda x: { "url" : INBOX_BASE_URL + x, "motivation" : "iiif:supplement" }, all_ids) 
+    #all_ids = models.get_all_notification_ids()
+    #contains = map (lambda x: { "url" : INBOX_BASE_URL + x, "motivation" : "iiif:supplement" }, all_ids) 
+    contains = models.get_all_notifications()
     resp_json = {
       "@context": "http://www.w3.org/ns/ldp",
       "@id": INBOX_BASE_URL,
@@ -116,11 +117,13 @@ def get_notification(request, notification_id):
 def get_all_notifications_for_target(target):
   #target_id = target[target.rfind('/')+1:]
   target_id = parse_id( target[target.rfind('/')+1:] )["id"]
+  contains = []
   try:
-    all_ids = models.get_all_notification_ids_for_target(target_id, DOC_TYPE)
+    #all_ids = models.get_all_notification_ids_for_target(target_id, DOC_TYPE)
+    contains = models.get_all_notifications_for_target(target_id, DOC_TYPE)
   except:
     return HttpResponse("No notifications found for target %s\n" % target, status=404)
-  contains = map (lambda x: { "url" : INBOX_BASE_URL + x, "motivation" : "iiif:supplement" }, all_ids)
+  #contains = map (lambda x: { "url" : INBOX_BASE_URL + x, "motivation" : "iiif:supplement" }, all_ids)
   resp_json = {
     "@context": "http://www.w3.org/ns/ldp",
     "@id": INBOX_BASE_URL,
