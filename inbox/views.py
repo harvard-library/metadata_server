@@ -16,7 +16,6 @@ from time import time
 from inbox import models
 from datetime import datetime
 import pytz
-from pytz import timezone
 
 # Create your views here.
 
@@ -84,8 +83,7 @@ def do_post(request):
   except:
     return HttpResponse("Invalid target %s \n" % drs_id, status=500)
 
-  tz = timezone('US/Eastern')
-  #tz = pytz.utc
+  tz = pytz.utc
   received = datetime.fromtimestamp(int(time()), tz).strftime('%Y-%m-%d %H:%M:%S %Z')
   document['received'] = received
 
