@@ -521,7 +521,7 @@ def main(data, document_id, source, host, cookie=None):
 	mfjson = {
 		"@context":"http://iiif.io/api/presentation/2/context.json",
 		"@id": manifest_uri,
-		"inbox": INBOX_BASE_URL, 
+		"inbox2": INBOX_BASE_URL, 
 		"service": {
 			"@context": "http://www.w3.org/ns/ldp#inbox",
 			"@id": INBOX_BASE_URL + "?target=" + manifest_uri,
