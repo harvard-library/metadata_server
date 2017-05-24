@@ -86,7 +86,7 @@ def do_post(request):
 
   tz = timezone('US/Eastern')
   #tz = pytz.utc
-  received = datetime.fromtimestamp(int(time()), tz).strftime('%Y-%m-%d %H:%M:%S %z')
+  received = datetime.fromtimestamp(int(time()), tz).strftime('%Y-%m-%d %H:%M:%S %Z')
   document['received'] = received
 
   #add to elasticsearch
