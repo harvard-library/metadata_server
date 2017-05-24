@@ -15,6 +15,7 @@ from hashids import Hashids
 from time import time
 from inbox import models
 from datetime import datetime
+import pytz
 
 # Create your views here.
 
@@ -83,7 +84,7 @@ def do_post(request):
   except:
     return HttpResponse("Invalid target %s \n" % drs_id, status=500)
 
-  received = datetime.fromtimestamp(int(time())).strftime('%m-%d-%Y %H:%M:%S %z')
+  received = datetime.fromtimestamp(int(time()), pytz.utc).strftime('%Y-%m-%d %H:%M:%S %z')
   document['received'] = received
 
   #add to elasticsearch
