@@ -569,8 +569,8 @@ def main(data, document_id, source, host, cookie=None):
 				infojson['scale_factors'] = [1]
 				infocount = infocount + 1
 			except: # image not in drs
-				#infojson['width'] = ''
-				#infojson['height'] = ''
+				infojson['width'] = ''
+				infojson['height'] = ''
 				#infojson['tile_width'] = ''
 				#infojson['tile_height'] = ''
 				infojson['formats'] = ['jpg']
@@ -597,8 +597,8 @@ def main(data, document_id, source, host, cookie=None):
 						"@id": imageUriBase + cvs['image'] + imageUriSuffix,
 						"@type": "dctypes:Image",
 						"format": fmt,
-						"height": infojson['height'],
-						"width": infojson['width'],
+						#"height": infojson['height'],
+						#"width": infojson['width'],
 						"service": {
 						  "@id": imageUriBase + cvs['image'],
 						  "@context": serviceContext,
