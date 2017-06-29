@@ -494,16 +494,17 @@ def main(data, document_id, source, host, cookie=None):
             		logger.debug("Failed solr file metadata request %s" % metadata_url)
             		return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
         	md_json = json.loads(response.read())
-		mdcount = 0;
 		for md in md_json['response']['docs']:
 		#for md in md_json:
-			if 'file_mix_imageWidth_num' in md:
+			if 'object_huldrsadmin_accessFlag_string' in md:
+				access_flag = md['object_huldrsadmin_accessFlag_string']
+			if 'file_mix_imageHeight_num' in md:
+				drs2ImageHeights.append(md['file_mix_imageHeight_num'])
+                        if 'file_mix_imageWidth_num' in md:
 				#filepath = md['file_path_raw']
 				#file_id = md['file_id_num']
-				access_flag = md['object_huldrsadmin_accessFlag_string']
 				drs2ImageWidths.append(md['file_mix_imageWidth_num'])
-				drs2ImageHeights.append(md['file_mix_imageHeight_num'])
-				mdcount = mdcount + 1
+
 			
 	#ldn demo: check for alternate ranges for this manifest
 	alternate_ranges = None
@@ -569,7 +570,6 @@ def main(data, document_id, source, host, cookie=None):
 				infocount = infocount + 1
 			except: # image not in drs
 				infojson['width'] = ''
-				infojson['height'] = ''
 				infojson['height'] = ''
 				#infojson['tile_width'] = ''
 				#infojson['tile_height'] = ''
