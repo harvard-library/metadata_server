@@ -586,8 +586,8 @@ def main(data, document_id, source, host, cookie=None):
 			"@id": manifest_uri + "/canvas/canvas-%s.json" % cvs['image'],
 			"@type": "sc:Canvas",
 			"label": cvs['label'],
-			"height": infojson['height'],
-			"width": infojson['width'],
+			#"height": infojson['height'],
+			#"width": infojson['width'],
 			"images": [
 				{
 					"@id":manifest_uri+"/annotation/anno-%s.json" % cvs['image'],
