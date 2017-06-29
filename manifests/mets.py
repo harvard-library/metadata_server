@@ -613,6 +613,12 @@ def main(data, document_id, source, host, cookie=None):
 			  "@type": "dctypes:Image"
 			}
 		}
+		if ( ('height' in infojson) and ('width' in infojson) ):
+			cvsjson['height'] = infojson['height']
+			cvsjson['width'] = infojson['width']
+			cvsjson['images'][0]['resource']['height'] = infojson['height']
+			cvsjson['images'][0]['resource']['width'] = infojson['width']
+
 		#dedup split node canvases
 		if uniqCanvases.has_key(cvs['image']) == False:
 			canvases.append(cvsjson)
