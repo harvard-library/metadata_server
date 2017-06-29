@@ -541,8 +541,8 @@ def main(data, document_id, source, host, cookie=None):
 				infojson['scale_factors'] = [1]
 				infocount = infocount + 1
 			except: # image not in drs
-				infojson['width'] = ''
-				infojson['height'] = ''
+				#infojson['width'] = ''
+				#infojson['height'] = ''
 				#infojson['tile_width'] = ''
 				#infojson['tile_height'] = ''
 				infojson['formats'] = ['jpg']
@@ -558,8 +558,8 @@ def main(data, document_id, source, host, cookie=None):
 			"@id": manifest_uri + "/canvas/canvas-%s.json" % cvs['image'],
 			"@type": "sc:Canvas",
 			"label": cvs['label'],
-			"height": infojson['height'],
-			"width": infojson['width'],
+			#"height": infojson['height'],
+			#"width": infojson['width'],
 			"images": [
 				{
 					"@id":manifest_uri+"/annotation/anno-%s.json" % cvs['image'],
@@ -569,8 +569,8 @@ def main(data, document_id, source, host, cookie=None):
 						"@id": imageUriBase + cvs['image'] + imageUriSuffix,
 						"@type": "dctypes:Image",
 						"format": fmt,
-						"height": infojson['height'],
-						"width": infojson['width'],
+						#"height": infojson['height'],
+						#"width": infojson['width'],
 						"service": {
 						  "@id": imageUriBase + cvs['image'],
 						  "@context": serviceContext,
@@ -585,6 +585,12 @@ def main(data, document_id, source, host, cookie=None):
 			  "@type": "dctypes:Image"
 			}
 		}
+		if ( ('height' in infojson) and ('width' in infojson) ):
+			cvsjson['height'] = infojson['height']
+			cvsjson['width'] = infojson['width']
+			cvsjson['images'][0]['resource']['height'] = infojson['height']
+			cvsjson['images'][0]['resource']['width'] = infojson['width']
+
 		#dedup split node canvases
 		if uniqCanvases.has_key(cvs['image']) == False:
 			canvases.append(cvsjson)
