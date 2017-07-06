@@ -37,9 +37,10 @@ sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext
 
 
 def index(request, source=None):
-    request_ip = request.META['REMOTE_ADDR']
+    request_ip = request.META['HTTP_REMOTE_ADDR']
     if not all_matching_cidrs(request_ip, IIIF_MGMT_ACL):
-         return HttpResponse("Access Denied.", status=403)
+      if not all_matching_cidrs(get_xfwd_ip(request), IIIF_MGMT_ACL):
+        return HttpResponse("Access Denied.", status=403)
     source = source if source else "drs"
     document_ids = models.get_all_manifest_ids_with_type(source)
     host = IIIF_MANIFEST_HOST
@@ -226,9 +227,10 @@ def manifest(request, document_id):
 
 # Delete any document from db
 def delete(request, document_id):
-    request_ip = request.META['REMOTE_ADDR']
+    request_ip = request.META['HTTP_REMOTE_ADDR']
     if not all_matching_cidrs(request_ip, IIIF_MGMT_ACL):
-    	return HttpResponse("Access Denied.", status=403)
+      if not all_matching_cidrs(get_xfwd_ip(request), IIIF_MGMT_ACL):
+        return HttpResponse("Access Denied.", status=403)
     # Check if manifest exists
     parts = document_id.split(":")
     if len(parts) != 2:
@@ -247,8 +249,9 @@ def delete(request, document_id):
 # Force refresh a single document
 # Pull METS, MODS or HUAM JSON, rerun conversion script, and store in db
 def refresh(request, document_id):
-    request_ip = request.META['REMOTE_ADDR']
+    request_ip = request.META['HTTP_REMOTE_ADDR']
     if not all_matching_cidrs(request_ip, IIIF_MGMT_ACL):
+      if not all_matching_cidrs(get_xfwd_ip(request), IIIF_MGMT_ACL):
         return HttpResponse("Access Denied.", status=403)
     parts = document_id.split(":")
     host = IIIF_MANIFEST_HOST
@@ -283,8 +286,9 @@ def refresh(request, document_id):
 # WARNING: this could take a long time
 # Pull all METS, MODS or HUAM JSON, rerun conversion script, and store in db
 def refresh_by_source(request, source):
-    request_ip = request.META['REMOTE_ADDR']
+    request_ip = request.META['HTTP_REMOTE_ADDR']
     if not all_matching_cidrs(request_ip, IIIF_MGMT_ACL):
+      if not all_matching_cidrs(get_xfwd_ip(request), IIIF_MGMT_ACL):
         return HttpResponse("Access Denied.", status=403)
     document_ids = models.get_all_manifest_ids_with_type(source)
     counter = 0
@@ -445,3 +449,9 @@ def get_manifest(document_id, source, force_refresh, host, cookie=None, isDrs2=F
         # return JSON from db
         json_doc = models.get_manifest(document_id, source)
         return (True, json.dumps(json_doc), document_id, source)
+
+
+#x forward ip - will be removed soon
+def get_xfwd_ip(request):
+	if 'HTTP_X_FORWARDED_FOR' in request.META:
+	 return( request.META['HTTP_X_FORWARDED_FOR'].split(",")[0].strip() )
