@@ -37,7 +37,7 @@ sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext
 
 
 def index(request, source=None):
-    request_ip = request.META['HTTP_REMOTE_ADDR']
+    request_ip = request.META['REMOTE_ADDR']
     if not all_matching_cidrs(request_ip, IIIF_MGMT_ACL):
       if not all_matching_cidrs(get_xfwd_ip(request), IIIF_MGMT_ACL):
         return HttpResponse("Access Denied.", status=403)
@@ -227,7 +227,7 @@ def manifest(request, document_id):
 
 # Delete any document from db
 def delete(request, document_id):
-    request_ip = request.META['HTTP_REMOTE_ADDR']
+    request_ip = request.META['REMOTE_ADDR']
     if not all_matching_cidrs(request_ip, IIIF_MGMT_ACL):
       if not all_matching_cidrs(get_xfwd_ip(request), IIIF_MGMT_ACL):
         return HttpResponse("Access Denied.", status=403)
@@ -249,7 +249,7 @@ def delete(request, document_id):
 # Force refresh a single document
 # Pull METS, MODS or HUAM JSON, rerun conversion script, and store in db
 def refresh(request, document_id):
-    request_ip = request.META['HTTP_REMOTE_ADDR']
+    request_ip = request.META['REMOTE_ADDR']
     if not all_matching_cidrs(request_ip, IIIF_MGMT_ACL):
       if not all_matching_cidrs(get_xfwd_ip(request), IIIF_MGMT_ACL):
         return HttpResponse("Access Denied.", status=403)
@@ -286,7 +286,7 @@ def refresh(request, document_id):
 # WARNING: this could take a long time
 # Pull all METS, MODS or HUAM JSON, rerun conversion script, and store in db
 def refresh_by_source(request, source):
-    request_ip = request.META['HTTP_REMOTE_ADDR']
+    request_ip = request.META['REMOTE_ADDR']
     if not all_matching_cidrs(request_ip, IIIF_MGMT_ACL):
       if not all_matching_cidrs(get_xfwd_ip(request), IIIF_MGMT_ACL):
         return HttpResponse("Access Denied.", status=403)
