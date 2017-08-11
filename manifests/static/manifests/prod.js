@@ -61,7 +61,7 @@ $(function() {
       url = url + '?n=' + n +'&printOpt=single';
       window.open(url,'');
     } else if (printMode === "range") {
-      if ((start > end) || (start === '') || (end ==='')){
+      if ((parseInt(start) > parseInt(end)) || (start === '') || (end ==='')){
         $('#printmsg').css('color', '#A51C30');
         $('#printmsg').html('<b>Invalid Sequence Range.</b>');
         return;
