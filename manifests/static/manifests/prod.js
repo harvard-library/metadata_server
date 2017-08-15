@@ -61,15 +61,15 @@ $(function() {
       url = url + '?n=' + n +'&printOpt=single';
       window.open(url,'');
     } else if (printMode === "range") {
-      if ((parseInt(start) > parseInt(end)) || (start === '') || (end ==='')){
+      if ((parseInt(start) > parseInt(end)) || (start === '') || (end ==='') || (parseInt(start) < 0) || (parseInt(end) > totalSeq)){
         $('#printmsg').css('color', '#A51C30');
-        $('#printmsg').html('<b>Invalid Sequence Range.</b>');
+        $('#printmsg').html('<b>>Please select a page sequence range between 1-' + totalSeq + ' pages.</b></b>');
         return;
       } else if ( ((end - start) >= 10)  && (!emailValid) ){
         $('#printmsg').css('color', '#A51C30');
         $('#printmsg').html('<b>Please limit your page sequence range to a maximum of 10 pages for instant printing or enter your email address to have your larger selection sent to you.</b>');
         return;
-      }
+      } 
       if ((end - start) >= 10) {
         url = url + '?printOpt=range' + '&start=' + start +
           '&end=' + end + '&email=' + email;
