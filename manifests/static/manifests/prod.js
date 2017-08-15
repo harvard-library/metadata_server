@@ -61,7 +61,7 @@ $(function() {
       url = url + '?n=' + n +'&printOpt=single';
       window.open(url,'');
     } else if (printMode === "range") {
-      if ((parseInt(start) > parseInt(end)) || (start === '') || (end ==='') || (parseInt(start) < 0) || (parseInt(end) > totalSeq)){
+      if ((parseInt(start) > parseInt(end)) || (start === '') || (end ==='') || (parseInt(start) < 1) || (parseInt(end) > totalSeq)){
         $('#printmsg').css('color', '#A51C30');
         $('#printmsg').html('<b>Please select a page sequence range between 1-' + totalSeq + ' pages.</b>');
         return;
