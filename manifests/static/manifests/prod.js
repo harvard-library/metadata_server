@@ -63,7 +63,7 @@ $(function() {
     } else if (printMode === "range") {
       if ((parseInt(start) > parseInt(end)) || (start === '') || (end ==='') || (parseInt(start) < 0) || (parseInt(end) > totalSeq)){
         $('#printmsg').css('color', '#A51C30');
-        $('#printmsg').html('<b>>Please select a page sequence range between 1-' + totalSeq + ' pages.</b></b>');
+        $('#printmsg').html('<b>Please select a page sequence range between 1-' + totalSeq + ' pages.</b>');
         return;
       } else if ( ((end - start) >= 10)  && (!emailValid) ){
         $('#printmsg').css('color', '#A51C30');
