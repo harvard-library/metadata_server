@@ -470,16 +470,21 @@ def main(data, document_id, source, host, cookie=None):
 
 	#check solr if this is a drs2 request, make call for image md from there if above fails
 	if ( (len(drs2ImageWidths) == 0) and (len(drs2ImageHeights) == 0) and (isDrs1 == False) ):
-        	metadata_url = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_FILE_QUERY
+        	metadata_url_base = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_FILE_QUERY + settings.SOLR_CURSORMARK
+		cursormark = "*"
 		#metadata_url = PDS_WS_URL + "objfile/" + document_id
-        	try:
+		paged = False
+		while (!paged):
+        	  try:
+			metadata_url + metadata_url_base + cursormark
             		response = webclient.get(metadata_url, cookie)
-        	except urllib2.HTTPError, err:
+        	  except urllib2.HTTPError, err:
+			paged = true
             		logger.debug("Failed solr file metadata request %s" % metadata_url)
             		return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
-        	md_json = json.loads(response.read())
-		for md in md_json['response']['docs']:
-		#for md in md_json:
+        	  md_json = json.loads(response.read())
+		  for md in md_json['response']['docs']:
+		  #for md in md_json:
 			if 'object_huldrsadmin_accessFlag_string' in md:
 				access_flag = md['object_huldrsadmin_accessFlag_string']
 			if 'file_mix_imageHeight_num' in md:
@@ -488,6 +493,10 @@ def main(data, document_id, source, host, cookie=None):
 				#filepath = md['file_path_raw']
 				#file_id = md['file_id_num']
 				drs2ImageWidths.append(md['file_mix_imageWidth_num'])
+		  next_cursormark = md_json['response']['nextCursorMark']
+		  if next_cursormark == cursormark:
+			paged = true
+		  cursormark = next_cursormark
 			
 	rangeList = []
 	rangeInfo = []
