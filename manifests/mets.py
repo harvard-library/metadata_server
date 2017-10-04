@@ -3,6 +3,7 @@
 from lxml import etree
 import json, sys, re
 import urllib2
+from urllib import quote_plus
 from django.conf import settings
 import webclient
 from os import environ
@@ -481,7 +482,7 @@ def main(data, document_id, source, host, cookie=None):
         	  except urllib2.HTTPError, err:
 			not_paged = False
             		logger.debug("Failed solr file metadata request %s" % metadata_url)
-            		return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
+            		#return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
         	  md_json = json.loads(response.read())
 		  for md in md_json['response']['docs']:
 		  #for md in md_json:
@@ -493,7 +494,7 @@ def main(data, document_id, source, host, cookie=None):
 				#filepath = md['file_path_raw']
 				#file_id = md['file_id_num']
 				drs2ImageWidths.append(md['file_mix_imageWidth_num'])
-		  next_cursormark = md_json['nextCursorMark']
+		  next_cursormark = quote_plus(md_json['nextCursorMark'])
 		  if next_cursormark == cursormark:
 			not_paged = False
 		  cursormark = next_cursormark
