@@ -493,7 +493,7 @@ def main(data, document_id, source, host, cookie=None):
 				#filepath = md['file_path_raw']
 				#file_id = md['file_id_num']
 				drs2ImageWidths.append(md['file_mix_imageWidth_num'])
-		  next_cursormark = md_json['response']['nextCursorMark']
+		  next_cursormark = md_json['nextCursorMark']
 		  if next_cursormark == cursormark:
 			not_paged = False
 		  cursormark = next_cursormark
