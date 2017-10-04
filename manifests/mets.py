@@ -473,13 +473,13 @@ def main(data, document_id, source, host, cookie=None):
         	metadata_url_base = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_FILE_QUERY + settings.SOLR_CURSORMARK
 		cursormark = "*"
 		#metadata_url = PDS_WS_URL + "objfile/" + document_id
-		paged = False
-		while (!paged):
+		not_paged = True 
+		while not_paged:
         	  try:
 			metadata_url + metadata_url_base + cursormark
             		response = webclient.get(metadata_url, cookie)
         	  except urllib2.HTTPError, err:
-			paged = true
+			not_paged = False
             		logger.debug("Failed solr file metadata request %s" % metadata_url)
             		return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
         	  md_json = json.loads(response.read())
@@ -495,7 +495,7 @@ def main(data, document_id, source, host, cookie=None):
 				drs2ImageWidths.append(md['file_mix_imageWidth_num'])
 		  next_cursormark = md_json['response']['nextCursorMark']
 		  if next_cursormark == cursormark:
-			paged = true
+			not_paged = False
 		  cursormark = next_cursormark
 			
 	rangeList = []
