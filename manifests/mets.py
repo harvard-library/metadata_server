@@ -5,6 +5,7 @@ import json, sys, re
 import urllib2
 from urllib import quote_plus
 from django.conf import settings
+from django.http import HttpResponse
 import webclient
 from os import environ
 
@@ -482,7 +483,7 @@ def main(data, document_id, source, host, cookie=None):
         	  except urllib2.HTTPError, err:
 			not_paged = False
             		logger.debug("Failed solr file metadata request %s" % metadata_url)
-            		#return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
+            		return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
         	  md_json = json.loads(response.read())
 		  for md in md_json['response']['docs']:
 		  #for md in md_json:
