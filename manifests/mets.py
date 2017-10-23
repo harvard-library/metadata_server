@@ -1,5 +1,9 @@
 #!/usr/bin/python
 
+from __future__ import print_function
+import pysolr
+from kazoo.client import KazooClient
+
 from lxml import etree
 import json, sys, re
 import urllib2
@@ -8,10 +12,6 @@ from django.conf import settings
 from django.http import HttpResponse
 import webclient
 from os import environ
-
-from kazoo.client import KazooClient
-from __future__ import print_function
-import pysolr
 
 from logging import getLogger
 logger = getLogger(__name__)
