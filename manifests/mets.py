@@ -485,7 +485,7 @@ def main(data, document_id, source, host, cookie=None):
 	#check solr if this is a drs2 request, make call for image md from there if above fails
 	if ( (len(drs2ImageWidths) == 0) and (len(drs2ImageHeights) == 0) and (isDrs1 == False) ):
 		#solrcloud init
-		zookeeper = pysolr.Zookeeper(SOLR_ZK)
+		zookeeper = pysolr.ZooKeeper(SOLR_ZK)
 		solr = pysolr.SolrCloud(zookeeper, SOLR_COLLECTION)
         	#metadata_url_base = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_FILE_QUERY + settings.SOLR_CURSORMARK
 		cursormark_val = "*"
