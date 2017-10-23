@@ -64,7 +64,7 @@ SOLR_ZK = environ.get("SOLR_ZK","Libsearchzk1.lib.harvard.edu:2181,libsearchzk2.
 SOLR_Q = settings.SOLR_Q
 SOLR_FQ = settings.SOLR_FQ
 SOLR_ROWS = settings.SOLR_ROWS
-SOLR_COLLECTION = settings.SOLR_COLLECTION
+SOLR_COLLECTION = environ.get("SOLR_COLLECTION", settings.SOLR_COLLECTION)
 
 def get_display_image(fids):
         """Goes through list of file IDs for a page, and returns the best choice for delivery (according to mime hierarchy)."""
