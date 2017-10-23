@@ -1,4 +1,4 @@
-#d!/usr/bin/python
+#!/usr/bin/python
 
 from lxml import etree
 import json, sys, re
@@ -8,6 +8,10 @@ from django.conf import settings
 from django.http import HttpResponse
 import webclient
 from os import environ
+
+from kazoo.client import KazooClient
+from __future__ import print_function
+import pysolr
 
 from logging import getLogger
 logger = getLogger(__name__)
@@ -53,6 +57,14 @@ right_to_left_langs = set(['ara','heb'])
 MIME_HIERARCHY = ['image/jp2', 'image/jpx', 'image/jpeg', 'image/gif', 'image/tiff']
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST", "localhost")
 
+#solr zk instances
+SOLR_ZK = environ.get("SOLR_ZK","Libsearchzk1.lib.harvard.edu:2181,libsearchzk2.lib.harvard.edu:2181,libsearchzk3.lib.harvard.edu:2181")
+
+#solr kazoo params
+SOLR_Q = settings.SOLR_Q
+SOLR_FQ = settings.SOLR_FQ
+SOLR_ROWS = settings.SOLR_ROWS
+SOLR_COLLECTION = settings.SOLR_COLLECTION
 
 def get_display_image(fids):
         """Goes through list of file IDs for a page, and returns the best choice for delivery (according to mime hierarchy)."""
@@ -472,20 +484,26 @@ def main(data, document_id, source, host, cookie=None):
 
 	#check solr if this is a drs2 request, make call for image md from there if above fails
 	if ( (len(drs2ImageWidths) == 0) and (len(drs2ImageHeights) == 0) and (isDrs1 == False) ):
-        	metadata_url_base = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_FILE_QUERY + settings.SOLR_CURSORMARK
-		cursormark = "*"
-		#metadata_url = PDS_WS_URL + "objfile/" + document_id
+		#solrcloud init
+		zookeeper = pysolr.Zookeeper(SOLR_ZK)
+		solr = pysolr.SolrCloud(zookeeper, SOLR_COLLECTION)
+        	#metadata_url_base = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_FILE_QUERY + settings.SOLR_CURSORMARK
+		cursormark_val = "*"
+
 		not_paged = True 
 		while not_paged:
         	  try:
-			metadata_url =  metadata_url_base + cursormark
-            		response = webclient.get(metadata_url, cookie)
+			#metadata_url =  metadata_url_base + cursormark
+            		#response = webclient.get(metadata_url, cookie)
+			results = solr.search(q="object_id_num:"+document_id , fl=SOLR_FL, sort=SOLR_SORT, cursormark=cursormark_val, wt=SOLR_WT, rows=SOLR_ROWS)
         	  except urllib2.HTTPError, err:
 			not_paged = False
+			solr.zk.stop()
             		logger.debug("Failed solr file metadata request %s" % metadata_url)
             		return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
-        	  md_json = json.loads(response.read())
-		  for md in md_json['response']['docs']:
+        	  #md_json = json.loads(response.read())
+		  #for md in md_json['response']['docs']:
+		  for md in results:
 		  #for md in md_json:
 			if 'object_huldrsadmin_accessFlag_string' in md:
 				access_flag = md['object_huldrsadmin_accessFlag_string']
@@ -495,10 +513,11 @@ def main(data, document_id, source, host, cookie=None):
 				#filepath = md['file_path_raw']
 				#file_id = md['file_id_num']
 				drs2ImageWidths.append(md['file_mix_imageWidth_num'])
-		  next_cursormark = quote_plus(md_json['nextCursorMark'])
-		  if next_cursormark == cursormark:
+		  next_cursormark = quote_plus(results['nextCursorMark'])
+		  if next_cursormark == cursormark_val:
 			not_paged = False
-		  cursormark = next_cursormark
+		  cursormark_val = next_cursormark
+		solr.zk.stop()
 			
 	rangeList = []
 	rangeInfo = []
