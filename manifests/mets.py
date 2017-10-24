@@ -486,6 +486,7 @@ def main(data, document_id, source, host, cookie=None):
 	if ( (len(drs2ImageWidths) == 0) and (len(drs2ImageHeights) == 0) and (isDrs1 == False) ):
 		#solrcloud init
 		zookeeper = pysolr.ZooKeeper(SOLR_ZK)
+		zookeeper.chroot = "/drs_collection"
 		solr = pysolr.SolrCloud(zookeeper, SOLR_COLLECTION)
         	#metadata_url_base = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_FILE_QUERY + settings.SOLR_CURSORMARK
 		cursormark_val = "*"
