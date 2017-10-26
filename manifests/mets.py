@@ -477,7 +477,7 @@ def main(data, document_id, source, host, cookie=None):
 		not_paged = True 
 		while not_paged:
         	  try:
-			metadata_url =  metadata_url_base + cursormark
+			metadata_url =  metadata_url_base + cursormark_val
             		response = webclient.get(metadata_url, cookie)
         	  except urllib2.HTTPError, err:
 			not_paged = False
