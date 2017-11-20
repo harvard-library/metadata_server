@@ -81,7 +81,7 @@ var defineGlobal = function (id, ref) {
   define(id, [], function () { return ref; });
 };
 /*jsc
-["tinymce.themes.modern.Theme","global!window","tinymce.core.ThemeManager","tinymce.themes.modern.api.ThemeApi","tinymce.ui.Api","tinymce.ui.FormatControls","global!tinymce.util.Tools.resolve","tinymce.themes.modern.ui.Render","tinymce.themes.modern.ui.Resize","tinymce.ui.NotificationManagerImpl","tinymce.ui.WindowManagerImpl","tinymce.core.ui.Factory","tinymce.core.util.Tools","tinymce.ui.AbsoluteLayout","tinymce.ui.BrowseButton","tinymce.ui.Button","tinymce.ui.ButtonGroup","tinymce.ui.Checkbox","tinymce.ui.Collection","tinymce.ui.ColorBox","tinymce.ui.ColorButton","tinymce.ui.ColorPicker","tinymce.ui.ComboBox","tinymce.ui.Container","tinymce.ui.Control","tinymce.ui.DragHelper","tinymce.ui.DropZone","tinymce.ui.ElementPath","tinymce.ui.FieldSet","tinymce.ui.FilePicker","tinymce.ui.FitLayout","tinymce.ui.FlexLayout","tinymce.ui.FloatPanel","tinymce.ui.FlowLayout","tinymce.ui.Form","ephox.katamari.api.Fun","ephox.sugar.api.node.Element","ephox.sugar.api.search.SelectorFind","global!document","tinymce.core.EditorManager","tinymce.core.Env","tinymce.ui.Widget","tinymce.ui.editorui.Align","tinymce.ui.editorui.FontSelect","tinymce.ui.editorui.FontSizeSelect","tinymce.ui.editorui.FormatSelect","tinymce.ui.editorui.Formats","tinymce.ui.editorui.InsertButton","tinymce.ui.editorui.SimpleControls","tinymce.ui.editorui.UndoRedo","tinymce.ui.editorui.VisualAid","tinymce.ui.FormItem","tinymce.ui.GridLayout","tinymce.ui.Iframe","tinymce.ui.InfoBox","tinymce.ui.KeyboardNavigation","tinymce.ui.Label","tinymce.ui.Layout","tinymce.ui.ListBox","tinymce.ui.Menu","tinymce.ui.MenuBar","tinymce.ui.MenuButton","tinymce.ui.MenuItem","tinymce.ui.MessageBox","tinymce.ui.Movable","tinymce.ui.Notification","tinymce.ui.Panel","tinymce.ui.PanelButton","tinymce.ui.Path","tinymce.ui.Progress","tinymce.ui.Radio","tinymce.ui.ReflowQueue","tinymce.ui.Resizable","tinymce.ui.ResizeHandle","tinymce.ui.Scrollable","tinymce.ui.SelectBox","tinymce.ui.Selector","tinymce.ui.Slider","tinymce.ui.Spacer","tinymce.ui.SplitButton","tinymce.ui.StackLayout","tinymce.ui.TabPanel","tinymce.ui.TextBox","tinymce.ui.Throbber","tinymce.ui.Toolbar","tinymce.ui.Tooltip","tinymce.ui.Window","tinymce.themes.modern.api.Settings","tinymce.themes.modern.modes.Iframe","tinymce.themes.modern.modes.Inline","tinymce.themes.modern.ui.ProgressState","tinymce.core.dom.DOMUtils","tinymce.themes.modern.api.Events","ephox.katamari.api.Arr","global!setTimeout","tinymce.ui.DomUtils","tinymce.core.dom.DomQuery","tinymce.core.util.Class","tinymce.core.util.EventDispatcher","tinymce.ui.BoxUtils","tinymce.ui.ClassList","tinymce.ui.data.ObservableObject","tinymce.core.util.Delay","global!RegExp","tinymce.core.util.VK","tinymce.core.util.Color","global!Array","global!Error","tinymce.ui.content.LinkTargets","global!console","ephox.sugar.api.search.PredicateFind","ephox.sugar.api.search.Selectors","ephox.sugar.impl.ClosestOrAncestor","tinymce.ui.editorui.FormatUtils","tinymce.ui.fmt.FontInfo","tinymce.core.util.I18n","tinymce.themes.modern.ui.A11y","tinymce.themes.modern.ui.ContextToolbars","tinymce.themes.modern.ui.Menubar","tinymce.themes.modern.ui.Sidebar","tinymce.themes.modern.ui.SkinLoaded","tinymce.themes.modern.ui.Toolbar","tinymce.ui.data.Binding","tinymce.core.util.Observable","ephox.katamari.api.Option","global!String","ephox.katamari.api.Id","ephox.sugar.api.search.SelectorFilter","ephox.katamari.api.Type","ephox.sugar.api.node.Body","ephox.sugar.api.dom.Compare","ephox.sugar.api.node.NodeTypes","ephox.sugar.api.node.Node","tinymce.core.geom.Rect","global!Object","global!Date","global!Math","ephox.sugar.api.search.PredicateFilter","ephox.katamari.api.Thunk","ephox.sand.api.Node","ephox.sand.api.PlatformDetection","ephox.sugar.api.search.Traverse","ephox.sand.util.Global","ephox.sand.core.PlatformDetection","global!navigator","ephox.katamari.api.Struct","ephox.sugar.alien.Recurse","ephox.katamari.api.Resolve","ephox.sand.core.Browser","ephox.sand.core.OperatingSystem","ephox.sand.detect.DeviceType","ephox.sand.detect.UaString","ephox.sand.info.PlatformInfo","ephox.katamari.data.Immutable","ephox.katamari.data.MixedBag","ephox.katamari.api.Global","ephox.sand.detect.Version","ephox.katamari.api.Strings","ephox.katamari.api.Obj","ephox.katamari.util.BagUtils","global!Number","ephox.katamari.str.StrAppend","ephox.katamari.str.StringParts"]
+["tinymce.themes.inlite.Theme","global!window","tinymce.core.ThemeManager","tinymce.themes.inlite.api.ThemeApi","tinymce.themes.inlite.ui.Buttons","tinymce.themes.inlite.ui.Panel","tinymce.ui.Api","tinymce.ui.FormatControls","global!tinymce.util.Tools.resolve","tinymce.themes.inlite.core.Render","tinymce.ui.NotificationManagerImpl","tinymce.ui.WindowManagerImpl","global!document","tinymce.core.dom.DOMUtils","tinymce.core.ui.Factory","tinymce.core.util.Tools","tinymce.themes.inlite.api.Events","tinymce.themes.inlite.api.Settings","tinymce.themes.inlite.core.Layout","tinymce.themes.inlite.core.Measure","tinymce.themes.inlite.ui.Forms","tinymce.themes.inlite.ui.Toolbar","tinymce.themes.inlite.file.Conversions","tinymce.themes.inlite.file.Picker","tinymce.themes.inlite.core.Actions","tinymce.ui.AbsoluteLayout","tinymce.ui.BrowseButton","tinymce.ui.Button","tinymce.ui.ButtonGroup","tinymce.ui.Checkbox","tinymce.ui.Collection","tinymce.ui.ColorBox","tinymce.ui.ColorButton","tinymce.ui.ColorPicker","tinymce.ui.ComboBox","tinymce.ui.Container","tinymce.ui.Control","tinymce.ui.DragHelper","tinymce.ui.DropZone","tinymce.ui.ElementPath","tinymce.ui.FieldSet","tinymce.ui.FilePicker","tinymce.ui.FitLayout","tinymce.ui.FlexLayout","tinymce.ui.FloatPanel","tinymce.ui.FlowLayout","tinymce.ui.Form","ephox.katamari.api.Fun","ephox.sugar.api.node.Element","ephox.sugar.api.search.SelectorFind","tinymce.core.EditorManager","tinymce.core.Env","tinymce.ui.Widget","tinymce.ui.editorui.Align","tinymce.ui.editorui.FontSelect","tinymce.ui.editorui.FontSizeSelect","tinymce.ui.editorui.FormatSelect","tinymce.ui.editorui.Formats","tinymce.ui.editorui.InsertButton","tinymce.ui.editorui.SimpleControls","tinymce.ui.editorui.UndoRedo","tinymce.ui.editorui.VisualAid","tinymce.ui.FormItem","tinymce.ui.GridLayout","tinymce.ui.Iframe","tinymce.ui.InfoBox","tinymce.ui.KeyboardNavigation","tinymce.ui.Label","tinymce.ui.Layout","tinymce.ui.ListBox","tinymce.ui.Menu","tinymce.ui.MenuBar","tinymce.ui.MenuButton","tinymce.ui.MenuItem","tinymce.ui.MessageBox","tinymce.ui.Movable","tinymce.ui.Notification","tinymce.ui.Panel","tinymce.ui.PanelButton","tinymce.ui.Path","tinymce.ui.Progress","tinymce.ui.Radio","tinymce.ui.ReflowQueue","tinymce.ui.Resizable","tinymce.ui.ResizeHandle","tinymce.ui.Scrollable","tinymce.ui.SelectBox","tinymce.ui.Selector","tinymce.ui.Slider","tinymce.ui.Spacer","tinymce.ui.SplitButton","tinymce.ui.StackLayout","tinymce.ui.TabPanel","tinymce.ui.TextBox","tinymce.ui.Throbber","tinymce.ui.Toolbar","tinymce.ui.Tooltip","tinymce.ui.Window","tinymce.core.util.Delay","tinymce.themes.inlite.alien.Arr","tinymce.themes.inlite.core.ElementMatcher","tinymce.themes.inlite.core.Matcher","tinymce.themes.inlite.core.PredicateId","tinymce.themes.inlite.core.SelectionMatcher","tinymce.themes.inlite.core.SkinLoader","ephox.katamari.api.Arr","global!setTimeout","tinymce.ui.DomUtils","tinymce.core.dom.DomQuery","tinymce.core.util.Class","tinymce.core.util.EventDispatcher","tinymce.ui.BoxUtils","tinymce.ui.ClassList","tinymce.ui.data.ObservableObject","tinymce.themes.inlite.alien.EditorSettings","tinymce.core.geom.Rect","tinymce.themes.inlite.core.Convert","tinymce.core.util.Promise","tinymce.themes.inlite.alien.Uuid","tinymce.themes.inlite.alien.Unlink","tinymce.themes.inlite.core.UrlType","tinymce.themes.inlite.alien.Type","ephox.sand.api.FileReader","global!RegExp","tinymce.core.util.VK","tinymce.core.util.Color","global!Array","global!Error","tinymce.ui.content.LinkTargets","global!console","ephox.sugar.api.search.PredicateFind","ephox.sugar.api.search.Selectors","ephox.sugar.impl.ClosestOrAncestor","tinymce.ui.editorui.FormatUtils","tinymce.ui.fmt.FontInfo","ephox.katamari.api.Option","global!String","tinymce.ui.data.Binding","tinymce.core.util.Observable","tinymce.themes.inlite.alien.Bookmark","tinymce.core.dom.TreeWalker","tinymce.core.api.dom.RangeUtils","ephox.sand.util.Global","ephox.katamari.api.Id","ephox.sugar.api.search.SelectorFilter","ephox.katamari.api.Type","ephox.sugar.api.node.Body","ephox.sugar.api.dom.Compare","ephox.sugar.api.node.NodeTypes","ephox.sugar.api.node.Node","global!Object","ephox.katamari.api.Resolve","global!Date","global!Math","ephox.sugar.api.search.PredicateFilter","ephox.katamari.api.Thunk","ephox.sand.api.Node","ephox.sand.api.PlatformDetection","ephox.katamari.api.Global","ephox.sugar.api.search.Traverse","ephox.sand.core.PlatformDetection","global!navigator","ephox.katamari.api.Struct","ephox.sugar.alien.Recurse","ephox.sand.core.Browser","ephox.sand.core.OperatingSystem","ephox.sand.detect.DeviceType","ephox.sand.detect.UaString","ephox.sand.info.PlatformInfo","ephox.katamari.data.Immutable","ephox.katamari.data.MixedBag","ephox.sand.detect.Version","ephox.katamari.api.Strings","ephox.katamari.api.Obj","ephox.katamari.util.BagUtils","global!Number","ephox.katamari.str.StrAppend","ephox.katamari.str.StringParts"]
 jsc*/
 defineGlobal("global!window", window);
 defineGlobal("global!tinymce.util.Tools.resolve", tinymce.util.Tools.resolve);
@@ -116,37 +116,17 @@ define(
  */
 
 define(
-  'tinymce.core.EditorManager',
+  'tinymce.core.util.Delay',
   [
     'global!tinymce.util.Tools.resolve'
   ],
   function (resolve) {
-    return resolve('tinymce.EditorManager');
+    return resolve('tinymce.util.Delay');
   }
 );
 
 /**
- * ResolveGlobal.js
- *
- * Released under LGPL License.
- * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
- */
-
-define(
-  'tinymce.core.util.Tools',
-  [
-    'global!tinymce.util.Tools.resolve'
-  ],
-  function (resolve) {
-    return resolve('tinymce.util.Tools');
-  }
-);
-
-/**
- * Settings.js
+ * Arr.js
  *
  * Released under LGPL License.
  * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
@@ -156,157 +136,62 @@ define(
  */
 
 define(
-  'tinymce.themes.modern.api.Settings',
+  'tinymce.themes.inlite.alien.Arr',
   [
-    'tinymce.core.EditorManager',
-    'tinymce.core.util.Tools'
   ],
-  function (EditorManager, Tools) {
-    var isBrandingEnabled = function (editor) {
-      return editor.getParam('branding', true);
-    };
-
-    var hasMenubar = function (editor) {
-      return getMenubar(editor) !== false;
-    };
-
-    var getMenubar = function (editor) {
-      return editor.getParam('menubar');
-    };
-
-    var hasStatusbar = function (editor) {
-      return editor.getParam('statusbar', true);
-    };
-
-    var getToolbarSize = function (editor) {
-      return editor.getParam('toolbar_items_size');
-    };
-
-    var getResize = function (editor) {
-      var resize = editor.getParam('resize', 'vertical');
-      if (resize === false) {
-        return 'none';
-      } else if (resize === 'both') {
-        return 'both';
-      } else {
-        return 'vertical';
-      }
-    };
-
-    var isReadOnly = function (editor) {
-      return editor.getParam('readonly', false);
-    };
-
-    var getFixedToolbarContainer = function (editor) {
-      return editor.getParam('fixed_toolbar_container');
-    };
-
-    var getInlineToolbarPositionHandler = function (editor) {
-      return editor.getParam('inline_toolbar_position_handler');
-    };
-
-    var getMenu = function (editor) {
-      return editor.getParam('menu');
-    };
-
-    var getRemovedMenuItems = function (editor) {
-      return editor.getParam('removed_menuitems', '');
-    };
-
-    var getMinWidth = function (editor) {
-      return editor.getParam('min_width', 100);
-    };
-
-    var getMinHeight = function (editor) {
-      return editor.getParam('min_height', 100);
-    };
-
-    var getMaxWidth = function (editor) {
-      return editor.getParam('max_width', 0xFFFF);
-    };
-
-    var getMaxHeight = function (editor) {
-      return editor.getParam('max_height', 0xFFFF);
-    };
-
-    var getSkinUrl = function (editor) {
-      var settings = editor.settings;
-      var skin = settings.skin;
-      var skinUrl = settings.skin_url;
-
-      if (skin !== false) {
-        var skinName = skin ? skin : 'lightgray';
-
-        if (skinUrl) {
-          skinUrl = editor.documentBaseURI.toAbsolute(skinUrl);
-        } else {
-          skinUrl = EditorManager.baseURL + '/skins/' + skinName;
-        }
-      }
-
-      return skinUrl;
-    };
-
-    var isSkinDisabled = function (editor) {
-      return editor.settings.skin === false;
-    };
-
-    var isInline = function (editor) {
-      return editor.getParam('inline', false);
-    };
-
-    var getIndexedToolbars = function (settings, defaultToolbar) {
-      var toolbars = [];
-
-      // Generate toolbar<n>
-      for (var i = 1; i < 10; i++) {
-        var toolbar = settings['toolbar' + i];
-        if (!toolbar) {
-          break;
-        }
-
-        toolbars.push(toolbar);
-      }
-
-      var mainToolbar = settings.toolbar ? [ settings.toolbar ] : [ defaultToolbar ];
-      return toolbars.length > 0 ? toolbars : mainToolbar;
-    };
-
-    var getToolbars = function (editor) {
-      var toolbar = editor.getParam('toolbar');
-      var defaultToolbar = 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image';
-
-      if (toolbar === false) {
-        return [];
-      } else if (Tools.isArray(toolbar)) {
-        return Tools.grep(toolbar, function (toolbar) {
-          return toolbar.length > 0;
-        });
-      } else {
-        return getIndexedToolbars(editor.settings, defaultToolbar);
-      }
+  function () {
+    var flatten = function (arr) {
+      return arr.reduce(function (results, item) {
+        return Array.isArray(item) ? results.concat(flatten(item)) : results.concat(item);
+      }, []);
     };
 
     return {
-      isBrandingEnabled: isBrandingEnabled,
-      hasMenubar: hasMenubar,
-      getMenubar: getMenubar,
-      hasStatusbar: hasStatusbar,
-      getToolbarSize: getToolbarSize,
-      getResize: getResize,
-      isReadOnly: isReadOnly,
-      getFixedToolbarContainer: getFixedToolbarContainer,
-      getInlineToolbarPositionHandler: getInlineToolbarPositionHandler,
-      getMenu: getMenu,
-      getRemovedMenuItems: getRemovedMenuItems,
-      getMinWidth: getMinWidth,
-      getMinHeight: getMinHeight,
-      getMaxWidth: getMaxWidth,
-      getMaxHeight: getMaxHeight,
-      getSkinUrl: getSkinUrl,
-      isSkinDisabled: isSkinDisabled,
-      isInline: isInline,
-      getToolbars: getToolbars
+      flatten: flatten
+    };
+  }
+);
+
+/**
+ * Matcher.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.inlite.core.Matcher',
+  [
+  ],
+  function () {
+    // result :: String, Rect -> Matcher.result
+    var result = function (id, rect) {
+      return {
+        id: id,
+        rect: rect
+      };
+    };
+
+    // match :: Editor, [(Editor -> Matcher.result | Null)] -> Matcher.result | Null
+    var match = function (editor, matchers) {
+      for (var i = 0; i < matchers.length; i++) {
+        var f = matchers[i];
+        var result = f(editor);
+
+        if (result) {
+          return result;
+        }
+      }
+
+      return null;
+    };
+
+    return {
+      match: match,
+      result: result
     };
   }
 );
@@ -332,22 +217,161 @@ define(
 );
 
 /**
- * ResolveGlobal.js
+ * Convert.js
  *
  * Released under LGPL License.
- * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
  *
  * License: http://www.tinymce.com/license
  * Contributing: http://www.tinymce.com/contributing
  */
 
 define(
-  'tinymce.core.ui.Factory',
+  'tinymce.themes.inlite.core.Convert',
   [
-    'global!tinymce.util.Tools.resolve'
   ],
-  function (resolve) {
-    return resolve('tinymce.ui.Factory');
+  function () {
+    var fromClientRect = function (clientRect) {
+      return {
+        x: clientRect.left,
+        y: clientRect.top,
+        w: clientRect.width,
+        h: clientRect.height
+      };
+    };
+
+    var toClientRect = function (geomRect) {
+      return {
+        left: geomRect.x,
+        top: geomRect.y,
+        width: geomRect.w,
+        height: geomRect.h,
+        right: geomRect.x + geomRect.w,
+        bottom: geomRect.y + geomRect.h
+      };
+    };
+
+    return {
+      fromClientRect: fromClientRect,
+      toClientRect: toClientRect
+    };
+  }
+);
+
+/**
+ * Measure.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.inlite.core.Measure',
+  [
+    'tinymce.core.dom.DOMUtils',
+    'tinymce.themes.inlite.core.Convert'
+  ],
+  function (DOMUtils, Convert) {
+    var toAbsolute = function (rect) {
+      var vp = DOMUtils.DOM.getViewPort();
+
+      return {
+        x: rect.x + vp.x,
+        y: rect.y + vp.y,
+        w: rect.w,
+        h: rect.h
+      };
+    };
+
+    var measureElement = function (elm) {
+      var clientRect = elm.getBoundingClientRect();
+
+      return toAbsolute({
+        x: clientRect.left,
+        y: clientRect.top,
+        w: Math.max(elm.clientWidth, elm.offsetWidth),
+        h: Math.max(elm.clientHeight, elm.offsetHeight)
+      });
+    };
+
+    var getElementRect = function (editor, elm) {
+      return measureElement(elm);
+    };
+
+    var getPageAreaRect = function (editor) {
+      return measureElement(editor.getElement().ownerDocument.body);
+    };
+
+    var getContentAreaRect = function (editor) {
+      return measureElement(editor.getContentAreaContainer() || editor.getBody());
+    };
+
+    var getSelectionRect = function (editor) {
+      var clientRect = editor.selection.getBoundingClientRect();
+      return clientRect ? toAbsolute(Convert.fromClientRect(clientRect)) : null;
+    };
+
+    return {
+      getElementRect: getElementRect,
+      getPageAreaRect: getPageAreaRect,
+      getContentAreaRect: getContentAreaRect,
+      getSelectionRect: getSelectionRect
+    };
+  }
+);
+
+/**
+ * ElementMatcher.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.inlite.core.ElementMatcher',
+  [
+    'tinymce.themes.inlite.core.Matcher',
+    'tinymce.themes.inlite.core.Measure'
+  ],
+  function (Matcher, Measure) {
+    // element :: Element, [PredicateId] -> (Editor -> Matcher.result | Null)
+    var element = function (element, predicateIds) {
+      return function (editor) {
+        for (var i = 0; i < predicateIds.length; i++) {
+          if (predicateIds[i].predicate(element)) {
+            return Matcher.result(predicateIds[i].id, Measure.getElementRect(editor, element));
+          }
+        }
+
+        return null;
+      };
+    };
+
+    // parent :: [Elements], [PredicateId] -> (Editor -> Matcher.result | Null)
+    var parent = function (elements, predicateIds) {
+      return function (editor) {
+        for (var i = 0; i < elements.length; i++) {
+          for (var x = 0; x < predicateIds.length; x++) {
+            if (predicateIds[x].predicate(elements[i])) {
+              return Matcher.result(predicateIds[x].id, Measure.getElementRect(editor, elements[i]));
+            }
+          }
+        }
+
+        return null;
+      };
+    };
+
+    return {
+      element: element,
+      parent: parent
+    };
   }
 );
 
@@ -362,12 +386,109 @@ define(
  */
 
 define(
-  'tinymce.core.util.I18n',
+  'tinymce.core.util.Tools',
   [
     'global!tinymce.util.Tools.resolve'
   ],
   function (resolve) {
-    return resolve('tinymce.util.I18n');
+    return resolve('tinymce.util.Tools');
+  }
+);
+
+/**
+ * PredicateId.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.inlite.core.PredicateId',
+  [
+    'tinymce.core.util.Tools'
+  ],
+  function (Tools) {
+    var create = function (id, predicate) {
+      return {
+        id: id,
+        predicate: predicate
+      };
+    };
+
+    // fromContextToolbars :: [ContextToolbar] -> [PredicateId]
+    var fromContextToolbars = function (toolbars) {
+      return Tools.map(toolbars, function (toolbar) {
+        return create(toolbar.id, toolbar.predicate);
+      });
+    };
+
+    return {
+      create: create,
+      fromContextToolbars: fromContextToolbars
+    };
+  }
+);
+
+/**
+ * SelectionMatcher.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.inlite.core.SelectionMatcher',
+  [
+    'tinymce.themes.inlite.core.Matcher',
+    'tinymce.themes.inlite.core.Measure'
+  ],
+  function (Matcher, Measure) {
+    // textSelection :: String -> (Editor -> Matcher.result | Null)
+    var textSelection = function (id) {
+      return function (editor) {
+        if (!editor.selection.isCollapsed()) {
+          return Matcher.result(id, Measure.getSelectionRect(editor));
+        }
+
+        return null;
+      };
+    };
+
+    // emptyTextBlock :: [Elements], String -> (Editor -> Matcher.result | Null)
+    var emptyTextBlock = function (elements, id) {
+      return function (editor) {
+        var i, textBlockElementsMap = editor.schema.getTextBlockElements();
+
+        for (i = 0; i < elements.length; i++) {
+          if (elements[i].nodeName === 'TABLE') {
+            return null;
+          }
+        }
+
+        for (i = 0; i < elements.length; i++) {
+          if (elements[i].nodeName in textBlockElementsMap) {
+            if (editor.dom.isEmpty(elements[i])) {
+              return Matcher.result(id, Measure.getSelectionRect(editor));
+            }
+
+            return null;
+          }
+        }
+
+        return null;
+      };
+    };
+
+    return {
+      textSelection: textSelection,
+      emptyTextBlock: emptyTextBlock
+    };
   }
 );
 
@@ -382,16 +503,12 @@ define(
  */
 
 define(
-  'tinymce.themes.modern.api.Events',
+  'tinymce.themes.inlite.api.Events',
   [
   ],
   function () {
     var fireSkinLoaded = function (editor) {
-      return editor.fire('SkinLoaded');
-    };
-
-    var fireResizeEditor = function (editor) {
-      return editor.fire('ResizeEditor');
+      editor.fire('SkinLoaded');
     };
 
     var fireBeforeRenderUI = function (editor) {
@@ -400,14 +517,35 @@ define(
 
     return {
       fireSkinLoaded: fireSkinLoaded,
-      fireResizeEditor: fireResizeEditor,
       fireBeforeRenderUI: fireBeforeRenderUI
     };
   }
 );
 
+
+
 /**
- * A11y.js
+ * ResolveGlobal.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.core.EditorManager',
+  [
+    'global!tinymce.util.Tools.resolve'
+  ],
+  function (resolve) {
+    return resolve('tinymce.EditorManager');
+  }
+);
+
+/**
+ * Type.js
  *
  * Released under LGPL License.
  * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
@@ -417,36 +555,119 @@ define(
  */
 
 define(
-  'tinymce.themes.modern.ui.A11y',
+  'tinymce.themes.inlite.alien.Type',
   [
   ],
   function () {
-    var focus = function (panel, type) {
-      return function () {
-        var item = panel.find(type)[0];
-
-        if (item) {
-          item.focus(true);
-        }
+    var isType = function (type) {
+      return function (value) {
+        return typeof value === type;
       };
     };
 
-    var addKeys = function (editor, panel) {
-      editor.shortcuts.add('Alt+F9', '', focus(panel, 'menubar'));
-      editor.shortcuts.add('Alt+F10,F10', '', focus(panel, 'toolbar'));
-      editor.shortcuts.add('Alt+F11', '', focus(panel, 'elementpath'));
-      panel.on('cancel', function () {
-        editor.focus();
-      });
+    var isArray = function (value) {
+      return Array.isArray(value);
+    };
+
+    var isNull = function (value) {
+      return value === null;
+    };
+
+    var isObject = function (predicate) {
+      return function (value) {
+        return !isNull(value) && !isArray(value) && predicate(value);
+      };
     };
 
     return {
-      addKeys: addKeys
+      isString: isType("string"),
+      isNumber: isType("number"),
+      isBoolean: isType("boolean"),
+      isFunction: isType("function"),
+      isObject: isObject(isType("object")),
+      isNull: isNull,
+      isArray: isArray
     };
   }
 );
 
-defineGlobal("global!document", document);
+/**
+ * EditorSettings.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.inlite.alien.EditorSettings',
+  [
+    'tinymce.themes.inlite.alien.Type'
+  ],
+  function (Type) {
+    var validDefaultOrDie = function (value, predicate) {
+      if (predicate(value)) {
+        return true;
+      }
+
+      throw new Error('Default value doesn\'t match requested type.');
+    };
+
+    var getByTypeOr = function (predicate) {
+      return function (editor, name, defaultValue) {
+        var settings = editor.settings;
+        validDefaultOrDie(defaultValue, predicate);
+        return name in settings && predicate(settings[name]) ? settings[name] : defaultValue;
+      };
+    };
+
+    var splitNoEmpty = function (str, delim) {
+      return str.split(delim).filter(function (item) {
+        return item.length > 0;
+      });
+    };
+
+    var itemsToArray = function (value, defaultValue) {
+      var stringToItemsArray = function (value) {
+        return typeof value === 'string' ? splitNoEmpty(value, /[ ,]/) : value;
+      };
+
+      var boolToItemsArray = function (value, defaultValue) {
+        return value === false ? [] : defaultValue;
+      };
+
+      if (Type.isArray(value)) {
+        return value;
+      } else if (Type.isString(value)) {
+        return stringToItemsArray(value);
+      } else if (Type.isBoolean(value)) {
+        return boolToItemsArray(value, defaultValue);
+      }
+
+      return defaultValue;
+    };
+
+    var getToolbarItemsOr = function (predicate) {
+      return function (editor, name, defaultValue) {
+        var value = name in editor.settings ? editor.settings[name] : defaultValue;
+        validDefaultOrDie(defaultValue, predicate);
+        return itemsToArray(value, defaultValue);
+      };
+    };
+
+    return {
+      // TODO: Add Option based getString, getBool if merged with core
+      getStringOr: getByTypeOr(Type.isString),
+      getBoolOr: getByTypeOr(Type.isBoolean),
+      getNumberOr: getByTypeOr(Type.isNumber),
+      getHandlerOr: getByTypeOr(Type.isFunction),
+      getToolbarItemsOr: getToolbarItemsOr(Type.isArray)
+    };
+  }
+);
+
 /**
  * ResolveGlobal.js
  *
@@ -468,27 +689,7 @@ define(
 );
 
 /**
- * ResolveGlobal.js
- *
- * Released under LGPL License.
- * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
- */
-
-define(
-  'tinymce.core.util.Delay',
-  [
-    'global!tinymce.util.Tools.resolve'
-  ],
-  function (resolve) {
-    return resolve('tinymce.util.Delay');
-  }
-);
-
-/**
- * Toolbar.js
+ * Layout.js
  *
  * Released under LGPL License.
  * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
@@ -498,442 +699,371 @@ define(
  */
 
 define(
-  'tinymce.themes.modern.ui.Toolbar',
+  'tinymce.themes.inlite.core.Layout',
   [
-    'tinymce.core.ui.Factory',
-    'tinymce.core.util.Tools',
-    'tinymce.themes.modern.api.Settings'
-  ],
-  function (Factory, Tools, Settings) {
-    var createToolbar = function (editor, items, size) {
-      var toolbarItems = [], buttonGroup;
-
-      if (!items) {
-        return;
-      }
-
-      Tools.each(items.split(/[ ,]/), function (item) {
-        var itemName;
-
-        var bindSelectorChanged = function () {
-          var selection = editor.selection;
-
-          if (item.settings.stateSelector) {
-            selection.selectorChanged(item.settings.stateSelector, function (state) {
-              item.active(state);
-            }, true);
-          }
-
-          if (item.settings.disabledStateSelector) {
-            selection.selectorChanged(item.settings.disabledStateSelector, function (state) {
-              item.disabled(state);
-            });
-          }
-        };
-
-        if (item === "|") {
-          buttonGroup = null;
-        } else {
-          if (!buttonGroup) {
-            buttonGroup = { type: 'buttongroup', items: [] };
-            toolbarItems.push(buttonGroup);
-          }
-
-          if (editor.buttons[item]) {
-            // TODO: Move control creation to some UI class
-            itemName = item;
-            item = editor.buttons[itemName];
-
-            if (typeof item === "function") {
-              item = item();
-            }
-
-            item.type = item.type || 'button';
-            item.size = size;
-
-            item = Factory.create(item);
-            buttonGroup.items.push(item);
-
-            if (editor.initialized) {
-              bindSelectorChanged();
-            } else {
-              editor.on('init', bindSelectorChanged);
-            }
-          }
-        }
-      });
-
-      return {
-        type: 'toolbar',
-        layout: 'flow',
-        items: toolbarItems
-      };
-    };
-
-    /**
-     * Creates the toolbars from config and returns a toolbar array.
-     *
-     * @param {String} size Optional toolbar item size.
-     * @return {Array} Array with toolbars.
-     */
-    var createToolbars = function (editor, size) {
-      var toolbars = [];
-
-      var addToolbar = function (items) {
-        if (items) {
-          toolbars.push(createToolbar(editor, items, size));
-        }
-      };
-
-      Tools.each(Settings.getToolbars(editor), function (toolbar) {
-        addToolbar(toolbar);
-      });
-
-      if (toolbars.length) {
-        return {
-          type: 'panel',
-          layout: 'stack',
-          classes: "toolbar-grp",
-          ariaRoot: true,
-          ariaRemember: true,
-          items: toolbars
-        };
-      }
-    };
-
-    return {
-      createToolbar: createToolbar,
-      createToolbars: createToolbars
-    };
-  }
-);
-
-/**
- * ContextToolbars.js
- *
- * Released under LGPL License.
- * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
- */
-
-define(
-  'tinymce.themes.modern.ui.ContextToolbars',
-  [
-    'global!document',
-    'tinymce.core.dom.DOMUtils',
     'tinymce.core.geom.Rect',
-    'tinymce.core.ui.Factory',
-    'tinymce.core.util.Delay',
-    'tinymce.core.util.Tools',
-    'tinymce.themes.modern.api.Settings',
-    'tinymce.themes.modern.ui.Toolbar'
+    'tinymce.themes.inlite.core.Convert'
   ],
-  function (document, DOMUtils, Rect, Factory, Delay, Tools, Settings, Toolbar) {
-    var DOM = DOMUtils.DOM;
-
-    var toClientRect = function (geomRect) {
+  function (Rect, Convert) {
+    var result = function (rect, position) {
       return {
-        left: geomRect.x,
-        top: geomRect.y,
-        width: geomRect.w,
-        height: geomRect.h,
-        right: geomRect.x + geomRect.w,
-        bottom: geomRect.y + geomRect.h
+        rect: rect,
+        position: position
       };
     };
 
-    var hideAllFloatingPanels = function (editor) {
-      Tools.each(editor.contextToolbars, function (toolbar) {
-        if (toolbar.panel) {
-          toolbar.panel.hide();
+    var moveTo = function (rect, toRect) {
+      return { x: toRect.x, y: toRect.y, w: rect.w, h: rect.h };
+    };
+
+    var calcByPositions = function (testPositions1, testPositions2, targetRect, contentAreaRect, panelRect) {
+      var relPos, relRect, outputPanelRect;
+
+      var paddedContentRect = {
+        x: contentAreaRect.x,
+        y: contentAreaRect.y,
+        w: contentAreaRect.w + (contentAreaRect.w < (panelRect.w + targetRect.w) ? panelRect.w : 0),
+        h: contentAreaRect.h + (contentAreaRect.h < (panelRect.h + targetRect.h) ? panelRect.h : 0)
+      };
+
+      relPos = Rect.findBestRelativePosition(panelRect, targetRect, paddedContentRect, testPositions1);
+      targetRect = Rect.clamp(targetRect, paddedContentRect);
+
+      if (relPos) {
+        relRect = Rect.relativePosition(panelRect, targetRect, relPos);
+        outputPanelRect = moveTo(panelRect, relRect);
+        return result(outputPanelRect, relPos);
+      }
+
+      targetRect = Rect.intersect(paddedContentRect, targetRect);
+      if (targetRect) {
+        relPos = Rect.findBestRelativePosition(panelRect, targetRect, paddedContentRect, testPositions2);
+
+        if (relPos) {
+          relRect = Rect.relativePosition(panelRect, targetRect, relPos);
+          outputPanelRect = moveTo(panelRect, relRect);
+          return result(outputPanelRect, relPos);
         }
-      });
+
+        outputPanelRect = moveTo(panelRect, targetRect);
+        return result(outputPanelRect, relPos);
+      }
+
+      return null;
     };
 
-    var movePanelTo = function (panel, pos) {
-      panel.moveTo(pos.left, pos.top);
+    var calcInsert = function (targetRect, contentAreaRect, panelRect) {
+      return calcByPositions(
+        ['cr-cl', 'cl-cr'],
+        ['bc-tc', 'bl-tl', 'br-tr'],
+        targetRect,
+        contentAreaRect,
+        panelRect
+      );
     };
 
-    var togglePositionClass = function (panel, relPos, predicate) {
-      relPos = relPos ? relPos.substr(0, 2) : '';
-
-      Tools.each({
-        t: 'down',
-        b: 'up'
-      }, function (cls, pos) {
-        panel.classes.toggle('arrow-' + cls, predicate(pos, relPos.substr(0, 1)));
-      });
-
-      Tools.each({
-        l: 'left',
-        r: 'right'
-      }, function (cls, pos) {
-        panel.classes.toggle('arrow-' + cls, predicate(pos, relPos.substr(1, 1)));
-      });
+    var calc = function (targetRect, contentAreaRect, panelRect) {
+      return calcByPositions(
+        ['tc-bc', 'bc-tc', 'tl-bl', 'bl-tl', 'tr-br', 'br-tr', 'cr-cl', 'cl-cr'],
+        ['bc-tc', 'bl-tl', 'br-tr', 'cr-cl'],
+        targetRect,
+        contentAreaRect,
+        panelRect
+      );
     };
 
-    var userConstrain = function (handler, x, y, elementRect, contentAreaRect, panelRect) {
-      panelRect = toClientRect({ x: x, y: y, w: panelRect.w, h: panelRect.h });
+    var userConstrain = function (handler, targetRect, contentAreaRect, panelRect) {
+      var userConstrainedPanelRect;
 
-      if (handler) {
-        panelRect = handler({
-          elementRect: toClientRect(elementRect),
-          contentAreaRect: toClientRect(contentAreaRect),
-          panelRect: panelRect
+      if (typeof handler === 'function') {
+        userConstrainedPanelRect = handler({
+          elementRect: Convert.toClientRect(targetRect),
+          contentAreaRect: Convert.toClientRect(contentAreaRect),
+          panelRect: Convert.toClientRect(panelRect)
         });
+
+        return Convert.fromClientRect(userConstrainedPanelRect);
       }
 
       return panelRect;
     };
 
-    var addContextualToolbars = function (editor) {
-      var scrollContainer;
+    var defaultHandler = function (rects) {
+      return rects.panelRect;
+    };
 
-      var getContextToolbars = function () {
-        return editor.contextToolbars || [];
+    return {
+      calcInsert: calcInsert,
+      calc: calc,
+      userConstrain: userConstrain,
+      defaultHandler: defaultHandler
+    };
+  }
+);
+
+/**
+ * Settings.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.inlite.api.Settings',
+  [
+    'tinymce.core.EditorManager',
+    'tinymce.themes.inlite.alien.EditorSettings',
+    'tinymce.themes.inlite.core.Layout'
+  ],
+  function (EditorManager, EditorSettings, Layout) {
+    var toAbsoluteUrl = function (editor, url) {
+      return editor.documentBaseURI.toAbsolute(url);
+    };
+
+    var urlFromName = function (name) {
+      var prefix = EditorManager.baseURL + '/skins/';
+      return name ? prefix + name : prefix + 'lightgray';
+    };
+
+    var getTextSelectionToolbarItems = function (editor) {
+      return EditorSettings.getToolbarItemsOr(editor, 'selection_toolbar', ['bold', 'italic', '|', 'quicklink', 'h2', 'h3', 'blockquote']);
+    };
+
+    var getInsertToolbarItems = function (editor) {
+      return EditorSettings.getToolbarItemsOr(editor, 'insert_toolbar', ['quickimage', 'quicktable']);
+    };
+
+    var getPositionHandler = function (editor) {
+      return EditorSettings.getHandlerOr(editor, 'inline_toolbar_position_handler', Layout.defaultHandler);
+    };
+
+    var getSkinUrl = function (editor) {
+      var settings = editor.settings;
+      return settings.skin_url ? toAbsoluteUrl(editor, settings.skin_url) : urlFromName(settings.skin);
+    };
+
+    var isSkinDisabled = function (editor) {
+      return editor.settings.skin === false;
+    };
+
+    return {
+      getTextSelectionToolbarItems: getTextSelectionToolbarItems,
+      getInsertToolbarItems: getInsertToolbarItems,
+      getPositionHandler: getPositionHandler,
+      getSkinUrl: getSkinUrl,
+      isSkinDisabled: isSkinDisabled
+    };
+  }
+);
+
+/**
+ * SkinLoader.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.inlite.core.SkinLoader',
+  [
+    'tinymce.core.dom.DOMUtils',
+    'tinymce.themes.inlite.api.Events',
+    'tinymce.themes.inlite.api.Settings'
+  ],
+  function (DOMUtils, Events, Settings) {
+    var fireSkinLoaded = function (editor, callback) {
+      var done = function () {
+        editor._skinLoaded = true;
+        Events.fireSkinLoaded(editor);
+        callback();
       };
 
-      var getElementRect = function (elm) {
-        var pos, targetRect, root;
+      if (editor.initialized) {
+        done();
+      } else {
+        editor.on('init', done);
+      }
+    };
 
-        pos = DOM.getPos(editor.getContentAreaContainer());
-        targetRect = editor.dom.getRect(elm);
-        root = editor.dom.getRoot();
+    var load = function (editor, callback) {
+      var skinUrl = Settings.getSkinUrl(editor);
 
-        // Adjust targetPos for scrolling in the editor
-        if (root.nodeName === 'BODY') {
-          targetRect.x -= root.ownerDocument.documentElement.scrollLeft || root.scrollLeft;
-          targetRect.y -= root.ownerDocument.documentElement.scrollTop || root.scrollTop;
-        }
-
-        targetRect.x += pos.x;
-        targetRect.y += pos.y;
-
-        return targetRect;
+      var done = function () {
+        fireSkinLoaded(editor, callback);
       };
 
-      var reposition = function (match, shouldShow) {
-        var relPos, panelRect, elementRect, contentAreaRect, panel, relRect, testPositions, smallElementWidthThreshold;
-        var handler = Settings.getInlineToolbarPositionHandler(editor);
+      if (Settings.isSkinDisabled(editor)) {
+        done();
+      } else {
+        DOMUtils.DOM.styleSheetLoader.load(skinUrl + '/skin.min.css', done);
+        editor.contentCSS.push(skinUrl + '/content.inline.min.css');
+      }
+    };
 
-        if (editor.removed) {
-          return;
-        }
+    return {
+      load: load
+    };
+  }
+);
 
-        if (!match || !match.toolbar.panel) {
-          hideAllFloatingPanels(editor);
-          return;
-        }
 
-        testPositions = [
-          'bc-tc', 'tc-bc',
-          'tl-bl', 'bl-tl',
-          'tr-br', 'br-tr'
-        ];
 
-        panel = match.toolbar.panel;
+/**
+ * Render.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
 
-        // Only show the panel on some events not for example nodeChange since that fires when context menu is opened
-        if (shouldShow) {
-          panel.show();
-        }
+define(
+  'tinymce.themes.inlite.core.Render',
+  [
+    'tinymce.core.util.Delay',
+    'tinymce.themes.inlite.alien.Arr',
+    'tinymce.themes.inlite.core.ElementMatcher',
+    'tinymce.themes.inlite.core.Matcher',
+    'tinymce.themes.inlite.core.PredicateId',
+    'tinymce.themes.inlite.core.SelectionMatcher',
+    'tinymce.themes.inlite.core.SkinLoader'
+  ],
+  function (Delay, Arr, ElementMatcher, Matcher, PredicateId, SelectionMatcher, SkinLoader) {
+    var getSelectionElements = function (editor) {
+      var node = editor.selection.getNode();
+      var elms = editor.dom.getParents(node);
+      return elms;
+    };
 
-        elementRect = getElementRect(match.element);
-        panelRect = DOM.getRect(panel.getEl());
-        contentAreaRect = DOM.getRect(editor.getContentAreaContainer() || editor.getBody());
-        smallElementWidthThreshold = 25;
+    var createToolbar = function (editor, selector, id, items) {
+      var selectorPredicate = function (elm) {
+        return editor.dom.is(elm, selector);
+      };
 
-        if (DOM.getStyle(match.element, 'display', true) !== 'inline') {
-          // We need to use these instead of the rect values since the style
-          // size properites might not be the same as the real size for a table if it has a caption
-          var clientRect = match.element.getBoundingClientRect();
-          elementRect.w = clientRect.width;
-          elementRect.h = clientRect.height;
-        }
+      return {
+        predicate: selectorPredicate,
+        id: id,
+        items: items
+      };
+    };
 
-        if (!editor.inline) {
-          contentAreaRect.w = editor.getDoc().documentElement.offsetWidth;
-        }
+    var getToolbars = function (editor) {
+      var contextToolbars = editor.contextToolbars;
 
-        // Inflate the elementRect so it doesn't get placed above resize handles
-        if (editor.selection.controlSelection.isResizable(match.element) && elementRect.w < smallElementWidthThreshold) {
-          elementRect = Rect.inflate(elementRect, 0, 8);
-        }
+      return Arr.flatten([
+        contextToolbars ? contextToolbars : [],
+        createToolbar(editor, 'img', 'image', 'alignleft aligncenter alignright')
+      ]);
+    };
 
-        relPos = Rect.findBestRelativePosition(panelRect, elementRect, contentAreaRect, testPositions);
-        elementRect = Rect.clamp(elementRect, contentAreaRect);
+    var findMatchResult = function (editor, toolbars) {
+      var result, elements, contextToolbarsPredicateIds;
 
-        if (relPos) {
-          relRect = Rect.relativePosition(panelRect, elementRect, relPos);
-          movePanelTo(panel, userConstrain(handler, relRect.x, relRect.y, elementRect, contentAreaRect, panelRect));
+      elements = getSelectionElements(editor);
+      contextToolbarsPredicateIds = PredicateId.fromContextToolbars(toolbars);
+
+      result = Matcher.match(editor, [
+        ElementMatcher.element(elements[0], contextToolbarsPredicateIds),
+        SelectionMatcher.textSelection('text'),
+        SelectionMatcher.emptyTextBlock(elements, 'insert'),
+        ElementMatcher.parent(elements, contextToolbarsPredicateIds)
+      ]);
+
+      return result && result.rect ? result : null;
+    };
+
+    var togglePanel = function (editor, panel) {
+      var toggle = function () {
+        var toolbars = getToolbars(editor);
+        var result = findMatchResult(editor, toolbars);
+
+        if (result) {
+          panel.show(editor, result.id, result.rect, toolbars);
         } else {
-          // Allow overflow below the editor to avoid placing toolbars ontop of tables
-          contentAreaRect.h += panelRect.h;
-
-          elementRect = Rect.intersect(contentAreaRect, elementRect);
-          if (elementRect) {
-            relPos = Rect.findBestRelativePosition(panelRect, elementRect, contentAreaRect, [
-              'bc-tc', 'bl-tl', 'br-tr'
-            ]);
-
-            if (relPos) {
-              relRect = Rect.relativePosition(panelRect, elementRect, relPos);
-              movePanelTo(panel, userConstrain(handler, relRect.x, relRect.y, elementRect, contentAreaRect, panelRect));
-            } else {
-              movePanelTo(panel, userConstrain(handler, elementRect.x, elementRect.y, elementRect, contentAreaRect, panelRect));
-            }
-          } else {
-            panel.hide();
-          }
-        }
-
-        togglePositionClass(panel, relPos, function (pos1, pos2) {
-          return pos1 === pos2;
-        });
-
-        //drawRect(contentAreaRect, 'blue');
-        //drawRect(elementRect, 'red');
-        //drawRect(panelRect, 'green');
-      };
-
-      var repositionHandler = function (show) {
-        return function () {
-          var execute = function () {
-            if (editor.selection) {
-              reposition(findFrontMostMatch(editor.selection.getNode()), show);
-            }
-          };
-
-          Delay.requestAnimationFrame(execute);
-        };
-      };
-
-      var bindScrollEvent = function () {
-        if (!scrollContainer) {
-          scrollContainer = editor.selection.getScrollContainer() || editor.getWin();
-          DOM.bind(scrollContainer, 'scroll', repositionHandler(true));
-
-          editor.on('remove', function () {
-            DOM.unbind(scrollContainer, 'scroll');
-          });
+          panel.hide();
         }
       };
 
-      var showContextToolbar = function (match) {
-        var panel;
-
-        if (match.toolbar.panel) {
-          match.toolbar.panel.show();
-          reposition(match);
-          return;
+      return function () {
+        if (!editor.removed) {
+          toggle();
         }
-
-        bindScrollEvent();
-
-        panel = Factory.create({
-          type: 'floatpanel',
-          role: 'dialog',
-          classes: 'tinymce tinymce-inline arrow',
-          ariaLabel: 'Inline toolbar',
-          layout: 'flex',
-          direction: 'column',
-          align: 'stretch',
-          autohide: false,
-          autofix: true,
-          fixed: true,
-          border: 1,
-          items: Toolbar.createToolbar(editor, match.toolbar.items),
-          oncancel: function () {
-            editor.focus();
-          }
-        });
-
-        match.toolbar.panel = panel;
-        panel.renderTo(document.body).reflow();
-        reposition(match);
       };
+    };
 
-      var hideAllContextToolbars = function () {
-        Tools.each(getContextToolbars(), function (toolbar) {
-          if (toolbar.panel) {
-            toolbar.panel.hide();
-          }
-        });
+    var repositionPanel = function (editor, panel) {
+      return function () {
+        var toolbars = getToolbars(editor);
+        var result = findMatchResult(editor, toolbars);
+
+        if (result) {
+          panel.reposition(editor, result.id, result.rect);
+        }
       };
+    };
 
-      var findFrontMostMatch = function (targetElm) {
-        var i, y, parentsAndSelf, toolbars = getContextToolbars();
-
-        parentsAndSelf = editor.$(targetElm).parents().add(targetElm);
-        for (i = parentsAndSelf.length - 1; i >= 0; i--) {
-          for (y = toolbars.length - 1; y >= 0; y--) {
-            if (toolbars[y].predicate(parentsAndSelf[i])) {
-              return {
-                toolbar: toolbars[y],
-                element: parentsAndSelf[i]
-              };
-            }
-          }
+    var ignoreWhenFormIsVisible = function (editor, panel, f) {
+      return function () {
+        if (!editor.removed && !panel.inForm()) {
+          f();
         }
-
-        return null;
       };
+    };
 
-      editor.on('click keyup setContent ObjectResized', function (e) {
-        // Only act on partial inserts
-        if (e.type === 'setcontent' && !e.selection) {
-          return;
-        }
+    var bindContextualToolbarsEvents = function (editor, panel) {
+      var throttledTogglePanel = Delay.throttle(togglePanel(editor, panel), 0);
+      var throttledTogglePanelWhenNotInForm = Delay.throttle(ignoreWhenFormIsVisible(editor, panel, togglePanel(editor, panel)), 0);
 
-        // Needs to be delayed to avoid Chrome img focus out bug
-        Delay.setEditorTimeout(editor, function () {
-          var match;
+      editor.on('blur hide ObjectResizeStart', panel.hide);
+      editor.on('click', throttledTogglePanel);
+      editor.on('nodeChange mouseup', throttledTogglePanelWhenNotInForm);
+      editor.on('ResizeEditor keyup', throttledTogglePanel);
+      editor.on('ResizeWindow', repositionPanel(editor, panel));
+      editor.on('remove', panel.remove);
 
-          match = findFrontMostMatch(editor.selection.getNode());
-          if (match) {
-            hideAllContextToolbars();
-            showContextToolbar(match);
-          } else {
-            hideAllContextToolbars();
-          }
-        });
-      });
+      editor.shortcuts.add('Alt+F10,F10', '', panel.focus);
+    };
 
-      editor.on('blur hide contextmenu', hideAllContextToolbars);
+    var overrideLinkShortcut = function (editor, panel) {
+      editor.shortcuts.remove('meta+k');
+      editor.shortcuts.add('meta+k', '', function () {
+        var toolbars = getToolbars(editor);
+        var result = result = Matcher.match(editor, [
+          SelectionMatcher.textSelection('quicklink')
+        ]);
 
-      editor.on('ObjectResizeStart', function () {
-        var match = findFrontMostMatch(editor.selection.getNode());
-
-        if (match && match.toolbar.panel) {
-          match.toolbar.panel.hide();
-        }
-      });
-
-      editor.on('ResizeEditor ResizeWindow', repositionHandler(true));
-      editor.on('nodeChange', repositionHandler(false));
-
-      editor.on('remove', function () {
-        Tools.each(getContextToolbars(), function (toolbar) {
-          if (toolbar.panel) {
-            toolbar.panel.remove();
-          }
-        });
-
-        editor.contextToolbars = {};
-      });
-
-      editor.shortcuts.add('ctrl+shift+e > ctrl+shift+p', '', function () {
-        var match = findFrontMostMatch(editor.selection.getNode());
-        if (match && match.toolbar.panel) {
-          match.toolbar.panel.items()[0].focus();
+        if (result) {
+          panel.show(editor, result.id, result.rect, toolbars);
         }
       });
     };
 
+    var renderInlineUI = function (editor, panel) {
+      SkinLoader.load(editor, function () {
+        bindContextualToolbarsEvents(editor, panel);
+        overrideLinkShortcut(editor, panel);
+      });
+
+      return {};
+    };
+
+    var fail = function (message) {
+      throw new Error(message);
+    };
+
+    var renderUI = function (editor, panel) {
+      return editor.inline ? renderInlineUI(editor, panel) : fail('inlite theme only supports inline mode.');
+    };
+
     return {
-      addContextualToolbars: addContextualToolbars
+      renderUI: renderUI
     };
   }
 );
@@ -1521,227 +1651,8 @@ define(
     };
   }
 );
-/**
- * Menubar.js
- *
- * Released under LGPL License.
- * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
- */
-
-define(
-  'tinymce.themes.modern.ui.Menubar',
-  [
-    'ephox.katamari.api.Arr',
-    'tinymce.core.util.Tools',
-    'tinymce.themes.modern.api.Settings'
-  ],
-  function (Arr, Tools, Settings) {
-    var defaultMenus = {
-      file: { title: 'File', items: 'newdocument restoredraft | preview | print' },
-      edit: { title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall' },
-      view: { title: 'View', items: 'code | visualaid visualchars visualblocks | spellchecker | preview fullscreen' },
-      insert: { title: 'Insert', items: 'image link media template codesample inserttable | charmap hr | pagebreak nonbreaking anchor toc | insertdatetime' },
-      format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat | blockformats align | removeformat' },
-      tools: { title: 'Tools', items: 'spellchecker spellcheckerlanguage | a11ycheck' },
-      table: { title: 'Table' },
-      help: { title: 'Help' }
-    };
-
-    var delimiterMenuNamePair = function () {
-      return { name: '|', item: { text: '|' } };
-    };
-
-    var createMenuNameItemPair = function (name, item) {
-      var menuItem = item ? { name: name, item: item } : null;
-      return name === '|' ? delimiterMenuNamePair() : menuItem;
-    };
-
-    var hasItemName = function (namedMenuItems, name) {
-      return Arr.findIndex(namedMenuItems, function (namedMenuItem) {
-        return namedMenuItem.name === name;
-      }).isSome();
-    };
-
-    var isSeparator = function (namedMenuItem) {
-      return namedMenuItem && namedMenuItem.item.text === '|';
-    };
-
-    var cleanupMenu = function (namedMenuItems, removedMenuItems) {
-      var menuItemsPass1 = Arr.filter(namedMenuItems, function (namedMenuItem) {
-        return removedMenuItems.hasOwnProperty(namedMenuItem.name) === false;
-      });
-
-      var menuItemsPass2 = Arr.filter(menuItemsPass1, function (namedMenuItem, i, namedMenuItems) {
-        return !isSeparator(namedMenuItem) || !isSeparator(namedMenuItems[i - 1]);
-      });
-
-      return Arr.filter(menuItemsPass2, function (namedMenuItem, i, namedMenuItems) {
-        return !isSeparator(namedMenuItem) || i > 0 && i < namedMenuItems.length - 1;
-      });
-    };
-
-    var createMenu = function (editorMenuItems, menus, removedMenuItems, context) {
-      var menuButton, menu, namedMenuItems, isUserDefined;
-
-      // User defined menu
-      if (menus) {
-        menu = menus[context];
-        isUserDefined = true;
-      } else {
-        menu = defaultMenus[context];
-      }
-
-      if (menu) {
-        menuButton = { text: menu.title };
-        namedMenuItems = [];
-
-        // Default/user defined items
-        Tools.each((menu.items || '').split(/[ ,]/), function (name) {
-          var namedMenuItem = createMenuNameItemPair(name, editorMenuItems[name]);
-
-          if (namedMenuItem) {
-            namedMenuItems.push(namedMenuItem);
-          }
-        });
-
-        // Added though context
-        if (!isUserDefined) {
-          Tools.each(editorMenuItems, function (item, name) {
-            if (item.context === context && !hasItemName(namedMenuItems, name)) {
-              if (item.separator === 'before') {
-                namedMenuItems.push(delimiterMenuNamePair());
-              }
-
-              if (item.prependToContext) {
-                namedMenuItems.unshift(createMenuNameItemPair(name, item));
-              } else {
-                namedMenuItems.push(createMenuNameItemPair(name, item));
-              }
-
-              if (item.separator === 'after') {
-                namedMenuItems.push(delimiterMenuNamePair());
-              }
-            }
-          });
-        }
-
-        menuButton.menu = Arr.map(cleanupMenu(namedMenuItems, removedMenuItems), function (menuItem) {
-          return menuItem.item;
-        });
-
-        if (!menuButton.menu.length) {
-          return null;
-        }
-      }
-
-      return menuButton;
-    };
-
-    var getDefaultMenubar = function (editor) {
-      var name, defaultMenuBar = [];
-      var menu = Settings.getMenu(editor);
-
-      if (menu) {
-        for (name in menu) {
-          defaultMenuBar.push(name);
-        }
-      } else {
-        for (name in defaultMenus) {
-          defaultMenuBar.push(name);
-        }
-      }
-
-      return defaultMenuBar;
-    };
-
-    var createMenuButtons = function (editor) {
-      var menuButtons = [];
-      var defaultMenuBar = getDefaultMenubar(editor);
-      var removedMenuItems = Tools.makeMap(Settings.getRemovedMenuItems(editor).split(/[ ,]/));
-
-      var menubar = Settings.getMenubar(editor);
-      var enabledMenuNames = typeof menubar === "string" ? menubar.split(/[ ,]/) : defaultMenuBar;
-      for (var i = 0; i < enabledMenuNames.length; i++) {
-        var menuItems = enabledMenuNames[i];
-        var menu = createMenu(editor.menuItems, Settings.getMenu(editor), removedMenuItems, menuItems);
-        if (menu) {
-          menuButtons.push(menu);
-        }
-      }
-
-      return menuButtons;
-    };
-
-    return {
-      createMenuButtons: createMenuButtons
-    };
-  }
-);
-
-/**
- * Resize.js
- *
- * Released under LGPL License.
- * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
- */
-
-define(
-  'tinymce.themes.modern.ui.Resize',
-  [
-    'tinymce.core.dom.DOMUtils',
-    'tinymce.themes.modern.api.Events',
-    'tinymce.themes.modern.api.Settings'
-  ],
-  function (DOMUtils, Events, Settings) {
-    var DOM = DOMUtils.DOM;
-    var getSize = function (elm) {
-      return {
-        width: elm.clientWidth,
-        height: elm.clientHeight
-      };
-    };
-
-    var resizeTo = function (editor, width, height) {
-      var containerElm, iframeElm, containerSize, iframeSize;
-
-      containerElm = editor.getContainer();
-      iframeElm = editor.getContentAreaContainer().firstChild;
-      containerSize = getSize(containerElm);
-      iframeSize = getSize(iframeElm);
-
-      if (width !== null) {
-        width = Math.max(Settings.getMinWidth(editor), width);
-        width = Math.min(Settings.getMaxWidth(editor), width);
-
-        DOM.setStyle(containerElm, 'width', width + (containerSize.width - iframeSize.width));
-        DOM.setStyle(iframeElm, 'width', width);
-      }
-
-      height = Math.max(Settings.getMinHeight(editor), height);
-      height = Math.min(Settings.getMaxHeight(editor), height);
-      DOM.setStyle(iframeElm, 'height', height);
-
-      Events.fireResizeEditor(editor);
-    };
-
-    var resizeBy = function (editor, dw, dh) {
-      var elm = editor.getContentAreaContainer();
-      resizeTo(editor, elm.clientWidth + dw, elm.clientHeight + dh);
-    };
-
-    return {
-      resizeTo: resizeTo,
-      resizeBy: resizeBy
-    };
-  }
-);
-
+defineGlobal("global!setTimeout", setTimeout);
+defineGlobal("global!document", document);
 /**
  * ResolveGlobal.js
  *
@@ -1759,362 +1670,6 @@ define(
   ],
   function (resolve) {
     return resolve('tinymce.Env');
-  }
-);
-
-/**
- * Sidebar.js
- *
- * Released under LGPL License.
- * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
- */
-
-define(
-  'tinymce.themes.modern.ui.Sidebar',
-  [
-    'tinymce.core.Env',
-    'tinymce.core.ui.Factory',
-    'tinymce.core.util.Tools',
-    'tinymce.themes.modern.api.Events'
-  ],
-  function (Env, Factory, Tools, Events) {
-    var api = function (elm) {
-      return {
-        element: function () {
-          return elm;
-        }
-      };
-    };
-
-    var trigger = function (sidebar, panel, callbackName) {
-      var callback = sidebar.settings[callbackName];
-      if (callback) {
-        callback(api(panel.getEl('body')));
-      }
-    };
-
-    var hidePanels = function (name, container, sidebars) {
-      Tools.each(sidebars, function (sidebar) {
-        var panel = container.items().filter('#' + sidebar.name)[0];
-
-        if (panel && panel.visible() && sidebar.name !== name) {
-          trigger(sidebar, panel, 'onhide');
-          panel.visible(false);
-        }
-      });
-    };
-
-    var deactivateButtons = function (toolbar) {
-      toolbar.items().each(function (ctrl) {
-        ctrl.active(false);
-      });
-    };
-
-    var findSidebar = function (sidebars, name) {
-      return Tools.grep(sidebars, function (sidebar) {
-        return sidebar.name === name;
-      })[0];
-    };
-
-    var showPanel = function (editor, name, sidebars) {
-      return function (e) {
-        var btnCtrl = e.control;
-        var container = btnCtrl.parents().filter('panel')[0];
-        var panel = container.find('#' + name)[0];
-        var sidebar = findSidebar(sidebars, name);
-
-        hidePanels(name, container, sidebars);
-        deactivateButtons(btnCtrl.parent());
-
-        if (panel && panel.visible()) {
-          trigger(sidebar, panel, 'onhide');
-          panel.hide();
-          btnCtrl.active(false);
-        } else {
-          if (panel) {
-            panel.show();
-            trigger(sidebar, panel, 'onshow');
-          } else {
-            panel = Factory.create({
-              type: 'container',
-              name: name,
-              layout: 'stack',
-              classes: 'sidebar-panel',
-              html: ''
-            });
-
-            container.prepend(panel);
-            trigger(sidebar, panel, 'onrender');
-            trigger(sidebar, panel, 'onshow');
-          }
-
-          btnCtrl.active(true);
-        }
-
-        Events.fireResizeEditor(editor);
-      };
-    };
-
-    var isModernBrowser = function () {
-      return !Env.ie || Env.ie >= 11;
-    };
-
-    var hasSidebar = function (editor) {
-      return isModernBrowser() && editor.sidebars ? editor.sidebars.length > 0 : false;
-    };
-
-    var createSidebar = function (editor) {
-      var buttons = Tools.map(editor.sidebars, function (sidebar) {
-        var settings = sidebar.settings;
-
-        return {
-          type: 'button',
-          icon: settings.icon,
-          image: settings.image,
-          tooltip: settings.tooltip,
-          onclick: showPanel(editor, sidebar.name, editor.sidebars)
-        };
-      });
-
-      return {
-        type: 'panel',
-        name: 'sidebar',
-        layout: 'stack',
-        classes: 'sidebar',
-        items: [
-          {
-            type: 'toolbar',
-            layout: 'stack',
-            classes: 'sidebar-toolbar',
-            items: buttons
-          }
-        ]
-      };
-    };
-
-    return {
-      hasSidebar: hasSidebar,
-      createSidebar: createSidebar
-    };
-  }
-);
-/**
- * SkinLoaded.js
- *
- * Released under LGPL License.
- * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
- */
-
-define(
-  'tinymce.themes.modern.ui.SkinLoaded', [
-    'tinymce.themes.modern.api.Events'
-  ],
-  function (Events) {
-    var fireSkinLoaded = function (editor) {
-      var done = function () {
-        editor._skinLoaded = true;
-        Events.fireSkinLoaded(editor);
-      };
-
-      return function () {
-        if (editor.initialized) {
-          done();
-        } else {
-          editor.on('init', done);
-        }
-      };
-    };
-
-    return {
-      fireSkinLoaded: fireSkinLoaded
-    };
-  }
-);
-
-/**
- * Iframe.js
- *
- * Released under LGPL License.
- * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
- */
-
-define(
-  'tinymce.themes.modern.modes.Iframe',
-  [
-    'tinymce.core.dom.DOMUtils',
-    'tinymce.core.ui.Factory',
-    'tinymce.core.util.I18n',
-    'tinymce.core.util.Tools',
-    'tinymce.themes.modern.api.Events',
-    'tinymce.themes.modern.api.Settings',
-    'tinymce.themes.modern.ui.A11y',
-    'tinymce.themes.modern.ui.ContextToolbars',
-    'tinymce.themes.modern.ui.Menubar',
-    'tinymce.themes.modern.ui.Resize',
-    'tinymce.themes.modern.ui.Sidebar',
-    'tinymce.themes.modern.ui.SkinLoaded',
-    'tinymce.themes.modern.ui.Toolbar'
-  ],
-  function (DOMUtils, Factory, I18n, Tools, Events, Settings, A11y, ContextToolbars, Menubar, Resize, Sidebar, SkinLoaded, Toolbar) {
-    var DOM = DOMUtils.DOM;
-
-    var switchMode = function (panel) {
-      return function (e) {
-        panel.find('*').disabled(e.mode === 'readonly');
-      };
-    };
-
-    var editArea = function (border) {
-      return {
-        type: 'panel',
-        name: 'iframe',
-        layout: 'stack',
-        classes: 'edit-area',
-        border: border,
-        html: ''
-      };
-    };
-
-    var editAreaContainer = function (editor) {
-      return {
-        type: 'panel',
-        layout: 'stack',
-        classes: 'edit-aria-container',
-        border: '1 0 0 0',
-        items: [
-          editArea('0'),
-          Sidebar.createSidebar(editor)
-        ]
-      };
-    };
-
-    var render = function (editor, theme, args) {
-      var panel, resizeHandleCtrl, startSize;
-
-      if (Settings.isSkinDisabled(editor) === false && args.skinUiCss) {
-        DOM.styleSheetLoader.load(args.skinUiCss, SkinLoaded.fireSkinLoaded(editor));
-      } else {
-        SkinLoaded.fireSkinLoaded(editor)();
-      }
-
-      panel = theme.panel = Factory.create({
-        type: 'panel',
-        role: 'application',
-        classes: 'tinymce',
-        style: 'visibility: hidden',
-        layout: 'stack',
-        border: 1,
-        items: [
-          {
-            type: 'container',
-            classes: 'top-part',
-            items: [
-              Settings.hasMenubar(editor) === false ? null : { type: 'menubar', border: '0 0 1 0', items: Menubar.createMenuButtons(editor) },
-              Toolbar.createToolbars(editor, Settings.getToolbarSize(editor))
-            ]
-          },
-          Sidebar.hasSidebar(editor) ? editAreaContainer(editor) : editArea('1 0 0 0')
-        ]
-      });
-
-      if (Settings.getResize(editor) !== "none") {
-        resizeHandleCtrl = {
-          type: 'resizehandle',
-          direction: Settings.getResize(editor),
-
-          onResizeStart: function () {
-            var elm = editor.getContentAreaContainer().firstChild;
-
-            startSize = {
-              width: elm.clientWidth,
-              height: elm.clientHeight
-            };
-          },
-
-          onResize: function (e) {
-            if (Settings.getResize(editor) === 'both') {
-              Resize.resizeTo(editor, startSize.width + e.deltaX, startSize.height + e.deltaY);
-            } else {
-              Resize.resizeTo(editor, null, startSize.height + e.deltaY);
-            }
-          }
-        };
-      }
-
-      if (Settings.hasStatusbar(editor)) {
-        var linkHtml = '<a href="https://www.tinymce.com/?utm_campaign=editor_referral&utm_medium=poweredby&utm_source=tinymce" rel="noopener" target="_blank">tinymce</a>';
-        var html = I18n.translate(['Powered by {0}', linkHtml]);
-        var brandingLabel = Settings.isBrandingEnabled(editor) ? { type: 'label', classes: 'branding', html: ' ' + html } : null;
-
-        panel.add({
-          type: 'panel', name: 'statusbar', classes: 'statusbar', layout: 'flow', border: '1 0 0 0', ariaRoot: true, items: [
-            { type: 'elementpath', editor: editor },
-            resizeHandleCtrl,
-            brandingLabel
-          ]
-        });
-      }
-
-      Events.fireBeforeRenderUI(editor);
-      editor.on('SwitchMode', switchMode(panel));
-      panel.renderBefore(args.targetNode).reflow();
-
-      if (Settings.isReadOnly(editor)) {
-        editor.setMode('readonly');
-      }
-
-      if (args.width) {
-        DOM.setStyle(panel.getEl(), 'width', args.width);
-      }
-
-      // Remove the panel when the editor is removed
-      editor.on('remove', function () {
-        panel.remove();
-        panel = null;
-      });
-
-      // Add accesibility shortcuts
-      A11y.addKeys(editor, panel);
-      ContextToolbars.addContextualToolbars(editor);
-
-      return {
-        iframeContainer: panel.find('#iframe')[0].getEl(),
-        editorContainer: panel.getEl()
-      };
-    };
-
-    return {
-      render: render
-    };
-  }
-);
-
-/**
- * ResolveGlobal.js
- *
- * Released under LGPL License.
- * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
- */
-
-define(
-  'tinymce.core.dom.DomQuery',
-  [
-    'global!tinymce.util.Tools.resolve'
-  ],
-  function (resolve) {
-    return resolve('tinymce.dom.DomQuery');
   }
 );
 
@@ -2256,7 +1811,7 @@ define(
   }
 );
 /**
- * Movable.js
+ * ResolveGlobal.js
  *
  * Released under LGPL License.
  * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
@@ -2265,202 +1820,16 @@ define(
  * Contributing: http://www.tinymce.com/contributing
  */
 
-/**
- * Movable mixin. Makes controls movable absolute and relative to other elements.
- *
- * @mixin tinymce.ui.Movable
- */
 define(
-  'tinymce.ui.Movable',
+  'tinymce.core.dom.DomQuery',
   [
-    'global!document',
-    'global!window',
-    'tinymce.ui.DomUtils'
+    'global!tinymce.util.Tools.resolve'
   ],
-  function (document, window, DomUtils) {
-    "use strict";
-
-    function calculateRelativePosition(ctrl, targetElm, rel) {
-      var ctrlElm, pos, x, y, selfW, selfH, targetW, targetH, viewport, size;
-
-      viewport = DomUtils.getViewPort();
-
-      // Get pos of target
-      pos = DomUtils.getPos(targetElm);
-      x = pos.x;
-      y = pos.y;
-
-      if (ctrl.state.get('fixed') && DomUtils.getRuntimeStyle(document.body, 'position') == 'static') {
-        x -= viewport.x;
-        y -= viewport.y;
-      }
-
-      // Get size of self
-      ctrlElm = ctrl.getEl();
-      size = DomUtils.getSize(ctrlElm);
-      selfW = size.width;
-      selfH = size.height;
-
-      // Get size of target
-      size = DomUtils.getSize(targetElm);
-      targetW = size.width;
-      targetH = size.height;
-
-      // Parse align string
-      rel = (rel || '').split('');
-
-      // Target corners
-      if (rel[0] === 'b') {
-        y += targetH;
-      }
-
-      if (rel[1] === 'r') {
-        x += targetW;
-      }
-
-      if (rel[0] === 'c') {
-        y += Math.round(targetH / 2);
-      }
-
-      if (rel[1] === 'c') {
-        x += Math.round(targetW / 2);
-      }
-
-      // Self corners
-      if (rel[3] === 'b') {
-        y -= selfH;
-      }
-
-      if (rel[4] === 'r') {
-        x -= selfW;
-      }
-
-      if (rel[3] === 'c') {
-        y -= Math.round(selfH / 2);
-      }
-
-      if (rel[4] === 'c') {
-        x -= Math.round(selfW / 2);
-      }
-
-      return {
-        x: x,
-        y: y,
-        w: selfW,
-        h: selfH
-      };
-    }
-
-    return {
-      /**
-       * Tests various positions to get the most suitable one.
-       *
-       * @method testMoveRel
-       * @param {DOMElement} elm Element to position against.
-       * @param {Array} rels Array with relative positions.
-       * @return {String} Best suitable relative position.
-       */
-      testMoveRel: function (elm, rels) {
-        var viewPortRect = DomUtils.getViewPort();
-
-        for (var i = 0; i < rels.length; i++) {
-          var pos = calculateRelativePosition(this, elm, rels[i]);
-
-          if (this.state.get('fixed')) {
-            if (pos.x > 0 && pos.x + pos.w < viewPortRect.w && pos.y > 0 && pos.y + pos.h < viewPortRect.h) {
-              return rels[i];
-            }
-          } else {
-            if (pos.x > viewPortRect.x && pos.x + pos.w < viewPortRect.w + viewPortRect.x &&
-              pos.y > viewPortRect.y && pos.y + pos.h < viewPortRect.h + viewPortRect.y) {
-              return rels[i];
-            }
-          }
-        }
-
-        return rels[0];
-      },
-
-      /**
-       * Move relative to the specified element.
-       *
-       * @method moveRel
-       * @param {Element} elm Element to move relative to.
-       * @param {String} rel Relative mode. For example: br-tl.
-       * @return {tinymce.ui.Control} Current control instance.
-       */
-      moveRel: function (elm, rel) {
-        if (typeof rel != 'string') {
-          rel = this.testMoveRel(elm, rel);
-        }
-
-        var pos = calculateRelativePosition(this, elm, rel);
-        return this.moveTo(pos.x, pos.y);
-      },
-
-      /**
-       * Move by a relative x, y values.
-       *
-       * @method moveBy
-       * @param {Number} dx Relative x position.
-       * @param {Number} dy Relative y position.
-       * @return {tinymce.ui.Control} Current control instance.
-       */
-      moveBy: function (dx, dy) {
-        var self = this, rect = self.layoutRect();
-
-        self.moveTo(rect.x + dx, rect.y + dy);
-
-        return self;
-      },
-
-      /**
-       * Move to absolute position.
-       *
-       * @method moveTo
-       * @param {Number} x Absolute x position.
-       * @param {Number} y Absolute y position.
-       * @return {tinymce.ui.Control} Current control instance.
-       */
-      moveTo: function (x, y) {
-        var self = this;
-
-        // TODO: Move this to some global class
-        function constrain(value, max, size) {
-          if (value < 0) {
-            return 0;
-          }
-
-          if (value + size > max) {
-            value = max - size;
-            return value < 0 ? 0 : value;
-          }
-
-          return value;
-        }
-
-        if (self.settings.constrainToViewport) {
-          var viewPortRect = DomUtils.getViewPort(window);
-          var layoutRect = self.layoutRect();
-
-          x = constrain(x, viewPortRect.w + viewPortRect.x, layoutRect.w);
-          y = constrain(y, viewPortRect.h + viewPortRect.y, layoutRect.h);
-        }
-
-        if (self.state.get('rendered')) {
-          self.layoutRect({ x: x, y: y }).repaint();
-        } else {
-          self.settings.x = x;
-          self.settings.y = y;
-        }
-
-        self.fire('move', { x: x, y: y });
-
-        return self;
-      }
-    };
+  function (resolve) {
+    return resolve('tinymce.dom.DomQuery');
   }
 );
+
 /**
  * ResolveGlobal.js
  *
@@ -5268,6 +4637,968 @@ define(
 );
 
 /**
+ * Movable.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Movable mixin. Makes controls movable absolute and relative to other elements.
+ *
+ * @mixin tinymce.ui.Movable
+ */
+define(
+  'tinymce.ui.Movable',
+  [
+    'global!document',
+    'global!window',
+    'tinymce.ui.DomUtils'
+  ],
+  function (document, window, DomUtils) {
+    "use strict";
+
+    function calculateRelativePosition(ctrl, targetElm, rel) {
+      var ctrlElm, pos, x, y, selfW, selfH, targetW, targetH, viewport, size;
+
+      viewport = DomUtils.getViewPort();
+
+      // Get pos of target
+      pos = DomUtils.getPos(targetElm);
+      x = pos.x;
+      y = pos.y;
+
+      if (ctrl.state.get('fixed') && DomUtils.getRuntimeStyle(document.body, 'position') == 'static') {
+        x -= viewport.x;
+        y -= viewport.y;
+      }
+
+      // Get size of self
+      ctrlElm = ctrl.getEl();
+      size = DomUtils.getSize(ctrlElm);
+      selfW = size.width;
+      selfH = size.height;
+
+      // Get size of target
+      size = DomUtils.getSize(targetElm);
+      targetW = size.width;
+      targetH = size.height;
+
+      // Parse align string
+      rel = (rel || '').split('');
+
+      // Target corners
+      if (rel[0] === 'b') {
+        y += targetH;
+      }
+
+      if (rel[1] === 'r') {
+        x += targetW;
+      }
+
+      if (rel[0] === 'c') {
+        y += Math.round(targetH / 2);
+      }
+
+      if (rel[1] === 'c') {
+        x += Math.round(targetW / 2);
+      }
+
+      // Self corners
+      if (rel[3] === 'b') {
+        y -= selfH;
+      }
+
+      if (rel[4] === 'r') {
+        x -= selfW;
+      }
+
+      if (rel[3] === 'c') {
+        y -= Math.round(selfH / 2);
+      }
+
+      if (rel[4] === 'c') {
+        x -= Math.round(selfW / 2);
+      }
+
+      return {
+        x: x,
+        y: y,
+        w: selfW,
+        h: selfH
+      };
+    }
+
+    return {
+      /**
+       * Tests various positions to get the most suitable one.
+       *
+       * @method testMoveRel
+       * @param {DOMElement} elm Element to position against.
+       * @param {Array} rels Array with relative positions.
+       * @return {String} Best suitable relative position.
+       */
+      testMoveRel: function (elm, rels) {
+        var viewPortRect = DomUtils.getViewPort();
+
+        for (var i = 0; i < rels.length; i++) {
+          var pos = calculateRelativePosition(this, elm, rels[i]);
+
+          if (this.state.get('fixed')) {
+            if (pos.x > 0 && pos.x + pos.w < viewPortRect.w && pos.y > 0 && pos.y + pos.h < viewPortRect.h) {
+              return rels[i];
+            }
+          } else {
+            if (pos.x > viewPortRect.x && pos.x + pos.w < viewPortRect.w + viewPortRect.x &&
+              pos.y > viewPortRect.y && pos.y + pos.h < viewPortRect.h + viewPortRect.y) {
+              return rels[i];
+            }
+          }
+        }
+
+        return rels[0];
+      },
+
+      /**
+       * Move relative to the specified element.
+       *
+       * @method moveRel
+       * @param {Element} elm Element to move relative to.
+       * @param {String} rel Relative mode. For example: br-tl.
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      moveRel: function (elm, rel) {
+        if (typeof rel != 'string') {
+          rel = this.testMoveRel(elm, rel);
+        }
+
+        var pos = calculateRelativePosition(this, elm, rel);
+        return this.moveTo(pos.x, pos.y);
+      },
+
+      /**
+       * Move by a relative x, y values.
+       *
+       * @method moveBy
+       * @param {Number} dx Relative x position.
+       * @param {Number} dy Relative y position.
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      moveBy: function (dx, dy) {
+        var self = this, rect = self.layoutRect();
+
+        self.moveTo(rect.x + dx, rect.y + dy);
+
+        return self;
+      },
+
+      /**
+       * Move to absolute position.
+       *
+       * @method moveTo
+       * @param {Number} x Absolute x position.
+       * @param {Number} y Absolute y position.
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      moveTo: function (x, y) {
+        var self = this;
+
+        // TODO: Move this to some global class
+        function constrain(value, max, size) {
+          if (value < 0) {
+            return 0;
+          }
+
+          if (value + size > max) {
+            value = max - size;
+            return value < 0 ? 0 : value;
+          }
+
+          return value;
+        }
+
+        if (self.settings.constrainToViewport) {
+          var viewPortRect = DomUtils.getViewPort(window);
+          var layoutRect = self.layoutRect();
+
+          x = constrain(x, viewPortRect.w + viewPortRect.x, layoutRect.w);
+          y = constrain(y, viewPortRect.h + viewPortRect.y, layoutRect.h);
+        }
+
+        if (self.state.get('rendered')) {
+          self.layoutRect({ x: x, y: y }).repaint();
+        } else {
+          self.settings.x = x;
+          self.settings.y = y;
+        }
+
+        self.fire('move', { x: x, y: y });
+
+        return self;
+      }
+    };
+  }
+);
+/**
+ * Tooltip.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a tooltip instance.
+ *
+ * @-x-less ToolTip.less
+ * @class tinymce.ui.ToolTip
+ * @extends tinymce.ui.Control
+ * @mixes tinymce.ui.Movable
+ */
+define(
+  'tinymce.ui.Tooltip',
+  [
+    "tinymce.ui.Control",
+    "tinymce.ui.Movable"
+  ],
+  function (Control, Movable) {
+    return Control.extend({
+      Mixins: [Movable],
+
+      Defaults: {
+        classes: 'widget tooltip tooltip-n'
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, prefix = self.classPrefix;
+
+        return (
+          '<div id="' + self._id + '" class="' + self.classes + '" role="presentation">' +
+          '<div class="' + prefix + 'tooltip-arrow"></div>' +
+          '<div class="' + prefix + 'tooltip-inner">' + self.encode(self.state.get('text')) + '</div>' +
+          '</div>'
+        );
+      },
+
+      bindStates: function () {
+        var self = this;
+
+        self.state.on('change:text', function (e) {
+          self.getEl().lastChild.innerHTML = self.encode(e.value);
+        });
+
+        return self._super();
+      },
+
+      /**
+       * Repaints the control after a layout operation.
+       *
+       * @method repaint
+       */
+      repaint: function () {
+        var self = this, style, rect;
+
+        style = self.getEl().style;
+        rect = self._layoutRect;
+
+        style.left = rect.x + 'px';
+        style.top = rect.y + 'px';
+        style.zIndex = 0xFFFF + 0xFFFF;
+      }
+    });
+  }
+);
+/**
+ * Widget.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Widget base class a widget is a control that has a tooltip and some basic states.
+ *
+ * @class tinymce.ui.Widget
+ * @extends tinymce.ui.Control
+ */
+define(
+  'tinymce.ui.Widget',
+  [
+    "tinymce.ui.Control",
+    "tinymce.ui.Tooltip"
+  ],
+  function (Control, Tooltip) {
+    "use strict";
+
+    var tooltip;
+
+    var Widget = Control.extend({
+      /**
+       * Constructs a instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       * @setting {String} tooltip Tooltip text to display when hovering.
+       * @setting {Boolean} autofocus True if the control should be focused when rendered.
+       * @setting {String} text Text to display inside widget.
+       */
+      init: function (settings) {
+        var self = this;
+
+        self._super(settings);
+        settings = self.settings;
+        self.canFocus = true;
+
+        if (settings.tooltip && Widget.tooltips !== false) {
+          self.on('mouseenter', function (e) {
+            var tooltip = self.tooltip().moveTo(-0xFFFF);
+
+            if (e.control == self) {
+              var rel = tooltip.text(settings.tooltip).show().testMoveRel(self.getEl(), ['bc-tc', 'bc-tl', 'bc-tr']);
+
+              tooltip.classes.toggle('tooltip-n', rel == 'bc-tc');
+              tooltip.classes.toggle('tooltip-nw', rel == 'bc-tl');
+              tooltip.classes.toggle('tooltip-ne', rel == 'bc-tr');
+
+              tooltip.moveRel(self.getEl(), rel);
+            } else {
+              tooltip.hide();
+            }
+          });
+
+          self.on('mouseleave mousedown click', function () {
+            self.tooltip().hide();
+          });
+        }
+
+        self.aria('label', settings.ariaLabel || settings.tooltip);
+      },
+
+      /**
+       * Returns the current tooltip instance.
+       *
+       * @method tooltip
+       * @return {tinymce.ui.Tooltip} Tooltip instance.
+       */
+      tooltip: function () {
+        if (!tooltip) {
+          tooltip = new Tooltip({ type: 'tooltip' });
+          tooltip.renderTo();
+        }
+
+        return tooltip;
+      },
+
+      /**
+       * Called after the control has been rendered.
+       *
+       * @method postRender
+       */
+      postRender: function () {
+        var self = this, settings = self.settings;
+
+        self._super();
+
+        if (!self.parent() && (settings.width || settings.height)) {
+          self.initLayoutRect();
+          self.repaint();
+        }
+
+        if (settings.autofocus) {
+          self.focus();
+        }
+      },
+
+      bindStates: function () {
+        var self = this;
+
+        function disable(state) {
+          self.aria('disabled', state);
+          self.classes.toggle('disabled', state);
+        }
+
+        function active(state) {
+          self.aria('pressed', state);
+          self.classes.toggle('active', state);
+        }
+
+        self.state.on('change:disabled', function (e) {
+          disable(e.value);
+        });
+
+        self.state.on('change:active', function (e) {
+          active(e.value);
+        });
+
+        if (self.state.get('disabled')) {
+          disable(true);
+        }
+
+        if (self.state.get('active')) {
+          active(true);
+        }
+
+        return self._super();
+      },
+
+      /**
+       * Removes the current control from DOM and from UI collections.
+       *
+       * @method remove
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      remove: function () {
+        this._super();
+
+        if (tooltip) {
+          tooltip.remove();
+          tooltip = null;
+        }
+      }
+    });
+
+    return Widget;
+  }
+);
+
+/**
+ * Progress.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Progress control.
+ *
+ * @-x-less Progress.less
+ * @class tinymce.ui.Progress
+ * @extends tinymce.ui.Control
+ */
+define(
+  'tinymce.ui.Progress',
+  [
+    "tinymce.ui.Widget"
+  ],
+  function (Widget) {
+    "use strict";
+
+    return Widget.extend({
+      Defaults: {
+        value: 0
+      },
+
+      init: function (settings) {
+        var self = this;
+
+        self._super(settings);
+        self.classes.add('progress');
+
+        if (!self.settings.filter) {
+          self.settings.filter = function (value) {
+            return Math.round(value);
+          };
+        }
+      },
+
+      renderHtml: function () {
+        var self = this, id = self._id, prefix = this.classPrefix;
+
+        return (
+          '<div id="' + id + '" class="' + self.classes + '">' +
+          '<div class="' + prefix + 'bar-container">' +
+          '<div class="' + prefix + 'bar"></div>' +
+          '</div>' +
+          '<div class="' + prefix + 'text">0%</div>' +
+          '</div>'
+        );
+      },
+
+      postRender: function () {
+        var self = this;
+
+        self._super();
+        self.value(self.settings.value);
+
+        return self;
+      },
+
+      bindStates: function () {
+        var self = this;
+
+        function setValue(value) {
+          value = self.settings.filter(value);
+          self.getEl().lastChild.innerHTML = value + '%';
+          self.getEl().firstChild.firstChild.style.width = value + '%';
+        }
+
+        self.state.on('change:value', function (e) {
+          setValue(e.value);
+        });
+
+        setValue(self.state.get('value'));
+
+        return self._super();
+      }
+    });
+  }
+);
+/**
+ * Notification.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a notification instance.
+ *
+ * @-x-less Notification.less
+ * @class tinymce.ui.Notification
+ * @extends tinymce.ui.Container
+ * @mixes tinymce.ui.Movable
+ */
+define(
+  'tinymce.ui.Notification',
+  [
+    "tinymce.ui.Control",
+    "tinymce.ui.Movable",
+    "tinymce.ui.Progress",
+    "tinymce.core.util.Delay"
+  ],
+  function (Control, Movable, Progress, Delay) {
+    var updateLiveRegion = function (ctx, text) {
+      ctx.getEl().lastChild.textContent = text + (ctx.progressBar ? ' ' + ctx.progressBar.value() + '%' : '');
+    };
+
+    return Control.extend({
+      Mixins: [Movable],
+
+      Defaults: {
+        classes: 'widget notification'
+      },
+
+      init: function (settings) {
+        var self = this;
+
+        self._super(settings);
+
+        self.maxWidth = settings.maxWidth;
+
+        if (settings.text) {
+          self.text(settings.text);
+        }
+
+        if (settings.icon) {
+          self.icon = settings.icon;
+        }
+
+        if (settings.color) {
+          self.color = settings.color;
+        }
+
+        if (settings.type) {
+          self.classes.add('notification-' + settings.type);
+        }
+
+        if (settings.timeout && (settings.timeout < 0 || settings.timeout > 0) && !settings.closeButton) {
+          self.closeButton = false;
+        } else {
+          self.classes.add('has-close');
+          self.closeButton = true;
+        }
+
+        if (settings.progressBar) {
+          self.progressBar = new Progress();
+        }
+
+        self.on('click', function (e) {
+          if (e.target.className.indexOf(self.classPrefix + 'close') != -1) {
+            self.close();
+          }
+        });
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, prefix = self.classPrefix, icon = '', closeButton = '', progressBar = '', notificationStyle = '';
+
+        if (self.icon) {
+          icon = '<i class="' + prefix + 'ico' + ' ' + prefix + 'i-' + self.icon + '"></i>';
+        }
+
+        notificationStyle = ' style="max-width: ' + self.maxWidth + 'px;' + (self.color ? 'background-color: ' + self.color + ';"' : '"');
+
+        if (self.closeButton) {
+          closeButton = '<button type="button" class="' + prefix + 'close" aria-hidden="true">\u00d7</button>';
+        }
+
+        if (self.progressBar) {
+          progressBar = self.progressBar.renderHtml();
+        }
+
+        return (
+          '<div id="' + self._id + '" class="' + self.classes + '"' + notificationStyle + ' role="presentation">' +
+          icon +
+          '<div class="' + prefix + 'notification-inner">' + self.state.get('text') + '</div>' +
+          progressBar +
+          closeButton +
+          '<div style="clip: rect(1px, 1px, 1px, 1px);height: 1px;overflow: hidden;position: absolute;width: 1px;"' +
+          ' aria-live="assertive" aria-relevant="additions" aria-atomic="true"></div>' +
+          '</div>'
+        );
+      },
+
+      postRender: function () {
+        var self = this;
+
+        Delay.setTimeout(function () {
+          self.$el.addClass(self.classPrefix + 'in');
+          updateLiveRegion(self, self.state.get('text'));
+        }, 100);
+
+        return self._super();
+      },
+
+      bindStates: function () {
+        var self = this;
+
+        self.state.on('change:text', function (e) {
+          self.getEl().firstChild.innerHTML = e.value;
+          updateLiveRegion(self, e.value);
+        });
+        if (self.progressBar) {
+          self.progressBar.bindStates();
+          self.progressBar.state.on('change:value', function (e) {
+            updateLiveRegion(self, self.state.get('text'));
+          });
+        }
+        return self._super();
+      },
+
+      close: function () {
+        var self = this;
+
+        if (!self.fire('close').isDefaultPrevented()) {
+          self.remove();
+        }
+
+        return self;
+      },
+
+      /**
+       * Repaints the control after a layout operation.
+       *
+       * @method repaint
+       */
+      repaint: function () {
+        var self = this, style, rect;
+
+        style = self.getEl().style;
+        rect = self._layoutRect;
+
+        style.left = rect.x + 'px';
+        style.top = rect.y + 'px';
+
+        // Hardcoded arbitrary z-value because we want the
+        // notifications under the other windows
+        style.zIndex = 0xFFFF - 1;
+      }
+    });
+  }
+);
+/**
+ * NotificationManagerImpl.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.ui.NotificationManagerImpl',
+  [
+    'ephox.katamari.api.Arr',
+    'global!setTimeout',
+    'tinymce.core.util.Tools',
+    'tinymce.ui.DomUtils',
+    'tinymce.ui.Notification'
+  ],
+  function (Arr, setTimeout, Tools, DomUtils, Notification) {
+    return function (editor) {
+      var getEditorContainer = function (editor) {
+        return editor.inline ? editor.getElement() : editor.getContentAreaContainer();
+      };
+
+      var getContainerWidth = function () {
+        var container = getEditorContainer(editor);
+        return DomUtils.getSize(container).width;
+      };
+
+      // Since the viewport will change based on the present notifications, we need to move them all to the
+      // top left of the viewport to give an accurate size measurement so we can position them later.
+      var prePositionNotifications = function (notifications) {
+        Arr.each(notifications, function (notification) {
+          notification.moveTo(0, 0);
+        });
+      };
+
+      var positionNotifications = function (notifications) {
+        if (notifications.length > 0) {
+          var firstItem = notifications.slice(0, 1)[0];
+          var container = getEditorContainer(editor);
+          firstItem.moveRel(container, 'tc-tc');
+          Arr.each(notifications, function (notification, index) {
+            if (index > 0) {
+              notification.moveRel(notifications[index - 1].getEl(), 'bc-tc');
+            }
+          });
+        }
+      };
+
+      var reposition = function (notifications) {
+        prePositionNotifications(notifications);
+        positionNotifications(notifications);
+      };
+
+      var open = function (args, closeCallback) {
+        var extendedArgs = Tools.extend(args, { maxWidth: getContainerWidth() });
+        var notif = new Notification(extendedArgs);
+        notif.args = extendedArgs;
+
+        //If we have a timeout value
+        if (extendedArgs.timeout > 0) {
+          notif.timer = setTimeout(function () {
+            notif.close();
+            closeCallback();
+          }, extendedArgs.timeout);
+        }
+
+        notif.on('close', function () {
+          closeCallback();
+        });
+
+        notif.renderTo();
+
+        return notif;
+      };
+
+      var close = function (notification) {
+        notification.close();
+      };
+
+      var getArgs = function (notification) {
+        return notification.args;
+      };
+
+      return {
+        open: open,
+        close: close,
+        reposition: reposition,
+        getArgs: getArgs
+      };
+    };
+  }
+);
+
+/**
+ * DragHelper.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Drag/drop helper class.
+ *
+ * @example
+ * var dragHelper = new tinymce.ui.DragHelper('mydiv', {
+ *     start: function(document, window, evt) {
+ *     },
+ *
+ *     drag: function(evt) {
+ *     },
+ *
+ *     end: function(evt) {
+ *     }
+ * });
+ *
+ * @class tinymce.ui.DragHelper
+ */
+define(
+  'tinymce.ui.DragHelper',
+  [
+    'global!document',
+    'global!window',
+    'tinymce.core.dom.DomQuery'
+  ],
+  function (document, window, DomQuery) {
+    "use strict";
+
+    function getDocumentSize(doc) {
+      var documentElement, body, scrollWidth, clientWidth;
+      var offsetWidth, scrollHeight, clientHeight, offsetHeight, max = Math.max;
+
+      documentElement = doc.documentElement;
+      body = doc.body;
+
+      scrollWidth = max(documentElement.scrollWidth, body.scrollWidth);
+      clientWidth = max(documentElement.clientWidth, body.clientWidth);
+      offsetWidth = max(documentElement.offsetWidth, body.offsetWidth);
+
+      scrollHeight = max(documentElement.scrollHeight, body.scrollHeight);
+      clientHeight = max(documentElement.clientHeight, body.clientHeight);
+      offsetHeight = max(documentElement.offsetHeight, body.offsetHeight);
+
+      return {
+        width: scrollWidth < offsetWidth ? clientWidth : scrollWidth,
+        height: scrollHeight < offsetHeight ? clientHeight : scrollHeight
+      };
+    }
+
+    function updateWithTouchData(e) {
+      var keys, i;
+
+      if (e.changedTouches) {
+        keys = "screenX screenY pageX pageY clientX clientY".split(' ');
+        for (i = 0; i < keys.length; i++) {
+          e[keys[i]] = e.changedTouches[0][keys[i]];
+        }
+      }
+    }
+
+    return function (id, settings) {
+      var $eventOverlay, doc = settings.document || document, downButton, start, stop, drag, startX, startY;
+
+      settings = settings || {};
+
+      function getHandleElm() {
+        return doc.getElementById(settings.handle || id);
+      }
+
+      start = function (e) {
+        var docSize = getDocumentSize(doc), handleElm, cursor;
+
+        updateWithTouchData(e);
+
+        e.preventDefault();
+        downButton = e.button;
+        handleElm = getHandleElm();
+        startX = e.screenX;
+        startY = e.screenY;
+
+        // Grab cursor from handle so we can place it on overlay
+        if (window.getComputedStyle) {
+          cursor = window.getComputedStyle(handleElm, null).getPropertyValue("cursor");
+        } else {
+          cursor = handleElm.runtimeStyle.cursor;
+        }
+
+        $eventOverlay = DomQuery('<div></div>').css({
+          position: "absolute",
+          top: 0, left: 0,
+          width: docSize.width,
+          height: docSize.height,
+          zIndex: 0x7FFFFFFF,
+          opacity: 0.0001,
+          cursor: cursor
+        }).appendTo(doc.body);
+
+        DomQuery(doc).on('mousemove touchmove', drag).on('mouseup touchend', stop);
+
+        settings.start(e);
+      };
+
+      drag = function (e) {
+        updateWithTouchData(e);
+
+        if (e.button !== downButton) {
+          return stop(e);
+        }
+
+        e.deltaX = e.screenX - startX;
+        e.deltaY = e.screenY - startY;
+
+        e.preventDefault();
+        settings.drag(e);
+      };
+
+      stop = function (e) {
+        updateWithTouchData(e);
+
+        DomQuery(doc).off('mousemove touchmove', drag).off('mouseup touchend', stop);
+
+        $eventOverlay.remove();
+
+        if (settings.stop) {
+          settings.stop(e);
+        }
+      };
+
+      /**
+       * Destroys the drag/drop helper instance.
+       *
+       * @method destroy
+       */
+      this.destroy = function () {
+        DomQuery(getHandleElm()).off();
+      };
+
+      DomQuery(getHandleElm()).on('mousedown touchstart', start);
+    };
+  }
+);
+/**
+ * ResolveGlobal.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.core.ui.Factory',
+  [
+    'global!tinymce.util.Tools.resolve'
+  ],
+  function (resolve) {
+    return resolve('tinymce.ui.Factory');
+  }
+);
+
+/**
  * KeyboardNavigation.js
  *
  * Released under LGPL License.
@@ -6201,156 +6532,6 @@ define(
   }
 );
 /**
- * DragHelper.js
- *
- * Released under LGPL License.
- * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
- */
-
-/**
- * Drag/drop helper class.
- *
- * @example
- * var dragHelper = new tinymce.ui.DragHelper('mydiv', {
- *     start: function(document, window, evt) {
- *     },
- *
- *     drag: function(evt) {
- *     },
- *
- *     end: function(evt) {
- *     }
- * });
- *
- * @class tinymce.ui.DragHelper
- */
-define(
-  'tinymce.ui.DragHelper',
-  [
-    'global!document',
-    'global!window',
-    'tinymce.core.dom.DomQuery'
-  ],
-  function (document, window, DomQuery) {
-    "use strict";
-
-    function getDocumentSize(doc) {
-      var documentElement, body, scrollWidth, clientWidth;
-      var offsetWidth, scrollHeight, clientHeight, offsetHeight, max = Math.max;
-
-      documentElement = doc.documentElement;
-      body = doc.body;
-
-      scrollWidth = max(documentElement.scrollWidth, body.scrollWidth);
-      clientWidth = max(documentElement.clientWidth, body.clientWidth);
-      offsetWidth = max(documentElement.offsetWidth, body.offsetWidth);
-
-      scrollHeight = max(documentElement.scrollHeight, body.scrollHeight);
-      clientHeight = max(documentElement.clientHeight, body.clientHeight);
-      offsetHeight = max(documentElement.offsetHeight, body.offsetHeight);
-
-      return {
-        width: scrollWidth < offsetWidth ? clientWidth : scrollWidth,
-        height: scrollHeight < offsetHeight ? clientHeight : scrollHeight
-      };
-    }
-
-    function updateWithTouchData(e) {
-      var keys, i;
-
-      if (e.changedTouches) {
-        keys = "screenX screenY pageX pageY clientX clientY".split(' ');
-        for (i = 0; i < keys.length; i++) {
-          e[keys[i]] = e.changedTouches[0][keys[i]];
-        }
-      }
-    }
-
-    return function (id, settings) {
-      var $eventOverlay, doc = settings.document || document, downButton, start, stop, drag, startX, startY;
-
-      settings = settings || {};
-
-      function getHandleElm() {
-        return doc.getElementById(settings.handle || id);
-      }
-
-      start = function (e) {
-        var docSize = getDocumentSize(doc), handleElm, cursor;
-
-        updateWithTouchData(e);
-
-        e.preventDefault();
-        downButton = e.button;
-        handleElm = getHandleElm();
-        startX = e.screenX;
-        startY = e.screenY;
-
-        // Grab cursor from handle so we can place it on overlay
-        if (window.getComputedStyle) {
-          cursor = window.getComputedStyle(handleElm, null).getPropertyValue("cursor");
-        } else {
-          cursor = handleElm.runtimeStyle.cursor;
-        }
-
-        $eventOverlay = DomQuery('<div></div>').css({
-          position: "absolute",
-          top: 0, left: 0,
-          width: docSize.width,
-          height: docSize.height,
-          zIndex: 0x7FFFFFFF,
-          opacity: 0.0001,
-          cursor: cursor
-        }).appendTo(doc.body);
-
-        DomQuery(doc).on('mousemove touchmove', drag).on('mouseup touchend', stop);
-
-        settings.start(e);
-      };
-
-      drag = function (e) {
-        updateWithTouchData(e);
-
-        if (e.button !== downButton) {
-          return stop(e);
-        }
-
-        e.deltaX = e.screenX - startX;
-        e.deltaY = e.screenY - startY;
-
-        e.preventDefault();
-        settings.drag(e);
-      };
-
-      stop = function (e) {
-        updateWithTouchData(e);
-
-        DomQuery(doc).off('mousemove touchmove', drag).off('mouseup touchend', stop);
-
-        $eventOverlay.remove();
-
-        if (settings.stop) {
-          settings.stop(e);
-        }
-      };
-
-      /**
-       * Destroys the drag/drop helper instance.
-       *
-       * @method destroy
-       */
-      this.destroy = function () {
-        DomQuery(getHandleElm()).off();
-      };
-
-      DomQuery(getHandleElm()).on('mousedown touchstart', start);
-    };
-  }
-);
-/**
  * Scrollable.js
  *
  * Released under LGPL License.
@@ -7056,917 +7237,6 @@ define(
     }
 
     return FloatPanel;
-  }
-);
-
-/**
- * Inline.js
- *
- * Released under LGPL License.
- * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
- */
-
-define(
-  'tinymce.themes.modern.modes.Inline',
-  [
-    'global!document',
-    'tinymce.core.dom.DOMUtils',
-    'tinymce.core.ui.Factory',
-    'tinymce.themes.modern.api.Events',
-    'tinymce.themes.modern.api.Settings',
-    'tinymce.themes.modern.ui.A11y',
-    'tinymce.themes.modern.ui.ContextToolbars',
-    'tinymce.themes.modern.ui.Menubar',
-    'tinymce.themes.modern.ui.SkinLoaded',
-    'tinymce.themes.modern.ui.Toolbar',
-    'tinymce.ui.FloatPanel'
-  ],
-  function (document, DOMUtils, Factory, Events, Settings, A11y, ContextToolbars, Menubar, SkinLoaded, Toolbar, FloatPanel) {
-    var render = function (editor, theme, args) {
-      var panel, inlineToolbarContainer;
-      var DOM = DOMUtils.DOM;
-
-      var fixedToolbarContainer = Settings.getFixedToolbarContainer(editor);
-      if (fixedToolbarContainer) {
-        inlineToolbarContainer = DOM.select(fixedToolbarContainer)[0];
-      }
-
-      var reposition = function () {
-        if (panel && panel.moveRel && panel.visible() && !panel._fixed) {
-          // TODO: This is kind of ugly and doesn't handle multiple scrollable elements
-          var scrollContainer = editor.selection.getScrollContainer(), body = editor.getBody();
-          var deltaX = 0, deltaY = 0;
-
-          if (scrollContainer) {
-            var bodyPos = DOM.getPos(body), scrollContainerPos = DOM.getPos(scrollContainer);
-
-            deltaX = Math.max(0, scrollContainerPos.x - bodyPos.x);
-            deltaY = Math.max(0, scrollContainerPos.y - bodyPos.y);
-          }
-
-          panel.fixed(false).moveRel(body, editor.rtl ? ['tr-br', 'br-tr'] : ['tl-bl', 'bl-tl', 'tr-br']).moveBy(deltaX, deltaY);
-        }
-      };
-
-      var show = function () {
-        if (panel) {
-          panel.show();
-          reposition();
-          DOM.addClass(editor.getBody(), 'mce-edit-focus');
-        }
-      };
-
-      var hide = function () {
-        if (panel) {
-          // We require two events as the inline float panel based toolbar does not have autohide=true
-          panel.hide();
-
-          // All other autohidden float panels will be closed below.
-          FloatPanel.hideAll();
-
-          DOM.removeClass(editor.getBody(), 'mce-edit-focus');
-        }
-      };
-
-      var render = function () {
-        if (panel) {
-          if (!panel.visible()) {
-            show();
-          }
-
-          return;
-        }
-
-        // Render a plain panel inside the inlineToolbarContainer if it's defined
-        panel = theme.panel = Factory.create({
-          type: inlineToolbarContainer ? 'panel' : 'floatpanel',
-          role: 'application',
-          classes: 'tinymce tinymce-inline',
-          layout: 'flex',
-          direction: 'column',
-          align: 'stretch',
-          autohide: false,
-          autofix: true,
-          fixed: !!inlineToolbarContainer,
-          border: 1,
-          items: [
-            Settings.hasMenubar(editor) === false ? null : { type: 'menubar', border: '0 0 1 0', items: Menubar.createMenuButtons(editor) },
-            Toolbar.createToolbars(editor, Settings.getToolbarSize(editor))
-          ]
-        });
-
-        // Add statusbar
-        /*if (settings.statusbar !== false) {
-          panel.add({type: 'panel', classes: 'statusbar', layout: 'flow', border: '1 0 0 0', items: [
-            {type: 'elementpath'}
-          ]});
-        }*/
-
-        Events.fireBeforeRenderUI(editor);
-        panel.renderTo(inlineToolbarContainer || document.body).reflow();
-
-        A11y.addKeys(editor, panel);
-        show();
-        ContextToolbars.addContextualToolbars(editor);
-
-        editor.on('nodeChange', reposition);
-        editor.on('activate', show);
-        editor.on('deactivate', hide);
-
-        editor.nodeChanged();
-      };
-
-      editor.settings.content_editable = true;
-
-      editor.on('focus', function () {
-        // Render only when the CSS file has been loaded
-        if (Settings.isSkinDisabled(editor) === false && args.skinUiCss) {
-          DOM.styleSheetLoader.load(args.skinUiCss, render, render);
-        } else {
-          render();
-        }
-      });
-
-      editor.on('blur hide', hide);
-
-      // Remove the panel when the editor is removed
-      editor.on('remove', function () {
-        if (panel) {
-          panel.remove();
-          panel = null;
-        }
-      });
-
-      // Preload skin css
-      if (Settings.isSkinDisabled(editor) === false && args.skinUiCss) {
-        DOM.styleSheetLoader.load(args.skinUiCss, SkinLoaded.fireSkinLoaded(editor));
-      } else {
-        SkinLoaded.fireSkinLoaded(editor)();
-      }
-
-      return {};
-    };
-
-    return {
-      render: render
-    };
-  }
-);
-
-/**
- * Throbber.js
- *
- * Released under LGPL License.
- * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
- */
-
-/**
- * This class enables you to display a Throbber for any element.
- *
- * @-x-less Throbber.less
- * @class tinymce.ui.Throbber
- */
-define(
-  'tinymce.ui.Throbber',
-  [
-    "tinymce.core.dom.DomQuery",
-    "tinymce.ui.Control",
-    "tinymce.core.util.Delay"
-  ],
-  function ($, Control, Delay) {
-    "use strict";
-
-    /**
-     * Constructs a new throbber.
-     *
-     * @constructor
-     * @param {Element} elm DOM Html element to display throbber in.
-     * @param {Boolean} inline Optional true/false state if the throbber should be appended to end of element for infinite scroll.
-     */
-    return function (elm, inline) {
-      var self = this, state, classPrefix = Control.classPrefix, timer;
-
-      /**
-       * Shows the throbber.
-       *
-       * @method show
-       * @param {Number} [time] Time to wait before showing.
-       * @param {function} [callback] Optional callback to execute when the throbber is shown.
-       * @return {tinymce.ui.Throbber} Current throbber instance.
-       */
-      self.show = function (time, callback) {
-        function render() {
-          if (state) {
-            $(elm).append(
-              '<div class="' + classPrefix + 'throbber' + (inline ? ' ' + classPrefix + 'throbber-inline' : '') + '"></div>'
-            );
-
-            if (callback) {
-              callback();
-            }
-          }
-        }
-
-        self.hide();
-
-        state = true;
-
-        if (time) {
-          timer = Delay.setTimeout(render, time);
-        } else {
-          render();
-        }
-
-        return self;
-      };
-
-      /**
-       * Hides the throbber.
-       *
-       * @method hide
-       * @return {tinymce.ui.Throbber} Current throbber instance.
-       */
-      self.hide = function () {
-        var child = elm.lastChild;
-
-        Delay.clearTimeout(timer);
-
-        if (child && child.className.indexOf('throbber') != -1) {
-          child.parentNode.removeChild(child);
-        }
-
-        state = false;
-
-        return self;
-      };
-    };
-  }
-);
-
-/**
- * ProgressState.js
- *
- * Released under LGPL License.
- * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
- */
-
-define(
-  'tinymce.themes.modern.ui.ProgressState',
-  [
-    'tinymce.ui.Throbber'
-  ],
-  function (Throbber) {
-    var setup = function (editor, theme) {
-      var throbber;
-
-      editor.on('ProgressState', function (e) {
-        throbber = throbber || new Throbber(theme.panel.getEl('body'));
-
-        if (e.state) {
-          throbber.show(e.time);
-        } else {
-          throbber.hide();
-        }
-      });
-    };
-
-    return {
-      setup: setup
-    };
-  }
-);
-
-/**
- * Render.js
- *
- * Released under LGPL License.
- * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
- */
-
-define(
-  'tinymce.themes.modern.ui.Render',
-  [
-    'tinymce.themes.modern.api.Settings',
-    'tinymce.themes.modern.modes.Iframe',
-    'tinymce.themes.modern.modes.Inline',
-    'tinymce.themes.modern.ui.ProgressState'
-  ],
-  function (Settings, Iframe, Inline, ProgressState) {
-    var renderUI = function (editor, theme, args) {
-      var skinUrl = Settings.getSkinUrl(editor);
-
-      if (skinUrl) {
-        args.skinUiCss = skinUrl + '/skin.min.css';
-        editor.contentCSS.push(skinUrl + '/content' + (editor.inline ? '.inline' : '') + '.min.css');
-      }
-
-      ProgressState.setup(editor, theme);
-
-      return Settings.isInline(editor) ? Inline.render(editor, theme, args) : Iframe.render(editor, theme, args);
-    };
-
-    return {
-      renderUI: renderUI
-    };
-  }
-);
-
-defineGlobal("global!setTimeout", setTimeout);
-/**
- * Tooltip.js
- *
- * Released under LGPL License.
- * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
- */
-
-/**
- * Creates a tooltip instance.
- *
- * @-x-less ToolTip.less
- * @class tinymce.ui.ToolTip
- * @extends tinymce.ui.Control
- * @mixes tinymce.ui.Movable
- */
-define(
-  'tinymce.ui.Tooltip',
-  [
-    "tinymce.ui.Control",
-    "tinymce.ui.Movable"
-  ],
-  function (Control, Movable) {
-    return Control.extend({
-      Mixins: [Movable],
-
-      Defaults: {
-        classes: 'widget tooltip tooltip-n'
-      },
-
-      /**
-       * Renders the control as a HTML string.
-       *
-       * @method renderHtml
-       * @return {String} HTML representing the control.
-       */
-      renderHtml: function () {
-        var self = this, prefix = self.classPrefix;
-
-        return (
-          '<div id="' + self._id + '" class="' + self.classes + '" role="presentation">' +
-          '<div class="' + prefix + 'tooltip-arrow"></div>' +
-          '<div class="' + prefix + 'tooltip-inner">' + self.encode(self.state.get('text')) + '</div>' +
-          '</div>'
-        );
-      },
-
-      bindStates: function () {
-        var self = this;
-
-        self.state.on('change:text', function (e) {
-          self.getEl().lastChild.innerHTML = self.encode(e.value);
-        });
-
-        return self._super();
-      },
-
-      /**
-       * Repaints the control after a layout operation.
-       *
-       * @method repaint
-       */
-      repaint: function () {
-        var self = this, style, rect;
-
-        style = self.getEl().style;
-        rect = self._layoutRect;
-
-        style.left = rect.x + 'px';
-        style.top = rect.y + 'px';
-        style.zIndex = 0xFFFF + 0xFFFF;
-      }
-    });
-  }
-);
-/**
- * Widget.js
- *
- * Released under LGPL License.
- * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
- */
-
-/**
- * Widget base class a widget is a control that has a tooltip and some basic states.
- *
- * @class tinymce.ui.Widget
- * @extends tinymce.ui.Control
- */
-define(
-  'tinymce.ui.Widget',
-  [
-    "tinymce.ui.Control",
-    "tinymce.ui.Tooltip"
-  ],
-  function (Control, Tooltip) {
-    "use strict";
-
-    var tooltip;
-
-    var Widget = Control.extend({
-      /**
-       * Constructs a instance with the specified settings.
-       *
-       * @constructor
-       * @param {Object} settings Name/value object with settings.
-       * @setting {String} tooltip Tooltip text to display when hovering.
-       * @setting {Boolean} autofocus True if the control should be focused when rendered.
-       * @setting {String} text Text to display inside widget.
-       */
-      init: function (settings) {
-        var self = this;
-
-        self._super(settings);
-        settings = self.settings;
-        self.canFocus = true;
-
-        if (settings.tooltip && Widget.tooltips !== false) {
-          self.on('mouseenter', function (e) {
-            var tooltip = self.tooltip().moveTo(-0xFFFF);
-
-            if (e.control == self) {
-              var rel = tooltip.text(settings.tooltip).show().testMoveRel(self.getEl(), ['bc-tc', 'bc-tl', 'bc-tr']);
-
-              tooltip.classes.toggle('tooltip-n', rel == 'bc-tc');
-              tooltip.classes.toggle('tooltip-nw', rel == 'bc-tl');
-              tooltip.classes.toggle('tooltip-ne', rel == 'bc-tr');
-
-              tooltip.moveRel(self.getEl(), rel);
-            } else {
-              tooltip.hide();
-            }
-          });
-
-          self.on('mouseleave mousedown click', function () {
-            self.tooltip().hide();
-          });
-        }
-
-        self.aria('label', settings.ariaLabel || settings.tooltip);
-      },
-
-      /**
-       * Returns the current tooltip instance.
-       *
-       * @method tooltip
-       * @return {tinymce.ui.Tooltip} Tooltip instance.
-       */
-      tooltip: function () {
-        if (!tooltip) {
-          tooltip = new Tooltip({ type: 'tooltip' });
-          tooltip.renderTo();
-        }
-
-        return tooltip;
-      },
-
-      /**
-       * Called after the control has been rendered.
-       *
-       * @method postRender
-       */
-      postRender: function () {
-        var self = this, settings = self.settings;
-
-        self._super();
-
-        if (!self.parent() && (settings.width || settings.height)) {
-          self.initLayoutRect();
-          self.repaint();
-        }
-
-        if (settings.autofocus) {
-          self.focus();
-        }
-      },
-
-      bindStates: function () {
-        var self = this;
-
-        function disable(state) {
-          self.aria('disabled', state);
-          self.classes.toggle('disabled', state);
-        }
-
-        function active(state) {
-          self.aria('pressed', state);
-          self.classes.toggle('active', state);
-        }
-
-        self.state.on('change:disabled', function (e) {
-          disable(e.value);
-        });
-
-        self.state.on('change:active', function (e) {
-          active(e.value);
-        });
-
-        if (self.state.get('disabled')) {
-          disable(true);
-        }
-
-        if (self.state.get('active')) {
-          active(true);
-        }
-
-        return self._super();
-      },
-
-      /**
-       * Removes the current control from DOM and from UI collections.
-       *
-       * @method remove
-       * @return {tinymce.ui.Control} Current control instance.
-       */
-      remove: function () {
-        this._super();
-
-        if (tooltip) {
-          tooltip.remove();
-          tooltip = null;
-        }
-      }
-    });
-
-    return Widget;
-  }
-);
-
-/**
- * Progress.js
- *
- * Released under LGPL License.
- * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
- */
-
-/**
- * Progress control.
- *
- * @-x-less Progress.less
- * @class tinymce.ui.Progress
- * @extends tinymce.ui.Control
- */
-define(
-  'tinymce.ui.Progress',
-  [
-    "tinymce.ui.Widget"
-  ],
-  function (Widget) {
-    "use strict";
-
-    return Widget.extend({
-      Defaults: {
-        value: 0
-      },
-
-      init: function (settings) {
-        var self = this;
-
-        self._super(settings);
-        self.classes.add('progress');
-
-        if (!self.settings.filter) {
-          self.settings.filter = function (value) {
-            return Math.round(value);
-          };
-        }
-      },
-
-      renderHtml: function () {
-        var self = this, id = self._id, prefix = this.classPrefix;
-
-        return (
-          '<div id="' + id + '" class="' + self.classes + '">' +
-          '<div class="' + prefix + 'bar-container">' +
-          '<div class="' + prefix + 'bar"></div>' +
-          '</div>' +
-          '<div class="' + prefix + 'text">0%</div>' +
-          '</div>'
-        );
-      },
-
-      postRender: function () {
-        var self = this;
-
-        self._super();
-        self.value(self.settings.value);
-
-        return self;
-      },
-
-      bindStates: function () {
-        var self = this;
-
-        function setValue(value) {
-          value = self.settings.filter(value);
-          self.getEl().lastChild.innerHTML = value + '%';
-          self.getEl().firstChild.firstChild.style.width = value + '%';
-        }
-
-        self.state.on('change:value', function (e) {
-          setValue(e.value);
-        });
-
-        setValue(self.state.get('value'));
-
-        return self._super();
-      }
-    });
-  }
-);
-/**
- * Notification.js
- *
- * Released under LGPL License.
- * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
- */
-
-/**
- * Creates a notification instance.
- *
- * @-x-less Notification.less
- * @class tinymce.ui.Notification
- * @extends tinymce.ui.Container
- * @mixes tinymce.ui.Movable
- */
-define(
-  'tinymce.ui.Notification',
-  [
-    "tinymce.ui.Control",
-    "tinymce.ui.Movable",
-    "tinymce.ui.Progress",
-    "tinymce.core.util.Delay"
-  ],
-  function (Control, Movable, Progress, Delay) {
-    var updateLiveRegion = function (ctx, text) {
-      ctx.getEl().lastChild.textContent = text + (ctx.progressBar ? ' ' + ctx.progressBar.value() + '%' : '');
-    };
-
-    return Control.extend({
-      Mixins: [Movable],
-
-      Defaults: {
-        classes: 'widget notification'
-      },
-
-      init: function (settings) {
-        var self = this;
-
-        self._super(settings);
-
-        self.maxWidth = settings.maxWidth;
-
-        if (settings.text) {
-          self.text(settings.text);
-        }
-
-        if (settings.icon) {
-          self.icon = settings.icon;
-        }
-
-        if (settings.color) {
-          self.color = settings.color;
-        }
-
-        if (settings.type) {
-          self.classes.add('notification-' + settings.type);
-        }
-
-        if (settings.timeout && (settings.timeout < 0 || settings.timeout > 0) && !settings.closeButton) {
-          self.closeButton = false;
-        } else {
-          self.classes.add('has-close');
-          self.closeButton = true;
-        }
-
-        if (settings.progressBar) {
-          self.progressBar = new Progress();
-        }
-
-        self.on('click', function (e) {
-          if (e.target.className.indexOf(self.classPrefix + 'close') != -1) {
-            self.close();
-          }
-        });
-      },
-
-      /**
-       * Renders the control as a HTML string.
-       *
-       * @method renderHtml
-       * @return {String} HTML representing the control.
-       */
-      renderHtml: function () {
-        var self = this, prefix = self.classPrefix, icon = '', closeButton = '', progressBar = '', notificationStyle = '';
-
-        if (self.icon) {
-          icon = '<i class="' + prefix + 'ico' + ' ' + prefix + 'i-' + self.icon + '"></i>';
-        }
-
-        notificationStyle = ' style="max-width: ' + self.maxWidth + 'px;' + (self.color ? 'background-color: ' + self.color + ';"' : '"');
-
-        if (self.closeButton) {
-          closeButton = '<button type="button" class="' + prefix + 'close" aria-hidden="true">\u00d7</button>';
-        }
-
-        if (self.progressBar) {
-          progressBar = self.progressBar.renderHtml();
-        }
-
-        return (
-          '<div id="' + self._id + '" class="' + self.classes + '"' + notificationStyle + ' role="presentation">' +
-          icon +
-          '<div class="' + prefix + 'notification-inner">' + self.state.get('text') + '</div>' +
-          progressBar +
-          closeButton +
-          '<div style="clip: rect(1px, 1px, 1px, 1px);height: 1px;overflow: hidden;position: absolute;width: 1px;"' +
-          ' aria-live="assertive" aria-relevant="additions" aria-atomic="true"></div>' +
-          '</div>'
-        );
-      },
-
-      postRender: function () {
-        var self = this;
-
-        Delay.setTimeout(function () {
-          self.$el.addClass(self.classPrefix + 'in');
-          updateLiveRegion(self, self.state.get('text'));
-        }, 100);
-
-        return self._super();
-      },
-
-      bindStates: function () {
-        var self = this;
-
-        self.state.on('change:text', function (e) {
-          self.getEl().firstChild.innerHTML = e.value;
-          updateLiveRegion(self, e.value);
-        });
-        if (self.progressBar) {
-          self.progressBar.bindStates();
-          self.progressBar.state.on('change:value', function (e) {
-            updateLiveRegion(self, self.state.get('text'));
-          });
-        }
-        return self._super();
-      },
-
-      close: function () {
-        var self = this;
-
-        if (!self.fire('close').isDefaultPrevented()) {
-          self.remove();
-        }
-
-        return self;
-      },
-
-      /**
-       * Repaints the control after a layout operation.
-       *
-       * @method repaint
-       */
-      repaint: function () {
-        var self = this, style, rect;
-
-        style = self.getEl().style;
-        rect = self._layoutRect;
-
-        style.left = rect.x + 'px';
-        style.top = rect.y + 'px';
-
-        // Hardcoded arbitrary z-value because we want the
-        // notifications under the other windows
-        style.zIndex = 0xFFFF - 1;
-      }
-    });
-  }
-);
-/**
- * NotificationManagerImpl.js
- *
- * Released under LGPL License.
- * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
- *
- * License: http://www.tinymce.com/license
- * Contributing: http://www.tinymce.com/contributing
- */
-
-define(
-  'tinymce.ui.NotificationManagerImpl',
-  [
-    'ephox.katamari.api.Arr',
-    'global!setTimeout',
-    'tinymce.core.util.Tools',
-    'tinymce.ui.DomUtils',
-    'tinymce.ui.Notification'
-  ],
-  function (Arr, setTimeout, Tools, DomUtils, Notification) {
-    return function (editor) {
-      var getEditorContainer = function (editor) {
-        return editor.inline ? editor.getElement() : editor.getContentAreaContainer();
-      };
-
-      var getContainerWidth = function () {
-        var container = getEditorContainer(editor);
-        return DomUtils.getSize(container).width;
-      };
-
-      // Since the viewport will change based on the present notifications, we need to move them all to the
-      // top left of the viewport to give an accurate size measurement so we can position them later.
-      var prePositionNotifications = function (notifications) {
-        Arr.each(notifications, function (notification) {
-          notification.moveTo(0, 0);
-        });
-      };
-
-      var positionNotifications = function (notifications) {
-        if (notifications.length > 0) {
-          var firstItem = notifications.slice(0, 1)[0];
-          var container = getEditorContainer(editor);
-          firstItem.moveRel(container, 'tc-tc');
-          Arr.each(notifications, function (notification, index) {
-            if (index > 0) {
-              notification.moveRel(notifications[index - 1].getEl(), 'bc-tc');
-            }
-          });
-        }
-      };
-
-      var reposition = function (notifications) {
-        prePositionNotifications(notifications);
-        positionNotifications(notifications);
-      };
-
-      var open = function (args, closeCallback) {
-        var extendedArgs = Tools.extend(args, { maxWidth: getContainerWidth() });
-        var notif = new Notification(extendedArgs);
-        notif.args = extendedArgs;
-
-        //If we have a timeout value
-        if (extendedArgs.timeout > 0) {
-          notif.timer = setTimeout(function () {
-            notif.close();
-            closeCallback();
-          }, extendedArgs.timeout);
-        }
-
-        notif.on('close', function () {
-          closeCallback();
-        });
-
-        notif.renderTo();
-
-        return notif;
-      };
-
-      var close = function (notification) {
-        notification.close();
-      };
-
-      var getArgs = function (notification) {
-        return notification.args;
-      };
-
-      return {
-        open: open,
-        close: close,
-        reposition: reposition,
-        getArgs: getArgs
-      };
-    };
   }
 );
 
@@ -8814,46 +8084,1262 @@ define(
  */
 
 define(
-  'tinymce.themes.modern.api.ThemeApi',
+  'tinymce.themes.inlite.api.ThemeApi',
   [
-    'tinymce.themes.modern.ui.Render',
-    'tinymce.themes.modern.ui.Resize',
+    'tinymce.themes.inlite.core.Render',
     'tinymce.ui.NotificationManagerImpl',
     'tinymce.ui.WindowManagerImpl'
   ],
-  function (Render, Resize, NotificationManagerImpl, WindowManagerImpl) {
-    var get = function (editor) {
-      var renderUI = function (args) {
-        return Render.renderUI(editor, this, args);
-      };
-
-      var resizeTo = function (w, h) {
-        return Resize.resizeTo(editor, w, h);
-      };
-
-      var resizeBy = function (dw, dh) {
-        return Resize.resizeBy(editor, dw, dh);
-      };
-
-      var getNotificationManagerImpl = function () {
-        return NotificationManagerImpl(editor);
-      };
-
-      var getWindowManagerImpl = function () {
-        return WindowManagerImpl(editor);
+  function (Render, NotificationManagerImpl, WindowManagerImpl) {
+    var get = function (editor, panel) {
+      var renderUI = function () {
+        return Render.renderUI(editor, panel);
       };
 
       return {
         renderUI: renderUI,
-        resizeTo: resizeTo,
-        resizeBy: resizeBy,
-        getNotificationManagerImpl: getNotificationManagerImpl,
-        getWindowManagerImpl: getWindowManagerImpl
+        getNotificationManagerImpl: function () {
+          return NotificationManagerImpl(editor);
+        },
+        getWindowManagerImpl: function () {
+          return WindowManagerImpl(editor);
+        }
       };
     };
 
     return {
       get: get
+    };
+  }
+);
+
+/**
+ * ResolveGlobal.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.core.util.Promise',
+  [
+    'global!tinymce.util.Tools.resolve'
+  ],
+  function (resolve) {
+    return resolve('tinymce.util.Promise');
+  }
+);
+
+/**
+ * Uuid.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Generates unique ids this is the same as in core but since
+ * it's not exposed as a global we can't access it.
+ */
+define(
+  "tinymce.themes.inlite.alien.Uuid",
+  [
+  ],
+  function () {
+    var count = 0;
+
+    var seed = function () {
+      var rnd = function () {
+        return Math.round(Math.random() * 0xFFFFFFFF).toString(36);
+      };
+
+      return 's' + Date.now().toString(36) + rnd() + rnd() + rnd();
+    };
+
+    var uuid = function (prefix) {
+      return prefix + (count++) + seed();
+    };
+
+    return {
+      uuid: uuid
+    };
+  }
+);
+
+/**
+ * Bookmark.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.inlite.alien.Bookmark',
+  [
+  ],
+  function () {
+    /**
+     * Returns a range bookmark. This will convert indexed bookmarks into temporary span elements with
+     * index 0 so that they can be restored properly after the DOM has been modified. Text bookmarks will not have spans
+     * added to them since they can be restored after a dom operation.
+     *
+     * So this: <p><b>|</b><b>|</b></p>
+     * becomes: <p><b><span data-mce-type="bookmark">|</span></b><b data-mce-type="bookmark">|</span></b></p>
+     *
+     * @param  {DOMRange} rng DOM Range to get bookmark on.
+     * @return {Object} Bookmark object.
+     */
+    var create = function (dom, rng) {
+      var bookmark = {};
+
+      function setupEndPoint(start) {
+        var offsetNode, container, offset;
+
+        container = rng[start ? 'startContainer' : 'endContainer'];
+        offset = rng[start ? 'startOffset' : 'endOffset'];
+
+        if (container.nodeType == 1) {
+          offsetNode = dom.create('span', { 'data-mce-type': 'bookmark' });
+
+          if (container.hasChildNodes()) {
+            offset = Math.min(offset, container.childNodes.length - 1);
+
+            if (start) {
+              container.insertBefore(offsetNode, container.childNodes[offset]);
+            } else {
+              dom.insertAfter(offsetNode, container.childNodes[offset]);
+            }
+          } else {
+            container.appendChild(offsetNode);
+          }
+
+          container = offsetNode;
+          offset = 0;
+        }
+
+        bookmark[start ? 'startContainer' : 'endContainer'] = container;
+        bookmark[start ? 'startOffset' : 'endOffset'] = offset;
+      }
+
+      setupEndPoint(true);
+
+      if (!rng.collapsed) {
+        setupEndPoint();
+      }
+
+      return bookmark;
+    };
+
+    /**
+     * Moves the selection to the current bookmark and removes any selection container wrappers.
+     *
+     * @param {Object} bookmark Bookmark object to move selection to.
+     */
+    var resolve = function (dom, bookmark) {
+      function restoreEndPoint(start) {
+        var container, offset, node;
+
+        function nodeIndex(container) {
+          var node = container.parentNode.firstChild, idx = 0;
+
+          while (node) {
+            if (node == container) {
+              return idx;
+            }
+
+            // Skip data-mce-type=bookmark nodes
+            if (node.nodeType != 1 || node.getAttribute('data-mce-type') != 'bookmark') {
+              idx++;
+            }
+
+            node = node.nextSibling;
+          }
+
+          return -1;
+        }
+
+        container = node = bookmark[start ? 'startContainer' : 'endContainer'];
+        offset = bookmark[start ? 'startOffset' : 'endOffset'];
+
+        if (!container) {
+          return;
+        }
+
+        if (container.nodeType == 1) {
+          offset = nodeIndex(container);
+          container = container.parentNode;
+          dom.remove(node);
+        }
+
+        bookmark[start ? 'startContainer' : 'endContainer'] = container;
+        bookmark[start ? 'startOffset' : 'endOffset'] = offset;
+      }
+
+      restoreEndPoint(true);
+      restoreEndPoint();
+
+      var rng = dom.createRng();
+
+      rng.setStart(bookmark.startContainer, bookmark.startOffset);
+
+      if (bookmark.endContainer) {
+        rng.setEnd(bookmark.endContainer, bookmark.endOffset);
+      }
+
+      return rng;
+    };
+
+    return {
+      create: create,
+      resolve: resolve
+    };
+  }
+);
+
+
+
+/**
+ * ResolveGlobal.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.core.dom.TreeWalker',
+  [
+    'global!tinymce.util.Tools.resolve'
+  ],
+  function (resolve) {
+    return resolve('tinymce.dom.TreeWalker');
+  }
+);
+
+/**
+ * ResolveGlobal.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.core.api.dom.RangeUtils',
+  [
+    'global!tinymce.util.Tools.resolve'
+  ],
+  function (resolve) {
+    return resolve('tinymce.dom.RangeUtils');
+  }
+);
+
+/**
+ * Unlink.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Unlink implementation that doesn't leave partial links for example it would produce:
+ *  a[b<a href="x">c]d</a>e -> a[bc]de
+ * instead of:
+ *  a[b<a href="x">c]d</a>e -> a[bc]<a href="x">d</a>e
+ */
+define(
+  "tinymce.themes.inlite.alien.Unlink",
+  [
+    'tinymce.themes.inlite.alien.Bookmark',
+    'tinymce.core.util.Tools',
+    'tinymce.core.dom.TreeWalker',
+    'tinymce.core.api.dom.RangeUtils'
+  ],
+  function (Bookmark, Tools, TreeWalker, RangeUtils) {
+    var getSelectedElements = function (rootElm, startNode, endNode) {
+      var walker, node, elms = [];
+
+      walker = new TreeWalker(startNode, rootElm);
+      for (node = startNode; node; node = walker.next()) {
+        if (node.nodeType === 1) {
+          elms.push(node);
+        }
+
+        if (node === endNode) {
+          break;
+        }
+      }
+
+      return elms;
+    };
+
+    var unwrapElements = function (editor, elms) {
+      var bookmark, dom, selection;
+
+      dom = editor.dom;
+      selection = editor.selection;
+      bookmark = Bookmark.create(dom, selection.getRng());
+
+      Tools.each(elms, function (elm) {
+        editor.dom.remove(elm, true);
+      });
+
+      selection.setRng(Bookmark.resolve(dom, bookmark));
+    };
+
+    var isLink = function (elm) {
+      return elm.nodeName === 'A' && elm.hasAttribute('href');
+    };
+
+    var getParentAnchorOrSelf = function (dom, elm) {
+      var anchorElm = dom.getParent(elm, isLink);
+      return anchorElm ? anchorElm : elm;
+    };
+
+    var getSelectedAnchors = function (editor) {
+      var startElm, endElm, rootElm, anchorElms, selection, dom, rng;
+
+      selection = editor.selection;
+      dom = editor.dom;
+      rng = selection.getRng();
+      startElm = getParentAnchorOrSelf(dom, RangeUtils.getNode(rng.startContainer, rng.startOffset));
+      endElm = RangeUtils.getNode(rng.endContainer, rng.endOffset);
+      rootElm = editor.getBody();
+      anchorElms = Tools.grep(getSelectedElements(rootElm, startElm, endElm), isLink);
+
+      return anchorElms;
+    };
+
+    var unlinkSelection = function (editor) {
+      unwrapElements(editor, getSelectedAnchors(editor));
+    };
+
+    return {
+      unlinkSelection: unlinkSelection
+    };
+  }
+);
+
+/**
+ * Actions.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.inlite.core.Actions',
+  [
+    'tinymce.themes.inlite.alien.Uuid',
+    'tinymce.themes.inlite.alien.Unlink'
+  ],
+  function (Uuid, Unlink) {
+    var createTableHtml = function (cols, rows) {
+      var x, y, html;
+
+      html = '<table data-mce-id="mce" style="width: 100%">';
+      html += '<tbody>';
+
+      for (y = 0; y < rows; y++) {
+        html += '<tr>';
+
+        for (x = 0; x < cols; x++) {
+          html += '<td><br></td>';
+        }
+
+        html += '</tr>';
+      }
+
+      html += '</tbody>';
+      html += '</table>';
+
+      return html;
+    };
+
+    var getInsertedElement = function (editor) {
+      var elms = editor.dom.select('*[data-mce-id]');
+      return elms[0];
+    };
+
+    var insertTable = function (editor, cols, rows) {
+      editor.undoManager.transact(function () {
+        var tableElm, cellElm;
+
+        editor.insertContent(createTableHtml(cols, rows));
+
+        tableElm = getInsertedElement(editor);
+        tableElm.removeAttribute('data-mce-id');
+        cellElm = editor.dom.select('td,th', tableElm);
+        editor.selection.setCursorLocation(cellElm[0], 0);
+      });
+    };
+
+    var formatBlock = function (editor, formatName) {
+      editor.execCommand('FormatBlock', false, formatName);
+    };
+
+    var insertBlob = function (editor, base64, blob) {
+      var blobCache, blobInfo;
+
+      blobCache = editor.editorUpload.blobCache;
+      blobInfo = blobCache.create(Uuid.uuid('mceu'), blob, base64);
+      blobCache.add(blobInfo);
+
+      editor.insertContent(editor.dom.createHTML('img', { src: blobInfo.blobUri() }));
+    };
+
+    var collapseSelectionToEnd = function (editor) {
+      editor.selection.collapse(false);
+    };
+
+    var unlink = function (editor) {
+      editor.focus();
+      Unlink.unlinkSelection(editor);
+      collapseSelectionToEnd(editor);
+    };
+
+    var changeHref = function (editor, elm, url) {
+      editor.focus();
+      editor.dom.setAttrib(elm, 'href', url);
+      collapseSelectionToEnd(editor);
+    };
+
+    var insertLink = function (editor, url) {
+      editor.execCommand('mceInsertLink', false, { href: url });
+      collapseSelectionToEnd(editor);
+    };
+
+    var updateOrInsertLink = function (editor, url) {
+      var elm = editor.dom.getParent(editor.selection.getStart(), 'a[href]');
+      elm ? changeHref(editor, elm, url) : insertLink(editor, url);
+    };
+
+    var createLink = function (editor, url) {
+      url.trim().length === 0 ? unlink(editor) : updateOrInsertLink(editor, url);
+    };
+
+    return {
+      insertTable: insertTable,
+      formatBlock: formatBlock,
+      insertBlob: insertBlob,
+      createLink: createLink,
+      unlink: unlink
+    };
+  }
+);
+
+/**
+ * UrlType.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.inlite.core.UrlType',
+  [
+  ],
+  function () {
+    var isDomainLike = function (href) {
+      return /^www\.|\.(com|org|edu|gov|uk|net|ca|de|jp|fr|au|us|ru|ch|it|nl|se|no|es|mil)$/i.test(href.trim());
+    };
+
+    var isAbsolute = function (href) {
+      return /^https?:\/\//.test(href.trim());
+    };
+
+    return {
+      isDomainLike: isDomainLike,
+      isAbsolute: isAbsolute
+    };
+  }
+);
+
+
+
+/**
+ * Forms.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.inlite.ui.Forms',
+  [
+    'tinymce.core.util.Tools',
+    'tinymce.core.ui.Factory',
+    'tinymce.core.util.Promise',
+    'tinymce.themes.inlite.core.Actions',
+    'tinymce.themes.inlite.core.UrlType'
+  ],
+  function (Tools, Factory, Promise, Actions, UrlType) {
+    var focusFirstTextBox = function (form) {
+      form.find('textbox').eq(0).each(function (ctrl) {
+        ctrl.focus();
+      });
+    };
+
+    var createForm = function (name, spec) {
+      var form = Factory.create(
+        Tools.extend({
+          type: 'form',
+          layout: 'flex',
+          direction: 'row',
+          padding: 5,
+          name: name,
+          spacing: 3
+        }, spec)
+      );
+
+      form.on('show', function () {
+        focusFirstTextBox(form);
+      });
+
+      return form;
+    };
+
+    var toggleVisibility = function (ctrl, state) {
+      return state ? ctrl.show() : ctrl.hide();
+    };
+
+    var askAboutPrefix = function (editor, href) {
+      return new Promise(function (resolve) {
+        editor.windowManager.confirm(
+          'The URL you entered seems to be an external link. Do you want to add the required http:// prefix?',
+          function (result) {
+            var output = result === true ? 'http://' + href : href;
+            resolve(output);
+          }
+        );
+      });
+    };
+
+    var convertLinkToAbsolute = function (editor, href) {
+      return !UrlType.isAbsolute(href) && UrlType.isDomainLike(href) ? askAboutPrefix(editor, href) : Promise.resolve(href);
+    };
+
+    var createQuickLinkForm = function (editor, hide) {
+      var attachState = {};
+
+      var unlink = function () {
+        editor.focus();
+        Actions.unlink(editor);
+        hide();
+      };
+
+      var onChangeHandler = function (e) {
+        var meta = e.meta;
+
+        if (meta && meta.attach) {
+          attachState = {
+            href: this.value(),
+            attach: meta.attach
+          };
+        }
+      };
+
+      var onShowHandler = function (e) {
+        if (e.control === this) {
+          var elm, linkurl = '';
+
+          elm = editor.dom.getParent(editor.selection.getStart(), 'a[href]');
+          if (elm) {
+            linkurl = editor.dom.getAttrib(elm, 'href');
+          }
+
+          this.fromJSON({
+            linkurl: linkurl
+          });
+
+          toggleVisibility(this.find('#unlink'), elm);
+          this.find('#linkurl')[0].focus();
+        }
+      };
+
+      return createForm('quicklink', {
+        items: [
+          { type: 'button', name: 'unlink', icon: 'unlink', onclick: unlink, tooltip: 'Remove link' },
+          { type: 'filepicker', name: 'linkurl', placeholder: 'Paste or type a link', filetype: 'file', onchange: onChangeHandler },
+          { type: 'button', icon: 'checkmark', subtype: 'primary', tooltip: 'Ok', onclick: 'submit' }
+        ],
+        onshow: onShowHandler,
+        onsubmit: function (e) {
+          convertLinkToAbsolute(editor, e.data.linkurl).then(function (url) {
+            editor.undoManager.transact(function () {
+              if (url === attachState.href) {
+                attachState.attach();
+                attachState = {};
+              }
+
+              Actions.createLink(editor, url);
+            });
+
+            hide();
+          });
+        }
+      });
+    };
+
+    return {
+      createQuickLinkForm: createQuickLinkForm
+    };
+  }
+);
+
+/**
+ * Toolbar.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.inlite.ui.Toolbar',
+  [
+    'tinymce.core.util.Tools',
+    'tinymce.core.ui.Factory',
+    'tinymce.themes.inlite.alien.Type'
+  ],
+  function (Tools, Factory, Type) {
+    var getSelectorStateResult = function (itemName, item) {
+      var result = function (selector, handler) {
+        return {
+          selector: selector,
+          handler: handler
+        };
+      };
+
+      var activeHandler = function (state) {
+        item.active(state);
+      };
+
+      var disabledHandler = function (state) {
+        item.disabled(state);
+      };
+
+      if (item.settings.stateSelector) {
+        return result(item.settings.stateSelector, activeHandler);
+      }
+
+      if (item.settings.disabledStateSelector) {
+        return result(item.settings.disabledStateSelector, disabledHandler);
+      }
+
+      return null;
+    };
+
+    var bindSelectorChanged = function (editor, itemName, item) {
+      return function () {
+        var result = getSelectorStateResult(itemName, item);
+        if (result !== null) {
+          editor.selection.selectorChanged(result.selector, result.handler);
+        }
+      };
+    };
+
+    var itemsToArray = function (items) {
+      if (Type.isArray(items)) {
+        return items;
+      } else if (Type.isString(items)) {
+        return items.split(/[ ,]/);
+      }
+
+      return [];
+    };
+
+    var create = function (editor, name, items) {
+      var toolbarItems = [], buttonGroup;
+
+      if (!items) {
+        return;
+      }
+
+      Tools.each(itemsToArray(items), function (item) {
+        var itemName;
+
+        if (item == '|') {
+          buttonGroup = null;
+        } else {
+          if (editor.buttons[item]) {
+            if (!buttonGroup) {
+              buttonGroup = { type: 'buttongroup', items: [] };
+              toolbarItems.push(buttonGroup);
+            }
+
+            itemName = item;
+            item = editor.buttons[itemName];
+
+            if (typeof item == 'function') {
+              item = item();
+            }
+
+            item.type = item.type || 'button';
+
+            item = Factory.create(item);
+            item.on('postRender', bindSelectorChanged(editor, itemName, item));
+            buttonGroup.items.push(item);
+          }
+        }
+      });
+
+      return Factory.create({
+        type: 'toolbar',
+        layout: 'flow',
+        name: name,
+        items: toolbarItems
+      });
+    };
+
+    return {
+      create: create
+    };
+  }
+);
+
+/**
+ * Panel.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.inlite.ui.Panel',
+  [
+    'global!document',
+    'tinymce.core.dom.DOMUtils',
+    'tinymce.core.ui.Factory',
+    'tinymce.core.util.Tools',
+    'tinymce.themes.inlite.api.Events',
+    'tinymce.themes.inlite.api.Settings',
+    'tinymce.themes.inlite.core.Layout',
+    'tinymce.themes.inlite.core.Measure',
+    'tinymce.themes.inlite.ui.Forms',
+    'tinymce.themes.inlite.ui.Toolbar'
+  ],
+  function (document, DOMUtils, Factory, Tools, Events, Settings, Layout, Measure, Forms, Toolbar) {
+    return function () {
+      var panel, currentRect;
+
+      var createToolbars = function (editor, toolbars) {
+        return Tools.map(toolbars, function (toolbar) {
+          return Toolbar.create(editor, toolbar.id, toolbar.items);
+        });
+      };
+
+      var hasToolbarItems = function (toolbar) {
+        return toolbar.items().length > 0;
+      };
+
+      var create = function (editor, toolbars) {
+        var items = createToolbars(editor, toolbars).concat([
+          Toolbar.create(editor, 'text', Settings.getTextSelectionToolbarItems(editor)),
+          Toolbar.create(editor, 'insert', Settings.getInsertToolbarItems(editor)),
+          Forms.createQuickLinkForm(editor, hide)
+        ]);
+
+        return Factory.create({
+          type: 'floatpanel',
+          role: 'dialog',
+          classes: 'tinymce tinymce-inline arrow',
+          ariaLabel: 'Inline toolbar',
+          layout: 'flex',
+          direction: 'column',
+          align: 'stretch',
+          autohide: false,
+          autofix: true,
+          fixed: true,
+          border: 1,
+          items: Tools.grep(items, hasToolbarItems),
+          oncancel: function () {
+            editor.focus();
+          }
+        });
+      };
+
+      var showPanel = function (panel) {
+        if (panel) {
+          panel.show();
+        }
+      };
+
+      var movePanelTo = function (panel, pos) {
+        panel.moveTo(pos.x, pos.y);
+      };
+
+      var togglePositionClass = function (panel, relPos) {
+        relPos = relPos ? relPos.substr(0, 2) : '';
+
+        Tools.each({
+          t: 'down',
+          b: 'up',
+          c: 'center'
+        }, function (cls, pos) {
+          panel.classes.toggle('arrow-' + cls, pos === relPos.substr(0, 1));
+        });
+
+        if (relPos === 'cr') {
+          panel.classes.toggle('arrow-left', true);
+          panel.classes.toggle('arrow-right', false);
+        } else if (relPos === 'cl') {
+          panel.classes.toggle('arrow-left', true);
+          panel.classes.toggle('arrow-right', true);
+        } else {
+          Tools.each({
+            l: 'left',
+            r: 'right'
+          }, function (cls, pos) {
+            panel.classes.toggle('arrow-' + cls, pos === relPos.substr(1, 1));
+          });
+        }
+      };
+
+      var showToolbar = function (panel, id) {
+        var toolbars = panel.items().filter('#' + id);
+
+        if (toolbars.length > 0) {
+          toolbars[0].show();
+          panel.reflow();
+          return true;
+        }
+
+        return false;
+      };
+
+      var repositionPanelAt = function (panel, id, editor, targetRect) {
+        var contentAreaRect, panelRect, result, userConstainHandler;
+
+        userConstainHandler = Settings.getPositionHandler(editor);
+        contentAreaRect = Measure.getContentAreaRect(editor);
+        panelRect = DOMUtils.DOM.getRect(panel.getEl());
+
+        if (id === 'insert') {
+          result = Layout.calcInsert(targetRect, contentAreaRect, panelRect);
+        } else {
+          result = Layout.calc(targetRect, contentAreaRect, panelRect);
+        }
+
+        if (result) {
+          panelRect = result.rect;
+          currentRect = targetRect;
+          movePanelTo(panel, Layout.userConstrain(userConstainHandler, targetRect, contentAreaRect, panelRect));
+          togglePositionClass(panel, result.position);
+          return true;
+        } else {
+          return false;
+        }
+      };
+
+      var showPanelAt = function (panel, id, editor, targetRect) {
+        showPanel(panel);
+        panel.items().hide();
+
+        if (!showToolbar(panel, id)) {
+          hide(panel);
+          return;
+        }
+
+        if (repositionPanelAt(panel, id, editor, targetRect) === false) {
+          hide(panel);
+        }
+      };
+
+      var hasFormVisible = function () {
+        return panel.items().filter('form:visible').length > 0;
+      };
+
+      var showForm = function (editor, id) {
+        if (panel) {
+          panel.items().hide();
+
+          if (!showToolbar(panel, id)) {
+            hide(panel);
+            return;
+          }
+
+          var contentAreaRect, panelRect, result, userConstainHandler;
+
+          showPanel(panel);
+          panel.items().hide();
+          showToolbar(panel, id);
+
+          userConstainHandler = Settings.getPositionHandler(editor);
+          contentAreaRect = Measure.getContentAreaRect(editor);
+          panelRect = DOMUtils.DOM.getRect(panel.getEl());
+
+          result = Layout.calc(currentRect, contentAreaRect, panelRect);
+
+          if (result) {
+            panelRect = result.rect;
+            movePanelTo(panel, Layout.userConstrain(userConstainHandler, currentRect, contentAreaRect, panelRect));
+            togglePositionClass(panel, result.position);
+          }
+        }
+      };
+
+      var show = function (editor, id, targetRect, toolbars) {
+        if (!panel) {
+          Events.fireBeforeRenderUI(editor);
+          panel = create(editor, toolbars);
+          panel.renderTo(document.body).reflow().moveTo(targetRect.x, targetRect.y);
+          editor.nodeChanged();
+        }
+
+        showPanelAt(panel, id, editor, targetRect);
+      };
+
+      var reposition = function (editor, id, targetRect) {
+        if (panel) {
+          repositionPanelAt(panel, id, editor, targetRect);
+        }
+      };
+
+      var hide = function () {
+        if (panel) {
+          panel.hide();
+        }
+      };
+
+      var focus = function () {
+        if (panel) {
+          panel.find('toolbar:visible').eq(0).each(function (item) {
+            item.focus(true);
+          });
+        }
+      };
+
+      var remove = function () {
+        if (panel) {
+          panel.remove();
+          panel = null;
+        }
+      };
+
+      var inForm = function () {
+        return panel && panel.visible() && hasFormVisible();
+      };
+
+      return {
+        show: show,
+        showForm: showForm,
+        reposition: reposition,
+        inForm: inForm,
+        hide: hide,
+        focus: focus,
+        remove: remove
+      };
+    };
+  }
+);
+
+define(
+  'ephox.katamari.api.Global',
+
+  [
+  ],
+
+  function () {
+    // Use window object as the global if it's available since CSP will block script evals
+    if (typeof window !== 'undefined') {
+      return window;
+    } else {
+      return Function('return this;')();
+    }
+  }
+);
+
+
+define(
+  'ephox.katamari.api.Resolve',
+
+  [
+    'ephox.katamari.api.Global'
+  ],
+
+  function (Global) {
+    /** path :: ([String], JsObj?) -> JsObj */
+    var path = function (parts, scope) {
+      var o = scope !== undefined ? scope : Global;
+      for (var i = 0; i < parts.length && o !== undefined && o !== null; ++i)
+        o = o[parts[i]];
+      return o;
+    };
+
+    /** resolve :: (String, JsObj?) -> JsObj */
+    var resolve = function (p, scope) {
+      var parts = p.split('.');
+      return path(parts, scope);
+    };
+
+    /** step :: (JsObj, String) -> JsObj */
+    var step = function (o, part) {
+      if (o[part] === undefined || o[part] === null)
+        o[part] = {};
+      return o[part];
+    };
+
+    /** forge :: ([String], JsObj?) -> JsObj */
+    var forge = function (parts, target) {
+      var o = target !== undefined ? target : Global;      
+      for (var i = 0; i < parts.length; ++i)
+        o = step(o, parts[i]);
+      return o;
+    };
+
+    /** namespace :: (String, JsObj?) -> JsObj */
+    var namespace = function (name, target) {
+      var parts = name.split('.');
+      return forge(parts, target);
+    };
+
+    return {
+      path: path,
+      resolve: resolve,
+      forge: forge,
+      namespace: namespace
+    };
+  }
+);
+
+
+define(
+  'ephox.sand.util.Global',
+
+  [
+    'ephox.katamari.api.Resolve'
+  ],
+
+  function (Resolve) {
+    var unsafe = function (name, scope) {
+      return Resolve.resolve(name, scope);
+    };
+
+    var getOrDie = function (name, scope) {
+      var actual = unsafe(name, scope);
+
+      if (actual === undefined) throw name + ' not available on this browser';
+      return actual;
+    };
+
+    return {
+      getOrDie: getOrDie
+    };
+  }
+);
+define(
+  'ephox.sand.api.FileReader',
+
+  [
+    'ephox.sand.util.Global'
+  ],
+
+  function (Global) {
+    /*
+     * IE10 and above per
+     * https://developer.mozilla.org/en-US/docs/Web/API/FileReader
+     */
+    return function () {
+      var f = Global.getOrDie('FileReader');
+      return new f();
+    };
+  }
+);
+/**
+ * Conversions.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.inlite.file.Conversions',
+  [
+    'ephox.sand.api.FileReader',
+    'tinymce.core.util.Promise'
+  ],
+  function (FileReader, Promise) {
+    var blobToBase64 = function (blob) {
+      return new Promise(function (resolve) {
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+          resolve(reader.result.split(',')[1]);
+        };
+
+        reader.readAsDataURL(blob);
+      });
+    };
+
+    return {
+      blobToBase64: blobToBase64
+    };
+  }
+);
+
+
+
+/**
+ * Picker.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.inlite.file.Picker',
+  [
+    'global!document',
+    'tinymce.core.util.Promise'
+  ],
+  function (document, Promise) {
+    var pickFile = function () {
+      return new Promise(function (resolve) {
+        var fileInput;
+
+        fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.style.position = 'fixed';
+        fileInput.style.left = 0;
+        fileInput.style.top = 0;
+        fileInput.style.opacity = 0.001;
+        document.body.appendChild(fileInput);
+
+        fileInput.onchange = function (e) {
+          resolve(Array.prototype.slice.call(e.target.files));
+        };
+
+        fileInput.click();
+        fileInput.parentNode.removeChild(fileInput);
+      });
+    };
+
+    return {
+      pickFile: pickFile
+    };
+  }
+);
+
+
+
+/**
+ * Buttons.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.inlite.ui.Buttons',
+  [
+    'tinymce.themes.inlite.ui.Panel',
+    'tinymce.themes.inlite.file.Conversions',
+    'tinymce.themes.inlite.file.Picker',
+    'tinymce.themes.inlite.core.Actions'
+  ],
+  function (Panel, Conversions, Picker, Actions) {
+    var addHeaderButtons = function (editor) {
+      var formatBlock = function (name) {
+        return function () {
+          Actions.formatBlock(editor, name);
+        };
+      };
+
+      for (var i = 1; i < 6; i++) {
+        var name = 'h' + i;
+
+        editor.addButton(name, {
+          text: name.toUpperCase(),
+          tooltip: 'Heading ' + i,
+          stateSelector: name,
+          onclick: formatBlock(name),
+          onPostRender: function () {
+            // TODO: Remove this hack that produces bold H1-H6 when we have proper icons
+            var span = this.getEl().firstChild.firstChild;
+            span.style.fontWeight = 'bold';
+          }
+        });
+      }
+    };
+
+    var addToEditor = function (editor, panel) {
+      editor.addButton('quicklink', {
+        icon: 'link',
+        tooltip: 'Insert/Edit link',
+        stateSelector: 'a[href]',
+        onclick: function () {
+          panel.showForm(editor, 'quicklink');
+        }
+      });
+
+      editor.addButton('quickimage', {
+        icon: 'image',
+        tooltip: 'Insert image',
+        onclick: function () {
+          Picker.pickFile().then(function (files) {
+            var blob = files[0];
+
+            Conversions.blobToBase64(blob).then(function (base64) {
+              Actions.insertBlob(editor, base64, blob);
+            });
+          });
+        }
+      });
+
+      editor.addButton('quicktable', {
+        icon: 'table',
+        tooltip: 'Insert table',
+        onclick: function () {
+          panel.hide();
+          Actions.insertTable(editor, 2, 2);
+        }
+      });
+
+      addHeaderButtons(editor);
+    };
+
+    return {
+      addToEditor: addToEditor
     };
   }
 );
@@ -11889,100 +12375,6 @@ define(
 
     return {
       toArray: toArray
-    };
-  }
-);
-define(
-  'ephox.katamari.api.Global',
-
-  [
-  ],
-
-  function () {
-    // Use window object as the global if it's available since CSP will block script evals
-    if (typeof window !== 'undefined') {
-      return window;
-    } else {
-      return Function('return this;')();
-    }
-  }
-);
-
-
-define(
-  'ephox.katamari.api.Resolve',
-
-  [
-    'ephox.katamari.api.Global'
-  ],
-
-  function (Global) {
-    /** path :: ([String], JsObj?) -> JsObj */
-    var path = function (parts, scope) {
-      var o = scope !== undefined ? scope : Global;
-      for (var i = 0; i < parts.length && o !== undefined && o !== null; ++i)
-        o = o[parts[i]];
-      return o;
-    };
-
-    /** resolve :: (String, JsObj?) -> JsObj */
-    var resolve = function (p, scope) {
-      var parts = p.split('.');
-      return path(parts, scope);
-    };
-
-    /** step :: (JsObj, String) -> JsObj */
-    var step = function (o, part) {
-      if (o[part] === undefined || o[part] === null)
-        o[part] = {};
-      return o[part];
-    };
-
-    /** forge :: ([String], JsObj?) -> JsObj */
-    var forge = function (parts, target) {
-      var o = target !== undefined ? target : Global;      
-      for (var i = 0; i < parts.length; ++i)
-        o = step(o, parts[i]);
-      return o;
-    };
-
-    /** namespace :: (String, JsObj?) -> JsObj */
-    var namespace = function (name, target) {
-      var parts = name.split('.');
-      return forge(parts, target);
-    };
-
-    return {
-      path: path,
-      resolve: resolve,
-      forge: forge,
-      namespace: namespace
-    };
-  }
-);
-
-
-define(
-  'ephox.sand.util.Global',
-
-  [
-    'ephox.katamari.api.Resolve'
-  ],
-
-  function (Resolve) {
-    var unsafe = function (name, scope) {
-      return Resolve.resolve(name, scope);
-    };
-
-    var getOrDie = function (name, scope) {
-      var actual = unsafe(name, scope);
-
-      if (actual === undefined) throw name + ' not available on this browser';
-      return actual;
-    };
-
-    return {
-      getOrDie: getOrDie
     };
   }
 );
@@ -16562,6 +16954,99 @@ define(
 );
 
 /**
+ * Throbber.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This class enables you to display a Throbber for any element.
+ *
+ * @-x-less Throbber.less
+ * @class tinymce.ui.Throbber
+ */
+define(
+  'tinymce.ui.Throbber',
+  [
+    "tinymce.core.dom.DomQuery",
+    "tinymce.ui.Control",
+    "tinymce.core.util.Delay"
+  ],
+  function ($, Control, Delay) {
+    "use strict";
+
+    /**
+     * Constructs a new throbber.
+     *
+     * @constructor
+     * @param {Element} elm DOM Html element to display throbber in.
+     * @param {Boolean} inline Optional true/false state if the throbber should be appended to end of element for infinite scroll.
+     */
+    return function (elm, inline) {
+      var self = this, state, classPrefix = Control.classPrefix, timer;
+
+      /**
+       * Shows the throbber.
+       *
+       * @method show
+       * @param {Number} [time] Time to wait before showing.
+       * @param {function} [callback] Optional callback to execute when the throbber is shown.
+       * @return {tinymce.ui.Throbber} Current throbber instance.
+       */
+      self.show = function (time, callback) {
+        function render() {
+          if (state) {
+            $(elm).append(
+              '<div class="' + classPrefix + 'throbber' + (inline ? ' ' + classPrefix + 'throbber-inline' : '') + '"></div>'
+            );
+
+            if (callback) {
+              callback();
+            }
+          }
+        }
+
+        self.hide();
+
+        state = true;
+
+        if (time) {
+          timer = Delay.setTimeout(render, time);
+        } else {
+          render();
+        }
+
+        return self;
+      };
+
+      /**
+       * Hides the throbber.
+       *
+       * @method hide
+       * @return {tinymce.ui.Throbber} Current throbber instance.
+       */
+      self.hide = function () {
+        var child = elm.lastChild;
+
+        Delay.clearTimeout(timer);
+
+        if (child && child.className.indexOf('throbber') != -1) {
+          child.parentNode.removeChild(child);
+        }
+
+        state = false;
+
+        return self;
+      };
+    };
+  }
+);
+
+/**
  * Menu.js
  *
  * Released under LGPL License.
@@ -18216,26 +18701,32 @@ define(
  */
 
 define(
-  'tinymce.themes.modern.Theme',
+  'tinymce.themes.inlite.Theme',
   [
     'global!window',
     'tinymce.core.ThemeManager',
-    'tinymce.themes.modern.api.ThemeApi',
+    'tinymce.themes.inlite.api.ThemeApi',
+    'tinymce.themes.inlite.ui.Buttons',
+    'tinymce.themes.inlite.ui.Panel',
     'tinymce.ui.Api',
     'tinymce.ui.FormatControls'
   ],
-  function (window, ThemeManager, ThemeApi, Api, FormatControls) {
+  function (window, ThemeManager, ThemeApi, Buttons, Panel, Api, FormatControls) {
     Api.registerToFactory();
     Api.appendTo(window.tinymce ? window.tinymce : {});
 
-    ThemeManager.add('modern', function (editor) {
+    ThemeManager.add('inlite', function (editor) {
+      var panel = new Panel();
+
       FormatControls.setup(editor);
-      return ThemeApi.get(editor);
+      Buttons.addToEditor(editor, panel);
+
+      return ThemeApi.get(editor, panel);
     });
 
     return function () { };
   }
 );
 
-dem('tinymce.themes.modern.Theme')();
+dem('tinymce.themes.inlite.Theme')();
 })();
