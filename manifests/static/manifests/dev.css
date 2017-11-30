@@ -1,5 +1,5 @@
 body {
-  padding: 0; margin: 0; overflow: hidden; font-size: 70%;
+  padding: 0; margin: 0; overflow: auto; font-size: 70%;
 }
 #viewer {
   background: #333 url('./dev/images/debut_dark.png') left top repeat; width: 100%; height: 100%; position: fixed;
