@@ -198,7 +198,7 @@ $(function() {
             last_idx = parts.length - 1,
 	    drs_match = parts[last_idx].match(/drs:(\d+)/),
             drs_id = drs_match && drs_match[1],
-            focusType = mirWindow.currentFocus,
+            focusType = mirWindow.currentImageMode,
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
         if (drs_match) {
           return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id,
