@@ -8,6 +8,8 @@
   <link rel="stylesheet" type="text/css" href="{% static 'manifests/dev.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'jqwidgets/styles/jqx.base.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'slicknav.min.css' %}">
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'saveimage/jquery-ui-smootheness.css' %}"> -->
+  <!-- link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" -->
   <script src="{% static 'manifests/dev/mirador.js' %}"></script>
   <script src="{% static 'base64.min.js' %}"></script>
   <!-- jqwidgets for search and related links -->
@@ -22,27 +24,37 @@
   <script src="{% static 'jqwidgets/jqxlistbox.js' %}"></script>
   <script src="{% static 'jquery.slicknav.min.js' %}"></script>
   <script src="{% static 'xml-to-json/jquery.xml2json.js' %}"></script>
+
+  <script src="{% static 'saveimage/jquery.ui-contextmenu.min.js' %}"></script>
+  <script src="{% static 'saveimage/FileSaver.min.js' %}"></script>
+  <script src="{% static 'saveimage/Blob.js' %}"></script>
+  <script src="{% static 'saveimage/canvas-toBlob.js' %}"></script>
+
+  <script src="{% static 'swag.min.js' %}"></script>
+  <script>Swag.registerHelpers(window.Handlebars);</script>
+
   <title>Harvard Mirador Viewer</title>
 </head>
 <body>
+  <canvas id="buffer" style="display:none" ></canvas>
   <div id="viewer"></div>
 
   {% verbatim %}
   <script id="error-tmpl" type="text/x-handlebars-template">
-  <div class="dialog" title="Not Available" >
+  <div class="dialog" title="error">
      <p>{{ text }}</p>
   </div>
   </script>
 
   <script id="citation-tmpl" type="text/x-handlebars-template">
     <div class="dialog" title="citation">
+     <p>Please note that a complete citation may require additional information
+      (document date, author name, range of pages/sequence numbers, etc.)</p>
       <header>
         <h3>Resource</h3>
       </header>
-      <p>Please note that a complete citation may require additional information
-      (document date, author name, range of pages/sequence numbers, etc.)</p>
       <ul>
-        <li><span class="label plink">Persistent Link</span> <a href="{{{resource.urn}}}">{{resource.urn}}</a></li>
+        <li><span class="label plink">Persistent Link</span> {{#isLink resource.urn}}<a href="{{{resource.urn}}}">{{/isLink}}{{resource.urn}}{{#isLink resource.urn}}</a>{{/isLink}}</li>
         <li><span class="label desc">Description</span> {{{resource.description}}}</li>
         <li><span class="label repo">Repository</span> {{{resource.repository}}}</li>
         <li><span class="label inst">Institution</span> {{{resource.institution}}}</li>
@@ -53,7 +65,7 @@
         <h3>Page</h3>
       </header>
       <ul>
-        <li><span class="label plink">Persistent Link</span> <a href="{{{page.urn}}}">{{page.urn}}</a></li>
+        <li><span class="label plink">Persistent Link</span> {{#isLink page.urn}}<a href="{{{page.urn}}}">{{/isLink}}{{page.urn}}{{#isLink page.urn}}</a>{{/isLink}}</li>
         <li><span class="label desc">Description</span> {{{page.description}}}</li>
         <li><span class="label page">Page</span> {{{page.pagelabel}}}</li>
         <li><span class="label repo">Repository</span> {{{page.repository}}}</li>
@@ -69,27 +81,32 @@
         <input type="hidden" name="id" id="search_drs_id" value="{{ drs_id }}"/>
         <input type="hidden" name="current_slot_idx" id="current_slot_idx" value="{{ slot_idx }}"/>
         <div id="searchhelp">
-           <b>Search within citation:</b> <i>{{ label }}</i>
+           <b>Search Item:</b>
              <p/>
-             <b>Search Citation</b> searches the entire document (or group of documents) and returns an ordered list of links to pages that contain the search term.<br> You can click on the link to view the page.
+             <i>{{ label }}</i>
+             <p/>
+             For search tips, refer to <a href="http://nrs.harvard.edu/urn-3:hul.ois:hlviewerhelp">Viewer Help</a>.
             <p/>
-            <b>Hints:</b> Use * as a wildcard. Examples: cat*, oper* and Harv*
+            <!-- <b>Hints:</b> Use * as a wildcard. Examples: cat*, oper* and Harv* -->
         </div>
-        <div id="orderResults"  style="margin-left: auto; margin-right: auto; text-align: center">
+        <div id="orderResults"  style="margin: 30px auto 10px auto; text-align: center">
             <b>Order results:</b>
-            <label for="searchOptDefault"> <input type="radio" name="searchOpt" value="R" id="searchOptDefault" checked />By relevance</label>
-            <label for="searchOptAlpha"> <input type="radio" name="searchOpt" value="A" id="searchOptAlpha"/>Alphabetically</label>
-            <label for="searchOptDate"> <input type="radio" name="searchOpt" value="D" id="searchOptDate"/>By Date</label>
+            <label for="searchOptDefault"> <input type="radio" style="margin-left: 5px;" name="searchOpt" value="R" id="searchOptDefault" checked />By relevance</label>
+            <label for="searchOptAlpha"> <input type="radio" style="margin-left: 5px;" name="searchOpt" value="A" id="searchOptAlpha"/>Alphabetically</label>
+            <label for="searchOptDate"> <input type="radio" style="margin-left: 5px;" name="searchOpt" value="D" id="searchOptDate"/>By Date</label>
+        </div>
+        <div id="loading" style="display:none; margin-left: auto; margin-right: auto; text-align: center">
+            <i>Loading...</i>
         </div>
         <div style="text-align: center">
-          <input class='jqx-input' name="searchbox" type="text" id="searchbox" placeholder="" style="width: 800px" />
+          <input class='jqx-input' name="searchbox" type="text" id="searchbox" placeholder="" style="padding: 3px; width: 500px;" />
         </div>
         <div id="hits"  style="display:none; margin-left: auto; margin-right: auto; text-align: center"></div>
         <div id="hitlist" style="display:none; margin-left: auto; margin-right: auto;"></div>
         <div id="nohits"  style="display:none; margin-left: auto; margin-right: auto; text-align: center">
             <b>No Search Results Found</b>
         </div>
-        <div style="float: right;">
+        <div style="margin: 10px; text-align: center;">
             <input id="clearsearch" type="button" value="Clear" />
             <input id="searchbutton" type="button" value="Search" />
         </div>
@@ -111,6 +128,7 @@
     <div title="Print"  class="print dialog {{ op }}" style="margin: 10px; padding: 5px;">
       <!--<h3>Convert to PDF for Printing</h3>-->
        <div>
+        <b>Print:</b> <i>{{ label }}</i>
         <p>Convert selected pages to PDF so that you can print or save the file to disk.  The service creates PDFs at 10 pages&ndash;per&ndash;minute.  Requests larger than 500 pages can take an hour or more to process.  The link to your PDF will remain active for 7 days.</p>
 
         <p style="color: #A51C30; font-weight: bold;">Requests for 10 pages or less will be delivered to your browser immediately. For larger requests, please enter an email address and a link to the PDF will be delivered by email.</p>
@@ -124,11 +142,13 @@
          <input type="hidden" name="print_slot_idx" id="print_slot_idx" value="{{ slot_idx }}"/>
          <input type="hidden" name="n" id="n" value="{{ n }}"/>
          <input type="hidden" name="id" id="drs_id" value="{{ drs_id }}"/>
-         <label for="printOptDefault"><input type="radio" name="printOpt" value="current" id="printOptDefault" checked />&nbsp;Convert current page</label><br />
+         <input type="hidden" name="img_id" id="img_id" value="{{ img_id }}"/>
+         <label for="printOptDefault"><input type="radio" name="printOpt" value="current" id="printOptDefault" checked />&nbsp;Convert current page</label><br/>
          <label for="printOptSequence"><input type="radio" id="printOptSequence" name="printOpt" value="range"  />&nbsp;Convert page sequence</label>
          <input type="text" id="start" name="start" size="6" onclick="javascript:document.printpds.printOpt[1].checked=true;" value="" /> to
-         <input type="text" id="end" name="end" size="6" onclick="javascript:document.printpds.printOpt[1].checked=true;" value=""/><br />
-         <label for="printOptEntire"><input type="radio" name="printOpt" id="printOptEntire" value="all"  />&nbsp;Convert entire document</label><br />
+         <input type="text" id="end" name="end" size="6" onclick="javascript:document.printpds.printOpt[1].checked=true;" value=""/><br/>
+         <label for="printOptEntire"><input type="radio" name="printOpt" id="printOptEntire" value="all"  />&nbsp;Convert entire document</label><br/>
+         <label for="printOptCaption"><input type="radio" name="printOpt" value="caption" id="printOptCaption" />&nbsp;Display image with full caption</label><br/>
          Email address: <input type="text" id="email" name="email" size="50" onclick="" value=""/><br />
 
           <div style="margin-right: 10px; margin-top: 5px;">
@@ -142,7 +162,6 @@
 
   <script id="viewtext-tmpl" type="text/x-handlebars-template">
      <div title="viewtext" class="viewtext dialog {{ op }}">
-        <!--<h3>View Text</h3>-->
           <div>{{ text }}</div>
      </div>
   </script>
@@ -152,12 +171,23 @@
      <!--<header><h3>Related Links</h3></header>-->
      <b>Links relating to:</b> {{ citation }}
      <p/>
-     <b>Related Links</b> take you to information outside of the Viewer that relates to the displayed document. E.g., a link to a description of the document in HOLLIS, to a finding aid in OASIS, or to a specialized web site with additional information.
-       Click on the link and the information will display in a new browser window.
-      <ul>
-        {{#each links}}
-        <li>{{{ type }}} {{#isLink value }}<a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}}{{{ identifier }}}{{#isLink value}}</a>{{/isLink}}</li>
-        {{/each}}
+     The following links provide more information about this resource. Links open in a new window.<p/>
+      {{#if harvardMetadata }}
+      <b>Harvard Metadata</b><p/>
+        <ul>
+	{{#each harvardMetadata }}
+	  <li>{{{ displayLabel }}}: {{#isLink value }}<a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}} {{{value}}} {{#isLink value}}</a>{{/isLink}} </li>
+ 	{{/each}}
+        </ul>
+      {{/if}}
+      </p><br>
+      {{#if relatedLinks }}
+      <b>Related Links</b><p/>
+        <ul>
+	{{#each relatedLinks }}
+	  <li>{{#if displayLabel }} {{{ displayLabel }}}: {{/if}} {{#isLink value }}<a class="manifest" href="{{{ value }}}" target="_blank">{{/isLink}} {{{value}}} {{#isLink value}}</a>{{/isLink}} </li>
+	{{/each}}
+      {{/if}} 
       </ul>
     </div>
   </script>
@@ -166,6 +196,8 @@
   <script type="text/javascript">
    window.harvard_md_server = {
      PDS_VIEW_URL: "{{ pds_view_url }}",
+     IDS_VIEW_URL: "{{ ids_view_url }}",
+     FTS_VIEW_URL: "{{ fts_view_url }}",
      MIRADOR_DATA: [
        {% autoescape off %}
        {{ manifests_data|join:"," }}
