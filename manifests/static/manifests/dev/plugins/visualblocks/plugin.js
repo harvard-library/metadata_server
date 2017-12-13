@@ -403,7 +403,6 @@ define(
 
     var register = function (editor, enabledState) {
       editor.addButton('visualblocks', {
-        active: false,
         title: 'Show blocks',
         cmd: 'mceVisualBlocks',
         onPostRender: toggleActiveState(editor, enabledState)

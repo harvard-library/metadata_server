@@ -404,7 +404,6 @@ define(
       });
 
       editor.addButton('fullscreen', {
-        active: false,
         tooltip: 'Fullscreen',
         cmd: 'mceFullScreen',
         onPostRender: postRender(editor)
