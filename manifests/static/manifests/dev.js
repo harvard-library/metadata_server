@@ -148,7 +148,7 @@ $(function() {
     "windowObjects": l.MIRADOR_WOBJECTS
   });
 
-  $.Viewer('.user-buttons').slicknav({
+  $('.user-buttons').slicknav({
     label: 'Menu',
     prependTo: '.mirador-main-menu-bar'
   });
