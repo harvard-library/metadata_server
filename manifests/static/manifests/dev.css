@@ -153,3 +153,17 @@ body {
 .mirador-osd-annotations-layer.hud-control {
   display: none;
 }
+
+.mirador-osd-rotate-right {
+    font-size: 130%;
+    position: absolute;
+    right: 105px;
+    top: 5px;
+}
+
+.mirador-osd-rotate-left {
+    font-size: 130%;
+    position: absolute;
+    right: 105px;
+    top: 30px;
+}
