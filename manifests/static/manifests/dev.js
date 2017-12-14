@@ -679,4 +679,4 @@ $(function() {
     label: 'Menu',
     prependTo: '.mirador-main-menu-bar'
   });
-}
+});
