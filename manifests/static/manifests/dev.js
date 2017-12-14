@@ -671,10 +671,9 @@ $(function() {
     History.replaceState({}, document.title, constructUrl(data.id));
   });
 
+});
 
-  $('.user-buttons').slicknav({
+ $('.user-buttons').slicknav({
     label: 'Menu',
     prependTo: '.mirador-main-menu-bar'
   });
-
-});
