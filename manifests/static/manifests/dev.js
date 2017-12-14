@@ -148,7 +148,7 @@ $(function() {
     "windowObjects": l.MIRADOR_WOBJECTS
   });
 
-  $('.user-buttons').slicknav({
+  $.Viewer('.user-buttons').slicknav({
     label: 'Menu',
     prependTo: '.mirador-main-menu-bar'
   });
@@ -671,12 +671,4 @@ $(function() {
     History.replaceState({}, document.title, constructUrl(data.id));
   });
 
-});
-
-
-$(function() {
-   $('.user-buttons').slicknav({
-    label: 'Menu',
-    prependTo: '.mirador-main-menu-bar'
-  });
 });
