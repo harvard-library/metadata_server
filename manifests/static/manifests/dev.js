@@ -672,5 +672,9 @@ $(function() {
   });
 
 
+  $('.user-buttons').slicknav({
+    label: 'Menu',
+    prependTo: '.mirador-main-menu-bar'
+  });
 
 });
