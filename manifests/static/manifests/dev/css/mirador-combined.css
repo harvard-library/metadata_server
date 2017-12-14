@@ -2389,7 +2389,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 }
 .mirador-container .mirador-pan-zoom-controls {
   position: absolute;
-  width: 160px;
+  width: 100px;
   height: 65px;
   bottom: 0;
   right: 0;
