@@ -673,7 +673,10 @@ $(function() {
 
 });
 
- $('.user-buttons').slicknav({
+
+$(function() {
+   $('.user-buttons').slicknav({
     label: 'Menu',
     prependTo: '.mirador-main-menu-bar'
   });
+}
