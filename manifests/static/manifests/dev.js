@@ -148,10 +148,12 @@ $(function() {
     "windowObjects": l.MIRADOR_WOBJECTS
   });
 
-  $('.user-buttons').slicknav({
-    label: 'Menu',
-    prependTo: '.mirador-main-menu-bar'
-  });
+  setTimeout(function(){
+    $('.user-buttons').slicknav({
+      label: 'Menu',
+      prependTo: '.mirador-main-menu-bar'
+    });
+  }, 3000);
 
   var ftype_alias = {
     'ImageView': 'i',
