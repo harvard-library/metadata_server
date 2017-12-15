@@ -680,9 +680,3 @@ $(function() {
 
 });
 
-
-$(function(){
-
- alert("ready");
-
-});
