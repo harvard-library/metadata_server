@@ -671,4 +671,11 @@ $(function() {
     History.replaceState({}, document.title, constructUrl(data.id));
   });
 
+  $.subscribe("mainMenuInitialized", function (e, data) {
+    $('.user-buttons').slicknav({
+      label: 'Menu',
+      prependTo: '.mirador-main-menu-bar'
+    });
+  });
+
 });
