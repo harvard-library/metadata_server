@@ -679,3 +679,10 @@ $(function() {
   });
 
 });
+
+
+$(function(){
+
+ alert("ready");
+
+});
