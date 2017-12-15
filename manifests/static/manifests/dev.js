@@ -153,7 +153,7 @@ $(function() {
       label: 'Menu',
       prependTo: '.mirador-main-menu-bar'
     });
-  }, 3000);
+  }, 1000);
 
   var ftype_alias = {
     'ImageView': 'i',
