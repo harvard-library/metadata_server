@@ -19,7 +19,7 @@
   "cancelAnnotation": "Do you want to cancel this annotation?",
   "changeLayout": "Change Layout",
   "changeLayoutTooltip": "Change the number of visible slots",
-  "close": "Close",
+  "close": "",
   "closeTooltip": "Close this window",
   "comments": "Comments",
   "contrastTooltip": "Adjust contrast",
