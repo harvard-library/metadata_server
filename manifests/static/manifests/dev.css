@@ -167,3 +167,7 @@ body {
     right: 105px;
     top: 33px;
 }
+
+.ui-button ui-corner-all ui-widget ui-button-icon-only ui-dialog-titlebar-close {
+    display: none;
+}
