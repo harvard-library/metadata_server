@@ -8,6 +8,7 @@ $(function() {
     draggable: false,
     resizable: false,
     width: "50%",
+    showLabel: false,
     classes: "qtip-bootstrap",
     close: function (e) { $(this).remove()}
   };
