@@ -1,3 +1,4 @@
+var hMirador;
 $(function() {
   // Localize & shorthand django vars
   var l = window.harvard_md_server;
@@ -7,6 +8,7 @@ $(function() {
     draggable: false,
     resizable: false,
     width: "50%",
+    closeText: null,
     classes: "qtip-bootstrap",
     close: function (e) { $(this).remove()}
   };
@@ -47,7 +49,7 @@ $(function() {
     }
 
     var print_slot_idx = $("#print_slot_idx").val();
-    var totalSeq = Mirador.viewer.workspace.slots[print_slot_idx].window.imagesList.length;
+    var totalSeq = hMirador.viewer.workspace.slots[print_slot_idx].window.imagesList.length;
 
 
     var printMode = $('input[name=printOpt]:checked', '#printpds').val();
@@ -105,7 +107,7 @@ $(function() {
   };
 
 
-  Mirador({
+  hMirador = Mirador({
     "id": "viewer",
     "layout": l.LAYOUT,
     "saveSession": false,
@@ -147,10 +149,12 @@ $(function() {
     "windowObjects": l.MIRADOR_WOBJECTS
   });
 
-  $('.user-buttons').slicknav({
-    label: 'Menu',
-    prependTo: '.mirador-main-menu-bar'
-  });
+  setTimeout(function(){
+    $('.user-buttons').slicknav({
+      label: 'Menu',
+      prependTo: '.mirador-main-menu-bar'
+    });
+  }, 3000);
 
   var ftype_alias = {
     'ImageView': 'i',
@@ -160,7 +164,7 @@ $(function() {
   };
 
   var constructUrl = function (omit_id) {
-    var object_ids = $.map(Mirador.viewer.workspace.slots, function (slot, i) {
+    var object_ids = $.map(hMirador.viewer.workspace.slots, function (slot, i) {
       var mirWindow = slot.window;
       if (mirWindow) {
         var uri = mirWindow.manifest.uri,
@@ -188,7 +192,7 @@ $(function() {
     e.preventDefault();
     $('.user-buttons').slicknav('close');
     var op = e.currentTarget.className.replace(/\s/g, '');
-    var choices = $.map(Mirador.viewer.workspace.slots, function (slot, i) {
+    var choices = $.map(hMirador.viewer.workspace.slots, function (slot, i) {
       var mirWindow = slot.window;
       var mirSlotID = slot.slotID;
       if (mirWindow) {
@@ -197,7 +201,7 @@ $(function() {
             last_idx = parts.length - 1,
 	    drs_match = parts[last_idx].match(/drs:(\d+)/),
             drs_id = drs_match && drs_match[1],
-            focusType = mirWindow.currentFocus,
+            focusType = mirWindow.currentImageMode,
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
         if (drs_match) {
           return {"label": mirWindow.manifest.jsonLd.label, "drs_id": drs_id,
@@ -281,7 +285,7 @@ $(function() {
           }
         //}); //TODO: Else graceful error display
         if (has_ocr) {
-          var cSlot = Mirador.viewer.workspace.slots[slot_idx];
+          var cSlot = hMirador.viewer.workspace.slots[slot_idx];
           var cWindow = cSlot.window;
           var citLabel = cWindow.manifest.jsonLd.label;
           var content = { drs_id: drs_id, n: n, slot_idx: slot_idx, label: citLabel, fts_view_url: l.FTS_VIEW_URL };
@@ -336,7 +340,7 @@ $(function() {
                     var sequence = parseInt((record.uri.split("="))[1]);
                     sequence = sequence - 1;
                     var curr_slot_idx = $("#current_slot_idx").val();
-                    var currSlot = Mirador.viewer.workspace.slots[curr_slot_idx];
+                    var currSlot = hMirador.viewer.workspace.slots[curr_slot_idx];
                     var currWindow = currSlot.window;
                     var thumbUrl = currWindow.imagesList[sequence].images[0].resource.service['@id'];
                     thumbUrl = thumbUrl + "/full/150,/0/native.jpg";
@@ -384,7 +388,7 @@ $(function() {
                     clearSearch();
                     $('#search-modal').dialog('close');
                     // TODO - jump active mirador window to this new sequence
-                    var currSlot = Mirador.viewer.workspace.slots[curr_slot_idx];
+                    var currSlot = hMirador.viewer.workspace.slots[curr_slot_idx];
                     var currWindow = currSlot.window;
                     var newCanvasID = currWindow.imagesList[sequence]['@id'];
                     currWindow.setCurrentCanvasID(newCanvasID);
@@ -439,10 +443,10 @@ $(function() {
       });
     },
     "print": function(drs_id, n, slot_idx) {
-      var cSlot = Mirador.viewer.workspace.slots[slot_idx];
+      var cSlot = hMirador.viewer.workspace.slots[slot_idx];
       var cWindow = cSlot.window;
       var citLabel = cWindow.manifest.jsonLd.label;
-      var img_id = ((cWindow.currentCanvasID.split("-"))[1]).split(".json")[0];
+      var img_id = ((cWindow.canvasID.split("-"))[1]).split(".json")[0];
       var content = { drs_id: drs_id, n: n, slot_idx: slot_idx, label: citLabel, img_id: img_id };
       var $dialog = $('#print-modal');
 
@@ -459,7 +463,7 @@ $(function() {
         //set default print range max/min values
         $('#start').val('1');
         var print_slot_idx = $("#print_slot_idx").val();
-        var totalSeq = Mirador.viewer.workspace.slots[print_slot_idx].window.imagesList.length;
+        var totalSeq = hMirador.viewer.workspace.slots[print_slot_idx].window.imagesList.length;
         $('#end').val(totalSeq);
 
         $('input#pdssubmit').click(function(e) {
@@ -586,13 +590,13 @@ $(function() {
       var layout_slot = $(this).parents('.layout-slot');
       var slot_idx = layout_slot[0].attributes[1].textContent;
       var slot = null;
-      if (Mirador.viewer.workspace.slots.length == 1) {
-	 slot = Mirador.viewer.workspace.slots[0];
+      if (hMirador.viewer.workspace.slots.length == 1) {
+	 slot = hMirador.viewer.workspace.slots[0];
       } else {
-         for (var sl = 0; sl < Mirador.viewer.workspace.slots.length; sl++) {
-	   var slt = Mirador.viewer.workspace.slots[sl];
+         for (var sl = 0; sl < hMirador.viewer.workspace.slots.length; sl++) {
+	   var slt = hMirador.viewer.workspace.slots[sl];
 	   if (slt.slotID == slot_idx) {
-             slot = Mirador.viewer.workspace.slots[sl];
+             slot = hMirador.viewer.workspace.slots[sl];
              break;
 	   }
          }
