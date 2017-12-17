@@ -484,8 +484,8 @@ def main(data, document_id, source, host, cookie=None):
             		logger.debug("Failed solr file metadata request %s" % metadata_url)
             		return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
         	  md_json = json.loads(response.read())
-		  #for md in md_json['response']['docs']:
-		  for md in md_json:
+		  for md in md_json['response']['docs']:
+		  #for md in md_json:
 			if 'object_huldrsadmin_accessFlag_string' in md:
 				access_flag = md['object_huldrsadmin_accessFlag_string']
 			if 'file_mix_imageHeight_num' in md:
