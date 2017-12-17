@@ -3,6 +3,7 @@
 from lxml import etree
 import json, sys, re
 import urllib2
+from urllib import quote_plus
 from django.conf import settings
 import webclient
 from os import environ
@@ -486,16 +487,19 @@ def main(data, document_id, source, host, cookie=None):
 
 	#check solr if this is a drs2 request, make call for image md from there if above fails
 	if ( (len(drs2ImageWidths) == 0) and (len(drs2ImageHeights) == 0) and (isDrs1 == False) ):
-        	metadata_url = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_FILE_QUERY
-		#metadata_url = PDS_WS_URL + "objfile/" + document_id
-        	try:
+		metadata_url_base = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_FILE_QUERY + settings.SOLR_CURSORMARK
+		cursormark_val = "*"
+
+		not_paged = True
+		while not_paged:
+        	  try:
             		response = webclient.get(metadata_url, cookie)
-        	except urllib2.HTTPError, err:
+        	  except urllib2.HTTPError, err:
             		logger.debug("Failed solr file metadata request %s" % metadata_url)
             		return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
-        	md_json = json.loads(response.read())
-		for md in md_json['response']['docs']:
-		#for md in md_json:
+        	  md_json = json.loads(response.read())
+		  for md in md_json['response']['docs']:
+		  #for md in md_json:
 			if 'object_huldrsadmin_accessFlag_string' in md:
 				access_flag = md['object_huldrsadmin_accessFlag_string']
 			if 'file_mix_imageHeight_num' in md:
@@ -504,7 +508,10 @@ def main(data, document_id, source, host, cookie=None):
 				#filepath = md['file_path_raw']
 				#file_id = md['file_id_num']
 				drs2ImageWidths.append(md['file_mix_imageWidth_num'])
-
+		  next_cursormark = quote_plus(md_json['nextCursorMark'])
+		  if next_cursormark == cursormark_val:
+		  	not_paged = False
+		  cursormark_val = next_cursormark
 			
 	#ldn demo: check for alternate ranges for this manifest
 	alternate_ranges = None
