@@ -2107,7 +2107,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   color: #fff;
   font-weight: normal;
   text-decoration: none;
-  opacity: 0.6;
+  opacity: 1;
 }
 .mirador-container .mirador-main-menu a:hover {
   opacity: 1;
