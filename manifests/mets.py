@@ -488,12 +488,18 @@ def main(data, document_id, source, host, cookie=None):
 		  #for md in md_json:
 			if 'object_huldrsadmin_accessFlag_string' in md:
 				access_flag = md['object_huldrsadmin_accessFlag_string']
-			if 'file_mix_imageHeight_num' in md:
+			if (('file_mix_imageHeight_num' in md) and ('file_mix_imageWidth_num' in md)):
 				drs2ImageHeights.append(md['file_mix_imageHeight_num'])
-			if 'file_mix_imageWidth_num' in md:
-				#filepath = md['file_path_raw']
-				#file_id = md['file_id_num']
 				drs2ImageWidths.append(md['file_mix_imageWidth_num'])
+			else: #call ids (info.json request)
+				logger.debug("solr missing image dimensions - making info.json call for image id " + md['file_id_num'] )
+				try: 
+				  info_resp = webclient.get(imageUriBase + md['file_id_num'] + imageInfoSuffix, cookie)
+				  iiif_info = json.load(info_resp)
+				  drs2ImageHeights.append(md['file_mix_imageHeight_num'])
+				  drs2ImageWidths.append(md['file_mix_imageWidth_num'])
+				except urllib2.HTTPError, err:
+				  logger.debug("failed to get image dimensions for image id " + md['file_id_num'] )
 		  next_cursormark = quote_plus(md_json['nextCursorMark'])
 		  if next_cursormark == cursormark_val:
 			not_paged = False
