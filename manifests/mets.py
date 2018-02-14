@@ -496,8 +496,8 @@ def main(data, document_id, source, host, cookie=None):
 				try: 
 				  info_resp = webclient.get(imageUriBase + md['file_id_num'] + imageInfoSuffix, cookie)
 				  iiif_info = json.load(info_resp)
-				  drs2ImageHeights.append(md['file_mix_imageHeight_num'])
-				  drs2ImageWidths.append(md['file_mix_imageWidth_num'])
+				  drs2ImageHeights.append(iiif_info['height'])
+				  drs2ImageWidths.append(iiif_info['width'])
 				except urllib2.HTTPError, err:
 				  logger.debug("failed to get image dimensions for image id " + md['file_id_num'] )
 		  next_cursormark = quote_plus(md_json['nextCursorMark'])
