@@ -565,9 +565,14 @@ def main(data, document_id, source, host, cookie=None):
 				infojson['scale_factors'] = [1]
 				infocount = infocount + 1
 
-                if "gif" in infojson['formats']:
+		formats = []
+		if 'profile' in infojson:
+			formats = infojson['profile']['formats']
+		else:
+			formats = infojson['formats']
+                if "gif" in formats:
                         fmt = "image/gif"
-                elif "jpg" in infojson['formats']:
+                elif "jpg" in formats:
                         fmt = "image/jpeg"
 
 		cvsjson = {
