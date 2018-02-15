@@ -566,10 +566,10 @@ def main(data, document_id, source, host, cookie=None):
 				infocount = infocount + 1
 
 		formats = []
-		if 'profile' in infojson:
-			formats = infojson['profile'][1]['formats']
-		else:
+		if 'formats' in infojson:
 			formats = infojson['formats']
+		else:
+			formats = infojson['profile'][1]['formats']
                 if "gif" in formats:
                         fmt = "image/gif"
                 elif "jpg" in formats:
