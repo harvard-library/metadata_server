@@ -540,8 +540,9 @@ def main(data, document_id, source, host, cookie=None):
 	infocount = 0
 	uniqCanvases = {}
 	for cvs in canvasInfo:
-		if isDrs1:
-			logger.debug("making info.json call for image id " + cvs['image']  )
+		#if isDrs1:
+		if ((drs2ImageWidths[infocount] == None) or (drs2ImageHeights[infocount])):
+			logger.debug("missing image md, making info.json call for image id " + cvs['image']  )
                 	response = webclient.get(imageUriBase + cvs['image'] + imageInfoSuffix, cookie)
                 	infojson = json.load(response)
 		else:
