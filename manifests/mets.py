@@ -541,7 +541,7 @@ def main(data, document_id, source, host, cookie=None):
 	uniqCanvases = {}
 	for cvs in canvasInfo:
 		if isDrs1:
-			#logger.debug("making info.json call for image id " + cvs['image']  )
+			logger.debug("making info.json call for image id " + cvs['image']  )
                 	response = webclient.get(imageUriBase + cvs['image'] + imageInfoSuffix, cookie)
                 	infojson = json.load(response)
 		else:
