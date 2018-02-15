@@ -552,8 +552,9 @@ def main(data, document_id, source, host, cookie=None):
 			infocount = infocount + 1
 		except: # image not in drs
 			try:
-				logger.debug("missing image md - making info.json call for image id " + cvs['image']  )
+				logger.debug("missing image dimensions - making info.json call for image id " + cvs['image']  )
 				response = webclient.get(imageUriBase + cvs['image'] + imageInfoSuffix, cookie)
+				infojson = json.load(response)
 				infocount = infocount + 1
 			except:
 				#infojson['width'] = ''
