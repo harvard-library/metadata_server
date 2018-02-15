@@ -540,24 +540,22 @@ def main(data, document_id, source, host, cookie=None):
 	infocount = 0
 	uniqCanvases = {}
 	for cvs in canvasInfo:
-		#if isDrs1:
-		if ((drs2ImageWidths[infocount] == None) or (drs2ImageHeights[infocount])):
-			logger.debug("missing image md, making info.json call for image id " + cvs['image']  )
-                	response = webclient.get(imageUriBase + cvs['image'] + imageInfoSuffix, cookie)
-                	infojson = json.load(response)
-		else:
-			#logger.debug("Getting iiif cords internally from DRS2 object for image id " + cvs['image'] )
-			infojson= {}
+		infojson= {}
+		try:
+			infojson['width'] = int(drs2ImageWidths[infocount])
+			infojson['height'] = int(drs2ImageHeights[infocount])
+			#infojson['tile_width'] = int(drs2TileWidths[infocount])
+			#infojson['tile_height'] = int(drs2TileHeights[infocount])
+			#note replace this w/ drs2InfoFormats
+			infojson['formats'] = ['jpg']
+			infojson['scale_factors'] = [1]
+			infocount = infocount + 1
+		except: # image not in drs
 			try:
-				infojson['width'] = int(drs2ImageWidths[infocount])
-				infojson['height'] = int(drs2ImageHeights[infocount])
-				#infojson['tile_width'] = int(drs2TileWidths[infocount])
-				#infojson['tile_height'] = int(drs2TileHeights[infocount])
-				#note replace this w/ drs2InfoFormats
-				infojson['formats'] = ['jpg']
-				infojson['scale_factors'] = [1]
+				logger.debug("missing image md - making info.json call for image id " + cvs['image']  )
+				response = webclient.get(imageUriBase + cvs['image'] + imageInfoSuffix, cookie)
 				infocount = infocount + 1
-			except: # image not in drs
+			except:
 				#infojson['width'] = ''
 				#infojson['height'] = ''
 				#infojson['tile_width'] = ''
