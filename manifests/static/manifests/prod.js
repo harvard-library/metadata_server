@@ -117,10 +117,7 @@ $(function() {
 	fullScreenViewer: false
       },
       "userButtons": [
-        {"label": "View in PDS",
-         "iconClass": "fa fa-external-link",
-         "attributes": { "class": "view-in-pds", "href": "#no-op"}},
-	 {"label": "Search",
+	{"label": "Search",
          "iconClass": "fa fa-search",
          "attributes": { "class": "search", "href": "#no-op"}},
 	{"label": "View Text",
