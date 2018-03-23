@@ -14,7 +14,7 @@ def getAccessFlag(drsId):
     solrUrl = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + drsId + settings.SOLR_AMS_QUERY 
     req = requests.get(solrUrl)
     if req.status_code == 200:
-	md_json = json.loads(req.read())
+	md_json = json.loads(req.text)
 	flag = md_json['response']['docs'][0]['object_huldrsadmin_accessFlag_string']
 	return flag
     else:
