@@ -33,6 +33,7 @@ SOLR_BASE =  os.environ.get('SOLR_BASE', 'http://drs2-services.lib.harvard.edu:1
 SOLR_QUERY_PREFIX = 'select?q=object_id_num%3A'
 SOLR_OBJ_QUERY = '&fq=doc_type_string%3Aobject+AND+object_huldrsadmin_status_string%3Acurrent+AND+object_huldrsadmin_contentModelID_string%3ACMID-4.0&fl=object_id_num%2C+object_huldrsadmin_contentModelID_string%2C+object_structmap_raw%2C++object_mets_label_text%2C+object_urn_raw_sort%2C+object_file_sec_raw%2C+object_huldrsadmin_harvardMetadataLink_raw_sort%2C+object_huldrsadmin_relatedLink_raw_sort%2C+object_huldrsadmin_ownerCode_string%2C+object_huldrsadmin_owner_organization_name_raw%2C+object_mets_lastModDate_date%2C+object_huldrsadmin_insertionDate_date%2C+object_mets_createDate_date%2C+object_mods_*&wt=json'
 SOLR_FILE_QUERY = '&sort=file_id_num%20asc%2C+solr_id%20asc&fl=file_path_raw%2C+file_id_num%2C+object_huldrsadmin_accessFlag_string%2C+file_mix_imageWidth_num%2C+file_mix_imageHeight_num%2C+file_mix_tileWidth_num%2C+file_mix_tileHeight_num%2C+file_huldrsadmin_role_string%2C+object_huldrsadmin_contentModelID_string%2C+file_huldrsadmin_status_string%2C+object_huldrsadmin_status_string&wt=json&rows=100'
+SOLR_AMS_QUERY = '&fq=doc_type_string%3Aobject+AND+object_huldrsadmin_status_string%3Acurrent+AND+object_huldrsadmin_contentModelID_string%3ACMID-4.0&fl=object_id_num%2C+object_huldrsadmin_accessFlag_string&wt=json'
 SOLR_CURSORMARK = "&cursorMark="
 
 #solr kazoo params
