@@ -61,7 +61,6 @@ def view(request, view_type, document_id):
                     "s": "ScrollView",
                     "b": "BookView",
                     None: "ImageView"}
-    isDrs2 = False
 
     # Parse ID from URL
     def parse_id(raw):
@@ -102,20 +101,14 @@ def view(request, view_type, document_id):
         # drs: check AMS to see if this is a restricted obj
         # TODO:  move this check into get_manifest() for hollis
         if 'drs' == parts["source"]:
-            ams_redirect = ams.getAMSredirectUrl(request.COOKIES, parts["id"])
-	    if ams_redirect == None:
-		return HttpResponse("Invalid object id", status=404)
+            ams_redirect = ams.getAMSredirectUrl(request.COOKIES, parts["id"]) 
+	    if ams_redirect == None: 
+	        return HttpResponse("Invalid object id", status=404) 
 	    if ams_redirect[0] == 'N':
                 return HttpResponse("The object you have requested is not intended for delivery", status=403) # 403 HttpResponse object
             elif ams_redirect[0] == 'R':
-		if ams_redirect[1] == 'Y':
-		    isDrs2 = True
-		if ams_redirect[2] != None:
-                    return HttpResponseRedirect(ams_redirect[2])
-	    elif ams_redirect[0] == 'OK':
-		if ams_redirect[1] == 'Y':
-		    isDrs2 = True
-		#return HttpResponse("Is this a drs2 object: %s" % ams_redirect[1], status=200 )
+		if ams_redirect[1] != None:
+                    return HttpResponseRedirect(ams_redirect[1])
 
         if parts['source'] == 'ext':
             success = True
@@ -124,7 +117,7 @@ def view(request, view_type, document_id):
             real_source = parts["source"]
         else:
             #print source, id
-            (success, response, real_id, real_source) = get_manifest(parts["id"], parts["source"], False, host, ams_cookie, isDrs2)
+            (success, response, real_id, real_source) = get_manifest(parts["id"], parts["source"], False, host, ams_cookie)
 
         if success:
             if parts['source'] == 'ext':
@@ -192,7 +185,6 @@ def demo(request):
 def manifest(request, document_id):
     parts = document_id.split(":")
     host = IIIF_MANIFEST_HOST
-    isDrs2 = False
 
     if host == None:
       host = request.META['HTTP_HOST']
@@ -209,15 +201,10 @@ def manifest(request, document_id):
     if ams_redirect[0] == 'N':
         return HttpResponse("The object you have requested is not intended for delivery", status=403) # 403 HttpResponse object
     elif ams_redirect[0] == 'R':
-	if ams_redirect[1] == 'Y':
-	    isDrs2 = True
-	if ams_redirect[2] != None:
-            return HttpResponseRedirect(ams_redirect[2])
-    elif ams_redirect[0] == 'OK':
-        if ams_redirect[1] == 'Y':
-            isDrs2 = True
+	if ams_redirect[1] != None:
+            return HttpResponseRedirect(ams_redirect[1])
 
-    (success, response_doc, real_id, real_source) = get_manifest(id, source, False, host, cookie, isDrs2)
+    (success, response_doc, real_id, real_source) = get_manifest(id, source, False, host, cookie)
     if success:
         response = HttpResponse(response_doc)
         add_headers(response, request)
@@ -255,7 +242,6 @@ def refresh(request, document_id):
         return HttpResponse("Access Denied.", status=403)
     parts = document_id.split(":")
     host = IIIF_MANIFEST_HOST
-    isDrs2 = False
     if host == None:
       host = request.META['HTTP_HOST']
     cookie = request.COOKIES.get('hulaccess', None)
@@ -267,13 +253,10 @@ def refresh(request, document_id):
     # drs: check AMS to see if this is a restricted obj
     if 'drs' == source:
         access_flag = ams.getAccessFlag(id)
-        if access_flag[0] == 'N':
+        if access_flag == 'N':
             return HttpResponse("The object you have requested is not intended for delivery", status=403) # 403 HttpResponse object
-        elif access_flag[0] == 'R' or access_flag[0] == 'P':
-            if access_flag[1] == 'Y':
-                isDrs2 = True
 
-    (success, response_doc, real_id, real_source) = get_manifest(id, source, True, host, cookie, isDrs2)
+    (success, response_doc, real_id, real_source) = get_manifest(id, source, True, host, cookie)
 
     if success:
         response = HttpResponse(response_doc)
@@ -324,33 +307,20 @@ def clean_url(request, view_type):
 
 ## HELPER FUNCTIONS ##
 # Gets METS XML from DRS
-def get_mets(document_id, source, cookie=None, isDrs2=False):
-    if (isDrs2): #try solr fetch
-	mets_url = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_OBJ_QUERY
-	header = {'x-requested-with': 'XMLHttpRequest'}
-	try:
-	    response = webclient.get(mets_url, cookie)
-	except urllib2.HTTPError, err:
-	    logger.debug("Failed solr request %s" % mets_url)
-	    return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
-	mets_json = json.loads(response.read())
-	#response_doc = settings.METS_HEADER + mets_json['response']['docs'][0]['object_file_sec_raw'] + \
-	#	mets_json['response']['docs'][0]['object_structmap_raw'] + settings.METS_FOOTER
-	response_doc = mets_json
-    else: #drs1 /use fds
-    	mets_url = METS_DRS_URL+document_id
-    	try:
-            #response = urllib2.urlopen(mets_url)
-	    logger.debug("Using fds to access drs1 id %s" % document_id)
-            response = webclient.get(mets_url, cookie)
-    	except urllib2.HTTPError, err:
-       	    if err.code == 500 or err.code == 404:
-                # document does not exist in DRS, might need to add more error codes
-                # TODO: FDS often seems to fail on its first request...maybe try again?
-	        logger.debug("Failed mets request %s" % mets_url)
-                return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
+def get_mets(document_id, source, cookie=None):
+    #solr fetch replaces FDS call
+    mets_url = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_OBJ_QUERY
+    header = {'x-requested-with': 'XMLHttpRequest'}
+    try:
+	response = webclient.get(mets_url, cookie)
+    except urllib2.HTTPError, err:
+	logger.debug("Failed solr request %s" % mets_url)
+	return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
+    mets_json = json.loads(response.read())
+    #response_doc = settings.METS_HEADER + mets_json['response']['docs'][0]['object_file_sec_raw'] + \
+    #mets_json['response']['docs'][0]['object_structmap_raw'] + settings.METS_FOOTER
+    response_doc = mets_json
 
-    	response_doc = unicode(response.read(), encoding="utf-8")
     return (True, response_doc)
 
 # Gets MODS XML from Presto API
@@ -402,7 +372,7 @@ def add_headers(response, request):
     return response
 
 # Uses other helper methods to create JSON
-def get_manifest(document_id, source, force_refresh, host, cookie=None, isDrs2=False):
+def get_manifest(document_id, source, force_refresh, host, cookie=None):
     # Check if manifest exists
     has_manifest = models.manifest_exists(document_id, source)
 
@@ -415,7 +385,7 @@ def get_manifest(document_id, source, force_refresh, host, cookie=None, isDrs2=F
             ## TODO: check image types??
             (success, response) = get_mods(document_id, source, cookie)
         elif data_type == "mets":
-            (success, response) = get_mets(document_id, source, cookie, isDrs2)
+            (success, response) = get_mets(document_id, source, cookie)
         elif data_type == "huam":
             (success, response) = get_huam(document_id, source)
         else:
@@ -433,7 +403,7 @@ def get_manifest(document_id, source, force_refresh, host, cookie=None, isDrs2=F
             json_doc = json.loads(converted_json)
             if 'pds' in json_doc:
                 id = json_doc['pds']
-                return get_manifest(id, 'drs', False, host, cookie, isDrs2)
+                return get_manifest(id, 'drs', False, host, cookie)
         elif data_type == "mets":
             converted_json = mets.main(response, document_id, source, host, cookie)
         elif data_type == "huam":
