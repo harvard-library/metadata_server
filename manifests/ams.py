@@ -11,7 +11,7 @@ from django.conf import settings
 amsRedirectBase = environ.get("AMS_REDIRECT_BASE","")
 
 def getAccessFlag(drsId):
-    solrUrl = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_AMS_QUERY 
+    solrUrl = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + drsId + settings.SOLR_AMS_QUERY 
     req = requests.get(solrUrl)
     if req.status_code == 200:
 	md_json = json.loads(req.read())
