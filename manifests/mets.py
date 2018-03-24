@@ -484,9 +484,7 @@ def main(data, document_id, source, host, cookie=None):
             		logger.debug("Failed solr file metadata request %s" % metadata_url)
             		return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
         	  md_json = json.loads(response.read())
-		  md_docs = md_json['response']['docs']
-		  for md in md_docs:
-			logger.debug( str( len(md) ) + " md docs" );
+		  for md in md_json['response']['docs']:
 		  #for md in md_json:
 			if 'object_huldrsadmin_accessFlag_string' in md:
 				access_flag = md['object_huldrsadmin_accessFlag_string']
@@ -507,6 +505,7 @@ def main(data, document_id, source, host, cookie=None):
 		  if next_cursormark == cursormark_val:
 			not_paged = False
 		  cursormark_val = next_cursormark
+		logger.debug("md_json processing completed")
 			
 	rangeList = []
 	rangeInfo = []
