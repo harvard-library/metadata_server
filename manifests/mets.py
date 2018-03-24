@@ -492,6 +492,7 @@ def main(data, document_id, source, host, cookie=None):
 			elif (('file_mix_imageHeight_num' in md) and ('file_mix_imageWidth_num' in md)):
 				drs2ImageHeights.append(md['file_mix_imageHeight_num'])
 				drs2ImageWidths.append(md['file_mix_imageWidth_num'])
+				logger.debug("file " + str(md['file_id_num']) + " has width: " + str(md['file_mix_imageWidth_num']) + " height: " + str(md['file_mix_imageHeight_num']) )
 			else: #call ids (info.json request)
 				logger.debug("solr missing image dimensions - making info.json call for image id " + md['file_id_num'] )
 				try: 
