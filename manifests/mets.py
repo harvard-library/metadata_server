@@ -293,6 +293,8 @@ def main(data, document_id, source, host, cookie=None):
 	drs2ImageWidths = []
 	global drs2ImageHeights
 	drs2ImageHeights = []
+	global drs2AccessFlags
+	drs2AccessFlags = []
 
 	logo = settings.IIIF['logo'] % host
 
@@ -488,13 +490,19 @@ def main(data, document_id, source, host, cookie=None):
 		  #for md in md_json:
 			if (('object_huldrsadmin_accessFlag_string' in md) and ('file_id_num' not in md)):
 				access_flag = md['object_huldrsadmin_accessFlag_string']
-				continue
+				if access_flag == "N":
+				  return (False, HttpResponse("Document ID %s is not intended for delivery and cannot be indexed." % document_id, status=404))
+				else:
+				  continue
 			if (('file_mix_imageHeight_num' in md) and ('file_mix_imageWidth_num' in md)):
 				drs2ImageHeights.append(md['file_mix_imageHeight_num'])
 				drs2ImageWidths.append(md['file_mix_imageWidth_num'])
+				drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
 				logger.debug("file " + str(md['file_id_num']) + " has width: " + str(md['file_mix_imageWidth_num']) + " height: " + str(md['file_mix_imageHeight_num']) )
 			else: #call ids (info.json request)
 				logger.debug("solr missing image dimensions - making info.json call for image id " + md['file_id_num'] )
+				if 'object_huldrsadmin_accessFlag_string' in md:
+				  drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
 				try: 
 				  info_resp = webclient.get(imageUriBase + md['file_id_num'] + imageInfoSuffix, cookie)
 				  iiif_info = json.load(info_resp)
@@ -552,6 +560,7 @@ def main(data, document_id, source, host, cookie=None):
 			#note replace this w/ drs2InfoFormats
 			infojson['formats'] = ['jpg']
 			infojson['scale_factors'] = [1]
+			infojson['access_flag'] = drs2AccessFlags[infocount]
 			infocount = infocount + 1
 		except: # image not in drs
 			try:
@@ -568,6 +577,9 @@ def main(data, document_id, source, host, cookie=None):
 				infojson['scale_factors'] = [1]
 				infocount = infocount + 1
 
+		if 'access_flag' in infojson:
+			if infojson['access_flag'] == "N":
+			  continue
 		formats = []
 		if 'formats' in infojson:
 			formats = infojson['formats']
