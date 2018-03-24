@@ -486,8 +486,9 @@ def main(data, document_id, source, host, cookie=None):
         	  md_json = json.loads(response.read())
 		  for md in md_json['response']['docs']:
 		  #for md in md_json:
-			if 'object_huldrsadmin_accessFlag_string' in md:
+			if (('object_huldrsadmin_accessFlag_string' in md) and ('file_id_num' not in md)):
 				access_flag = md['object_huldrsadmin_accessFlag_string']
+				continue
 			if (('file_mix_imageHeight_num' in md) and ('file_mix_imageWidth_num' in md)):
 				drs2ImageHeights.append(md['file_mix_imageHeight_num'])
 				drs2ImageWidths.append(md['file_mix_imageWidth_num'])
