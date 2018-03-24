@@ -53,6 +53,8 @@ right_to_left_langs = set(['ara','heb'])
 MIME_HIERARCHY = ['image/jp2', 'image/jpx', 'image/jpeg', 'image/gif', 'image/tiff']
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST", "localhost")
 
+DEBUG = environ.get("DEBUG",False)
+
 def get_display_image(fids):
         """Goes through list of file IDs for a page, and returns the best choice for delivery (according to mime hierarchy)."""
 
@@ -312,11 +314,6 @@ def main(data, document_id, source, host, cookie=None):
 	dom = etree.XML(data, parser=utf8_parser)
 	#logger.debug("object " + str(document_id) + " LOADED into the DOM tree" )
 	# Check if this is a DRS2 object since some things, like hollis ID are in a different location
-	isDrs1 = True;
-	drs_check = dom.xpath('/mets:mets//premis:agentName/text()', namespaces=XMLNS)
-	if len(drs_check) > 0 and 'DRS2' in '\t'.join(drs_check):
-		isDrs1 = False
-		#logger.debug("processing DRS2 object " + str(document_id) )
 
 	#logger.debug("dom check: mets label candidates..." )
 	mets_label_candidates = dom.xpath('/mets:mets/@LABEL', namespaces=XMLNS)
@@ -410,28 +407,9 @@ def main(data, document_id, source, host, cookie=None):
 	## TODO: add Finding Aid links
 	viewingDirection = 'left-to-right' # default
 	seeAlso = u""
-	if isDrs1:
-		hollisCheck = dom.xpath('/mets:mets/mets:dmdSec/mets:mdWrap/mets:xmlData/mods:mods/mods:identifier[@type="hollis"]/text()', namespaces=XMLNS)
-	else:
-		#logger.debug("dom check: hollis check..." )
-		#hollisCheck = dom.xpath('/mets:mets/mets:amdSec//hulDrsAdmin:hulDrsAdmin/hulDrsAdmin:drsObject/hulDrsAdmin:harvardMetadataLinks/hulDrsAdmin:metadataIdentifier[../hulDrsAdmin:metadataType/text()="Aleph"]/text()', namespaces=XMLNS)
-		hollisCheck = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/hulDrsAdmin:hulDrsAdmin/hulDrsAdmin:drsObject/hulDrsAdmin:harvardMetadataLinks/hulDrsAdmin:metadataIdentifier[../hulDrsAdmin:metadataType/text()="Aleph"]/text()', namespaces=XMLNS)
 
-		## TODO: fix for gif files / mixed set of image formats
-		#logger.debug("dom check: hollis check done" )
-		# get info.json dimensions from mets file instead of info.json calls for drs2 objects
-		#drs2ImageIds = dom.xpath('/mets:mets/mets:amdSec//premis:object[@xsi:type="premis:file"]/premis:objectIdentifier/premis:objectIdentifierValue', namespaces=XMLNS)
-		#logger.debug("DOM parsing iiif width coords for DRS2 object " + str(document_id) )
-		drs2ImageWidths = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:objectCharacteristicsExtension/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:imageWidth/text()', namespaces=XMLNS)
-		#logger.debug("DOM parsing iiif height coords for DRS2 object " + str(document_id) )
-		drs2ImageHeights = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:objectCharacteristicsExtension/mix:mix/mix:BasicImageInformation/mix:BasicImageCharacteristics/mix:imageHeight/text()', namespaces=XMLNS)
-		#logger.debug("DOM parsing iiif image format for DRS2 object " + str(document_id) )
-		drs2ImageFormats = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:format/premis:formatDesignation/premis:formatName/text()', namespaces=XMLNS)
-		#logger.debug("DOM parsing iiif tile width coords for DRS2 object " + str(document_id) )
-		#drs2TileWidths = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:objectCharacteristicsExtension/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000/mix:EncodingOptions/mix:Tiles/mix:tileWidth/text()', namespaces=XMLNS)
-		#logger.debug("DOM parsing iiif tile height coords for DRS2 object " + str(document_id) )
-		#drs2TileHeights = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/premis:object/premis:objectCharacteristics/premis:objectCharacteristicsExtension/mix:mix/mix:BasicImageInformation/mix:SpecialFormatCharacteristics/mix:JPEG2000/mix:EncodingOptions/mix:Tiles/mix:tileHeight/text()', namespaces=XMLNS)
-		#logger.debug("DOM iiif parsing COMPLETED for DRS2 object " + str(document_id) )
+	#logger.debug("dom check: hollis check..." )
+	hollisCheck = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/hulDrsAdmin:hulDrsAdmin/hulDrsAdmin:drsObject/hulDrsAdmin:harvardMetadataLinks/hulDrsAdmin:metadataIdentifier[../hulDrsAdmin:metadataType/text()="Aleph"]/text()', namespaces=XMLNS)
 
 	if len(hollisCheck) > 0:
 		hollisID = hollisCheck[0].strip()
@@ -471,8 +449,8 @@ def main(data, document_id, source, host, cookie=None):
 	for img in images:
 		imageHash[img.xpath('./@ID', namespaces=XMLNS)[0]] = {"img": img.xpath('./mets:FLocat/@xlink:href', namespaces = XMLNS)[0], "mime": img.attrib['MIMETYPE']}
 
-	#check solr if this is a drs2 request, make call for image md from there if above fails
-	if ( (len(drs2ImageWidths) == 0) and (len(drs2ImageHeights) == 0) and (isDrs1 == False) ):
+	#check solr, make call for image md from there if above fails
+	if ( (len(drs2ImageWidths) == 0) and (len(drs2ImageHeights) == 0) ):
         	metadata_url_base = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_FILE_QUERY + settings.SOLR_CURSORMARK
 		cursormark_val = "*"
 
@@ -498,7 +476,6 @@ def main(data, document_id, source, host, cookie=None):
 				drs2ImageHeights.append(md['file_mix_imageHeight_num'])
 				drs2ImageWidths.append(md['file_mix_imageWidth_num'])
 				drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
-				logger.debug("file " + str(md['file_id_num']) + " has width: " + str(md['file_mix_imageWidth_num']) + " height: " + str(md['file_mix_imageHeight_num']) )
 			else: #call ids (info.json request)
 				logger.debug("solr missing image dimensions - making info.json call for image id " + md['file_id_num'] )
 				if 'object_huldrsadmin_accessFlag_string' in md:
@@ -514,7 +491,6 @@ def main(data, document_id, source, host, cookie=None):
 		  if next_cursormark == cursormark_val:
 			not_paged = False
 		  cursormark_val = next_cursormark
-		logger.debug("md_json processing completed")
 			
 	rangeList = []
 	rangeInfo = []
@@ -632,16 +608,15 @@ def main(data, document_id, source, host, cookie=None):
 			canvases.append(cvsjson)
 			uniqCanvases[cvs['image']] = True 
 
-	logger.debug("calling create_ranges() ")
 	# build table of contents using Range and Structures
 	create_ranges(rangeInfo, manifest_uri, manifest_uri)
 
 	mfjson['sequences'][0]['canvases'] = canvases
 	mfjson['structures'] = rangesJsonList
 
-	logger.debug("Dumping json for DRS2 object " + str(document_id) )
+	#logger.debug("Dumping json for DRS2 object " + str(document_id) )
 	output = json.dumps(mfjson, indent=4, sort_keys=True)
-	logger.debug("Dumping complete for DRS2 object " + str(document_id) )
+	#logger.debug("Dumping complete for DRS2 object " + str(document_id) )
 	return output
 
 
