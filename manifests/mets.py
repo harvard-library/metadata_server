@@ -554,7 +554,7 @@ def main(data, document_id, source, host, cookie=None):
 			infocount = infocount + 1
 		except: # image not in drs
 			try:
-				#logger.debug("missing image dimensions - making info.json call for image id " + cvs['image']  )
+				logger.debug("missing image dimensions - making info.json call for image id " + cvs['image']  )
 				response = webclient.get(imageUriBase + cvs['image'] + imageInfoSuffix, cookie)
 				infojson = json.load(response)
 				infocount = infocount + 1
@@ -619,15 +619,16 @@ def main(data, document_id, source, host, cookie=None):
 			canvases.append(cvsjson)
 			uniqCanvases[cvs['image']] = True 
 
+	logger.debug("calling create_ranges() ")
 	# build table of contents using Range and Structures
 	create_ranges(rangeInfo, manifest_uri, manifest_uri)
 
 	mfjson['sequences'][0]['canvases'] = canvases
 	mfjson['structures'] = rangesJsonList
 
-	#logger.debug("Dumping json for DRS2 object " + str(document_id) )
+	logger.debug("Dumping json for DRS2 object " + str(document_id) )
 	output = json.dumps(mfjson, indent=4, sort_keys=True)
-	#logger.debug("Dumping complete for DRS2 object " + str(document_id) )
+	logger.debug("Dumping complete for DRS2 object " + str(document_id) )
 	return output
 
 
