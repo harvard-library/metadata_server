@@ -488,8 +488,7 @@ def main(data, document_id, source, host, cookie=None):
 		  #for md in md_json:
 			if 'object_huldrsadmin_accessFlag_string' in md:
 				access_flag = md['object_huldrsadmin_accessFlag_string']
-				continue
-			elif (('file_mix_imageHeight_num' in md) and ('file_mix_imageWidth_num' in md)):
+			if (('file_mix_imageHeight_num' in md) and ('file_mix_imageWidth_num' in md)):
 				drs2ImageHeights.append(md['file_mix_imageHeight_num'])
 				drs2ImageWidths.append(md['file_mix_imageWidth_num'])
 				logger.debug("file " + str(md['file_id_num']) + " has width: " + str(md['file_mix_imageWidth_num']) + " height: " + str(md['file_mix_imageHeight_num']) )
