@@ -477,16 +477,20 @@ def main(data, document_id, source, host, cookie=None):
 				drs2ImageWidths.append(md['file_mix_imageWidth_num'])
 				drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
 			else: #call ids (info.json request)
-				logger.debug("solr missing image dimensions - making info.json call for image id " + str(md['file_id_num']) )
-				if 'object_huldrsadmin_accessFlag_string' in md:
-				  drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
-				try: 
-				  info_resp = webclient.get(imageUriBase + str(md['file_id_num']) + imageInfoSuffix, cookie)
-				  iiif_info = json.load(info_resp)
-				  drs2ImageHeights.append(iiif_info['height'])
-				  drs2ImageWidths.append(iiif_info['width'])
-				except urllib2.HTTPError, err:
-				  logger.debug("failed to get image dimensions for image id " + str(md['file_id_num']) )
+				file_ext = md['file_path_raw'][-3:]
+				if (file_ext == 'jp2' or file_ext == 'tif' or file_ext == 'jpg' or file_ext == 'gif'):
+				  logger.debug("solr missing image dimensions - making info.json call for image id " + str(md['file_id_num']) )
+				  if 'object_huldrsadmin_accessFlag_string' in md:
+				    drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
+				  try: 
+				    info_resp = webclient.get(imageUriBase + str(md['file_id_num']) + imageInfoSuffix, cookie)
+				    iiif_info = json.load(info_resp)
+				    drs2ImageHeights.append(iiif_info['height'])
+				    drs2ImageWidths.append(iiif_info['width'])
+				  except urllib2.HTTPError, err:
+				    logger.debug("failed to get image dimensions for image id " + str(md['file_id_num']) )
+				else:
+				  continue
 		  next_cursormark = quote_plus(md_json['nextCursorMark'])
 		  if next_cursormark == cursormark_val:
 			not_paged = False
