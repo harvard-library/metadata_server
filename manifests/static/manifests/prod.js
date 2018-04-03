@@ -117,6 +117,9 @@ $(function() {
 	fullScreenViewer: false
       },
       "userButtons": [
+	{"label": "View in PDS",
+         "iconClass": "fa fa-external-link",
+         "attributes": { "class": "view-in-pds", "href": "#no-op"}},
 	{"label": "Search",
          "iconClass": "fa fa-search",
          "attributes": { "class": "search", "href": "#no-op"}},
@@ -248,6 +251,10 @@ $(function() {
   };
 
   var operations = {
+    "view-in-pds": function (drs_id, n, slot_idx) {
+      //window.open(l.PDS_VIEW_URL + drs_id + "?n=" + n + "&oldpds");
+      window.location.assign(l.PDS_VIEW_URL + drs_id + "?n=" + n + "&oldpds");
+    },
     "cite": function (drs_id, n, slot_idx) {
       var $dialog = $('#citation-modal');
 
@@ -638,7 +645,7 @@ $(function() {
   };
 
 
-  $(document).on('click', "a.cite, a.search, a.print, a.viewtext, a.links", present_choices);
+  $(document).on('click', "a.cite, a.view-in-pds, a.search, a.print, a.viewtext, a.links", present_choices);
   $(document).on('click', "a.help", display_help);
   $(document).on('contextmenu', 'canvas', saveImage);
   $(document).on('click', '.mirador-icon-save-image', saveImage);
