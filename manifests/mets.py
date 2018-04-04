@@ -483,7 +483,7 @@ def main(data, document_id, source, host, cookie=None):
 				  if 'object_huldrsadmin_accessFlag_string' in md:
 				    drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
 				  try: 
-				    info_resp = webclient.get(imageUriBase + str(md['file_id_num']) + imageInfoSuffix, cookie)
+				    info_resp = webclient.get(imageUriBase.replace("https","http") + str(md['file_id_num']) + imageInfoSuffix, cookie)
 				    iiif_info = json.load(info_resp)
 				    drs2ImageHeights.append(iiif_info['height'])
 				    drs2ImageWidths.append(iiif_info['width'])
@@ -545,7 +545,7 @@ def main(data, document_id, source, host, cookie=None):
 		except: # image not in drs
 			try:
 				logger.debug("missing image dimensions - making info.json call for image id " + cvs['image']  )
-				response = webclient.get(imageUriBase + cvs['image'] + imageInfoSuffix, cookie)
+				response = webclient.get(imageUriBase.replace("https","http") + cvs['image'] + imageInfoSuffix, cookie)
 				infojson = json.load(response)
 				infocount = infocount + 1
 			except:
