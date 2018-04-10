@@ -674,7 +674,4 @@ $(function() {
     History.replaceState({}, document.title, constructUrl(data.id));
   });
 
-  // DownloadButton.init();
-  // ShareButtons.init();
-
 });
