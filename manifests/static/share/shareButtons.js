@@ -16,7 +16,7 @@ var ShareButtons = {
   showExternalLinkInfo: false,
 
   /* the template for the buttons */
-  buttonsTemplate: Mirador.Handlebars.compile([
+  buttonsTemplate: hMirador.Handlebars.compile([
     '{{#if showExternalLinkInfo}}',
     '<div id="share-buttons-info" class="alert alert-info" role="alert">{{t "share-buttons-info"}}</div>',
     '{{/if}}',
@@ -34,32 +34,32 @@ var ShareButtons = {
 
   /* the templates for the different links */
   linkTemplates: {
-    'envelope': Mirador.Handlebars.compile(
+    'envelope': hMirador.Handlebars.compile(
       'mailto:?subject={{{label}}}{{#if attribution}} ({{attribution}}){{/if}}&body={{{label}}}{{#if attribution}} ({{{attribution}}}){{/if}}: {{link}}'
     ),
-    'facebook': Mirador.Handlebars.compile(
+    'facebook': hMirador.Handlebars.compile(
       'https://www.facebook.com/sharer/sharer.php?title={{{label}}} {{#if attribution}} ({{attribution}}){{/if}}&u={{link}}'
     ),
-    'pinterest': Mirador.Handlebars.compile(
+    'pinterest': hMirador.Handlebars.compile(
       'http://pinterest.com/pin/create/bookmarklet/?url={{link}}&description={{{label}}}%20{{#if attribution}}%20({{attribution}}){{/if}}&media={{{thumbnailUrl}}}'
     ),
-    'tumblr': Mirador.Handlebars.compile(
+    'tumblr': hMirador.Handlebars.compile(
       'http://www.tumblr.com/share/link?url={{link}}&name={{{label}}} {{#if attribution}} ({{attribution}}){{/if}}&tags=iiif'
     ),
-    'twitter': Mirador.Handlebars.compile(
+    'twitter': hMirador.Handlebars.compile(
       'https://twitter.com/intent/tweet?text={{{truncate label attribution}}}&url={{link}}&hashtags=iiif'
     ),
-    'whatsapp': Mirador.Handlebars.compile(
+    'whatsapp': hMirador.Handlebars.compile(
       'whatsapp://send?text={{{label}}} {{#if attribution}} ({{attribution}}){{/if}}: {{link}}'
     )
   },
 
   /* initializes the plugin */
   init: function(showExternalLinkInfo){
-    Mirador.Handlebars.registerHelper('concat', function(target){
+    hMirador.Handlebars.registerHelper('concat', function(target){
       return 'share-on-' + target;
     });
-    Mirador.Handlebars.registerHelper('truncate', function(label, attribution){
+    hMirador.Handlebars.registerHelper('truncate', function(label, attribution){
       var text = label + (attribution ? ' (' + attribution + ')' : '');
       if(text.length > 60){
         text = text.substring(0, 60) + '...';
