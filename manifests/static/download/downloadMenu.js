@@ -99,6 +99,6 @@ var DownloadButton = {
     }
   }
 };
-$(document).ready(function() {
+/* $(document).ready(function() {
   DownloadButton.init()
-});
+});*/
