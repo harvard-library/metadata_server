@@ -97,3 +97,7 @@ var ShareButtons = {
     });
   }
 };
+
+$(document).ready(function() {
+  ShareButtons.init()
+});
