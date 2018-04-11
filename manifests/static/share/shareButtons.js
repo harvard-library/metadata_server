@@ -99,5 +99,5 @@ var ShareButtons = {
 };
 
 $(document).ready(function() {
-  ShareButtons.init()
+  ShareButtons.init();
 });
