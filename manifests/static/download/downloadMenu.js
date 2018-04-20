@@ -15,7 +15,7 @@ var DownloadButton = {
     '</a></li>',
     '{{#each imageUrls}}',
     '<li class="{{#if (eq this "#")}}disabled {{/if}}image-link" title="JPG ({{this.title}})">',
-    '<a href="blob:{{this.href}}" target="_blank" download="{{filename}}">',
+    '<a href="{{this.href}}" target="_blank" download="{{filename}}">',
     '<i class="fa fa-file-image-o fa-lg fa-fw"></i>JPG (<span class="dimensions">{{this.title}}</span>)',
     '</a></li>',
     '{{/each}}',
