@@ -4,10 +4,6 @@ var CanvasLink = {
 
   /* all of the needed locales */
   locales: {
-    'de': {
-      'copy-to-clipboard': 'In die Zwischenablage kopieren',
-      'share-page': 'Link auf diese Seite teilen'
-    },
     'en': {
       'copy-to-clipboard': 'Copy to clipboard',
       'share-page': 'Share link to this page'
