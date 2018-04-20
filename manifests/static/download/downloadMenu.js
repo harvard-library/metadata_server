@@ -15,7 +15,7 @@ var DownloadButton = {
     '</a></li>',
     '{{#each imageUrls}}',
     '<li class="{{#if (eq this "#")}}disabled {{/if}}image-link" title="JPG ({{this.title}})">',
-    '<a href="{{this.href}}" download="{{this.imageId}}.jpg">',
+    '<a href="{{this.href}}" target="_blank" download="{{this.filename}}">',
     '<i class="fa fa-file-image-o fa-lg fa-fw"></i>JPG (<span class="dimensions">{{this.title}}</span>)',
     '</a></li>',
     '{{/each}}',
@@ -38,7 +38,7 @@ var DownloadButton = {
           'imageBaseUrl': imageBaseUrl, 'size': size
         }),
         'title': size === 'full' ? currentImage.width + 'x' + currentImage.height : parseInt(size) + 'x' + Math.ceil(parseInt(size) * ratio),
-	'imageId': imageId 
+	'filename': imageId
       });
     }.bind(this));
     return imageUrls;
