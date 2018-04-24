@@ -80,9 +80,8 @@ var CanvasLink = {
     var currentImageIdx = viewerWindow.focusModules[viewerWindow.viewType].currentImgIndex + 1;
     var manifestUri = viewerWindow.manifest.uri;
     var canvasLink;
-    if (canvasLink.includes("harvard")){
-	manifestUri.replace("manifests","manifests/view");
-	manifestUri = manifestUri + "$" + currentImageIdx + ftype_alias[viewerWindow.viewType];
+    if (manifestUri.includes("harvard")){
+	canvasLink = manifestUri.replace("manifests","manifests/view") + "$" + currentImageIdx + ftype_alias[viewerWindow.viewType];
     } else {
 	canvasLink = viewerWindow.canvasID + (this.options.urlExtension || '/view')
     }
