@@ -77,7 +77,7 @@ var CanvasLink = {
     'ScrollView': 's',
     'ThumbnailsView': 't'
     };
-    var currentImageIdx viewerWindow.focusModules[viewerWindow.viewType].currentImgIndex + 1;
+    var currentImageIdx = viewerWindow.focusModules[viewerWindow.viewType].currentImgIndex + 1;
     var manifestUri = viewerWindow.manifest.uri;
     var canvasLink;
     if (canvasLink.includes("harvard")){
