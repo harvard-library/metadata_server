@@ -70,9 +70,26 @@ var CanvasLink = {
   extractInformationFromWindow: function(viewerWindow){
     var currentImage = viewerWindow.imagesList[viewerWindow.focusModules[viewerWindow.viewType].currentImgIndex];
     var service = currentImage.images[0].resource.service || currentImage.images[0].resource.default.service;
+    //harvard specific url
+    var ftype_alias = {
+    'ImageView': 'i',
+    'BookView': 'b',
+    'ScrollView': 's',
+    'ThumbnailsView': 't'
+    };
+    var currentImageIdx viewerWindow.focusModules[viewerWindow.viewType].currentImgIndex + 1;
+    var manifestUri = viewerWindow.manifest.uri;
+    var canvasLink;
+    if (canvasLink.includes("harvard")){
+	manifestUri.replace("manifests","manifests/view");
+	manifestUri = manifestUri + "$" + currentImageIdx + ftype_alias[viewerWindow.viewType];
+    } else {
+	canvasLink = viewerWindow.canvasID + (this.options.urlExtension || '/view')
+    }
+
     return {
       'attribution': viewerWindow.manifest.jsonLd.attribution || false,
-      'canvasLink': viewerWindow.canvasID + (this.options.urlExtension || '/view'),
+      'canvasLink': canvasLink,
       'label': viewerWindow.manifest.jsonLd.label,
       'thumbnailUrl': Mirador.Iiif.getImageUrl(currentImage).concat('/full/280,/0/').concat((
         Mirador.Iiif.getVersionFromContext(service['@context']) === '2.0' ? 'default.jpg' : 'native.jpg'
