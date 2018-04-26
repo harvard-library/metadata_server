@@ -29,8 +29,38 @@ var DownloadButton = {
     var imageBaseUrl = Mirador.Iiif.getImageUrl(currentImage);
     var ratio = currentImage.height / currentImage.width;
 
+    var imageInfoUrl = imageBaseUrl + "/info.json";
+
+
+   ///
+   /*
+   var imageUrls = [];
+   var req = new XMLHttpRequest();
+   req.overrideMimeType("application/json");
+   req.open('GET', imageBaseUrl, true);
+   req.onload  = function() {
+   	var jsonResponse = JSON.parse(req.responseText);
+	var sizes = jsonResponse["sizes"];
+	var maxHeight = jsonResponse["maxHeight"];
+	var maxWidth = jsonResponse["maxWidth"];
+        // do something with jsonResponse
+	['full', '250,'].forEach(function(size){
+           imageUrls.push({
+        	'href': viewerWindow.currentImageMode !== 'ImageView' ? '#' : this.imageUrlTemplate({
+          	'imageBaseUrl': imageBaseUrl, 'size': size
+                 }),
+        	'title': size === 'full' ? currentImage.width + 'x' + currentImage.height : parseInt(size) + 'x' + Math.ceil(parseInt(size) * ratio)
+          });
+         }.bind(this));
+
+   };
+   req.send(null);
+   */
+   ///
+
     var imageUrls = [];
-    ['full', '250,'].forEach(function(size){
+    //['full', '250,'].forEach(function(size){
+    ['300,','600,','1200','2400,'].forEach(function(size){
       imageUrls.push({
         'href': viewerWindow.currentImageMode !== 'ImageView' ? '#' : this.imageUrlTemplate({
           'imageBaseUrl': imageBaseUrl, 'size': size
