@@ -16,7 +16,7 @@ var DownloadButton = {
     '{{#each imageUrls}}',
     '<li class="{{#if (eq this "#")}}disabled {{/if}}image-link" title="JPG ({{this.title}})">',
     '<a href="{{this.href}}">',
-    '<i class="fa fa-file-image-o fa-lg fa-fw"></i>JPG (<span class="dimensions">{{this.title}}</span>)',
+    '<i class="fa fa-file-image-o fa-lg fa-fw"></i>{{this.sizeLabel}} JPG (<span class="dimensions">{{this.title}}</span>)',
     '</a></li>',
     '{{/each}}',
     '</ul>',
@@ -59,13 +59,15 @@ var DownloadButton = {
    ///
 
     var imageUrls = [];
+    var sizeLabels = { 300 : 'small', 600 : 'medium', 1200 : 'Large', 2400 :'X-Large' } 
     //['full', '250,'].forEach(function(size){
     ['300,','600,','1200','2400,'].forEach(function(size){
       imageUrls.push({
         'href': viewerWindow.currentImageMode !== 'ImageView' ? '#' : this.imageUrlTemplate({
           'imageBaseUrl': imageBaseUrl, 'size': size
         }),
-        'title': size === 'full' ? currentImage.width + 'x' + currentImage.height : parseInt(size) + 'x' + Math.ceil(parseInt(size) * ratio)
+        'title': size === 'full' ? currentImage.width + 'x' + currentImage.height : parseInt(size) + 'x' + Math.ceil(parseInt(size) * ratio),
+	'sizeLabel': sizeLabel[parseInt(size)]
       });
     }.bind(this));
     return imageUrls;
