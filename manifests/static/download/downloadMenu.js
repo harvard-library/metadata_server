@@ -10,20 +10,15 @@ var DownloadButton = {
     '<i class="fa fa-download fa-lg fa-fw"></i>',
     '<i class="fa fa-caret-down"></i>',
     '<ul class="dropdown download-list">',
-    'Download the entire image as a .jpg in the following sizes:',
     '<li title="IIIF-Manifest"><a href="{{manifestUrl}}" target="_blank">',
     '<i class="fa fa-file-text-o fa-lg fa-fw"></i>IIIF-Manifest',
     '</a></li>',
     '{{#each imageUrls}}',
     '<li class="{{#if (eq this "#")}}disabled {{/if}}image-link" title="JPG ({{this.title}})">',
     '<a href="{{this.href}}">',
-    '<i class="fa fa-file-image-o fa-lg fa-fw"></i>{{this.sizeLabel}} - <span class="dimensions">{{this.title}}</span>px',
+    '<i class="fa fa-file-image-o fa-lg fa-fw"></i>{{this.sizeLabel}} <span class="dimensions">{{this.title}}</span>px',
     '</a></li>',
     '{{/each}}',
-    'Download the IIIF manifest',
-    '<li title="IIIF-Manifest"><a href="{{manifestUrl}}" target="_blank">',
-    '<i class="fa fa-file-text-o fa-lg fa-fw"></i>IIIF-Manifest',
-    '</a></li>',
     '</ul>',
     '</span>'
   ].join('')),
@@ -64,7 +59,7 @@ var DownloadButton = {
    ///
 
     var imageUrls = [];
-    var sizeLabels = { 300 : 'Small', 600 : 'Medium', 1200 : 'Large', 2400 :'X-Large' };
+    var sizeLabels = { 300 : 'Small', 600 : 'Med', 1200 : 'Large', 2400 :'XLarge' };
     //['full', '250,'].forEach(function(size){
     ['300,','600,','1200','2400,'].forEach(function(size){
       imageUrls.push({
