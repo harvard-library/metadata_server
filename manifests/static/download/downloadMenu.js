@@ -45,7 +45,7 @@ var DownloadButton = {
 	maxWidth = jsonResponse["maxWidth"];
 	/*sizeLabels.keys().forEach(function(width) {
 	   });*/
-       console.log("max res is: " maxWidth + " x " + maxHeight);
+       console.log("max res is: " + maxWidth + " x " + maxHeight);
    };
    req.send(null);
 
