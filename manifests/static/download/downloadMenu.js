@@ -59,7 +59,7 @@ var DownloadButton = {
    ///
 
     var imageUrls = [];
-    var sizeLabels = { 300 : 'small', 600 : 'medium', 1200 : 'Large', 2400 :'X-Large' } 
+    var sizeLabels = { 300 : 'small', 600 : 'medium', 1200 : 'Large', 2400 :'X-Large' };
     //['full', '250,'].forEach(function(size){
     ['300,','600,','1200','2400,'].forEach(function(size){
       imageUrls.push({
@@ -67,7 +67,7 @@ var DownloadButton = {
           'imageBaseUrl': imageBaseUrl, 'size': size
         }),
         'title': size === 'full' ? currentImage.width + 'x' + currentImage.height : parseInt(size) + 'x' + Math.ceil(parseInt(size) * ratio),
-	'sizeLabel': sizeLabel[parseInt(size)]
+        'sizeLabel': sizeLabel[parseInt(size)]
       });
     }.bind(this));
     return imageUrls;
