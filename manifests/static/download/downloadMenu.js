@@ -37,7 +37,7 @@ var DownloadButton = {
    var maxHeight = 2400;
    var req = new XMLHttpRequest();
    req.overrideMimeType("application/json");
-   req.open('GET', imageBaseUrl, true);
+   req.open('GET', imageInfoUrl, true);
    req.onload  = function() {
    	var jsonResponse = JSON.parse(req.responseText);
 	var sizes = jsonResponse["sizes"];
