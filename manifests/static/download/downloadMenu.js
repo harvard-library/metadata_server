@@ -10,6 +10,7 @@ var DownloadButton = {
     '<i class="fa fa-download fa-lg fa-fw"></i>',
     '<i class="fa fa-caret-down"></i>',
     '<ul class="dropdown download-list">',
+    'Download the entire image as a .jpg in the following sizes:',
     '<li title="IIIF-Manifest"><a href="{{manifestUrl}}" target="_blank">',
     '<i class="fa fa-file-text-o fa-lg fa-fw"></i>IIIF-Manifest',
     '</a></li>',
@@ -19,6 +20,10 @@ var DownloadButton = {
     '<i class="fa fa-file-image-o fa-lg fa-fw"></i>{{this.sizeLabel}} - <span class="dimensions">{{this.title}}</span>px',
     '</a></li>',
     '{{/each}}',
+    'Download the IIIF manifest',
+    '<li title="IIIF-Manifest"><a href="{{manifestUrl}}" target="_blank">',
+    '<i class="fa fa-file-text-o fa-lg fa-fw"></i>IIIF-Manifest',
+    '</a></li>',
     '</ul>',
     '</span>'
   ].join('')),
