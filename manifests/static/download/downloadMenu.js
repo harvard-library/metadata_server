@@ -59,7 +59,7 @@ var DownloadButton = {
    ///
 
     var imageUrls = [];
-    var sizeLabels = { 300 : 'Small', 600 : 'Med', 1200 : 'Large', 2400 :'XLarge' };
+    var sizeLabels = { 300 : 'Small', 600 : 'Medium', 1200 : 'Large', 2400 :'X-Large' };
     //['full', '250,'].forEach(function(size){
     ['300,','600,','1200','2400,'].forEach(function(size){
       imageUrls.push({
