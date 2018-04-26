@@ -32,34 +32,24 @@ var DownloadButton = {
     var imageInfoUrl = imageBaseUrl + "/info.json";
 
 
-   ///
-   /*
-   var imageUrls = [];
+   var sizeLabels = { 300 : 'Small', 600 : 'Medium', 1200 : 'Large', 2400 :'X-Large' };
+   var maxWidth = 2400;
+   var maxHeight = 2400;
    var req = new XMLHttpRequest();
    req.overrideMimeType("application/json");
    req.open('GET', imageBaseUrl, true);
    req.onload  = function() {
    	var jsonResponse = JSON.parse(req.responseText);
 	var sizes = jsonResponse["sizes"];
-	var maxHeight = jsonResponse["maxHeight"];
-	var maxWidth = jsonResponse["maxWidth"];
-        // do something with jsonResponse
-	['full', '250,'].forEach(function(size){
-           imageUrls.push({
-        	'href': viewerWindow.currentImageMode !== 'ImageView' ? '#' : this.imageUrlTemplate({
-          	'imageBaseUrl': imageBaseUrl, 'size': size
-                 }),
-        	'title': size === 'full' ? currentImage.width + 'x' + currentImage.height : parseInt(size) + 'x' + Math.ceil(parseInt(size) * ratio)
-          });
-         }.bind(this));
-
+	maxHeight = jsonResponse["maxHeight"];
+	maxWidth = jsonResponse["maxWidth"];
+	/*sizeLabels.keys().forEach(function(width) {
+	   });*/
+       console.log("max res is: " maxWidth + " x " + maxHeight);
    };
    req.send(null);
-   */
-   ///
 
     var imageUrls = [];
-    var sizeLabels = { 300 : 'Small', 600 : 'Medium', 1200 : 'Large', 2400 :'X-Large' };
     //['full', '250,'].forEach(function(size){
     ['300,','600,','1200','2400,'].forEach(function(size){
       imageUrls.push({
