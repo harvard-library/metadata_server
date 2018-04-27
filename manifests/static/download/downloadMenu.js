@@ -6,7 +6,7 @@ var DownloadButton = {
 
   /* the template for the link button */
   buttonTemplate: Mirador.Handlebars.compile([
-    '<span class="mirador-btn mirador-icon-download" role="button" title="Download">',
+    '<span class="mirador-btn mirador-icon-download" role="button" title="Download the entire image as a .jpg or its manifest in json format">',
     '<i class="fa fa-download fa-lg fa-fw"></i>',
     '<i class="fa fa-caret-down"></i>',
     '<ul class="dropdown download-list">',
@@ -52,13 +52,15 @@ var DownloadButton = {
     var imageUrls = [];
     //['full', '250,'].forEach(function(size){
     ['300,','600,','1200','2400,'].forEach(function(size){
-      imageUrls.push({
-        'href': viewerWindow.currentImageMode !== 'ImageView' ? '#' : this.imageUrlTemplate({
-          'imageBaseUrl': imageBaseUrl, 'size': size
-        }),
-        'title': size === 'full' ? currentImage.width + 'x' + currentImage.height : parseInt(size) + 'x' + Math.ceil(parseInt(size) * ratio),
-        'sizeLabel': sizeLabels[parseInt(size)]
-      });
+      if ( parseInt(size) < maxWidth ) {
+        imageUrls.push({
+          'href': viewerWindow.currentImageMode !== 'ImageView' ? '#' : this.imageUrlTemplate({
+            'imageBaseUrl': imageBaseUrl, 'size': size
+          }),
+          'title': size === 'full' ? currentImage.width + 'x' + currentImage.height : parseInt(size) + 'x' + Math.ceil(parseInt(size) * ratio),
+          'sizeLabel': sizeLabels[parseInt(size)]
+        });
+      }
     }.bind(this));
     return imageUrls;
   },
