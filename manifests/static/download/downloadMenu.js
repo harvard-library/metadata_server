@@ -43,16 +43,13 @@ var DownloadButton = {
 	var sizes = jsonResponse["sizes"];
 	maxHeight = jsonResponse["maxHeight"];
 	maxWidth = jsonResponse["maxWidth"];
-	/*sizeLabels.keys().forEach(function(width) {
-	   });*/
-       console.log("max res is: " + maxWidth + " x " + maxHeight);
    };
    req.send(null);
 
     var imageUrls = [];
     //['full', '250,'].forEach(function(size){
     ['300,','600,','1200','2400,'].forEach(function(size){
-      if ( parseInt(size) < maxWidth ) {
+      if ( parseInt(size) <= maxWidth ) {
         imageUrls.push({
           'href': viewerWindow.currentImageMode !== 'ImageView' ? '#' : this.imageUrlTemplate({
             'imageBaseUrl': imageBaseUrl, 'size': size
