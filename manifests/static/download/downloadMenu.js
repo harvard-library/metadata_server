@@ -16,10 +16,10 @@ var DownloadButton = {
     '<i class="fa fa-file-image-o fa-lg fa-fw"></i>{{this.sizeLabel}}: <span class="dimensions">{{this.title}}</span> px',
     '</a></li>',
     '{{/each}}',
-    '</ul>',
     '<li title="IIIF-Manifest"><a href="{{manifestUrl}}" target="_blank">',
     '<i class="fa fa-file-text-o fa-lg fa-fw"></i>IIIF-Manifest',
     '</a></li>',
+    '</ul>',
     '</span>'
   ].join('')),
 
