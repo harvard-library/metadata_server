@@ -11,7 +11,7 @@ var DownloadButton = {
     '<i class="fa fa-caret-down"></i>',
     '<ul class="dropdown download-list">',
     '{{#each imageUrls}}',
-    '<li class="{{#if (eq this "#")}}disabled {{/if}}image-link" title="Download entire image as jpeg: {{this.sizeLabel}}">',
+    '<li class="{{#if (eq this "#")}}disabled {{/if}}image-link" title="Download entire image as jpeg ({{this.sizeLabel}})">',
     '<a href="{{this.href}}">',
     '<i class="fa fa-file-image-o fa-lg fa-fw"></i>{{this.sizeLabel}}: <span class="dimensions">{{this.title}}</span> px',
     '</a></li>',
