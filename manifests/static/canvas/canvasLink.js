@@ -12,7 +12,7 @@ var CanvasLink = {
 
   /* the template for the link button */
   buttonTemplate: Mirador.Handlebars.compile([
-    '<a aria-label="{{t "share-page"}}" class="mirador-btn mirador-icon-canvas-cite-share">',
+    '<a title="{{t "share-page"}}" class="mirador-btn mirador-icon-canvas-cite-share">',
     '<i class="fa fa-lg fa-fw fa-share-alt"></i>',
     '</a>'
   ].join('')),
