@@ -6,20 +6,20 @@ var DownloadButton = {
 
   /* the template for the link button */
   buttonTemplate: Mirador.Handlebars.compile([
-    '<span class="mirador-btn mirador-icon-download" role="button" title="Download the entire image as a .jpg or its manifest in json format">',
+    '<span class="mirador-btn mirador-icon-download" role="button" title="Download">',
     '<i class="fa fa-download fa-lg fa-fw"></i>',
     '<i class="fa fa-caret-down"></i>',
     '<ul class="dropdown download-list">',
-    '<li title="IIIF-Manifest"><a href="{{manifestUrl}}" target="_blank">',
-    '<i class="fa fa-file-text-o fa-lg fa-fw"></i>IIIF-Manifest',
-    '</a></li>',
     '{{#each imageUrls}}',
-    '<li class="{{#if (eq this "#")}}disabled {{/if}}image-link" title="JPG ({{this.title}})">',
+    '<li class="{{#if (eq this "#")}}disabled {{/if}}image-link" title="Download entire image as jpeg: {{this.sizeLabel}}">',
     '<a href="{{this.href}}">',
-    '<i class="fa fa-file-image-o fa-lg fa-fw"></i>{{this.sizeLabel}} <span class="dimensions">{{this.title}}</span>px',
+    '<i class="fa fa-file-image-o fa-lg fa-fw"></i>{{this.sizeLabel}}: <span class="dimensions">{{this.title}}</span> px',
     '</a></li>',
     '{{/each}}',
     '</ul>',
+    '<li title="IIIF-Manifest"><a href="{{manifestUrl}}" target="_blank">',
+    '<i class="fa fa-file-text-o fa-lg fa-fw"></i>IIIF-Manifest',
+    '</a></li>',
     '</span>'
   ].join('')),
 
@@ -54,7 +54,7 @@ var DownloadButton = {
           'href': viewerWindow.currentImageMode !== 'ImageView' ? '#' : this.imageUrlTemplate({
             'imageBaseUrl': imageBaseUrl, 'size': size
           }),
-          'title': size === 'full' ? currentImage.width + 'x' + currentImage.height : parseInt(size) + 'x' + Math.ceil(parseInt(size) * ratio),
+          'title': size === 'full' ? currentImage.width + 'x' + currentImage.height : parseInt(size) + ' x ' + Math.ceil(parseInt(size) * ratio),
           'sizeLabel': sizeLabels[parseInt(size)]
         });
       }
