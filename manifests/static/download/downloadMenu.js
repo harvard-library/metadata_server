@@ -1,7 +1,7 @@
 var DownloadButton = {
   /* the template for the image urls */
   imageUrlTemplate: Mirador.Handlebars.compile(
-    '{{imageBaseUrl}}/full/{{size}}/0/default.jpg?download&caption'
+    '{{imageBaseUrl}}/full/{{size}},/0/default.jpg?download&caption'
   ),
 
   /* the template for the link button */
