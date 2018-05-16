@@ -12,11 +12,23 @@ amsRedirectBase = environ.get("AMS_REDIRECT_BASE","")
 
 def getAccessFlag(drsId):
     solrUrl = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + drsId + settings.SOLR_AMS_QUERY 
+    solrFileUrl = settings.SOLR_BASE + settings.SOLR_FILE_QUERY_PREFIX + drsId + settings.SOLR_AMS_QUERY
     req = requests.get(solrUrl)
     if req.status_code == 200:
 	md_json = json.loads(req.text)
-	flag = md_json['response']['docs'][0]['object_huldrsadmin_accessFlag_string']
-	return flag
+	numFound = md_json['response']['numFound']
+	if (numFound > 0):
+	  flag = md_json['response']['docs'][0]['object_huldrsadmin_accessFlag_string']
+	  return flag
+	else:
+	  req = requests.get(solrFileUrl)
+	  md_json = json.loads(req.text)
+	  numFound = md_json['response']['numFound']
+	  if (numFound > 0):
+	    flag = md_json['response']['docs'][0]['object_huldrsadmin_accessFlag_string']
+	    return flag
+	  else:
+	    return ''
     else:
 	return ''
 
