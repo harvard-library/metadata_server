@@ -1,0 +1,169 @@
+body {
+  padding: 0; margin: 0; overflow: auto; font-size: 70%;
+}
+#viewer {
+  background: #333 url('./prod/images/debut_dark.png') left top repeat; width: 100%; height: 100%; position: fixed;
+}
+.mirador-main-menu .change-layout {
+  display: none;
+}
+.mirador-main-menu.user-buttons {
+  padding-right: 0;
+}
+.slicknav_menu {
+	display:none;
+}
+
+@media screen and (max-width: 1023px) {
+	/* #menu is the original menu */
+	.user-buttons {
+		display:none;
+	}
+
+	.slicknav_menu {
+		display:inline-block;
+    position:relative;
+    z-index: 9001;
+    float:right;
+    height: 33px;
+    padding:0 !important;
+    margin:0 !important;
+    background: #000 !important;
+    background: rgba(0,0,0,0.9) !important;
+	}
+  .slicknav_menu > .slicknav_btn {
+    margin: 0;
+    background: #000;
+  }
+  .slicknav_nav {
+    background: #000;
+    background: rgba(0,0,0,0.9);
+  }
+}
+
+#citation-modal, #links-modal, #viewtext-modal, #choice-modal, #search-modal, #print-modal {
+  z-index: 9002; /* Needs priority over menu */
+}
+
+.user-buttons li .fa {
+  color: #888;
+  font-size: 18px;
+  vertical-align: middle;
+}
+#harvard-bug {
+  background-image: url('./prod/images/logos/harvard_ids_header.jpg');
+  display: inline-block;
+  color: transparent;
+  text-indent: 9000px;
+  overflow: hidden;
+  height:33px;
+  padding: 0;
+  width: 234px;
+  margin-top: -8px;
+}
+.choices ul li {
+  margin: 0.5em;
+}
+.choices ul li:nth(2n+1) {
+  background-color: #eee;
+}
+.choices ul li a {
+  cursor: pointer;
+}
+
+.ui-widget-content .dialog a {
+  color: blue;
+  text-decoration: underline;
+}
+
+#citation-modal p.header {
+  font-size: 115%;
+  font-weight: bold;
+}
+.ui-dialog-titlebar {
+  display: block;
+  color: black;
+  font-size: 1.3em;
+}
+#citation-modal span.label {
+  font-weight: bold;
+}
+#citation-modal ul {
+  list-style: none inside none;
+}
+#citation-modal ul li {
+  margin-bottom: 0.5em;
+}
+#citation-modal p.header:after,
+#citation-modal span.label:after {
+  content: ":";
+}
+#print-modal p.header {
+  font-size: 115%;
+  font-weight: bold;
+}
+#print-modal span.label {
+  font-weight: bold;
+}
+#print-modal ul {
+  list-style: none inside none;
+}
+#print-modal ul li {
+  margin-bottom: 0.5em;
+}
+#print-modal p.header:after,
+#print-modal span.label:after {
+  content: ":";
+}
+.textsmallred {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 90%;
+  color: #990000;
+  text-decoration: none;
+}
+.buttonhighlightred {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 90%;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-decoration: none;
+  background-color: #990000;
+  padding: 2px;
+  margin: 0px;
+}
+#search-modal p.header {
+  font-size: 115%;
+  font-weight: bold;
+}
+#search-modal span.label {
+  font-weight: bold;
+}
+#search-modal ul {
+  list-style: none inside none;
+}
+#search-modal ul li {
+  margin-bottom: 0.5em;
+}
+#search-modal p.header:after,
+#search-modal span.label:after {
+  content: ":";
+}
+
+/* HAX: In lieu of being able to disable in config, hide annotations icon */
+.mirador-osd-annotations-layer.hud-control {
+  display: none;
+}
+
+.mirador-osd-rotate-right {
+    font-size: 130%;
+    position: absolute;
+    right: 105px;
+    top: 8px;
+}
+
+.mirador-osd-rotate-left {
+    font-size: 130%;
+    position: absolute;
+    right: 105px;
+    top: 33px;
+}
