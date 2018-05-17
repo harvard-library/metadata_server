@@ -70,7 +70,7 @@ def main(data, document_id, source, host, cookie=None):
 				"@id": manifest_uri + "/range/range-1.json",
 				"@type": "sc:Range",
 				"label":manifestLabel,
-				"canvases" = [],
+				"canvases": = [],
 			}
 		]
 	}
