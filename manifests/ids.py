@@ -39,7 +39,7 @@ def main(data, document_id, source, host, cookie=None):
 	  pass
 
 	genres = []
-	#viewingHint = "individuals"
+	viewingHint = "individuals"
 
 	manifest_uri = manifestUriBase + "%s:%s" % (source, document_id)
 
@@ -61,6 +61,7 @@ def main(data, document_id, source, host, cookie=None):
 			{
 				"@id": manifest_uri + "/sequence/normal.json",
 				"@type": "sc:Sequence",
+				"viewingHint", viewingHint,
 			}
 		]
 	}
