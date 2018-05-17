@@ -33,7 +33,8 @@ def main(data, document_id, source, host, cookie=None):
 	  if (req.status_code == 200):
 	    md_json = json.loads(req.text)
 	    if ('caption' in md_json.keys()):
-	      manifestLabel = md_json['caption']
+	      if (md_json['caption'] != ""):
+	        manifestLabel = md_json['caption']
 	except:
 	  pass
 
