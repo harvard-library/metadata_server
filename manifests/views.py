@@ -105,7 +105,7 @@ def view(request, view_type, document_id):
 
         # drs: check AMS to see if this is a restricted obj
         # TODO:  move this check into get_manifest() for hollis
-        if 'drs' == parts["source"]:
+        if (('drs' == parts["source"]) or ('ids' == parts['source'])):
             ams_redirect = ams.getAMSredirectUrl(request.COOKIES, parts["id"]) 
 	    if ams_redirect == None: 
 	        return HttpResponse("Invalid object id", status=404) 
@@ -259,7 +259,7 @@ def refresh(request, document_id):
     id = parts[1]
 
     # drs: check AMS to see if this is a restricted obj
-    if 'drs' == source:
+    if (('drs' == source) or ('ids' == source)):
         access_flag = ams.getAccessFlag(id)
         if access_flag == 'N':
             return HttpResponse("The object you have requested is not intended for delivery", status=403) # 403 HttpResponse object
