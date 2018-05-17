@@ -342,7 +342,7 @@ def get_ids(document_id, source, cookie=None):
     except urllib2.HTTPError, err:
         logger.debug("Failed solr request %s" % mets_url)
         return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
-    mets_json = json.loads(response.read())
+    ids_json = json.loads(response.read())
     response_doc = ids_json    
     numFound = ids_json['response']['numFound']
     if numFound == 0:
