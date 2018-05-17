@@ -58,33 +58,33 @@ def main(data, document_id, source, host, cookie=None):
 
 	for cvs in data['response']['docs']:
 		cvsjson = {
-			"@id": manifest_uri + "/canvas/canvas-%s.json" % cvs['file_id_num'],
+			"@id": manifest_uri + "/canvas/canvas-%s.json" % str(cvs['file_id_num']),
 			"@type": "sc:Canvas",
 			"label": cvs['object_mets_label_text'],
-			"height": cvs['file_mix_imageHeight_num'],
-			"width": cvs['file_mix_imageWidth_num'],
+			"height": str(cvs['file_mix_imageHeight_num']),
+			"width": str(cvs['file_mix_imageWidth_num']),
 			"images": [
 				{
-					"@id":manifest_uri+"/annotation/anno-%s.json" % cvs['file_id_num'],
+					"@id":manifest_uri+"/annotation/anno-%s.json" % str(cvs['file_id_num']),
 					"@type": "oa:Annotation",
 					"motivation": "sc:painting",
 					"resource": {
-						"@id": imageUriBase + cvs['file_id_num'] + imageUriSuffix,
+						"@id": imageUriBase + str(cvs['file_id_num']) + imageUriSuffix,
 						"@type": "dctypes:Image",
 						"format":"image/jpeg",
-						"height": cvs['file_mix_imageHeight_num'],
-						"width": cvs['file_mix_imageWidth_num'],
+						"height": str(cvs['file_mix_imageHeight_num']),
+						"width": str(cvs['file_mix_imageWidth_num']),
 						"service": {
-						  "@id": imageUriBase + cvs['file_id_num'],
+						  "@id": imageUriBase + str(cvs['file_id_num']),
 						  "@context": serviceContext,
 						  "profile": profileLevel
 						},
 					},
-					"on": manifest_uri + "/canvas/canvas-%s.json" % cvs['file_id_num']
+					"on": manifest_uri + "/canvas/canvas-%s.json" % str(cvs['file_id_num'])
 				}
 			],
 			"thumbnail": {
-			  "@id": imageUriBase + cvs['file_id_num'] + thumbnailSuffix,
+			  "@id": imageUriBase + str(cvs['file_id_num']) + thumbnailSuffix,
 			  "@type": "dctypes:Image"
 			}
 		}
