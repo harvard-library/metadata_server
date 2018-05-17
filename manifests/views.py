@@ -5,6 +5,7 @@ from manifests import mets
 from manifests import mods
 from manifests import models
 from manifests import ams
+from manifests import ids
 from os import environ
 import re
 import json
