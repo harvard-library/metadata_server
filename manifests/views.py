@@ -214,7 +214,7 @@ def manifest(request, document_id):
 
     (success, response_doc, real_id, real_source) = get_manifest(id, source, False, host, cookie)
     if success:
-        response = HttpResponse(response_doc)
+        response = HttpResponse(response_doc, content_type="application/javascript; charset=UTF-8")
         add_headers(response, request)
         return response
     else:
