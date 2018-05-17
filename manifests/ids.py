@@ -20,11 +20,10 @@ serviceContext = settings.IIIF['context']
 license = settings.IIIF['license']
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST", "localhost")
 attribution = "Provided by Harvard University"
+captionServerBase = environ.get("CAPTION_API", "http://ids-prod1.hul.harvard.edu:8080/ids/lookup?id=")
 
 def main(data, document_id, source, host, cookie=None):
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
-	captionServer = urlparse(serviceBase)[1]
-	captionServerBase = "http://" + captionServer + ":8080/ids/lookup?id="
 
 	logo = settings.IIIF['logo'] % host
 
