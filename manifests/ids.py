@@ -69,7 +69,7 @@ def main(data, document_id, source, host, cookie=None):
 	canvases = []
 
 	for cvs in data['response']['docs']:
-		canvasLabel = "No Label"
+		canvasLabel = "No caption"
 		try:
 		  req = requests.get(captionServerBase + str(cvs['file_id_num']))
 		  if (req.status_code == 200):
