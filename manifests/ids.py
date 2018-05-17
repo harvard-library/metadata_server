@@ -124,7 +124,7 @@ def main(data, document_id, source, host, cookie=None):
 	mfjson['sequences'][0]['canvases'] = canvases
 	for canvas in canvases:
 		structure_canvases.append(canvas['@id'])
-	mfjson['structures']['canvases'] = structure_canvases
+	mfjson['structures'][0]['canvases'] = structure_canvases
 	output = json.dumps(mfjson, indent=4, sort_keys=True)
 	return output
 
