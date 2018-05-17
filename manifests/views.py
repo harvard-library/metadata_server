@@ -33,8 +33,9 @@ IIIF_MGMT_ACL = (environ.get("IIIF_MGMT_ACL","128.103.151.0/24,10.34.5.254,10.40
 CORS_WHITELIST = (environ.get("CORS_WHITELIST", "http://harvard.edu")).split(',') 
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
 
-sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext":"ext"}
+sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext": "ext", "ids": "ids" }
 
+isIdsManifest = False
 
 def index(request, source=None):
     request_ip = request.META['REMOTE_ADDR']
@@ -48,7 +49,10 @@ def index(request, source=None):
        host = request.META['HTTP_HOST']
     cookie = request.COOKIES.get('hulaccess', None)
     manifests = ({"uri": "/manifests/view/%s:%s" % (source, d_id), "title": (models.get_manifest_title(d_id, source) or "Untitled Item") + " (id: %s)" % d_id} for d_id in document_ids)
-    return render(request, 'manifests/index.html', {'manifests': manifests})
+    if source == "ids":
+       return render(request, 'manifests/ids.html', {'manifests': manifests})
+    else:
+      return render(request, 'manifests/index.html', {'manifests': manifests})
 
 # view any number of MODS, METS, or HUAM objects
 def view(request, view_type, document_id):
@@ -172,7 +176,10 @@ def view(request, view_type, document_id):
         if (view_type == "view-dev"):
             return render(request, 'manifests/dev.html', view_locals)
         else:
-            return render(request, 'manifests/manifest.html', view_locals)
+	    if parts['source'] == 'ids':
+	      return render(request, 'manifests/ids.html', view_locals)
+	    else:
+              return render(request, 'manifests/manifest.html', view_locals)
     else:
         return HttpResponse("The requested document ID(s) %s could not be displayed" % document_id, status=404) # 404 HttpResponse object
 
@@ -320,8 +327,28 @@ def get_mets(document_id, source, cookie=None):
     #response_doc = settings.METS_HEADER + mets_json['response']['docs'][0]['object_file_sec_raw'] + \
     #mets_json['response']['docs'][0]['object_structmap_raw'] + settings.METS_FOOTER
     response_doc = mets_json
+    numFound = mets_json['response']['numFound']
+    if numFound == 0:
+      return (False, response_doc)
+    else:
+      return (True, response_doc)
 
-    return (True, response_doc)
+# Gets IDS images from DRS
+def get_ids(document_id, source, cookie=None):
+    ids_url = settings.SOLR_BASE + settings.SOLR_FILE_QUERY_PREFIX + document_id + settings.SOLR_AMS_FILE_QUERY
+    header = {'x-requested-with': 'XMLHttpRequest'}
+    try:
+        response = webclient.get(ids_url, cookie)
+    except urllib2.HTTPError, err:
+        logger.debug("Failed solr request %s" % mets_url)
+        return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
+    mets_json = json.loads(response.read())
+    response_doc = ids_json    
+    numFound = ids_json['response']['numFound']
+    if numFound == 0:
+      return (False, response_doc)
+    else:
+      return (True, response_doc)
 
 # Gets MODS XML from Presto API
 def get_mods(document_id, source, cookie=None):
@@ -386,6 +413,8 @@ def get_manifest(document_id, source, force_refresh, host, cookie=None):
             (success, response) = get_mods(document_id, source, cookie)
         elif data_type == "mets":
             (success, response) = get_mets(document_id, source, cookie)
+	elif data_type == "ids":
+	    (success, response) = get_ids(document_id, source, cookie)
         elif data_type == "huam":
             (success, response) = get_huam(document_id, source)
         else:
@@ -406,6 +435,8 @@ def get_manifest(document_id, source, force_refresh, host, cookie=None):
                 return get_manifest(id, 'drs', False, host, cookie)
         elif data_type == "mets":
             converted_json = mets.main(response, document_id, source, host, cookie)
+	elif data_type == "ids":
+	    converted_json = ids.main(response, document_id, source, host, cookie)
         elif data_type == "huam":
             converted_json = huam.main(response, document_id, source, host)
         else:
