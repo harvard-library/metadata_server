@@ -23,7 +23,7 @@ attribution = "Provided by Harvard University"
 
 def main(data, document_id, source, host, cookie=None):
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
-	captionServer = urlparse(serviceBase)['netloc']
+	captionServer = urlparse(serviceBase)[1]
 	captionServerBase = "http://" + captionServer + ":8080/ids/lookup?id="
 
 	logo = settings.IIIF['logo'] % host
