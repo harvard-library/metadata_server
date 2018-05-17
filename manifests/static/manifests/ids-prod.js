@@ -117,10 +117,10 @@ $(function() {
 	fullScreenViewer: false
       },
       "userButtons": [
-	{"label": "Print/Save",
+	/*{"label": "Print/Save",
          "iconClass": "fa fa-print",
          "attributes": { "class": "print", "href": "#no-op"}},
-        /*{"label": "Cite",
+        {"label": "Cite",
          "iconClass": "fa fa-quote-left",
          "attributes": { "class": "cite", "href": "#no-op"}},
 	{"label": "Related Links",
