@@ -61,7 +61,7 @@ def main(data, document_id, source, host, cookie=None):
 			{
 				"@id": manifest_uri + "/sequence/normal.json",
 				"@type": "sc:Sequence",
-				"viewingHint", viewingHint,
+				"viewingHint": viewingHint,
 			}
 		]
 	}
