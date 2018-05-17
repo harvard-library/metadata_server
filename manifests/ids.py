@@ -35,7 +35,7 @@ def main(data, document_id, source, host, cookie=None):
 	    md_json = json.loads(req.text)
 	    if ('caption' in md_json.keys()):
 	      manifestLabel = md_json['caption']
-	except(ConnectionError):
+	except:
 	  pass
 
 	genres = []
@@ -76,7 +76,7 @@ def main(data, document_id, source, host, cookie=None):
 		    md_json = json.loads(req.text)
 		    if ('caption' in md_json.keys()):
 		      canvasLabel = md_json['caption']
-		except(ConnectionError):
+		except:
 		  pass
 
 		cvsjson = {
