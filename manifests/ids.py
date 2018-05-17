@@ -65,17 +65,17 @@ def main(data, document_id, source, host, cookie=None):
 				"label":manifestLabel,
 			}
 		],
-		"structures": [
-			{
-				"@id": manifest_uri + "/range/range-1.json",
-				"@type": "sc:Range",
-				"label":manifestLabel,
-			}
-		]
+#		"structures": [
+#			{
+#				"@id": manifest_uri + "/range/range-1.json",
+#				"@type": "sc:Range",
+#				"label":manifestLabel,
+#			}
+#		]
 	}
 
 	canvases = []
-	structure_canvases = []
+#	structure_canvases = []
 
 	for cvs in data['response']['docs']:
 		canvasLabel = "No caption"
@@ -122,9 +122,9 @@ def main(data, document_id, source, host, cookie=None):
 		canvases.append(cvsjson)
 
 	mfjson['sequences'][0]['canvases'] = canvases
-	for canvas in canvases:
-		structure_canvases.append(canvas['@id'])
-	mfjson['structures'][0]['canvases'] = structure_canvases
+#	for canvas in canvases:
+#		structure_canvases.append(canvas['@id'])
+#	mfjson['structures'][0]['canvases'] = structure_canvases
 	output = json.dumps(mfjson, indent=4, sort_keys=True)
 	return output
 
