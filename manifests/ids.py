@@ -2,7 +2,7 @@
 
 import json, sys
 import urllib2, requests
-from urllib.parse import urlparse
+from urlparse import urlparse
 from django.conf import settings
 from os import environ
 
