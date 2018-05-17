@@ -44,7 +44,7 @@ def main(data, document_id, source, host, cookie=None):
 		"label":manifestLabel,
 		"attribution":attribution,
 		"logo":logo,
-		"description":huam_json["provenance"],
+		#"description":huam_json["provenance"],
 		"sequences": [
 			{
 				"@id": manifest_uri + "/sequence/normal.json",
