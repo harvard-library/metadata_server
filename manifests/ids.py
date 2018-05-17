@@ -64,7 +64,8 @@ def main(data, document_id, source, host, cookie=None):
 				"viewingHint": viewingHint,
 				"label":manifestLabel,
 			}
-		]
+		],
+		"structures": []
 	}
 
 	canvases = []
