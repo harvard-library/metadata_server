@@ -21,6 +21,7 @@ license = settings.IIIF['license']
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST", "localhost")
 attribution = "Provided by Harvard University"
 captionServerBase = environ.get("CAPTION_API", "http://ids-prod1.hul.harvard.edu:8080/ids/lookup?id=")
+serviceContext = "http://iiif.io/api/image/2/level2.json"
 
 def main(data, document_id, source, host, cookie=None):
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
@@ -50,7 +51,7 @@ def main(data, document_id, source, host, cookie=None):
 
 	# can add metadata key/value pairs
 	mfjson = {
-		"@context":"http://iiif.io/api/presentation/1/context.json",
+		"@context":"http://iiif.io/api/presentation/2/context.json",
 		"@id": manifest_uri,
 		"@type":"sc:Manifest",
 		"label":manifestLabel,
