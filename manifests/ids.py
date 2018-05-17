@@ -65,7 +65,14 @@ def main(data, document_id, source, host, cookie=None):
 				"label":manifestLabel,
 			}
 		],
-		"structures": []
+		"structures": [
+			{
+				"@id": ,
+				"@type": "sc:Range",
+				"label":manifestLabel,
+				"canvases" = []
+			}
+		]
 	}
 
 	canvases = []
@@ -115,6 +122,8 @@ def main(data, document_id, source, host, cookie=None):
 		canvases.append(cvsjson)
 
 	mfjson['sequences'][0]['canvases'] = canvases
+	for canvas in canvases:
+		mfjson['structures']['canvases'].append(canvas['@id'])
 	output = json.dumps(mfjson, indent=4, sort_keys=True)
 	return output
 
