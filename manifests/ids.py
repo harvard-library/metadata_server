@@ -2,6 +2,7 @@
 
 import json, sys
 import urllib2, requests
+rom urllib.parse import urlparse
 from django.conf import settings
 from os import environ
 
@@ -22,7 +23,8 @@ attribution = "Provided by Harvard University"
 
 def main(data, document_id, source, host, cookie=None):
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
-	captionServerBase = "http://" + serviceBase.split("/")[0] + ":8080/ids/lookup?id="
+	captionServer = urlparse(serviceBase)['netloc']
+	captionServerBase = "http://" + captionServer + ":8080/ids/lookup?id="
 
 	logo = settings.IIIF['logo'] % host
 
