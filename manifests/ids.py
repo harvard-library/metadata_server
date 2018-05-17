@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import json, sys
-import urllib2
+import urllib2, requests
 from django.conf import settings
 from os import environ
 
@@ -22,10 +22,17 @@ attribution = "Provided by Harvard University"
 
 def main(data, document_id, source, host, cookie=None):
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
+	captionServerBase = "http://" + serviceBase.split("/")[0] + ":8080/ids/lookup?id="
 
 	logo = settings.IIIF['logo'] % host
 
-	manifestLabel = "dummy caption / manifest label"
+	manifestLabel = "No Label"
+	req = requests.get(captionServerBase + document_id)
+	if (req.status_code == 200):
+	  md_json = json.loads(req.text)
+	  if ('caption' in md_json.keys()):
+	    manifestLabel = md_json['caption']
+
 	genres = []
 	viewingHint = "individuals"
 
@@ -57,10 +64,16 @@ def main(data, document_id, source, host, cookie=None):
 	canvases = []
 
 	for cvs in data['response']['docs']:
+		canvasLabel = "No Label"
+		req = requests.get(captionServerBase + str(cvs['file_id_num']))
+		if (req.status_code == 200):
+		  md_json = json.loads(req.text)
+		  if ('caption' in md_json.keys()):
+		    canvasLabel = md_json['caption']
 		cvsjson = {
 			"@id": manifest_uri + "/canvas/canvas-%s.json" % str(cvs['file_id_num']),
 			"@type": "sc:Canvas",
-			"label": "dummy label", 
+			"label": canvasLabel, 
 			"height": str(cvs['file_mix_imageHeight_num']),
 			"width": str(cvs['file_mix_imageWidth_num']),
 			"images": [
