@@ -29,11 +29,14 @@ def main(data, document_id, source, host, cookie=None):
 	logo = settings.IIIF['logo'] % host
 
 	manifestLabel = "No Label"
-	req = requests.get(captionServerBase + document_id)
-	if (req.status_code == 200):
-	  md_json = json.loads(req.text)
-	  if ('caption' in md_json.keys()):
-	    manifestLabel = md_json['caption']
+	try:
+	  req = requests.get(captionServerBase + document_id)
+	  if (req.status_code == 200):
+	    md_json = json.loads(req.text)
+	    if ('caption' in md_json.keys()):
+	      manifestLabel = md_json['caption']
+	except(ConnectionError):
+	  pass
 
 	genres = []
 	viewingHint = "individuals"
@@ -67,11 +70,15 @@ def main(data, document_id, source, host, cookie=None):
 
 	for cvs in data['response']['docs']:
 		canvasLabel = "No Label"
-		req = requests.get(captionServerBase + str(cvs['file_id_num']))
-		if (req.status_code == 200):
-		  md_json = json.loads(req.text)
-		  if ('caption' in md_json.keys()):
-		    canvasLabel = md_json['caption']
+		try:
+		  req = requests.get(captionServerBase + str(cvs['file_id_num']))
+		  if (req.status_code == 200):
+		    md_json = json.loads(req.text)
+		    if ('caption' in md_json.keys()):
+		      canvasLabel = md_json['caption']
+		except(ConnectionError):
+		  pass
+
 		cvsjson = {
 			"@id": manifest_uri + "/canvas/canvas-%s.json" % str(cvs['file_id_num']),
 			"@type": "sc:Canvas",
