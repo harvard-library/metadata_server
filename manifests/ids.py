@@ -25,7 +25,7 @@ def main(data, document_id, source, host, cookie=None):
 
 	logo = settings.IIIF['logo'] % host
 
-	manifestLabel = data['response']['docs'][0]['object_mets_label_text']
+	manifestLabel = "dummy caption / manifest label"
 	genres = []
 	viewingHint = "individuals"
 
@@ -60,7 +60,7 @@ def main(data, document_id, source, host, cookie=None):
 		cvsjson = {
 			"@id": manifest_uri + "/canvas/canvas-%s.json" % str(cvs['file_id_num']),
 			"@type": "sc:Canvas",
-			"label": cvs['object_mets_label_text'],
+			"label": "dummy label", 
 			"height": str(cvs['file_mix_imageHeight_num']),
 			"width": str(cvs['file_mix_imageWidth_num']),
 			"images": [
