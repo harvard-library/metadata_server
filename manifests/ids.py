@@ -64,6 +64,7 @@ def main(data, document_id, source, host, cookie=None):
 				"@type": "sc:Sequence",
 				"viewingHint": viewingHint,
 				"label":manifestLabel,
+				"startCanvas": manifest_uri + "/canvas/canvas-%s.json" % str(document_id)),
 			}
 		],
 #		"structures": [
