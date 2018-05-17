@@ -70,7 +70,7 @@ def main(data, document_id, source, host, cookie=None):
 				"@id": ,
 				"@type": "sc:Range",
 				"label":manifestLabel,
-				"canvases" = []
+				"canvases" = [],
 			}
 		]
 	}
