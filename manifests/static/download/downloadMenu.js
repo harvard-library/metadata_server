@@ -11,7 +11,7 @@ var DownloadButton = {
     '<i class="fa fa-caret-down"></i>',
     '<ul class="dropdown download-list">',
     '{{#each imageUrls}}',
-    '<li class="{{#if (eq this "#")}}disabled {{/if}}image-link" title="Download entire image as jpeg ({{this.sizeLabel}})">',
+    '<li class="{{#if (eq this "#")}}disabled {{/if}}image-link" title="Download entire image as jpeg ({{this.sizeLabel}})" id="{{this.id}}">',
     '<a href="{{this.href}}">',
     '<i class="fa fa-file-image-o fa-lg fa-fw"></i>{{this.sizeLabel}}: <span class="dimensions">{{this.title}}</span> px',
     '</a></li>',
@@ -28,6 +28,7 @@ var DownloadButton = {
     var currentImage = viewerWindow.imagesList[viewerWindow.focusModules['ImageView'].currentImgIndex];
     var imageBaseUrl = Mirador.Iiif.getImageUrl(currentImage);
     var ratio = currentImage.height / currentImage.width;
+    var currentImageId = imageBaseUrl.split("/").pop().split(":").pop();
 
     var imageInfoUrl = imageBaseUrl + "/info.json";
 
@@ -43,6 +44,14 @@ var DownloadButton = {
 	var sizes = jsonResponse["sizes"];
 	maxHeight = jsonResponse["maxHeight"];
 	maxWidth = jsonResponse["maxWidth"];
+	
+	['300,','600,','1200,','2400,'].forEach(function(size){
+          if ( parseInt(size) > maxWidth ) {
+	    id = currentImageId + "_" + size;
+	    $(id).remove();
+          }
+        }
+
    };
    req.send(null);
 
@@ -55,7 +64,7 @@ var DownloadButton = {
             'imageBaseUrl': imageBaseUrl, 'size': size
           }),
           'title': size === 'full' ? currentImage.width + 'x' + currentImage.height : parseInt(size) + ' x ' + Math.ceil(parseInt(size) * ratio),
-          'sizeLabel': sizeLabels[parseInt(size)]
+          'sizeLabel': sizeLabels[parseInt(size)], 'id': currentImageId + "_" + size;
         });
       }
     }.bind(this));
