@@ -45,13 +45,15 @@ var DownloadButton = {
 	maxHeight = jsonResponse["maxHeight"];
 	maxWidth = jsonResponse["maxWidth"];
 	
-	['300,','600,','1200,','2400,'].forEach(function(size){
-          if ( parseInt(size) > maxWidth ) {
-	    id = currentImageId + "_" + size;
+	var sizes = [300,600,1200,2400];
+	for(var i=0, len=sizes.length; i < len; i++){
+	  size = sizes[i];
+          if ( size > maxWidth ) {
+	    id = currentImageId + "_" + size.toString();
 	    var dLink = document.getElementById(id);
 	    dLink.parentNode.removeChild(dLink);
           }
-        }
+	}
 
    };
    req.send(null);
@@ -59,7 +61,6 @@ var DownloadButton = {
     var imageUrls = [];
     //['full', '250,'].forEach(function(size){
     ['300,','600,','1200,','2400,'].forEach(function(size){
-      if ( parseInt(size) <= maxWidth ) {
         imageUrls.push({
           'href': viewerWindow.currentImageMode !== 'ImageView' ? '#' : this.imageUrlTemplate({
             'imageBaseUrl': imageBaseUrl, 'size': size
@@ -67,7 +68,6 @@ var DownloadButton = {
           'title': size === 'full' ? currentImage.width + 'x' + currentImage.height : parseInt(size) + ' x ' + Math.ceil(parseInt(size) * ratio),
           'sizeLabel': sizeLabels[parseInt(size)], 'id': currentImageId + "_" + size;
         });
-      }
     }.bind(this));
 
     return imageUrls;
