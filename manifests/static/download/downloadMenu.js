@@ -43,8 +43,8 @@ var DownloadButton = {
 	var sizes = jsonResponse["sizes"];
 	maxHeight = jsonResponse["maxHeight"];
 	maxWidth = jsonResponse["maxWidth"];
-   };
-   req.send(null);
+   //};
+   //req.send(null);
 
     var imageUrls = [];
     //['full', '250,'].forEach(function(size){
@@ -59,7 +59,11 @@ var DownloadButton = {
         });
       }
     }.bind(this));
+
     return imageUrls;
+   };
+   req.send(null);
+
   },
 
   /* initializes the plugin, i.e. adds an event handler */
