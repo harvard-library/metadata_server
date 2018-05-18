@@ -51,7 +51,7 @@ var DownloadButton = {
     ['300,','600,','1200,','2400,'].forEach(function(size){
       if ( parseInt(size) <= maxWidth ) {
         imageUrls.push({
-          'href': viewerWindow.currentImageMode !== 'ImageView' ? '#' : this.imageUrlTemplate({
+          'href': viewerWindow.currentImageMode !== 'ImageView' ? '#' : imageUrlTemplate({
             'imageBaseUrl': imageBaseUrl, 'size': size
           }),
           'title': size === 'full' ? currentImage.width + 'x' + currentImage.height : parseInt(size) + ' x ' + Math.ceil(parseInt(size) * ratio),
