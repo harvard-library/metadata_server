@@ -94,8 +94,8 @@ def main(data, document_id, source, host, cookie=None):
 			"@id": manifest_uri + "/canvas/canvas-%s.json" % str(cvs['file_id_num']),
 			"@type": "sc:Canvas",
 			"label": canvasLabel, 
-			"height": str(cvs['file_mix_imageHeight_num']),
-			"width": str(cvs['file_mix_imageWidth_num']),
+			"height": cvs['file_mix_imageHeight_num'],
+			"width": cvs['file_mix_imageWidth_num'],
 			"images": [
 				{
 					"@id":manifest_uri+"/annotation/anno-%s.json" % str(cvs['file_id_num']),
@@ -105,8 +105,8 @@ def main(data, document_id, source, host, cookie=None):
 						"@id": imageUriBase + str(cvs['file_id_num']) + imageUriSuffix,
 						"@type": "dctypes:Image",
 						"format":"image/jpeg",
-						"height": str(cvs['file_mix_imageHeight_num']),
-						"width": str(cvs['file_mix_imageWidth_num']),
+						"height": cvs['file_mix_imageHeight_num'],
+						"width": cvs['file_mix_imageWidth_num'],
 						"service": {
 						  "@id": imageUriBase + str(cvs['file_id_num']),
 						  "@context": serviceContext,
