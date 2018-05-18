@@ -43,15 +43,14 @@ var DownloadButton = {
 	var sizes = jsonResponse["sizes"];
 	maxHeight = jsonResponse["maxHeight"];
 	maxWidth = jsonResponse["maxWidth"];
-   //};
-   //req.send(null);
 
-    var imageUrls = [];
+
+	var imageUrls = [];
     //['full', '250,'].forEach(function(size){
     ['300,','600,','1200,','2400,'].forEach(function(size){
       if ( parseInt(size) <= maxWidth ) {
         imageUrls.push({
-          'href': viewerWindow.currentImageMode !== 'ImageView' ? '#' : imageUrlTemplate({
+          'href': viewerWindow.currentImageMode !== 'ImageView' ? '#' : this.imageUrlTemplate({
             'imageBaseUrl': imageBaseUrl, 'size': size
           }),
           'title': size === 'full' ? currentImage.width + 'x' + currentImage.height : parseInt(size) + ' x ' + Math.ceil(parseInt(size) * ratio),
@@ -61,8 +60,25 @@ var DownloadButton = {
     }.bind(this));
 
     return imageUrls;
+
    };
    req.send(null);
+
+    //var imageUrls = [];
+    //['full', '250,'].forEach(function(size){
+    /*['300,','600,','1200,','2400,'].forEach(function(size){
+      if ( parseInt(size) <= maxWidth ) {
+        imageUrls.push({
+          'href': viewerWindow.currentImageMode !== 'ImageView' ? '#' : this.imageUrlTemplate({
+            'imageBaseUrl': imageBaseUrl, 'size': size
+          }),
+          'title': size === 'full' ? currentImage.width + 'x' + currentImage.height : parseInt(size) + ' x ' + Math.ceil(parseInt(size) * ratio),
+          'sizeLabel': sizeLabels[parseInt(size)]
+        });
+      }
+    }.bind(this));
+
+    return imageUrls;*/
 
   },
 
