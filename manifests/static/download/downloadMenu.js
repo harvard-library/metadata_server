@@ -48,7 +48,7 @@ var DownloadButton = {
 	var imageUrls = [];
     //['full', '250,'].forEach(function(size){
     ['300,','600,','1200,','2400,'].forEach(function(size){
-      if ( parseInt(size) <= maxWidth ) {
+      if ( parseInt(size) <= parseInt(maxWidth) ) {
         imageUrls.push({
           'href': viewerWindow.currentImageMode !== 'ImageView' ? '#' : DownloadButton.imageUrlTemplate({
             'imageBaseUrl': imageBaseUrl, 'size': size
