@@ -43,8 +43,6 @@ var DownloadButton = {
 	var sizes = jsonResponse["sizes"];
 	maxHeight = jsonResponse["maxHeight"];
 	maxWidth = jsonResponse["maxWidth"];
-	console.log("mx height: " + maxHeight );
-	console.log("mx width: " + maxWidth );
    };
    req.send(null);
 
@@ -52,7 +50,6 @@ var DownloadButton = {
     //['full', '250,'].forEach(function(size){
     ['300,','600,','1200,','2400,'].forEach(function(size){
       if ( parseInt(size) <= maxWidth ) {
-	console.log("adding " + size );
         imageUrls.push({
           'href': viewerWindow.currentImageMode !== 'ImageView' ? '#' : this.imageUrlTemplate({
             'imageBaseUrl': imageBaseUrl, 'size': size
