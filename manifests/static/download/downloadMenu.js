@@ -48,7 +48,8 @@ var DownloadButton = {
 	['300,','600,','1200,','2400,'].forEach(function(size){
           if ( parseInt(size) > maxWidth ) {
 	    id = currentImageId + "_" + size;
-	    $(id).remove();
+	    var dLink = document.getElementById(id);
+	    dLink.parentNode.removeChild(dLink);
           }
         }
 
