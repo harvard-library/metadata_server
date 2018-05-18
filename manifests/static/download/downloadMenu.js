@@ -66,7 +66,7 @@ var DownloadButton = {
             'imageBaseUrl': imageBaseUrl, 'size': size
           }),
           'title': size === 'full' ? currentImage.width + 'x' + currentImage.height : parseInt(size) + ' x ' + Math.ceil(parseInt(size) * ratio),
-          'sizeLabel': sizeLabels[parseInt(size)], 'id': currentImageId + "_" + size;
+          'sizeLabel': sizeLabels[parseInt(size)], 'id': currentImageId + "_" + size
         });
     }.bind(this));
 
