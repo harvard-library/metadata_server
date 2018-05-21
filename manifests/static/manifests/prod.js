@@ -117,9 +117,9 @@ $(function() {
 	fullScreenViewer: false
       },
       "userButtons": [
-	{"label": "View in PDS",
+	/*{"label": "View in PDS",
          "iconClass": "fa fa-external-link",
-         "attributes": { "class": "view-in-pds", "href": "#no-op"}},
+         "attributes": { "class": "view-in-pds", "href": "#no-op"}},*/
 	{"label": "Search",
          "iconClass": "fa fa-search",
          "attributes": { "class": "search", "href": "#no-op"}},
