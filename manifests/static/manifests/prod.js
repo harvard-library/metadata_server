@@ -574,18 +574,18 @@ $(function() {
 
 //target .mirador-icon-save-image
 //.layout-slot .slot .window .content-container .view-container .image-view .mirador-osd .openseadragon-container .openseadragon-canvas canvas
- $(document).on('contextmenu', 'canvas', function() { 
+ /*$(document).on('contextmenu', 'canvas', function() { 
 	console.log("contextmenu bind test successful");
-  });
-  $('canvas').contextmenu({
+  });*/
+  //$('canvas').contextmenu({
 
-  $(document).on('contextmenu', 'canvas, .mirador-icon-save-image', function() {
+  //$(document).on('contextmenu', 'canvas, .mirador-icon-save-image', function() {
 
   var saveImage = function(e) {
-    delegate: ".openseadragon-canvas",
-    menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
-    select: function(event, ui) {
-    $('mirador-icon-save-image').click( function (e){ 
+    //delegate: ".openseadragon-canvas",
+    //menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
+    //select: function(event, ui) {
+    //$('mirador-icon-save-image').click( function (e){ 
       e.preventDefault();
       var layout_slot = $(this).parents('.layout-slot');
       var slot_idx = layout_slot[0].attributes[1].textContent;
@@ -624,7 +624,7 @@ $(function() {
        }
 
        if (drs_id == null) return;
-     // canvas copy no longer used bc of cors/tainted canvas side effects
+     /* canvas copy no longer used bc of cors/tainted canvas side effects
             var targetCanvas = this.children[0].children[4].children[1].children[2].children[1].children[7].children[0].children[0].children[1];
             targetCanvas.crossOriginPolicy = 'Anonymous';
             $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?' )
@@ -636,12 +636,12 @@ $(function() {
 	           copyCanvas(targetCanvas, label);
 	        }
              });
-      
+      */
        /*var caption_url = l.PDS_VIEW_URL.replace("view","showcaption") + drs_id + '?n=' + n;
        window.open(caption_url,'');*/
        window.open(l.IDS_VIEW_URL + img_id + '?buttons=y');
       
-    }
+    //}
   };
 
 
