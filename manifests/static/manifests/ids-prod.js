@@ -616,19 +616,10 @@ $(function() {
 
        if (drs_id == null) return;
      /* canvas copy no longer used bc of cors/tainted canvas side effects */
-            var targetCanvas = this; //.children[0].children[4].children[1].children[2].children[1].children[7].children[0].children[0].children[1];
-            targetCanvas.crossOriginPolicy = 'Anonymous';
-            $.getJSON( l.CAPTION_API_URL + drs_id )
-              .done(function (data) {
-		 label = "Harvard University - Drs ID: " + drs_id;
-                 if (data.caption) {
-	           label = data.caption;
-                 } //TODO: Else graceful error display
-	        if (ui.cmd === "save") {
-	           copyCanvas(targetCanvas, label, drs_id + ".jpg");
-	        }
-             });
-    //}
+       var targetCanvas = this; //.children[0].children[4].children[1].children[2].children[1].children[7].children[0].children[0].children[1];
+       targetCanvas.crossOriginPolicy = 'Anonymous';
+       var label = mirWindow.manifest.jsonLd.label;
+       copyCanvas(targetCanvas, label, drs_id + ".jpg");
   };
 
 
