@@ -638,10 +638,6 @@ $(function() {
 	        //}
              });
       
-       /*var caption_url = l.PDS_VIEW_URL.replace("view","showcaption") + drs_id + '?n=' + n;
-       window.open(caption_url,'');
-       window.open(l.IDS_VIEW_URL + img_id + '?buttons=y');*/
-      
     //}
   };
 
