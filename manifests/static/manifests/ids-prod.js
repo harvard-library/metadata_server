@@ -620,6 +620,7 @@ $(function() {
             targetCanvas.crossOriginPolicy = 'Anonymous';
             $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?' )
               .done(function (data) {
+		 label = "Harvard University - Drs ID: " + drs_id;
                  if (data.caption) {
 	           label = data.caption;
                  } //TODO: Else graceful error display

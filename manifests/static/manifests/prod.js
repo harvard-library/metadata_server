@@ -629,12 +629,13 @@ $(function() {
             targetCanvas.crossOriginPolicy = 'Anonymous';
             $.getJSON( '/proxy/getcaption/' + drs_id + '?callback=?' )
               .done(function (data) {
+		 label = "Harvard University - Drs ID: " + drs_id;
                  if (data.caption) {
 	           label = data.caption;
                  } //TODO: Else graceful error display
-	        if (ui.cmd === "save") {
+	        //if (ui.cmd === "save") {
 	           copyCanvas(targetCanvas, label);
-	        }
+	        //}
              });
       
        /*var caption_url = l.PDS_VIEW_URL.replace("view","showcaption") + drs_id + '?n=' + n;
