@@ -33,6 +33,7 @@ FTS_VIEW_URL = environ.get("FTS_VIEW_URL","http://fts.lib.harvard.edu/fts/search
 IIIF_MGMT_ACL = (environ.get("IIIF_MGMT_ACL","128.103.151.0/24,10.34.5.254,10.40.4.69")).split(',')
 CORS_WHITELIST = (environ.get("CORS_WHITELIST", "http://harvard.edu")).split(',') 
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
+CAPTION_API_URL = (environ.get("CAPTION_API","http://ids.lib.harvard.edu:8080/ids/lookup?id="))
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext": "ext", "ids": "ids" }
 
@@ -171,6 +172,7 @@ def view(request, view_type, document_id):
                        'pds_ws_url':         PDS_WS_URL,
 		       'ids_view_url':       IDS_VIEW_URL,
 		       'fts_view_url':	     FTS_VIEW_URL,
+		       'ids_caption_url':    CAPTION_API_URL,
                        'layout_string':      layout_string(len(manifests_data))
                    }
         # Check if its an experimental/dev Mirador codebase, otherwise use production
