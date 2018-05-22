@@ -573,6 +573,8 @@ $(function() {
   //$(document).on('contextmenu', 'canvas, .mirador-icon-save-image', function() {
 
   var saveImage = function(e) {
+    /* this will not work until AMS uses a cors header */
+    return;
     //delegate: ".openseadragon-canvas",
     //menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     //select: function(event, ui) {
