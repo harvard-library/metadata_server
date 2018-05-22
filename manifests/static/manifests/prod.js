@@ -172,7 +172,7 @@ $(function() {
             last_idx = parts.length - 1,
 	    drs_match = parts[last_idx].match(/drs:(\d+)/),
             drs_id = drs_match && drs_match[1],
-            focusType = mirWindow.currentFocus,
+            focusType = mirWindow.currentImageMode,
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
         if (mirWindow.id === omit_id) {
           //pass
@@ -608,7 +608,7 @@ $(function() {
             drs_match = parts[last_idx].match(/drs:(\d+)/),
             drs_id = drs_match && drs_match[1],
 	    img_id = ((mirWindow.canvasID.split("-"))[1]).split(".json")[0],
-            focusType = mirWindow.currentFocus,
+            focusType = mirWindow.currentImageMode,
 	    n = mirWindow.focusModules[focusType].currentImgIndex + 1;
 
        if (focusType !== "ImageView") {
