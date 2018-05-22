@@ -596,7 +596,7 @@ $(function() {
       var uri = mirWindow.manifest.uri,
             parts = uri.split("/"),
             last_idx = parts.length - 1,
-            drs_match = parts[last_idx].match(/drs:(\d+)/),
+            drs_match = parts[last_idx].match(/ids:(\d+)/),
             drs_id = drs_match && drs_match[1],
 	    img_id = ((mirWindow.currentCanvasID.split("-"))[1]).split(".json")[0],
             focusType = mirWindow.currentFocus,
