@@ -534,7 +534,7 @@ $(function() {
   };
 
 
-  var copyCanvas = function(targetCanvas, label) {
+  var copyCanvas = function(targetCanvas, label, filename) {
     var miradorCanvas = targetCanvas; //document.getElementById("canvas");
     var canvasContext = miradorCanvas.getContext("2d");
     var bufferCanvas = document.getElementById("buffer");
@@ -558,7 +558,7 @@ $(function() {
     bufferContext.strokeText(label, 10, oldCanvasHeight + 10);
 
     bufferCanvas.toBlob(function(blob) {
-      saveAs(blob, "download.jpg");
+      saveAs(blob, filename);
     }, 'image/jpg');
   };
 
@@ -625,7 +625,7 @@ $(function() {
 	           label = data.caption;
                  } //TODO: Else graceful error display
 	        if (ui.cmd === "save") {
-	           copyCanvas(targetCanvas, label);
+	           copyCanvas(targetCanvas, label, drs_id + ".jpg");
 	        }
              });
       
