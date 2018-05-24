@@ -583,12 +583,12 @@ $(function() {
 
   var saveImage = function(e) {
     /* this will not work until AMS uses a cors header */
-    return;
     //delegate: ".openseadragon-canvas",
     //menu: [ {title: "Save image", cmd: "save", uiIcon: "ui-icon-disk"} ],
     //select: function(event, ui) {
     //$('mirador-icon-save-image').click( function (e){ 
       e.preventDefault();
+      return;
       var layout_slot = $(this).parents('.layout-slot');
       var slot_idx = layout_slot[0].attributes[1].textContent;
       var slot = null;
