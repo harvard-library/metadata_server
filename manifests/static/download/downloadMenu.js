@@ -1,7 +1,7 @@
 var DownloadButton = {
   /* the template for the image urls */
   imageUrlTemplate: Mirador.Handlebars.compile(
-    '{{imageBaseUrl}}/full/{{size}}/0/default.jpg?download&caption'
+    '{{imageBaseUrl}}/full/!{{size}},{{size}}/0/default.jpg?download&caption'
   ),
 
   /* the template for the link button */
@@ -60,7 +60,7 @@ var DownloadButton = {
 
     var imageUrls = [];
     //['full', '250,'].forEach(function(size){
-    ['300,','600,','1200,','2400,'].forEach(function(size){
+    ['300','600','1200','2400'].forEach(function(size){
         imageUrls.push({
           'href': viewerWindow.currentImageMode !== 'ImageView' ? '#' : this.imageUrlTemplate({
             'imageBaseUrl': imageBaseUrl, 'size': size
