@@ -17,7 +17,7 @@ manifestUriTmpl = settings.IIIF['manifestUriTmpl']
 serviceBase =     settings.IIIF['serviceBase']
 profileLevel =    settings.IIIF['profileLevel']
 serviceContext = settings.IIIF['context']
-license = settings.IIIF['license']
+license = "https://nrs.harvard.edu/urn-3:HUL.eother:idscopyright"
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST", "localhost")
 attribution = "Provided by Harvard University"
 captionServerBase = environ.get("CAPTION_API", "http://ids-prod1.hul.harvard.edu:8080/ids/lookup?id=")
@@ -57,6 +57,7 @@ def main(data, document_id, source, host, cookie=None):
 		"label":manifestLabel,
 		"attribution":attribution,
 		"logo":logo,
+		"license":license,
 		#"description":huam_json["provenance"],
 		"sequences": [
 			{
