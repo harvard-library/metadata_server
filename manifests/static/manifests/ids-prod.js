@@ -116,12 +116,7 @@ $(function() {
 	      "buttons": {
 	         bookmark: false,
 	        fullScreenViewer: false
-	      },
-	      "userButtons": [
-	        {"label": "Help",
-	         "iconClass": "fa fa-question-circle",
-	         "attributes": { "class": "help", "href": "#no-op"}}
-	      ],
+	      }
 	    },
 	    "i18nPath": l.PATH_DATA.i18nPath,
 	    "logosLocation": l.PATH_DATA.logosLocation,
