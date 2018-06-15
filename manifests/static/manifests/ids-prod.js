@@ -106,8 +106,31 @@ $(function() {
     //$('#print-modal').dialog('close');
   };
 
+  if (document.referrer.match(/^https?:\/\/images\.hollis\.harvard\.edu(\/|$)/i)) {
+  	console.log("Came from hollis images");
+	hMirador = Mirador({
+	    "id": "viewer",
+	    "layout": l.LAYOUT,
+	    "saveSession": false,
+	    "mainMenuSettings" : {
+	      "buttons": {
+	         bookmark: false,
+	        fullScreenViewer: false
+	      },
+	      "userButtons": [
+	        {"label": "Help",
+	         "iconClass": "fa fa-question-circle",
+	         "attributes": { "class": "help", "href": "#no-op"}}
+	      ],
+	    },
+	    "i18nPath": l.PATH_DATA.i18nPath,
+	    "logosLocation": r.PATH_DATA.logosLocation,
+	    "data": l.MIRADOR_DATA,
+	    "windowObjects": l.MIRADOR_WOBJECTS
+       });
 
-  hMirador = Mirador({
+  } else { 
+   hMirador = Mirador({
     "id": "viewer",
     "layout": l.LAYOUT,
     "saveSession": false,
@@ -135,10 +158,11 @@ $(function() {
         "attributes": { "id": "harvard-bug", "href": "http://lib.harvard.edu"}}
     },
     "i18nPath": l.PATH_DATA.i18nPath,
-    "logosLocation": l.PATH_DATA.logosLocation,
+    "logosLocation": r.PATH_DATA.logosLocation,
     "data": l.MIRADOR_DATA,
     "windowObjects": l.MIRADOR_WOBJECTS
-  });
+    });
+  } 
 
   setTimeout(function(){
     $('.user-buttons').slicknav({
