@@ -124,7 +124,7 @@ $(function() {
 	      ],
 	    },
 	    "i18nPath": l.PATH_DATA.i18nPath,
-	    "logosLocation": r.PATH_DATA.logosLocation,
+	    "logosLocation": l.PATH_DATA.logosLocation,
 	    "data": l.MIRADOR_DATA,
 	    "windowObjects": l.MIRADOR_WOBJECTS
        });
@@ -158,7 +158,7 @@ $(function() {
         "attributes": { "id": "harvard-bug", "href": "http://lib.harvard.edu"}}
     },
     "i18nPath": l.PATH_DATA.i18nPath,
-    "logosLocation": r.PATH_DATA.logosLocation,
+    "logosLocation": l.PATH_DATA.logosLocation,
     "data": l.MIRADOR_DATA,
     "windowObjects": l.MIRADOR_WOBJECTS
     });
