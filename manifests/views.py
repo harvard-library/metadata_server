@@ -150,7 +150,13 @@ def view(request, view_type, document_id):
             manifests_data.append(json.dumps(mfdata))
 
             # Window objects - what gets displayed
-            mfwobject = {"loadedManifest": uri,
+	    if parts['source'] == 'ids':
+	      mfwobject = {"loadedManifest": uri,
+			"bottomPanel": false,
+			"sidePanel": false,
+			"viewType": parts["view"] }
+	    else:
+              mfwobject = {"loadedManifest": uri,
                          "viewType": parts["view"] }
 
             # Load manifest as JSON, get sequence info, use canvasID to page into object
