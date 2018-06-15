@@ -152,8 +152,8 @@ def view(request, view_type, document_id):
             # Window objects - what gets displayed
 	    if parts['source'] == 'ids':
 	      mfwobject = {"loadedManifest": uri,
-			"bottomPanel": false,
-			"sidePanel": false,
+			"bottomPanel": False,
+			"sidePanel": False,
 			"viewType": parts["view"] }
 	    else:
               mfwobject = {"loadedManifest": uri,
