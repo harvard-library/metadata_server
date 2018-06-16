@@ -131,7 +131,6 @@ $(function() {
     "layout": l.LAYOUT,
     "saveSession": false,
     "mainMenuSettings" : {
-      "show": false,
       "buttons": {
          bookmark: false,
 	fullScreenViewer: false
