@@ -154,6 +154,8 @@ def view(request, view_type, document_id):
 	      mfwobject = {"loadedManifest": uri,
 			"bottomPanel": False,
 			"sidePanel": False,
+			"displayLayout": False,
+			"availableViews": ['ImageView'],
 			"viewType": parts["view"] }
 	    else:
               mfwobject = {"loadedManifest": uri,
