@@ -112,7 +112,6 @@ $(function() {
 	    "id": "viewer",
 	    "layout": l.LAYOUT,
 	    "saveSession": false,
-	    "showAddFromURLBox": false,
 	    "mainMenuSettings" : {
 	     "show": false,
 	      "buttons": {
@@ -131,8 +130,8 @@ $(function() {
     "id": "viewer",
     "layout": l.LAYOUT,
     "saveSession": false,
-    "showAddFromURLBox": false,
     "mainMenuSettings" : {
+      "show": false,
       "buttons": {
          bookmark: false,
 	fullScreenViewer: false
