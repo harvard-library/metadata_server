@@ -106,8 +106,7 @@ $(function() {
     //$('#print-modal').dialog('close');
   };
 
-  if (document.referrer.match(/^https?:\/\/images\.hollis\.harvard\.edu(\/|$)/i)) {
-  	console.log("Came from hollis images");
+  if ( window.self !== window.top ) { //hide branding if in iframe/embedded
 	hMirador = Mirador({
 	    "id": "viewer",
 	    "layout": l.LAYOUT,
