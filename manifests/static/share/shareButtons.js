@@ -21,6 +21,7 @@ var ShareButtons = {
     '<div id="share-buttons-info" class="alert alert-info" role="alert">{{t "share-buttons-info"}}</div>',
     '{{/if}}',
     '<div id="share-buttons" class="pull-left">',
+    '<a href="javascript:;"></a>',
     '{{#each shareButtons}}',
     '<a type="button" class="share-button" id="share-on-{{this}}" title="{{t (concat this)}}" target="_blank" data-target="{{this}}">',
     '<span class="fa-stack fa-lg">',
