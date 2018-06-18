@@ -6,9 +6,9 @@ var DownloadButton = {
 
   /* the template for the link button */
   buttonTemplate: Mirador.Handlebars.compile([
-    '<span class="mirador-btn mirador-icon-download" role="button" title="Download"><a href="javascript:;"></a>',
-    '<i class="fa fa-download fa-lg fa-fw"></i>',
-    '<i class="fa fa-caret-down"></i>',
+    '<span class="mirador-btn mirador-icon-download" role="button" title="Download">',
+    '<a href="javascript:;"><i class="fa fa-download fa-lg fa-fw"></i>',
+    '<i class="fa fa-caret-down"></i></a>',
     '<ul class="dropdown download-list">',
     '{{#each imageUrls}}',
     '<li class="{{#if (eq this "#")}}disabled {{/if}}image-link" title="Download entire image as jpeg ({{this.sizeLabel}})" id="{{this.id}}">',
