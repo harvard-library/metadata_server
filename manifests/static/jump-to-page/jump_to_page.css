@@ -1,0 +1,11 @@
+.window-manifest-navigation > .mirador-select-jump {
+  Font-size: .8em; 	/*items in drop down smaller font */
+  Margin-right: 15px;	/* provides space between the dropdown and the download icon */
+  Border: 1px #CCCCCC solid;
+  Border-radius: 3px;
+}
+
+.window-manifest-navigation > .mirador-select-jump-label {
+  Font-size: .8em
+  Font-weight: normal
+}
