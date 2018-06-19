@@ -2,8 +2,7 @@
   var originalWindowInit = Mirador.Window.prototype.init;
 
   var template = Mirador.Handlebars.compile([
-    '<h3 class="window-manifest-title">Go:</h3>',
-    '<select class="{{selectClassName}}">',
+    '<b>Go:</b><select class="{{selectClassName}}">',
     '{{#canvases}}',
     '<option value="{{id}}">{{label}}</option>',
     '{{/canvases}}',
