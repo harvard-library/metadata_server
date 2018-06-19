@@ -257,7 +257,7 @@ $(function() {
   };
 
   var display_help = function(e) {
-    window.open("http://nrs.harvard.edu/urn-3:hul.ois:hlviewerhelp","mirador_help");
+    window.open("http://nrs.harvard.edu/urn-3:hul.ois:hlviewer-ids-help","mirador_help");
   };
 
   var operations = {
