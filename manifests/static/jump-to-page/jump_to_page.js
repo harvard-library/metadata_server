@@ -2,7 +2,7 @@
   var originalWindowInit = Mirador.Window.prototype.init;
 
   var template = Mirador.Handlebars.compile([
-    '<b>Go: </b><select class="{{selectClassName}}">',
+    '<label ="mirador-select-jump-label">Jump to:</label><select class="{{selectClassName}}">',
     '{{#canvases}}',
     '<option value="{{id}}">{{label}}</option>',
     '{{/canvases}}',
@@ -23,7 +23,8 @@
     windowObj.eventEmitter.subscribe('downloadPluginAdded', function(evt, data){
 
       windowObj.element.find('.window-manifest-navigation').prepend(template({
-        'selectClassName': 'page-select',
+        /* 'selectClassName': 'page-select', */
+	'selectClassName': 'mirador-select-jump',
         'canvases': canvases
       }));
 
