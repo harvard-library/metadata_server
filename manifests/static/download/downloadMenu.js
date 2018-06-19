@@ -145,7 +145,7 @@ var DownloadButton = {
         var imageUrls = this_.extractImageUrls(viewerWindow);
         var windowButtons = viewerWindow.element.find('.window-manifest-navigation');
         this_.injectButtonToMenu(windowButtons, manifestUrl, imageUrls);
-	this.eventEmitter.publish('downloadPluginAdded', currentWindow.id);
+	this.eventEmitter.publish('downloadPluginAdded', viewerWindow.id);
       }.bind(this));
     };
   }
