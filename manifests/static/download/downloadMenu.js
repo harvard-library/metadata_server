@@ -6,7 +6,7 @@ var DownloadButton = {
 
   /* the template for the link button */
   buttonTemplate: Mirador.Handlebars.compile([
-    '<span class="mirador-btn mirador-icon-download" role="button" title="Download">',
+    '<span class="mirador-btn mirador-icon-download" role="button" title="Download" aria-label="Download">',
     '<a href="javascript:;"><i class="fa fa-download fa-lg fa-fw"></i>',
     '<i class="fa fa-caret-down"></i></a>',
     '<ul class="dropdown download-list">',
