@@ -19,14 +19,20 @@
       return canvas;
     });
 
-    windowObj.element.find('.window-manifest-navigation').prepend(template({
-      'selectClassName': 'page-select',
-      'canvases': canvases
-    }));
+   
+    windowObj.eventEmitter.subscribe('downloadPluginAdded', function(evt, data){
 
-    windowObj.element.find('.page-select').on('change', function(event) {
-      var canvasID = jQuery(this).val();
-      windowObj.eventEmitter.publish('SET_CURRENT_CANVAS_ID.' + windowObj.id, canvasID);
-    });
+      windowObj.element.find('.window-manifest-navigation').prepend(template({
+        'selectClassName': 'page-select',
+        'canvases': canvases
+      }));
+
+      windowObj.element.find('.page-select').on('change', function(event) {
+        var canvasID = jQuery(this).val();
+        windowObj.eventEmitter.publish('SET_CURRENT_CANVAS_ID.' + windowObj.id, canvasID);
+      });
+
+   });
+
   };
 })();
