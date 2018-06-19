@@ -2,7 +2,7 @@
   var originalWindowInit = Mirador.Window.prototype.init;
 
   var template = Mirador.Handlebars.compile([
-    '<label class="mirador-select-jump-label">Jump to: </label><select class="{{selectClassName}}">',
+    '<label class="mirador-select-jump-label">Jump to: </label><select class="{{selectClassName}}" aria-label="Jump to page">',
     '{{#canvases}}',
     '<option value="{{id}}">{{label}}</option>',
     '{{/canvases}}',
