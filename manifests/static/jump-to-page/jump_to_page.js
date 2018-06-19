@@ -23,8 +23,7 @@
     windowObj.eventEmitter.subscribe('downloadPluginAdded', function(evt, data){
 
       windowObj.element.find('.window-manifest-navigation').prepend(template({
-        /* 'selectClassName': 'page-select', */
-	'selectClassName': 'mirador-select-jump',
+        'selectClassName': 'mirador-select-jump page-select', 
         'canvases': canvases
       }));
 
