@@ -107,7 +107,11 @@ def view(request, view_type, document_id):
         # drs: check AMS to see if this is a restricted obj
         # TODO:  move this check into get_manifest() for hollis
         if (('drs' == parts["source"]) or ('ids' == parts['source'])):
-            ams_redirect = ams.getAMSredirectUrl(request.COOKIES, parts["id"]) 
+	    ams_redirect = None
+	    if ('drs' == parts["source"]):
+              ams_redirect = ams.getAMSredirectUrl(request.COOKIES, parts["id"]) 
+	    elif ('ids' == parts['source']): 
+	      ams_redirect = ams.getAMSredirectUrl(request.COOKIES, parts["id"], isIDS=True)
 	    if ams_redirect == None: 
 	        return HttpResponse("Invalid object id", status=404) 
 	    if ams_redirect[0] == 'N':
@@ -213,7 +217,11 @@ def manifest(request, document_id):
     id = parts[1]
 
     #check ams
-    ams_redirect = ams.getAMSredirectUrl(request.COOKIES, id)
+    ams_redirect = None
+    if ('drs' == source):
+	ams_redirect = ams.getAMSredirectUrl(request.COOKIES, id)
+    elif ('ids' == source):
+	ams_redirect = ams.getAMSredirectUrl(request.COOKIES, id, isIDS=True)
     if ams_redirect == None:
 	return HttpResponse("Invalid object id", status=404)
     if ams_redirect[0] == 'N':

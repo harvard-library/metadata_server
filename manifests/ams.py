@@ -9,6 +9,7 @@ from django.conf import settings
 #replace olivia w/ http://libsearch-elb.lib.harvard.edu:18280/solr/drs2-collection/select?q=object_id_num%3A434603714&fq=doc_type_string%3Aobject+AND+object_huldrsadmin_status_string%3Acurrent+AND+object_huldrsadmin_contentModelID_string%3ACMID-4.0&fl=object_id_num%2C+object_huldrsadmin_accessFlag_string&wt=json&indent=true
 
 amsRedirectBase = environ.get("AMS_REDIRECT_BASE","")
+amsRedirectIdsBase = environ.get("AMS_REDIRECT_IDS_BASE","")
 
 def getAccessFlag(drsId):
     solrUrl = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + drsId + settings.SOLR_AMS_QUERY 
@@ -35,18 +36,21 @@ def getAccessFlag(drsId):
     else:
 	return ''
 
-def checkCookie(cookies, drsId):
+def checkCookie(cookies, drsId, isIDS=False):
     if 'hulaccess' in cookies:
         return None
     else:  #redirect to AMS
-        return amsRedirectBase + drsId
+	if (isIDS):
+	  return amsRedirectIdsBase + drsId
+	else:
+          return amsRedirectBase + drsId
 
-def getAMSredirectUrl(cookies, drsId):
+def getAMSredirectUrl(cookies, drsId, isIDS=False):
     flag = getAccessFlag(drsId)
     if flag == '':
 	return None
     if flag == 'R':
-        return ['R', checkCookie(cookies, drsId)]
+        return ['R', checkCookie(cookies, drsId, isIDS)]
     elif flag == 'N':
 	return ['N', None]
     else:
