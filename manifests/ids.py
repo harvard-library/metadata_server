@@ -20,7 +20,7 @@ serviceContext = settings.IIIF['context']
 license = "https://nrs.harvard.edu/urn-3:HUL.eother:idscopyright"
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST", "localhost")
 attribution = "Provided by Harvard University"
-captionServerBase = environ.get("CAPTION_API", "http://ids-prod1.hul.harvard.edu:8080/ids/lookup?id=")
+captionServerBase = environ.get("CAPTION_API", "http://ids-prod1.lts.harvard.edu:8080/ids/lookup?id=")
 serviceContext = "http://iiif.io/api/image/2/level2.json"
 
 def main(data, document_id, source, host, cookie=None):
@@ -28,7 +28,7 @@ def main(data, document_id, source, host, cookie=None):
 
 	logo = settings.IIIF['logo'] % host
 
-	manifestLabel = "No Label"
+	manifestLabel = " "
 	try:
 	  req = requests.get(captionServerBase + document_id)
 	  if (req.status_code == 200):
@@ -81,7 +81,7 @@ def main(data, document_id, source, host, cookie=None):
 #	structure_canvases = []
 
 	for cvs in data['response']['docs']:
-		canvasLabel = "No caption"
+		canvasLabel = " "
 		try:
 		  req = requests.get(captionServerBase + str(cvs['file_id_num']))
 		  if (req.status_code == 200):
