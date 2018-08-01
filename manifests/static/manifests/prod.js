@@ -164,6 +164,7 @@ $(function() {
   };
 
   var constructUrl = function (omit_id) {
+    console.log("constructUrl invoked");
     var object_ids = $.map(hMirador.viewer.workspace.slots, function (slot, i) {
       var mirWindow = slot.window;
       if (mirWindow) {
@@ -176,15 +177,19 @@ $(function() {
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
         if (mirWindow.id === omit_id) {
           //pass
+	  console.log("constructUrl: pass");
         }
         else if (drs_match) {
+	   console.log("constructUrl: drs:" + drs_id + '$' + n + ftype_alias[focusType]);
           return 'drs:' + drs_id + '$' + n + ftype_alias[focusType];
         }
         else {
+	  console.log("constructUrl: ext:" + Base64.encode(uri).replace(/\+/g, '-').replace(/\//g, '_') + '$' + n + ftype_alias[focusType]);
           return "ext:" + Base64.encode(uri).replace(/\+/g, '-').replace(/\//g, '_') + '$' + n + ftype_alias[focusType];
         }
       }
     });
+    console.log("constructUrl: " + object_ids.join(";") );
     return object_ids.join(";");
   };
 
