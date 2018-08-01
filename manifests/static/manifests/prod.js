@@ -663,21 +663,22 @@ $(function() {
     console.log("state replacer invoked");
   };
 
-  $.subscribe("windowUpdated", function (e, data){
+  var ee = hMirador.Window.prototype.bindEvents.eventEmitter;
+  ee.subscribe("windowUpdated", function (e, data){
     History.replaceState({}, document.title, constructUrl());
-    $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
-    $.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+    ee.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+    ee.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     console.log("currentCanvasIDUpdated." + data.id);
   });
 
-  $.subscribe("windowAdded", function (e, data) {
-    $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
-    $.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+  ee.subscribe("windowAdded", function (e, data) {
+    ee.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+    ee.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     console.log("currentCanvasIDUpdated." + data.id);
   });
 
-  $.subscribe("windowRemoved", function (e, data) {
-    $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+  ee.subscribe("windowRemoved", function (e, data) {
+    ee.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     History.replaceState({}, document.title, constructUrl(data.id));
     console.log("currentCanvasIDUpdated." + data.id);
   });
