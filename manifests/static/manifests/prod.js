@@ -663,7 +663,7 @@ $(function() {
     console.log("state replacer invoked");
   };
 
-  var ee = hMirador.Window.prototype.bindEvents.eventEmitter;
+  var ee = hMirador.eventEmitter;
   ee.subscribe("windowUpdated", function (e, data){
     History.replaceState({}, document.title, constructUrl());
     ee.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
