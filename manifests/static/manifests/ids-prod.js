@@ -657,19 +657,20 @@ $(function() {
     History.replaceState({}, document.title, constructUrl());
   };
 
-  $.subscribe("windowUpdated", function (e, data){
+  var ee = hMirador.eventEmitter;
+  ee.subscribe("windowUpdated", function (e, data){
     History.replaceState({}, document.title, constructUrl());
-    $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
-    $.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+    ee.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+    ee.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
   });
 
-  $.subscribe("windowAdded", function (e, data) {
-    $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
-    $.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+  ee.subscribe("windowAdded", function (e, data) {
+    ee.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+    ee.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
   });
 
-  $.subscribe("windowRemoved", function (e, data) {
-    $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+  ee.subscribe("windowRemoved", function (e, data) {
+    ee.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     History.replaceState({}, document.title, constructUrl(data.id));
   });
 
