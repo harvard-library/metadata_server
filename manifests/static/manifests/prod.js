@@ -649,16 +649,16 @@ $(function() {
   $(document).on('contextmenu', 'canvas', saveImage);
   $(document).on('click', '.mirador-icon-save-image', saveImage);
 
-  hMirador.History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
-    var State = hMirador.History.getState(); // Note: We are using History.getState() instead of event.state
+  History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
+    var State = History.getState(); // Note: We are using History.getState() instead of event.state
   });
 
   var state_replacer = function (e, cvs_data){
-    hMirador.History.replaceState({}, document.title, constructUrl());
+    History.replaceState({}, document.title, constructUrl());
   };
 
   hMirador.subscribe("windowUpdated", function (e, data){
-    hMirador.History.replaceState({}, document.title, constructUrl());
+    History.replaceState({}, document.title, constructUrl());
     hMirador.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     hMirador.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     console.log("currentCanvasIDUpdated." + data.id);
