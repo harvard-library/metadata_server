@@ -649,29 +649,29 @@ $(function() {
   $(document).on('contextmenu', 'canvas', saveImage);
   $(document).on('click', '.mirador-icon-save-image', saveImage);
 
-  History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
-    var State = History.getState(); // Note: We are using History.getState() instead of event.state
+  hMirador.History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
+    var State = hMirador.History.getState(); // Note: We are using History.getState() instead of event.state
   });
 
   var state_replacer = function (e, cvs_data){
     hMirador.History.replaceState({}, document.title, constructUrl());
   };
 
-  $.subscribe("windowUpdated", function (e, data){
+  hMirador.subscribe("windowUpdated", function (e, data){
     hMirador.History.replaceState({}, document.title, constructUrl());
-    $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
-    $.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+    hMirador.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+    hMirador.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     console.log("currentCanvasIDUpdated." + data.id);
   });
 
-  $.subscribe("windowAdded", function (e, data) {
-    $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
-    $.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+  hMirador.subscribe("windowAdded", function (e, data) {
+    hMirador.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+    hMirador.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     console.log("currentCanvasIDUpdated." + data.id);
   });
 
-  $.subscribe("windowRemoved", function (e, data) {
-    $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+  hMirador.subscribe("windowRemoved", function (e, data) {
+    hMirador.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     hMirador.History.replaceState({}, document.title, constructUrl(data.id));
     console.log("currentCanvasIDUpdated." + data.id);
   });
