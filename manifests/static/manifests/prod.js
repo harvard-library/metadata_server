@@ -655,22 +655,23 @@ $(function() {
 
   var state_replacer = function (e, cvs_data){
     History.replaceState({}, document.title, constructUrl());
+    console.log("state replacer invoked");
   };
 
-  hMirador.subscribe("windowUpdated", function (e, data){
+  $.subscribe("windowUpdated", function (e, data){
     History.replaceState({}, document.title, constructUrl());
     $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     $.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     console.log("currentCanvasIDUpdated." + data.id);
   });
 
-  hMirador.subscribe("windowAdded", function (e, data) {
+  $.subscribe("windowAdded", function (e, data) {
     $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     $.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     console.log("currentCanvasIDUpdated." + data.id);
   });
 
-  hMirador.subscribe("windowRemoved", function (e, data) {
+  $.subscribe("windowRemoved", function (e, data) {
     $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     History.replaceState({}, document.title, constructUrl(data.id));
     console.log("currentCanvasIDUpdated." + data.id);
