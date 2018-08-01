@@ -659,20 +659,20 @@ $(function() {
 
   hMirador.subscribe("windowUpdated", function (e, data){
     History.replaceState({}, document.title, constructUrl());
-    hMirador.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
-    hMirador.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+    $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+    $.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     console.log("currentCanvasIDUpdated." + data.id);
   });
 
   hMirador.subscribe("windowAdded", function (e, data) {
-    hMirador.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
-    hMirador.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+    $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+    $.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     console.log("currentCanvasIDUpdated." + data.id);
   });
 
   hMirador.subscribe("windowRemoved", function (e, data) {
-    hMirador.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
-    hMirador.History.replaceState({}, document.title, constructUrl(data.id));
+    $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+    History.replaceState({}, document.title, constructUrl(data.id));
     console.log("currentCanvasIDUpdated." + data.id);
   });
 
