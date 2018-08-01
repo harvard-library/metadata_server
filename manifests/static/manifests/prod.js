@@ -164,7 +164,6 @@ $(function() {
   };
 
   var constructUrl = function (omit_id) {
-    console.log("constructUrl invoked");
     var object_ids = $.map(hMirador.viewer.workspace.slots, function (slot, i) {
       var mirWindow = slot.window;
       if (mirWindow) {
@@ -177,19 +176,15 @@ $(function() {
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
         if (mirWindow.id === omit_id) {
           //pass
-	  console.log("constructUrl: pass");
         }
         else if (drs_match) {
-	   console.log("constructUrl: drs:" + drs_id + '$' + n + ftype_alias[focusType]);
           return 'drs:' + drs_id + '$' + n + ftype_alias[focusType];
         }
         else {
-	  console.log("constructUrl: ext:" + Base64.encode(uri).replace(/\+/g, '-').replace(/\//g, '_') + '$' + n + ftype_alias[focusType]);
           return "ext:" + Base64.encode(uri).replace(/\+/g, '-').replace(/\//g, '_') + '$' + n + ftype_alias[focusType];
         }
       }
     });
-    console.log("constructUrl: " + object_ids.join(";") );
     return object_ids.join(";");
   };
 
@@ -660,7 +655,6 @@ $(function() {
 
   var state_replacer = function (e, cvs_data){
     History.replaceState({}, document.title, constructUrl());
-    console.log("state replacer invoked");
   };
 
   var ee = hMirador.eventEmitter;
@@ -668,19 +662,16 @@ $(function() {
     History.replaceState({}, document.title, constructUrl());
     ee.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     ee.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
-    console.log("currentCanvasIDUpdated." + data.id);
   });
 
   ee.subscribe("windowAdded", function (e, data) {
     ee.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     ee.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
-    console.log("currentCanvasIDUpdated." + data.id);
   });
 
   ee.subscribe("windowRemoved", function (e, data) {
     ee.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     History.replaceState({}, document.title, constructUrl(data.id));
-    console.log("currentCanvasIDUpdated." + data.id);
   });
 
 });
