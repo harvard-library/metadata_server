@@ -654,23 +654,26 @@ $(function() {
   });
 
   var state_replacer = function (e, cvs_data){
-    History.replaceState({}, document.title, constructUrl());
+    hMirador.History.replaceState({}, document.title, constructUrl());
   };
 
   $.subscribe("windowUpdated", function (e, data){
-    History.replaceState({}, document.title, constructUrl());
+    hMirador.History.replaceState({}, document.title, constructUrl());
     $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     $.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+    console.log("currentCanvasIDUpdated." + data.id);
   });
 
   $.subscribe("windowAdded", function (e, data) {
     $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
     $.subscribe("currentCanvasIDUpdated." + data.id, state_replacer);
+    console.log("currentCanvasIDUpdated." + data.id);
   });
 
   $.subscribe("windowRemoved", function (e, data) {
     $.unsubscribe("currentCanvasIDUpdated." + data.id, state_replacer);
-    History.replaceState({}, document.title, constructUrl(data.id));
+    hMirador.History.replaceState({}, document.title, constructUrl(data.id));
+    console.log("currentCanvasIDUpdated." + data.id);
   });
 
 });
