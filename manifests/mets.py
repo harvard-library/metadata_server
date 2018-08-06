@@ -312,11 +312,12 @@ def translate_range(range_dict, prefix, manifest_uri):
     if not parent_range['ranges']:
         del parent_range['ranges']
     return parent_range, range_list
- def translate_ranges(mets_ranges, manifest_uri):
+
+def translate_ranges(mets_ranges, manifest_uri):
     """
-    returns list of iiif ranges
+     returns list of iiif ranges
      mets_ranges: list of one dict
-    manifest_uri: includes protocol://hostname:port/path_prefix
+     manifest_uri: includes protocol://hostname:port/path_prefix
     """
     parent_range, child_range = translate_range(mets_ranges[0], '0', manifest_uri)
     toc = child_range[0]
