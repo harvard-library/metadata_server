@@ -51,11 +51,11 @@ var DownloadButton = {
           if ( size > maxWidth ) {
 	    id = "download_" + size.toString();
 	    var dLink = document.getElementById(id);
-	    dLink.addClass('disabled');
+	    $(id).addClass('disabled');
           } else {
 	    id = "download_" + size.toString();
 	    var dLink = document.getElementById(id);
-	    dLink.removeClass('disabled');
+	    $(id).removeClass('disabled');
 	  }
 	}
 
