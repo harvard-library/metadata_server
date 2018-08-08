@@ -46,12 +46,14 @@ var DownloadButton = {
 	maxHeight = jsonResponse["maxHeight"];
 	maxWidth = jsonResponse["maxWidth"];
 	console.log("maxWidth is: " + maxWidth);
+	console.log("currentImageId is: " + currentImageId);
 	
 	var sizes = [300,600,1200,2400];
 	for(var i=0, len=sizes.length; i < len; i++){
 	  size = sizes[i];
           if ( size > maxWidth ) {
 	    id = currentImageId + "_" + size.toString();
+	    console.log("dom id is: " + id);
 	    var dLink = document.getElementById(id);
 	    //dLink.parentNode.removeChild(dLink);
 	    dLink.style.visibility = "none";
