@@ -56,8 +56,8 @@ var DownloadButton = {
           }
 	}
 
-   //};
-   //req.send(null);
+   };
+   req.send(null);
 
     var imageUrls = [];
     //['full', '250,'].forEach(function(size){
@@ -73,8 +73,6 @@ var DownloadButton = {
 
     return imageUrls;
 
-   };
-   req.send(null);
 
   },
 
