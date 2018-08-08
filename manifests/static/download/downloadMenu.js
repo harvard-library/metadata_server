@@ -40,6 +40,7 @@ var DownloadButton = {
    req.overrideMimeType("application/json");
    req.open('GET', imageInfoUrl, true);
    req.onload  = function() {
+	console.log("extractImageUrls: " + imageInfoUrl);
    	var jsonResponse = JSON.parse(req.responseText);
 	var sizes = jsonResponse["sizes"];
 	maxHeight = jsonResponse["maxHeight"];
@@ -55,8 +56,8 @@ var DownloadButton = {
           }
 	}
 
-   };
-   req.send(null);
+   //};
+   //req.send(null);
 
     var imageUrls = [];
     //['full', '250,'].forEach(function(size){
@@ -71,6 +72,9 @@ var DownloadButton = {
     }.bind(this));
 
     return imageUrls;
+
+   };
+   req.send(null);
 
   },
 
