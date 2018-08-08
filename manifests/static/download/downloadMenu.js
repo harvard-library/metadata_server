@@ -48,13 +48,10 @@ var DownloadButton = {
 	var sizes = [300,600,1200,2400];
 	for(var i=0, len=sizes.length; i < len; i++){
 	  size = sizes[i];
+	  id = "#download_" + size.toString();
           if ( size > maxWidth ) {
-	    id = "download_" + size.toString();
-	    var dLink = document.getElementById(id);
 	    $(id).addClass('disabled');
           } else {
-	    id = "download_" + size.toString();
-	    var dLink = document.getElementById(id);
 	    $(id).removeClass('disabled');
 	  }
 	}
