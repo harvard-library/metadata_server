@@ -50,9 +50,9 @@ var DownloadButton = {
 	  size = sizes[i];
 	  id = "#download_" + size.toString();
           if ( size > maxWidth ) {
-	    $(id).addClass('disabled').hide();
+	    $(id).addClass('disabled');
           } else {
-	    $(id).removeClass('disabled').show();
+	    $(id).removeClass('disabled');
 	  }
 	}
 
