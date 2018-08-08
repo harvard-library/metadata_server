@@ -40,13 +40,10 @@ var DownloadButton = {
    req.overrideMimeType("application/json");
    req.open('GET', imageInfoUrl, true);
    req.onload  = function() {
-	console.log("extractImageUrls: " + imageInfoUrl);
    	var jsonResponse = JSON.parse(req.responseText);
 	var sizes = jsonResponse["sizes"];
 	maxHeight = jsonResponse["maxHeight"];
 	maxWidth = jsonResponse["maxWidth"];
-	console.log("maxWidth is: " + maxWidth);
-	console.log("currentImageId is: " + currentImageId);
 	
 	var sizes = [300,600,1200,2400];
 	for(var i=0, len=sizes.length; i < len; i++){
@@ -55,8 +52,7 @@ var DownloadButton = {
 	    id = "download_" + size.toString();
 	    console.log("dom id is: " + id);
 	    var dLink = document.getElementById(id);
-	    //dLink.parentNode.removeChild(dLink);
-	    dLink.style.visibility = "hidden";
+	    dLink.style.visibility = "none";
           } else {
 	    id = "download_" + size.toString();
 	    var dLink = document.getElementById(id);
