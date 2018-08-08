@@ -52,12 +52,16 @@ var DownloadButton = {
 	for(var i=0, len=sizes.length; i < len; i++){
 	  size = sizes[i];
           if ( size > maxWidth ) {
-	    id = currentImageId + "_" + size.toString();
+	    id = "download_" + size.toString();
 	    console.log("dom id is: " + id);
 	    var dLink = document.getElementById(id);
 	    //dLink.parentNode.removeChild(dLink);
-	    dLink.style.visibility = "none";
-          }
+	    dLink.style.visibility = "hidden";
+          } else {
+	    id = "download_" + size.toString();
+	    var dLink = document.getElementById(id);
+	    dLink.style.visibility = "visible";
+	  }
 	}
 
    };
@@ -71,7 +75,7 @@ var DownloadButton = {
             'imageBaseUrl': imageBaseUrl, 'size': size
           }),
           'title': size === 'full' ? currentImage.width + 'x' + currentImage.height : parseInt(size) + ' x ' + Math.ceil(parseInt(size) * ratio),
-          'sizeLabel': sizeLabels[parseInt(size)], 'id': currentImageId + "_" + parseInt(size)
+          'sizeLabel': sizeLabels[parseInt(size)], 'id': "download_" + parseInt(size)
         });
     }.bind(this));
 
