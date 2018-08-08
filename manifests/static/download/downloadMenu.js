@@ -50,13 +50,12 @@ var DownloadButton = {
 	  size = sizes[i];
           if ( size > maxWidth ) {
 	    id = "download_" + size.toString();
-	    console.log("dom id is: " + id);
 	    var dLink = document.getElementById(id);
-	    dLink.style.visibility = "none";
+	    dLink.addClass('disabled');
           } else {
 	    id = "download_" + size.toString();
 	    var dLink = document.getElementById(id);
-	    dLink.style.visibility = "visible";
+	    dLink.removeClass('disabled');
 	  }
 	}
 
