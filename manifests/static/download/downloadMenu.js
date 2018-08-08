@@ -52,7 +52,8 @@ var DownloadButton = {
           if ( size > maxWidth ) {
 	    id = currentImageId + "_" + size.toString();
 	    var dLink = document.getElementById(id);
-	    dLink.parentNode.removeChild(dLink);
+	    //dLink.parentNode.removeChild(dLink);
+	    dLink.style.visibility = "hidden";
           }
 	}
 
