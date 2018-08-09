@@ -90,7 +90,7 @@ def main(data, document_id, source, host, cookie=None):
 		except:
 		  pass
 
-		if ( ('file_mix_imageHeight_num' not in cvs.keys()) or ('file_mix_imageWidth_num' not in cvs.keys()) ):
+		if ( ('file_mix_imageHeight_num' not in cvs) or ('file_mix_imageWidth_num' not in cvs) ):
 		    try: #call ids for info.json dimensions if missing from solr feed
 		      infoReq = requests.get(imageUriBase + str(cvs['file_id_num']) + '/info.json')
 		      if (infoReq.status_code == 200):
