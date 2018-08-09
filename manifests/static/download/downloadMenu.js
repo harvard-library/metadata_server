@@ -49,7 +49,7 @@ var DownloadButton = {
 	for(var i=0, len=sizes.length; i < len; i++){
 	  size = sizes[i];
 	  id = "#download_" + size.toString();
-          if ( size > maxWidth ) {
+          if ( (size > maxWidth) && (size > maxHeight)) {
 	    $(id).addClass('disabled');
           } else {
 	    $(id).removeClass('disabled');
