@@ -90,6 +90,18 @@ def main(data, document_id, source, host, cookie=None):
 		except:
 		  pass
 
+		try: #call ids for info.json dimensions if missing from solr feed
+		  if ( ('file_mix_imageHeight_num' not in cvs.keys()) or ('file_mix_imageWidth_num' not in cvs.keys()) )
+		    infoReq = requests.get(imageUriBase + str(cvs['file_id_num'] + '/info.json')
+		    if (infoReq.status_code == 200):
+	 	      info_json = json.loads(infoReq.text)
+		      if ('height' in info_json.keys):
+		        cvs['file_mix_imageHeight_num'] = info_json['height']
+		      if ('width' in info_json.keys):
+	 	        cvs['file_mix_imageWidth_num'] = info_json['width'] 
+		except:
+		  pass
+
 		cvsjson = {
 			"@id": manifest_uri + "/canvas/canvas-%s.json" % str(cvs['file_id_num']),
 			"@type": "sc:Canvas",
