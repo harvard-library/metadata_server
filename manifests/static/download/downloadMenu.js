@@ -64,17 +64,16 @@ var DownloadButton = {
     //['full', '250,'].forEach(function(size){
     ['300','600','1200','2400'].forEach(function(size){
 	var sHeight = Math.ceil(parseInt(size) * ratio);
-	if ( (size > maxWidth) && (sHeight > maxHeight)) {
-	  return;
-	}
-        imageUrls.push({
+	if ( (size < maxWidth) && (sHeight < maxHeight)) {
+         imageUrls.push({
           'href': viewerWindow.currentImageMode !== 'ImageView' ? '#' : this.imageUrlTemplate({
             'imageBaseUrl': imageBaseUrl, 'size': size
           }),
           'title': size === 'full' ? currentImage.width + 'x' + currentImage.height : parseInt(size) + ' x ' + sHeight,
           'sizeLabel': sizeLabels[parseInt(size)], 'id': "download_" + parseInt(size)
-        });
-    }.bind(this));
+          });
+         }.bind(this));
+	}
 
     return imageUrls;
 
