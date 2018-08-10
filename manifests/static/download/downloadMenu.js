@@ -49,7 +49,6 @@ var DownloadButton = {
 	for(var i=0, len=sizes.length; i < len; i++){
 	  size = sizes[i];
 	  var scaledHeight = Math.ceil(size * ratio);
-	  console.log( size + " x " + scaledHeight);
 	  id = "#download_" + size.toString();
           if ( (size > maxWidth) && (scaledHeight > maxHeight)) {
 	    $(id).addClass('disabled');
@@ -64,11 +63,15 @@ var DownloadButton = {
     var imageUrls = [];
     //['full', '250,'].forEach(function(size){
     ['300','600','1200','2400'].forEach(function(size){
+	var sHeight = Math.ceil(parseInt(size) * ratio);
+	if ( (size > maxWidth) && (sHeight > maxHeight)) {
+	  return;
+	}
         imageUrls.push({
           'href': viewerWindow.currentImageMode !== 'ImageView' ? '#' : this.imageUrlTemplate({
             'imageBaseUrl': imageBaseUrl, 'size': size
           }),
-          'title': size === 'full' ? currentImage.width + 'x' + currentImage.height : parseInt(size) + ' x ' + Math.ceil(parseInt(size) * ratio),
+          'title': size === 'full' ? currentImage.width + 'x' + currentImage.height : parseInt(size) + ' x ' + sHeight,
           'sizeLabel': sizeLabels[parseInt(size)], 'id': "download_" + parseInt(size)
         });
     }.bind(this));
