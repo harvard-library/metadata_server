@@ -1,7 +1,7 @@
 var DownloadButton = {
   /* the template for the image urls */
   imageUrlTemplate: Mirador.Handlebars.compile(
-    '{{imageBaseUrl}}/full/!{{size}},{{size}}/0/default.jpg?download&caption'
+    '{{imageBaseUrl}}/full/{{size}}},/0/default.jpg?download&caption'
   ),
 
   /* the template for the link button */
@@ -48,8 +48,9 @@ var DownloadButton = {
 	var sizes = [300,600,1200,2400];
 	for(var i=0, len=sizes.length; i < len; i++){
 	  size = sizes[i];
+	  var scaledHeight = Math.ceil(size * ratio);
 	  id = "#download_" + size.toString();
-          if ( (size > maxWidth) && (size > maxHeight)) {
+          if ( (size > maxWidth) && (scaledHeight > maxHeight)) {
 	    $(id).addClass('disabled');
           } else {
 	    $(id).removeClass('disabled');
