@@ -319,7 +319,7 @@ def translate_ranges(mets_ranges, manifest_uri):
      mets_ranges: list of one dict
      manifest_uri: includes protocol://hostname:port/path_prefix
     """
-    parent_range, child_range = translate_range(mets_ranges[0], '0', manifest_uri)
+    parent_range, child_range = translate_range(mets_ranges[0], '1', manifest_uri)
     toc = child_range[0]
     # per iiif prezi 2.0, table of contents should have viewingHint
     toc['viewingHint'] = 'top'
