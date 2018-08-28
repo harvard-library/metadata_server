@@ -2145,7 +2145,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 }
 .mirador-container .window-manifest-navigation {
   float: right;
-  width: 24%;
+  width: 400px;
   text-align: right;
   padding-right: 10px;
   font-size: 16px;
