@@ -62,7 +62,7 @@ var DownloadButton = {
 
     var imageUrls = [];
     //['full', '250,'].forEach(function(size){
-    ['300','600','1200','2400'].forEach(function(size){
+    ['300','800','1200','2400'].forEach(function(size){
 	var sHeight = Math.ceil(parseInt(size) * ratio);
 	var sizeVal = parseInt(size);
 	var iiifUrl = imageBaseUrl;
