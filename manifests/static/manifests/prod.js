@@ -457,7 +457,7 @@ $(function() {
         $dialog = $('<div id="print-modal" style="display:none" />');
         $dialog.html(t['print-tmpl'](content));
         $dialog
-          .dialog($.extend({title: "Convert to PDF for Printing"}, dialogBaseOpts))
+          .dialog($.extend({title: "Print/Save PDF"}, dialogBaseOpts))
           .dialog('open');
 
         //set default print range max/min values
