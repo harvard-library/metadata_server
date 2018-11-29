@@ -131,13 +131,17 @@
 
   <script id="print-tmpl" type="text/x-handlebars-template">
     <div title="Print"  class="print dialog {{ op }}" style="margin: 10px; padding: 5px;">
-      <!--<h3>Convert to PDF for Printing</h3>-->
+      <!--<h3>Print/Save PDF</h3>-->
        <div>
-        <b>Print:</b> <i>{{ label }}</i>
-        <p>Convert selected pages to PDF so that you can print or save the file to disk.  The service creates PDFs at 10 pages&ndash;per&ndash;minute.  Requests larger than 500 pages can take an hour or more to process.  The link to your PDF will remain active for 7 days.</p>
+        <b>Print or save:</b> <i>{{ label }}</i>
+        <p>Use this form to request one or more pages in PDF format for printing or saving. Requests for 10 pages or less will be delivered directly to your browser. For larger requests, enter your email below and we will send a link to the PDF when the conversion is complete. The link will be valid for 7 days.</p>
 
-        <p style="color: #A51C30; font-weight: bold;">Requests for 10 pages or less will be delivered to your browser immediately. For larger requests, please enter an email address and a link to the PDF will be delivered by email.</p>
-        <p><span style="font-weight: bold;">Firefox users:</span> To open large PDFs, go to Tools &gt; Options &gt; Applications and set Firefox to open Adobe Documents in Adobe Acrobat (not in "Adobe Acrobat in Firefox").</p>
+        <p>Tips on requesting a PDF:</p>
+	<ul>
+	  <li>The PDF conversion rate is approx. 10 pages per minute. Large requests can take an hour or more to process.</li>
+	  <li>To request a range of pages, use page sequence numbers rather than printed page numbers. Sequence numbers appear in parentheses – e.g., (seq. 1); look for them in the left-hand table of contents or mouse over the page thumbnail at the bottom of the viewer.</li>
+	</ul>
+
        </div>
 
        <div id="printmsg" style="text-align: center">&nbsp;</div>
@@ -148,16 +152,16 @@
          <input type="hidden" name="n" id="n" value="{{ n }}"/>
          <input type="hidden" name="id" id="drs_id" value="{{ drs_id }}"/>
          <input type="hidden" name="img_id" id="img_id" value="{{ img_id }}"/>
-         <label for="printOptDefault"><input type="radio" name="printOpt" value="current" id="printOptDefault" checked />&nbsp;Convert current page</label><br/>
-         <label for="printOptSequence"><input type="radio" id="printOptSequence" name="printOpt" value="range"  />&nbsp;Convert page sequence</label>
-         <input type="text" id="start" name="start" size="6" onclick="javascript:document.printpds.printOpt[1].checked=true;" value="" /> to
+         <label for="printOptDefault"><input type="radio" name="printOpt" value="current" id="printOptDefault" checked />&nbsp;Convert the current page</label><br/>
+         <label for="printOptSequence"><input type="radio" id="printOptSequence" name="printOpt" value="range"  />&nbsp;Convert a range: from seq.</label>
+         <input type="text" id="start" name="start" size="6" onclick="javascript:document.printpds.printOpt[1].checked=true;" value="" /> to seq.
          <input type="text" id="end" name="end" size="6" onclick="javascript:document.printpds.printOpt[1].checked=true;" value=""/><br/>
          <label for="printOptEntire"><input type="radio" name="printOpt" id="printOptEntire" value="all"  />&nbsp;Convert entire document</label><br/>
-         Email address: <input type="text" id="email" name="email" size="50" onclick="" value=""/><br />
+         For requests of more than 10 pages, enter your email address so that we can send a link to the PDF when the conversion is complete: <input type="text" id="email" name="email" size="50" onclick="" value=""/><br />
 
           <div style="margin-right: 10px; margin-top: 5px;">
-            <input type="button"  value="Clear Form"    id="pdsclear" name="pdsclear" />
-            <input type="submit"  value="Convert"   id="pdssubmit" name="pdssubmit"/>
+            <input type="button"  value="Cancel"    id="pdsclear" name="pdsclear" />
+            <input type="submit"  value="Convert to PDF"   id="pdssubmit" name="pdssubmit"/>
           </div>
          </form>
        </div>
