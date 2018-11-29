@@ -69,7 +69,7 @@ $(function() {
         return;
       } else if ( ((end - start) >= 10)  && (!emailValid) ){
         $('#printmsg').css('color', '#A51C30');
-        $('#printmsg').html('<b>Please limit your page sequence range to a maximum of 10 pages for instant printing or enter your email address to have your larger selection sent to you.</b>');
+        $('#printmsg').html('<b>For requests over 10 pages, enter your email below and we will send a link to the PDF when the conversion is complete.</b>');
         return;
       } 
       if ((end - start) >= 10) {
