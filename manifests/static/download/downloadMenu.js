@@ -33,7 +33,7 @@ var DownloadButton = {
     var imageInfoUrl = imageBaseUrl + "/info.json";
 
 
-   var sizeLabels = { 300 : 'Small', 600 : 'Medium', 1200 : 'Large', 2400 :'X-Large' };
+   var sizeLabels = { 300 : 'Small', 800 : 'Medium', 1200 : 'Large', 2400 :'X-Large' };
    var maxWidth = 2400;
    var maxHeight = 2400;
    var req = new XMLHttpRequest();
