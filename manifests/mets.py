@@ -279,57 +279,6 @@ def create_ranges(ranges, previous_id, manifest_uri):
 		create_range_json(new_ranges, manifest_uri, range_id, previous_id, label)
 		create_ranges(new_ranges, range_id, manifest_uri)
 
-
-### new methods (naomi) for iiif 2.0 toc
-###################
-#
-# changes to create a prezi 2.0 table of contents
-#
-def translate_range(range_dict, prefix, manifest_uri):
-    # assume it's a dict, and it has only one item
-    k = list(range_dict.keys())[0]
-    v = range_dict[k]
-    parent_range = {
-        '@id': '{0}/range/range-{1}.json'.format(manifest_uri, prefix),
-        '@type': 'sc:Range',
-        'label': k,
-        'canvases': [],
-        'ranges': [],
-    }
-    range_list = [parent_range]
-    if isinstance(v, str):  # one canvas
-        parent_range['canvases'].append('{0}/canvas/canvas-{1}.json'.format(
-            manifest_uri, v))
-    if isinstance(v, list): # v might be list of canvases or nested ranges
-        for i, item in enumerate(v):  # assume v it's a list of str or dicts
-            new_prefix = '{}-{}'.format(prefix, i)
-            child_range, r_list = translate_range(item, new_prefix, manifest_uri)
-            parent_range['ranges'].append(child_range['@id'])
-            range_list += r_list
-    # remove empty lists
-    if not parent_range['canvases']:
-        del parent_range['canvases']
-    if not parent_range['ranges']:
-        del parent_range['ranges']
-    return parent_range, range_list
-
-def translate_ranges(mets_ranges, manifest_uri):
-    """
-     returns list of iiif ranges
-     mets_ranges: list of one dict
-     manifest_uri: includes protocol://hostname:port/path_prefix
-    """
-    parent_range, child_range = translate_range(mets_ranges[0], '0', manifest_uri)
-    toc = child_range[0]
-    # per iiif prezi 2.0, table of contents should have viewingHint
-    toc['viewingHint'] = 'top'
-    return child_range
-#
-# changes to create a prezi 2.0 table of contents
-#
-###################
-
-
 def main(data, document_id, source, host, cookie=None):
 
 	# clear global variables
@@ -557,7 +506,7 @@ def main(data, document_id, source, host, cookie=None):
 	rangeInfo = [{"Table of Contents" : rangeList}]
 
 	mfjson = {
-		"@context":"http://iiif.io/api/presentation/2/context.json",
+		"@context":"http://iiif.io/api/presentation/1/context.json",
 		"@id": manifest_uri,
 		"@type":"sc:Manifest",
 		"label":manifestLabel,
@@ -664,12 +613,10 @@ def main(data, document_id, source, host, cookie=None):
 			uniqCanvases[cvs['image']] = True 
 
 	# build table of contents using Range and Structures
-	#create_ranges(rangeInfo, manifest_uri, manifest_uri)
-	iiif2_toc = translate_ranges(rangeInfo, manifest_uri)
+	create_ranges(rangeInfo, manifest_uri, manifest_uri)
 
 	mfjson['sequences'][0]['canvases'] = canvases
-	#mfjson['structures'] = rangesJsonList
-	mfjson['structures'] = iiif2_toc
+	mfjson['structures'] = rangesJsonList
 
 	#logger.debug("Dumping json for DRS2 object " + str(document_id) )
 	output = json.dumps(mfjson, indent=4, sort_keys=True)
