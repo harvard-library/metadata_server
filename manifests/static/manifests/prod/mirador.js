@@ -48484,9 +48484,9 @@ $.SearchWithinResults.prototype = {
         defaultZoomLevel: 0,
         blendTime:        0.1,
         alwaysBlend:      false,
-	crossOriginPolicy: 'Anonymous',
+	/* crossOriginPolicy: 'Anonymous',
         loadTilesWithAjax: true,
-        ajaxWithCredentials: true,
+        ajaxWithCredentials: true,*/
         showNavigationControl: false
       }, options)
 
