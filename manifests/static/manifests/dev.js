@@ -4,7 +4,7 @@
   var hMirador = Mirador.viewer({
     "id": "viewer",
     "windows": [ l.MIRADOR_WOBJECTS ],
-    "manifests": {}
+    "manifests": {"https://media.nga.gov/public/manifests/nga_highlights.json": { provider: "National Gallery of Art"}}
   });
 
   var ftype_alias = {
