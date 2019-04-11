@@ -167,7 +167,6 @@ def view(request, view_type, document_id):
 
             if view_type == "view-dev": #mirador 3 preview
               mfwobject = {"loadedManifest": uri,
-                           "canvasIndex": 0,
                            "thumbnailNavigationPosition": "far-bottom"}
 
             # Load manifest as JSON, get sequence info, use canvasID to page into object
