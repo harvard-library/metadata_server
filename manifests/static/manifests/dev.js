@@ -5,7 +5,7 @@
 
   var hMirador = Mirador.viewer({
     "id": "viewer",
-    "windows": [ l.MIRADOR_WOBJECTS ]
+    "windows": l.MIRADOR_WOBJECTS 
   });
 
 /*
