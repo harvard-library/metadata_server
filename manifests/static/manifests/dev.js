@@ -1,12 +1,14 @@
   // Localize & shorthand django vars
   var l = window.harvard_md_server;
 
+  console.log(l.MIRADOR_WOBJECTS);
+
   var hMirador = Mirador.viewer({
     "id": "viewer",
-    "windows": [ l.MIRADOR_WOBJECTS ],
-    "manifests": {"https://media.nga.gov/public/manifests/nga_highlights.json": { provider: "National Gallery of Art"}}
+    "windows": [ l.MIRADOR_WOBJECTS ]
   });
 
+/*
   var ftype_alias = {
     'ImageView': 'i',
     'BookView': 'b',
@@ -38,3 +40,4 @@
     });
     return object_ids.join(";");
   };
+*/
