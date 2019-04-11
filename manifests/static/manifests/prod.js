@@ -111,7 +111,7 @@ $(function() {
     "id": "viewer",
     "layout": l.LAYOUT,
     "saveSession": false,
-    "buildPath": "../../static/manifests/prod",
+    "buildPath": "../../",
     "mainMenuSettings" : {
       "buttons": {
          bookmark: false,
