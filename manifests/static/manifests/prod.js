@@ -174,7 +174,11 @@ $(function() {
 	    drs_match = parts[last_idx].match(/drs:(\d+)/),
             drs_id = drs_match && drs_match[1],
             focusType = mirWindow.currentImageMode,
-            n = mirWindow.focusModules[focusType].currentImgIndex + 1;
+            n = 1;
+        var n;
+        if (mirWindow.focusModules[focusType] !== null)  {
+          n = mirWindow.focusModules[focusType].currentImgIndex + 1;
+        }
         if (mirWindow.id === omit_id) {
           //pass
         }
