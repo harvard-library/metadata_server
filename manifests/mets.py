@@ -209,11 +209,11 @@ def process_struct_divs(div, ranges):
                         ranges.append(p_range)
         else:
                 subdivs = div.xpath('./mets:div', namespaces = XMLNS)
-		logger.debug("process_st_divs: div: " + str(div) )
-		logger.debug("process_st_divs: subdivs: " + str(subdivs) )
+		logger.debug("process_st_divs: div: " + div.get('LABEL') )
+		#logger.debug("process_st_divs: subdivs: " + str(subdivs) )
                 if len(subdivs) > 0:
                         ranges.append(process_intermediate(div))
-			logger.debug("process_st_divs: appended range of div: " + str(div) )
+			logger.debug("process_st_divs: appended range of div: " + div.get('LABEL') )
 
 	return ranges
 
