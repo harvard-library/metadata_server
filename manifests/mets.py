@@ -181,7 +181,7 @@ def get_intermediate_seq_values(first, last):
 
         # Drill down to first page
         while first.get('TYPE') == 'INTERMEDIATE':
-		logger.debug("get_int_seq_val: " + first.get('LABEL') )
+		logger.debug("get_int_seq_val: first: " + first.get('LABEL') )
                 first = first[0]
 
         if first.get('TYPE') == 'PAGE':
@@ -189,12 +189,13 @@ def get_intermediate_seq_values(first, last):
 
         # Drill down last page
         while last.get('TYPE') == 'INTERMEDIATE':
-		logger.debug("get_int_seq_val: " + last.get('LABEL') )
+		logger.debug("get_int_seq_val: last: " + last.get('LABEL') )
                 last = last[-1]
 
         if last.get('TYPE') == 'PAGE':
                 last_vals = {"seq": last.get('ORDER'), "page": page_num(last)}
 
+	logger.debug("get_int_seq_values: first: " + str(first_vals) + " last: " + str(last_vals) )
         return first_vals, last_vals
 
 def process_struct_divs(div, ranges):
