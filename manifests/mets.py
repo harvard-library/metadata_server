@@ -181,6 +181,7 @@ def get_intermediate_seq_values(first, last):
 
         # Drill down to first page
         while first.get('TYPE') == 'INTERMEDIATE':
+		logger.debug("get_int_seq_val: " + first.get('LABEL') )
                 first = first[0]
 
         if first.get('TYPE') == 'PAGE':
@@ -188,6 +189,7 @@ def get_intermediate_seq_values(first, last):
 
         # Drill down last page
         while last.get('TYPE') == 'INTERMEDIATE':
+		logger.debug("get_int_seq_val: " + last.get('LABEL') )
                 last = last[-1]
 
         if last.get('TYPE') == 'PAGE':
