@@ -279,6 +279,7 @@ def create_ranges(ranges, previous_id, manifest_uri):
 	for ri in ranges:
 		counter = counter + 1
 		label = ri.keys()[0]
+		logger.debug("create_ranges: " + label)
 		if previous_id == manifest_uri:
 			# these are for the top level divs
 			range_id = manifest_uri + "/range/range-%s.json" % counter
