@@ -215,8 +215,10 @@ def process_struct_divs(div, ranges):
 		logger.debug("process_st_divs: div: " + div.get('LABEL') )
 		#logger.debug("process_st_divs: subdivs: " + str(subdivs) )
                 if len(subdivs) > 0:
-                        ranges.append(process_intermediate(div))
-			logger.debug("process_st_divs: appended range of div: " + div.get('LABEL') )
+			n_range = process_intermediate(div)
+                        #ranges.append(process_intermediate(div))
+			logger.debug("process_st_divs: appended range of div: " + div.get('LABEL') + " range: " + str(n_range) )
+			ranges.append(n_range)
 
 	logger.debug("process_st_divs: ranges: " + str(ranges) ) 
 	return ranges
