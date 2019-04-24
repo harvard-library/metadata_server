@@ -157,8 +157,9 @@ def process_intermediate(div, new_ranges=None):
                 else:
 			logger.debug("process_intermediate: processing int div: " + div.get('LABEL') )
                         my_range = process_intermediate(sd)
+			logger.debug("process_intermediate: my_range: " + str(my_range) )
                 if my_range:
-			logger.debug("process_intermediate: appending ranges for int div: " + div.get('LABEL') )
+			logger.debug("process_intermediate: appending ranges for int div: " + div.get('LABEL') + " range: " + str(my_range) )
                         new_ranges.append(my_range)
 
         # this is for the books where every single page is labeled (like Book of Hours)
