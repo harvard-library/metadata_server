@@ -217,6 +217,7 @@ def process_struct_divs(div, ranges):
                         ranges.append(process_intermediate(div))
 			logger.debug("process_st_divs: appended range of div: " + div.get('LABEL') )
 
+	logger.debug("process_st_divs: ranges: " + str(ranges) ) 
 	return ranges
 
 def process_structMap(smap):
