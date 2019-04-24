@@ -167,8 +167,9 @@ def process_intermediate(div, new_ranges=None):
 
                 return {get_rangeKey(div): new_ranges[0].values()[0]}
 
-	rkey = rangeKey = get_rangeKey(div)
+	rkey = get_rangeKey(div)
 	logger.debug("process_intermediate: returning ranges for int div: " + div.get('LABEL') + " new_ranges size: " + str(len(new_ranges))  + " range key: " + rkey)
+	logger.debug("process_intermediate: new_ranges: " + str(new_ranges) )
         return {get_rangeKey(div): new_ranges}
 
 
@@ -185,7 +186,6 @@ def get_intermediate_seq_values(first, last):
 
         # Drill down to first page
         while first.get('TYPE') == 'INTERMEDIATE':
-		logger.debug("get_int_seq_val: first: " + first.get('LABEL') )
                 first = first[0]
 
         if first.get('TYPE') == 'PAGE':
@@ -193,13 +193,11 @@ def get_intermediate_seq_values(first, last):
 
         # Drill down last page
         while last.get('TYPE') == 'INTERMEDIATE':
-		logger.debug("get_int_seq_val: last: " + last.get('LABEL') )
                 last = last[-1]
 
         if last.get('TYPE') == 'PAGE':
                 last_vals = {"seq": last.get('ORDER'), "page": page_num(last)}
 
-	logger.debug("get_int_seq_values: first: " + str(first_vals) + " last: " + str(last_vals) )
         return first_vals, last_vals
 
 def process_struct_divs(div, ranges):
