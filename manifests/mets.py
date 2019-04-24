@@ -156,7 +156,7 @@ def process_intermediate(div, new_ranges=None):
                         my_range = process_page(sd)
                 else:
 			logger.debug("process_intermediate: processing int div: " + div.get('LABEL') )
-                        my_range = process_intermediate(sd)
+                        my_range = process_intermediate(sd, new_ranges)
 			logger.debug("process_intermediate: my_range: " + str(my_range) )
                 if my_range:
 			logger.debug("process_intermediate: appending ranges for int div: " + div.get('LABEL') + " range: " + str(my_range) )
