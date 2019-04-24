@@ -171,7 +171,6 @@ def process_intermediate(div, new_ranges=None):
 	rkey = get_rangeKey(div)
 	logger.debug("process_intermediate: returning ranges for int div: " + div.get('LABEL') + " new_ranges size: " + str(len(new_ranges))  + " range key: " + rkey)
 	logger.debug("process_intermediate: new_ranges: " + str(new_ranges) )
-	new_ranges.append({get_rangeKey(div): new_ranges}) 
         return {get_rangeKey(div): new_ranges}
 
 
