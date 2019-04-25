@@ -156,7 +156,7 @@ def process_intermediate(div, new_ranges=None):
                         my_range = process_page(sd)
                 else:
 			logger.debug("process_intermediate: processing int div: " + div.get('LABEL') )
-                        my_range = process_intermediate(sd, new_ranges)
+                        my_range = process_intermediate(sd)
 			logger.debug("process_intermediate: my_range: " + str(my_range) )
                 if my_range:
 			logger.debug("process_intermediate: appending ranges for int div: " + div.get('LABEL') + " range: " + str(my_range) )
@@ -164,9 +164,9 @@ def process_intermediate(div, new_ranges=None):
 
         # this is for the books where every single page is labeled (like Book of Hours)
         # most books do not do this
-        #if len(new_ranges) == 1:
-		#logger.debug("process_intermediate: returning a new_range w/ len 1")
-                #return {get_rangeKey(div): new_ranges[0].values()[0]}
+        if len(new_ranges) == 1:
+		logger.debug("process_intermediate: returning a new_range w/ len 1")
+                return {get_rangeKey(div): new_ranges[0].values()[0]}
 
 	rkey = get_rangeKey(div)
 	logger.debug("process_intermediate: returning ranges for int div: " + div.get('LABEL') + " new_ranges size: " + str(len(new_ranges))  + " range key: " + rkey)
@@ -212,13 +212,8 @@ def process_struct_divs(div, ranges):
                         ranges.append(p_range)
         else:
                 subdivs = div.xpath('./mets:div', namespaces = XMLNS)
-		logger.debug("process_st_divs: div: " + div.get('LABEL') )
-		#logger.debug("process_st_divs: subdivs: " + str(subdivs) )
                 if len(subdivs) > 0:
-			n_range = process_intermediate(div)
-                        #ranges.append(process_intermediate(div))
-			logger.debug("process_st_divs: appended range of div: " + div.get('LABEL') + " range: " + str(n_range) )
-			ranges.append(n_range)
+                        ranges.append(process_intermediate(div))
 
 	logger.debug("process_st_divs: ranges: " + str(ranges) ) 
 	return ranges
