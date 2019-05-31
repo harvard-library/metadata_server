@@ -60,9 +60,9 @@ HTTP_PROTOCOL = os.environ.get('HTTP_PROTOCOL', 'http')
 IIIF = {
     "imageUriBase":     HTTP_PROTOCOL + '://' + os.environ.get('IMAGE_URI_BASE', 'ids.lib.harvard.edu/ids/iiif/'),
     "serviceBase":      HTTP_PROTOCOL + '://' + os.environ.get('SERVICE_BASE', 'ids.lib.harvard.edu/ids/iiif/'),
-    "imageUriSuffix":   "/full/full/0/native.jpg",
+    "imageUriSuffix":   "/full/full/0/default.jpg",
     "imageInfoSuffix":  "/info.json",
-    "thumbnailSuffix":	"/full/,150/0/native.jpg",
+    "thumbnailSuffix":	"/full/,150/0/default.jpg",
     "manifestUriTmpl":  HTTP_PROTOCOL + "://%s/manifests/",
     "profileLevel":     "http://iiif.io/api/image/2/level2.json",
     "context": 		"http://iiif.io/api/image/2/context.json",	
