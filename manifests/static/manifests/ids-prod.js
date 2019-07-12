@@ -67,12 +67,12 @@ $(function() {
         $('#printmsg').css('color', '#A51C30');
         $('#printmsg').html('<b>Please select a page sequence range between 1-' + totalSeq + ' pages.</b>');
         return;
-      } else if ( ((end - start) >= 10)  && (!emailValid) ){
+      } else if ( ((end - start) >= 9)  && (!emailValid) ){
         $('#printmsg').css('color', '#A51C30');
         $('#printmsg').html('<b>For requests over 10 pages, enter your email below and we will send a link to the PDF when the conversion is complete.</b>');
         return;
       } 
-      if ((end - start) >= 10) {
+      if ((end - start) >= 9) {
         url = url + '?printOpt=range' + '&start=' + start +
           '&end=' + end + '&email=' + email;
         xmlhttp.open('GET',url,true);
