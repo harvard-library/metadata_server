@@ -297,7 +297,6 @@ def translate_range(range_dict, prefix, manifest_uri):
     # assume it's a dict, and it has only one item
     k = list(range_dict.keys())[0]
     v = range_dict[k]
-    #logger.debug("translate_range: range label: " + str(k) )
     parent_range = {
         '@id': '{0}/range/range-{1}.json'.format(manifest_uri, prefix),
         '@type': 'sc:Range',
