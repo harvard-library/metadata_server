@@ -45,7 +45,7 @@ var DownloadButton = {
 	maxHeight = jsonResponse["maxHeight"];
 	maxWidth = jsonResponse["maxWidth"];
 	
-	var sizes = [300,600,1200,2400];
+	var sizes = [300,800,1200,2400];
 	for(var i=0, len=sizes.length; i < len; i++){
 	  size = sizes[i];
 	  var scaledHeight = Math.ceil(size * ratio);
