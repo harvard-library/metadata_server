@@ -48492,7 +48492,7 @@ $.SearchWithinResults.prototype = {
         blendTime:        0.1,
         alwaysBlend:      false,
 	crossOriginPolicy: 'Anonymous',
-        loadTilesWithAjax: true,
+        //loadTilesWithAjax: true,
         ajaxWithCredentials: true,
         showNavigationControl: false
       }, options)
