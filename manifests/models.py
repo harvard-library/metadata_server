@@ -10,7 +10,7 @@ ELASTICSEARCH_MAX_HIT_SIZE = settings.ELASTICSEARCH_MAX_HIT_SIZE
 
 # Connect to elasticsearch db
 def get_connection():
-    return Elasticsearch(ELASTICSEARCH_URL)
+    return Elasticsearch(ELASTICSEARCH_URL, use_ssl=True)
 
 # Gets the content of a manifest, returns JSON
 def get_manifest(manifest_id, source):
