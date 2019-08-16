@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from elasticsearch import Elasticsearch
+import certifi
 
 # Create your models here.
 
@@ -10,7 +11,7 @@ ELASTICSEARCH_MAX_HIT_SIZE = settings.ELASTICSEARCH_MAX_HIT_SIZE
 
 # Connect to elasticsearch db
 def get_connection():
-    return Elasticsearch(ELASTICSEARCH_URL, use_ssl=True)
+    return Elasticsearch(ELASTICSEARCH_URL, use_ssl=True,ca_certs=certifi.where())
 
 # Gets the content of a manifest, returns JSON
 def get_manifest(manifest_id, source):
