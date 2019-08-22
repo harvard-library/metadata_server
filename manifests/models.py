@@ -9,6 +9,9 @@ ELASTICSEARCH_URL = settings.ELASTICSEARCH_URL
 ELASTICSEARCH_INDEX = settings.ELASTICSEARCH_INDEX
 ELASTICSEARCH_MAX_HIT_SIZE = settings.ELASTICSEARCH_MAX_HIT_SIZE
 
+#indexes per doctype. now have to use separate indexes for elasticsearch 6.x+
+INDEX_TYPE = {"drs": ELASTICSEARCH_INDEX, "via": "via", "hollis": "hollis", "huam" : "huam", "ext": "ext", "ids": "ids" }
+
 # Connect to elasticsearch db
 def get_connection():
     return Elasticsearch(ELASTICSEARCH_URL, use_ssl=True,ca_certs=certifi.where())
@@ -16,27 +19,32 @@ def get_connection():
 # Gets the content of a manifest, returns JSON
 def get_manifest(manifest_id, source):
     es = get_connection()
-    return es.get(index=ELASTICSEARCH_INDEX, doc_type=source, id=manifest_id)["_source"]
+    idx = get_index(source)
+    return es.get(index=idx, doc_type=source, id=manifest_id)["_source"]
 
 # Inserts JSON document into elasticsearch with the given manifest_id
 # Either adds new document or replaces existing document
 def add_or_update_manifest(manifest_id, document, source):
     es = get_connection()
-    es.index(index=ELASTICSEARCH_INDEX, doc_type=source, id=manifest_id, body=document)
+    idx = get_index(source)
+    es.index(index=idx, doc_type=source, id=manifest_id, body=document)
 
 # Deletes manifest from elasticsearch (need to refresh index?)
 def delete_manifest(manifest_id, source):
     es = get_connection()
-    es.delete(index=ELASTICSEARCH_INDEX, doc_type=source, id=manifest_id)
+    idx = get_index(source)
+    es.delete(index=idx, doc_type=source, id=manifest_id)
 
 # Checks if manifest exists in elasticsearch, returns boolean
 def manifest_exists(manifest_id, source):
     es = get_connection()
-    return es.exists(index=ELASTICSEARCH_INDEX, doc_type=source, id=manifest_id)
+    idx = get_index(source)
+    return es.exists(index=idx, doc_type=source, id=manifest_id)
 
 def get_all_manifest_ids_with_type(source):
     es = get_connection()
-    results = es.search(index=ELASTICSEARCH_INDEX, doc_type=source, fields="[]", size=ELASTICSEARCH_MAX_HIT_SIZE)
+    idx = get_index(source)
+    results = es.search(index=idx, doc_type=source, fields="[]", size=ELASTICSEARCH_MAX_HIT_SIZE)
     ids = []
     for r in results["hits"]["hits"]:
         ids.append(str(r["_id"]))
@@ -52,4 +60,12 @@ def get_all_manifest_ids():
 
 def get_manifest_title(manifest_id, source):
     es = get_connection()
-    return es.get(index=ELASTICSEARCH_INDEX, doc_type=source, id=manifest_id)["_source"]["label"]
+    idx = get_index(source)
+    return es.get(index=idx, doc_type=source, id=manifest_id)["_source"]["label"]
+
+#get appropriate index. now use separate indexes for elasticsearch 6.x+
+def get_index(source):
+    idx = INDEX_TYPE[source]
+    if (idx == None):
+        idx = ELASTICSEARCH_INDEX
+    return idx
