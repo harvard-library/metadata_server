@@ -27,6 +27,7 @@ DEBUG = TEMPLATE_DEBUG = os.environ.has_key('DEBUG')
 ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL', 'localhost:9200')
 ELASTICSEARCH_INDEX = os.environ.get('ELASTICSEARCH_INDEX', 'manifests')
 ELASTICSEARCH_MAX_HIT_SIZE = os.environ.get('ELASTICSEARCH_MAX_HIT_SIZE', 5000)
+ELASTICSEARCH_SSL = os.environ.get('ELASTICSEARCH_SSL', 'False')
 
 # Solr vars
 SOLR_BASE =  os.environ.get('SOLR_BASE', 'http://drs2-services.lib.harvard.edu:18280/solr/drs2-collection/')
