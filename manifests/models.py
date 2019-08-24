@@ -9,13 +9,14 @@ ELASTICSEARCH_URL = settings.ELASTICSEARCH_URL
 ELASTICSEARCH_INDEX = settings.ELASTICSEARCH_INDEX
 ELASTICSEARCH_MAX_HIT_SIZE = settings.ELASTICSEARCH_MAX_HIT_SIZE
 ELASTICSEARCH_SSL = settings.ELASTICSEARCH_SSL
+ELASTICSEARCH_SSL_VERIFY = settings.ELASTICSEARCH_SSL_VERIFY
 
 #indexes per doctype. now have to use separate indexes for elasticsearch 6.x+
 INDEX_TYPE = {"drs": ELASTICSEARCH_INDEX, "via": "via", "hollis": "hollis", "huam" : "huam", "ext": "ext", "ids": "ids" }
 
 # Connect to elasticsearch db
 def get_connection():
-    return Elasticsearch(ELASTICSEARCH_URL, use_ssl=ELASTICSEARCH_SSL, ca_certs=certifi.where())
+    return Elasticsearch(ELASTICSEARCH_URL, use_ssl=ELASTICSEARCH_SSL, verify_certs=ELASTICSEARCH_SSL_VERIFY, ca_certs=certifi.where())
 
 # Gets the content of a manifest, returns JSON
 def get_manifest(manifest_id, source):
