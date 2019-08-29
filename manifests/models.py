@@ -16,7 +16,10 @@ INDEX_TYPE = {"drs": ELASTICSEARCH_INDEX, "via": "via", "hollis": "hollis", "hua
 
 # Connect to elasticsearch db
 def get_connection():
-    return Elasticsearch(ELASTICSEARCH_URL, use_ssl=ELASTICSEARCH_SSL, verify_certs=ELASTICSEARCH_SSL_VERIFY, ca_certs=certifi.where())
+    if (ELASTICSEARCH_SSL):
+      return Elasticsearch(ELASTICSEARCH_URL, use_ssl=ELASTICSEARCH_SSL, verify_certs=ELASTICSEARCH_SSL_VERIFY, ca_certs=certifi.where())
+    else:
+      return Elasticsearch(ELASTICSEARCH_URL)
 
 # Gets the content of a manifest, returns JSON
 def get_manifest(manifest_id, source):
