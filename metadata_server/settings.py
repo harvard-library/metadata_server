@@ -33,7 +33,7 @@ ELASTICSEARCH_SSL_VERIFY = os.environ.get('ELASTICSEARCH_SSL_VERIFY', 'False')
 #mongo db vars
 MONGO_URL = os.environ.get('MONGO_URL', '')
 MONGO_INDEX = os.environ.get('MONGO_INDEX', 'drs')
-MONGO_SSL_CERT = os.environ.get('MONGO_SSL_CERT,'')
+MONGO_SSL_CERT = os.environ.get('MONGO_SSL_CERT','')
 
 # Solr vars
 SOLR_BASE =  os.environ.get('SOLR_BASE', 'http://drs2-services.lib.harvard.edu:18280/solr/drs2-collection/')
