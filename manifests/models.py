@@ -25,7 +25,7 @@ def get_manifest(manifest_id, source):
   col = db[idx]
   query  = { "id": manifest_id }
   doc = col.find(query)
-  manifest = doc[0]['manifest']
+  manifest = json.loads(doc[0]['manifest'])
   mg.close()
   return manifest
 
