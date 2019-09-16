@@ -60,10 +60,10 @@ def manifest_exists(manifest_id, source):
   query  = { "_id": int(manifest_id) }
   doc = col.find_one(query)  
   mg.close()
-  if (doc.count() > 0):
-    return True
-  else:
+  if (doc == None):
     return False
+  else:
+    return True
 
 def get_all_manifest_ids_with_type(source):
   mg = get_connection()
@@ -85,7 +85,7 @@ def get_manifest_title(manifest_id, source):
   query  = { "_id": int(manifest_id) }
   doc = col.find(query)
   mg.close()
-  if (doc.count() > 0):
+  if (doc != None):
     manifest = doc[0]['manifest']
     mf = json.loads(manifest)
     return mf["label"]
