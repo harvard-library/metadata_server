@@ -23,7 +23,7 @@ def get_manifest(manifest_id, source):
   idx = get_index(source)
   db = mg["manifests"]
   col = db[idx]
-  query  = { "id": manifest_id }
+  query  = { "_id": int(manifest_id) }
   doc = col.find(query)
   manifest = json.loads(doc[0]['manifest'])
   mg.close()
@@ -36,8 +36,9 @@ def add_or_update_manifest(manifest_id, document, source):
   idx = get_index(source)
   db = mg["manifests"]
   col = db[idx]
-  record = { "id": manifest_id , "manifest": document }
-  col.insert_one(record)
+  query = { "_id" : int(manifest_id) }
+  record = {"$set": { "id": manifest_id , "manifest": document, "_id": int(manifest_id) } }
+  col.update_one(query, record, upsert=True)
   mg.close()
 
 # Deletes manifest from mongo (need to refresh index?)
@@ -45,7 +46,7 @@ def delete_manifest(manifest_id, source):
   mg  = get_connection()
   idx = get_index(source)
   db = mg["manifests"]
-  query  = { "id": manifest_id }
+  query  = { "_id": int(manifest_id) }
   col = db[idx]
   col.delete_one(query)
   mg.close()
@@ -56,13 +57,13 @@ def manifest_exists(manifest_id, source):
   idx = get_index(source)
   db = mg["manifests"]
   col = db[idx]
-  query  = { "id": manifest_id }
+  query  = { "_id": int(manifest_id) }
   doc = col.find_one(query)  
   mg.close()
-  if (doc == None):
-    return False
+  if (doc.count() > 0):
+    return True
   else:
-   return True
+    return False
 
 def get_all_manifest_ids_with_type(source):
   mg = get_connection()
@@ -81,12 +82,15 @@ def get_manifest_title(manifest_id, source):
   idx = get_index(source)
   db = mg["manifests"]
   col = db[idx]
-  query  = { "id": manifest_id }
+  query  = { "_id": int(manifest_id) }
   doc = col.find(query)
-  manifest = doc[0]['manifest']
   mg.close()
-  mf = json.loads(manifest)
-  return mf["label"]
+  if (doc.count() > 0):
+    manifest = doc[0]['manifest']
+    mf = json.loads(manifest)
+    return mf["label"]
+  else:
+    return None
 
 #get appropriate collection
 def get_index(source):
