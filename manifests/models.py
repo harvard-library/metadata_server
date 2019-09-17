@@ -23,7 +23,7 @@ def get_manifest(manifest_id, source):
   idx = get_index(source)
   db = mg["manifests"]
   col = db[idx]
-  query  = { "_id": int(manifest_id) }
+  query  = { "_id": str(manifest_id) }
   doc = col.find(query)
   manifest = json.loads(doc[0]['manifest'])
   mg.close()
@@ -36,8 +36,8 @@ def add_or_update_manifest(manifest_id, document, source):
   idx = get_index(source)
   db = mg["manifests"]
   col = db[idx]
-  query = { "_id" : int(manifest_id) }
-  record = {"$set": { "id": manifest_id , "manifest": document, "_id": int(manifest_id) } }
+  query = { "_id" : str(manifest_id) }
+  record = {"$set": { "id": manifest_id , "manifest": document, "_id": str(manifest_id) } }
   col.update_one(query, record, upsert=True)
   mg.close()
 
@@ -46,7 +46,7 @@ def delete_manifest(manifest_id, source):
   mg  = get_connection()
   idx = get_index(source)
   db = mg["manifests"]
-  query  = { "_id": int(manifest_id) }
+  query  = { "_id": str(manifest_id) }
   col = db[idx]
   col.delete_one(query)
   mg.close()
@@ -57,7 +57,7 @@ def manifest_exists(manifest_id, source):
   idx = get_index(source)
   db = mg["manifests"]
   col = db[idx]
-  query  = { "_id": int(manifest_id) }
+  query  = { "_id": str(manifest_id) }
   doc = col.find_one(query)  
   mg.close()
   if (doc == None):
@@ -82,7 +82,7 @@ def get_manifest_title(manifest_id, source):
   idx = get_index(source)
   db = mg["manifests"]
   col = db[idx]
-  query  = { "_id": int(manifest_id) }
+  query  = { "_id": str(manifest_id) }
   doc = col.find(query)
   mg.close()
   if (doc != None):
