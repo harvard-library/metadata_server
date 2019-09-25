@@ -155,22 +155,22 @@ def process_intermediate(div, new_ranges=None):
                 if is_page(sd):
                         my_range = process_page(sd)
                 else:
-			logger.debug("process_intermediate: processing int div: " + div.get('LABEL') )
+			#logger.debug("process_intermediate: processing int div: " + div.get('LABEL') )
                         my_range = process_intermediate(sd)
-			logger.debug("process_intermediate: my_range: " + str(my_range) )
+			#logger.debug("process_intermediate: my_range: " + str(my_range) )
                 if my_range:
-			logger.debug("process_intermediate: appending ranges for int div: " + div.get('LABEL') + " range: " + str(my_range) )
+			#logger.debug("process_intermediate: appending ranges for int div: " + div.get('LABEL') + " range: " + str(my_range) )
                         new_ranges.append(my_range)
 
         # this is for the books where every single page is labeled (like Book of Hours)
         # most books do not do this
         if len(new_ranges) == 1:
-		logger.debug("process_intermediate: returning a new_range w/ len 1")
+		#logger.debug("process_intermediate: returning a new_range w/ len 1")
                 return {get_rangeKey(div): new_ranges[0].values()[0]}
 
 	rkey = get_rangeKey(div)
-	logger.debug("process_intermediate: returning ranges for int div: " + div.get('LABEL') + " new_ranges size: " + str(len(new_ranges))  + " range key: " + rkey)
-	logger.debug("process_intermediate: new_ranges: " + str(new_ranges) )
+	#logger.debug("process_intermediate: returning ranges for int div: " + div.get('LABEL') + " new_ranges size: " + str(len(new_ranges))  + " range key: " + rkey)
+	#logger.debug("process_intermediate: new_ranges: " + str(new_ranges) )
         return {get_rangeKey(div): new_ranges}
 
 
@@ -215,7 +215,7 @@ def process_struct_divs(div, ranges):
                 if len(subdivs) > 0:
                         ranges.append(process_intermediate(div))
 
-	logger.debug("process_st_divs: ranges: " + str(ranges) ) 
+	#logger.debug("process_st_divs: ranges: " + str(ranges) ) 
 	return ranges
 
 def process_structMap(smap):
@@ -276,7 +276,7 @@ def create_ranges(ranges, previous_id, manifest_uri):
 	for ri in ranges:
 		counter = counter + 1
 		label = ri.keys()[0]
-		logger.debug("create_ranges: " + label)
+		#logger.debug("create_ranges: " + label)
 		if previous_id == manifest_uri:
 			# these are for the top level divs
 			range_id = manifest_uri + "/range/range-%s.json" % counter
