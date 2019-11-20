@@ -22,8 +22,6 @@ XMLNS = {
 }
 
 # Globals
-#imageHash = {}
-#canvasInfo = []
 manifestUriBase = u""
 
 ## TODO: Other image servers?
@@ -304,19 +302,7 @@ def translate_ranges(mets_ranges, manifest_uri):
 def main(data, document_id, source, host, cookie=None):
 
 	# clear global variables
-	#global imageHash
-	#imageHash = {}
-	#global canvasInfo
-	#canvasInfo = []
-	global manifestUriBase
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
-
-	#global drs2ImageWidths
-	#drs2ImageWidths = []
-	#global drs2ImageHeights
-	#drs2ImageHeights = []
-	#global drs2AccessFlags
-	#drs2AccessFlags = []
 
 	logo = settings.IIIF['logo'] % host
 
