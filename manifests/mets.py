@@ -87,7 +87,7 @@ def process_page(sd, ivar):
 	# first check if PAGE has label, otherwise get parents LABEL/ORDER
         label = get_rangeKey(sd)
 
-        display_image, fid = get_display_image(sd.xpath('./mets:fptr/@FILEID', namespaces=XMLNS))
+        display_image, fid = get_display_image(sd.xpath('./mets:fptr/@FILEID', namespaces=XMLNS), ivar)
 
         my_range = None
 
