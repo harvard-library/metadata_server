@@ -22,9 +22,8 @@ XMLNS = {
 }
 
 # Globals
-imageHash = {}
-canvasInfo = []
-rangesJsonList = []
+#imageHash = {}
+#canvasInfo = []
 manifestUriBase = u""
 
 ## TODO: Other image servers?
@@ -55,12 +54,22 @@ IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST", "localhost")
 
 DEBUG = environ.get("DEBUG",False)
 
-def get_display_image(fids):
+class InstanceVar:
+	def __init__(self, name, age):
+		self.imageHash = {}
+		self.canvasInfo = []
+		self.drs2ImageWidths = []
+		self.drs2ImageHeights = []
+		self.drs2AccessFlags = []
+
+
+
+def get_display_image(fids, ivar):
         """Goes through list of file IDs for a page, and returns the best choice for delivery (according to mime hierarchy)."""
 
         def proc_fid(out, fid):
                 """Internal fn mapped over all images. Sets last image of each mime-type in out hash."""
-                img = imageHash.get(fid, [])
+                img = ivar.imageHash.get(fid, [])
                 if len(img) == 2:
                         out[img["mime"]] = (img["img"], fid)
                 return out
@@ -74,7 +83,7 @@ def get_display_image(fids):
 
         return display_img or (None, None)
 
-def process_page(sd):
+def process_page(sd, ivar):
 	# first check if PAGE has label, otherwise get parents LABEL/ORDER
         label = get_rangeKey(sd)
 
@@ -87,9 +96,9 @@ def process_page(sd):
                 info['label'] = label
                 info['image'] = display_image
                 #if info not in canvasInfo: #accept split intermediate/page nodes
-		canvasInfo.append(info)
+		ivar.canvasInfo.append(info)
                 my_range = {}
-                my_range[label] = imageHash[fid]["img"]
+                my_range[label] = ivar.imageHash[fid]["img"]
 
         return my_range
 
@@ -145,7 +154,7 @@ def get_rangeKey(div):
                                               display_ss,
                                               u"(seq. {0})".format(f["seq"]) if f["seq"] == l["seq"] else u"(seq. {0}-{1})".format(f["seq"], l["seq"])]))
 
-def process_intermediate(div, new_ranges=None):
+def process_intermediate(div, new_ranges=None, ivar):
         """Processes intermediate divs in the structMap."""
 
         new_ranges = new_ranges or []
@@ -153,10 +162,10 @@ def process_intermediate(div, new_ranges=None):
         for sd in div:
                 # leaf node, get canvas info
                 if is_page(sd):
-                        my_range = process_page(sd)
+                        my_range = process_page(sd, ivar)
                 else:
 			#logger.debug("process_intermediate: processing int div: " + div.get('LABEL') )
-                        my_range = process_intermediate(sd)
+                        my_range = process_intermediate(sd, ivar)
 			#logger.debug("process_intermediate: my_range: " + str(my_range) )
                 if my_range:
 			#logger.debug("process_intermediate: appending ranges for int div: " + div.get('LABEL') + " range: " + str(my_range) )
@@ -201,19 +210,19 @@ def get_intermediate_seq_values(first, last):
 
         return first_vals, last_vals
 
-def process_struct_divs(div, ranges):
+def process_struct_divs(div, ranges, ivar):
         """Toplevel processing function.  Run over contents of the CITATION div (or the stitched subdiv if present)."""
 	rangeKey = get_rangeKey(div)
 
 	# when the top level div is a PAGE
 	if is_page(div):
-		p_range = process_page(div)
+		p_range = process_page(div, ivar)
                 if p_range: 
                         ranges.append(p_range)
         else:
                 subdivs = div.xpath('./mets:div', namespaces = XMLNS)
                 if len(subdivs) > 0:
-                        ranges.append(process_intermediate(div))
+                        ranges.append(process_intermediate(div, ivar))
 
 	#logger.debug("process_st_divs: ranges: " + str(ranges) ) 
 	return ranges
@@ -240,52 +249,6 @@ def get_leaf_canvases(ranges, leaf_canvases):
 			get_leaf_canvases(value, leaf_canvases)
 		else:
 			leaf_canvases.append(value)
-
-def create_range_json(ranges, manifest_uri, range_id, within, label):
-	# this is either a nested list of dicts or one or more image ids in the METS
-	if any(isinstance(x, dict) for x in ranges):
-		leaf_canvases = []
-		get_leaf_canvases(ranges, leaf_canvases)
-		canvases = []
-		for lc in leaf_canvases:
-			#dedup table of contents?
-			if label == "Table of Contents":
-				canvas_txt = manifest_uri + "/canvas/canvas-%s.json" % lc
-				if canvas_txt not in canvases:
-					canvases.append(canvas_txt)
-			else:
-				canvases.append(manifest_uri + "/canvas/canvas-%s.json" % lc)
-	else:
-		canvases = [manifest_uri + "/canvas/canvas-%s.json" % ranges]
-
-	rangejson =  {"@id": range_id,
-		      "@type": "sc:Range",
-		      "label": label,
-		      "canvases": canvases
-		      }
-	# top level "within" equals the manifest_uri, so this range is a top level
-	if within != manifest_uri:
-		rangejson["within"] = within
-	rangesJsonList.append(rangejson)
-
-def create_ranges(ranges, previous_id, manifest_uri):
-        if not any(isinstance(x, dict) for x in ranges):
-		return
-
-	counter = 0
-	for ri in ranges:
-		counter = counter + 1
-		label = ri.keys()[0]
-		#logger.debug("create_ranges: " + label)
-		if previous_id == manifest_uri:
-			# these are for the top level divs
-			range_id = manifest_uri + "/range/range-%s.json" % counter
-		else:
-			# otherwise, append the counter to the parent's id
-			range_id = previous_id[0:previous_id.rfind('.json')] + "-%s.json" % counter
-		new_ranges = ri.get(label)
-		create_range_json(new_ranges, manifest_uri, range_id, previous_id, label)
-		create_ranges(new_ranges, range_id, manifest_uri)
 
 
 ### new methods (naomi) for iiif 2.0 toc
@@ -341,23 +304,23 @@ def translate_ranges(mets_ranges, manifest_uri):
 def main(data, document_id, source, host, cookie=None):
 
 	# clear global variables
-	global imageHash
-	imageHash = {}
-	global canvasInfo
-	canvasInfo = []
-	global rangesJsonList
-	rangesJsonList = []
+	#global imageHash
+	#imageHash = {}
+	#global canvasInfo
+	#canvasInfo = []
 	global manifestUriBase
 	manifestUriBase = settings.IIIF['manifestUriTmpl'] % host
 
-	global drs2ImageWidths
-	drs2ImageWidths = []
-	global drs2ImageHeights
-	drs2ImageHeights = []
-	global drs2AccessFlags
-	drs2AccessFlags = []
+	#global drs2ImageWidths
+	#drs2ImageWidths = []
+	#global drs2ImageHeights
+	#drs2ImageHeights = []
+	#global drs2AccessFlags
+	#drs2AccessFlags = []
 
 	logo = settings.IIIF['logo'] % host
+
+	instVar = InstanceVar()
 
 	drs2json = None
 	if 'response' in data:
@@ -506,10 +469,10 @@ def main(data, document_id, source, host, cookie=None):
 	#		break
 
 	for img in images:
-		imageHash[img.xpath('./@ID', namespaces=XMLNS)[0]] = {"img": img.xpath('./mets:FLocat/@xlink:href', namespaces = XMLNS)[0], "mime": img.attrib['MIMETYPE']}
+		instVar.imageHash[img.xpath('./@ID', namespaces=XMLNS)[0]] = {"img": img.xpath('./mets:FLocat/@xlink:href', namespaces = XMLNS)[0], "mime": img.attrib['MIMETYPE']}
 
 	#check solr, make call for image md from there if above fails
-	if ( (len(drs2ImageWidths) == 0) and (len(drs2ImageHeights) == 0) ):
+	if ( (len(instVar.drs2ImageWidths) == 0) and (len(instVar.drs2ImageHeights) == 0) ):
         	metadata_url_base = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_FILE_QUERY + settings.SOLR_CURSORMARK
 		cursormark_val = "*"
 
@@ -532,20 +495,20 @@ def main(data, document_id, source, host, cookie=None):
 				else:
 				  continue
 			if (('file_mix_imageHeight_num' in md) and ('file_mix_imageWidth_num' in md)):
-				drs2ImageHeights.append(md['file_mix_imageHeight_num'])
-				drs2ImageWidths.append(md['file_mix_imageWidth_num'])
-				drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
+				instVar.drs2ImageHeights.append(md['file_mix_imageHeight_num'])
+				instVar.drs2ImageWidths.append(md['file_mix_imageWidth_num'])
+				instVar.drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
 			else: #call ids (info.json request)
 				file_ext = md['file_path_raw'][-3:]
 				if (file_ext == 'jp2' or file_ext == 'tif' or file_ext == 'jpg' or file_ext == 'gif'):
 				  logger.debug("solr missing image dimensions - making info.json call for image id " + str(md['file_id_num']) )
 				  if 'object_huldrsadmin_accessFlag_string' in md:
-				    drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
+				    instVar.drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
 				  try: 
 				    info_resp = webclient.get(imageUriBase.replace("https","http") + str(md['file_id_num']) + imageInfoSuffix, cookie)
 				    iiif_info = json.load(info_resp)
-				    drs2ImageHeights.append(iiif_info['height'])
-				    drs2ImageWidths.append(iiif_info['width'])
+				    instVar.drs2ImageHeights.append(iiif_info['height'])
+				    instVar.drs2ImageWidths.append(iiif_info['width'])
 				  except urllib2.HTTPError, err:
 				    logger.debug("failed to get image dimensions for image id " + str(md['file_id_num']) )
 				else:
@@ -592,14 +555,14 @@ def main(data, document_id, source, host, cookie=None):
 	for cvs in canvasInfo:
 		infojson= {}
 		try:
-			infojson['width'] = int(drs2ImageWidths[infocount])
-			infojson['height'] = int(drs2ImageHeights[infocount])
-			#infojson['tile_width'] = int(drs2TileWidths[infocount])
-			#infojson['tile_height'] = int(drs2TileHeights[infocount])
+			infojson['width'] = int(instVar.drs2ImageWidths[infocount])
+			infojson['height'] = int(instVar.drs2ImageHeights[infocount])
+			#infojson['tile_width'] = int(instVar.drs2TileWidths[infocount])
+			#infojson['tile_height'] = int(instVar.drs2TileHeights[infocount])
 			#note replace this w/ drs2InfoFormats
 			infojson['formats'] = ['jpg']
 			infojson['scale_factors'] = [1]
-			infojson['access_flag'] = drs2AccessFlags[infocount]
+			infojson['access_flag'] = instVar.drs2AccessFlags[infocount]
 			infocount = infocount + 1
 		except: # image not in drs
 			try:
@@ -672,16 +635,15 @@ def main(data, document_id, source, host, cookie=None):
 			uniqCanvases[cvs['image']] = True 
 
 	# build table of contents using Range and Structures
-	#create_ranges(rangeInfo, manifest_uri, manifest_uri)
 	iiif2_toc = translate_ranges(rangeInfo, manifest_uri)
 
 	mfjson['sequences'][0]['canvases'] = canvases
-	#mfjson['structures'] = rangesJsonList
 	mfjson['structures'] = iiif2_toc
 
 	#logger.debug("Dumping json for DRS2 object " + str(document_id) )
 	output = json.dumps(mfjson, indent=4, sort_keys=True)
 	#logger.debug("Dumping complete for DRS2 object " + str(document_id) )
+	instVar = None
 	return output
 
 
