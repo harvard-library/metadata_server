@@ -552,7 +552,7 @@ def main(data, document_id, source, host, cookie=None):
 	canvases = []
 	infocount = 0
 	uniqCanvases = {}
-	for cvs in canvasInfo:
+	for cvs in instVar.canvasInfo:
 		infojson= {}
 		try:
 			infojson['width'] = int(instVar.drs2ImageWidths[infocount])
