@@ -37,8 +37,6 @@ CAPTION_API_URL = (environ.get("CAPTION_API","http://ids.lib.harvard.edu:8080/id
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext": "ext", "ids": "ids" }
 
-isIdsManifest = False
-
 def index(request, source=None):
     request_ip = request.META['REMOTE_ADDR']
     if not all_matching_cidrs(request_ip, IIIF_MGMT_ACL):
