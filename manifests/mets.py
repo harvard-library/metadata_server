@@ -154,7 +154,7 @@ def get_rangeKey(div):
                                               display_ss,
                                               u"(seq. {0})".format(f["seq"]) if f["seq"] == l["seq"] else u"(seq. {0}-{1})".format(f["seq"], l["seq"])]))
 
-def process_intermediate(div, new_ranges=None, ivar):
+def process_intermediate(div, new_ranges=None, instance_var):
         """Processes intermediate divs in the structMap."""
 
         new_ranges = new_ranges or []
@@ -162,10 +162,10 @@ def process_intermediate(div, new_ranges=None, ivar):
         for sd in div:
                 # leaf node, get canvas info
                 if is_page(sd):
-                        my_range = process_page(sd, ivar)
+                        my_range = process_page(sd, instance_var)
                 else:
 			#logger.debug("process_intermediate: processing int div: " + div.get('LABEL') )
-                        my_range = process_intermediate(sd, ivar)
+                        my_range = process_intermediate(sd, instance_var=instance_var)
 			#logger.debug("process_intermediate: my_range: " + str(my_range) )
                 if my_range:
 			#logger.debug("process_intermediate: appending ranges for int div: " + div.get('LABEL') + " range: " + str(my_range) )
@@ -222,7 +222,7 @@ def process_struct_divs(div, ranges, ivar):
         else:
                 subdivs = div.xpath('./mets:div', namespaces = XMLNS)
                 if len(subdivs) > 0:
-                        ranges.append(process_intermediate(div, ivar))
+                        ranges.append(process_intermediate(div, instance_var=ivar))
 
 	#logger.debug("process_st_divs: ranges: " + str(ranges) ) 
 	return ranges
@@ -521,7 +521,7 @@ def main(data, document_id, source, host, cookie=None):
 	rangeList = []
 	rangeInfo = []
 	for st in struct:
-		ranges = process_struct_divs(st, [])
+		ranges = process_struct_divs(st, [], instVar)
 		if ranges: #dedup thumbnail bar
 			rangeList.extend(ranges)
 
