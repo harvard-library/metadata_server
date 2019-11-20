@@ -55,7 +55,7 @@ IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST", "localhost")
 DEBUG = environ.get("DEBUG",False)
 
 class InstanceVar:
-	def __init__(self, name, age):
+	def __init__(self):
 		self.imageHash = {}
 		self.canvasInfo = []
 		self.drs2ImageWidths = []
