@@ -21,7 +21,8 @@ dotenv.load_dotenv(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = TEMPLATE_DEBUG = os.environ.has_key('DEBUG')
+DEBUG = os.environ.get('DEBUG', False) == 'True'
+TEMPLATE_DEBUG = DEBUG
 
 # Elasticsearch vars
 ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL', 'localhost:9200')
