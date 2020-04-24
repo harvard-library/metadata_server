@@ -22,7 +22,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False) == 'True'
-TEMPLATE_DEBUG = False
+TEMPLATE_DEBUG = DEBUG
 
 # Elasticsearch vars
 ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL', 'localhost:9200')
@@ -61,7 +61,8 @@ METS_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><mets xmlns:hulDrsRight
 METS_FOOTER = "</mets>"
 
 
-ALLOWED_HOSTS = [x for x in os.environ.get('ALLOWED_HOSTS','').split(";") if x != '']
+#ALLOWED_HOSTS = [x for x in os.environ.get('ALLOWED_HOSTS','').split(";") if x != '']
+ALLOWED_HOSTS = ['*']
 
 HTTP_PROTOCOL = os.environ.get('HTTP_PROTOCOL', 'http')
 
