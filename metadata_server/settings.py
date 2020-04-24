@@ -62,7 +62,7 @@ METS_FOOTER = "</mets>"
 
 
 #ALLOWED_HOSTS = [x for x in os.environ.get('ALLOWED_HOSTS','').split(";") if x != '']
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '.lib.harvard.edu']
 
 HTTP_PROTOCOL = os.environ.get('HTTP_PROTOCOL', 'http')
 
