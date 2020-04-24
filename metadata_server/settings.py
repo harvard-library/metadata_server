@@ -22,7 +22,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False) == 'True'
-TEMPLATE_DEBUG = DEBUG
+TEMPLATE_DEBUG = False
 
 # Elasticsearch vars
 ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL', 'localhost:9200')
