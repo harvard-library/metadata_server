@@ -50,7 +50,7 @@ def main(data, document_id, source, host, cookie=None):
 	## @displayLabel = Full Image, @note = Color digital image available, @note = Harvard Map Collection copy image
 	images = dom.xpath('/mods:mods//mods:location/mods:url[@displayLabel="Full Image" or contains(@note, "Color digital image") or contains(@note, "copy image")]/text()', namespaces=XMLNS)
 
-	print "Images list", images
+	print ("Images list", images)
 
 	canvasInfo = []
 	for (counter, im) in enumerate(images):

@@ -16,42 +16,42 @@ def getAccessFlag(drsId):
     solrFileUrl = settings.SOLR_BASE + settings.SOLR_FILE_QUERY_PREFIX + drsId + settings.SOLR_AMS_FILE_QUERY
     req = requests.get(solrUrl)
     if req.status_code == 200:
-	md_json = json.loads(req.text)
-	numFound = md_json['response']['numFound']
-	if (numFound > 0):
-	  flag = md_json['response']['docs'][0]['object_huldrsadmin_accessFlag_string']
-	  return flag
-	else:
-	  req = requests.get(solrFileUrl)
-	  if req.status_code == 200:
-	    md_json = json.loads(req.text)
-	    numFound = md_json['response']['numFound']
-	    if (numFound > 0):
-	      flag = md_json['response']['docs'][0]['file_huldrsadmin_accessFlag_string']
-	      return flag
-	    else:
-	      return ''
-	  else:
-	   return ''
+      md_json = json.loads(req.text)
+      numFound = md_json['response']['numFound']
+      if (numFound > 0):
+         flag = md_json['response']['docs'][0]['object_huldrsadmin_accessFlag_string']
+         return flag
+      else:
+        req = requests.get(solrFileUrl)
+        if req.status_code == 200:
+          md_json = json.loads(req.text)
+          numFound = md_json['response']['numFound']
+          if (numFound > 0):
+            flag = md_json['response']['docs'][0]['file_huldrsadmin_accessFlag_string']
+            return flag
+          else:
+            return ''
+        else:
+          return ''
     else:
-	return ''
+      return ''
 
 def checkCookie(cookies, drsId, isIDS=False):
-    if 'hulaccess' in cookies:
-        return None
-    else:  #redirect to AMS
-	if (isIDS):
-	  return amsRedirectIdsBase + drsId
-	else:
-          return amsRedirectBase + drsId
+	if 'hulaccess' in cookies:
+		return None
+	else:  #redirect to AMS
+		if (isIDS):
+			return amsRedirectIdsBase + drsId
+	  	else:
+			return amsRedirectBase + drsId
 
 def getAMSredirectUrl(cookies, drsId, isIDS=False):
-    flag = getAccessFlag(drsId)
-    if flag == '':
-	return None
-    if flag == 'R':
-        return ['R', checkCookie(cookies, drsId, isIDS)]
-    elif flag == 'N':
-	return ['N', None]
-    else:
-    	return ['OK', None]
+	flag = getAccessFlag(drsId)
+	if flag == '':
+		return None
+	if flag == 'R':
+		return ['R', checkCookie(cookies, drsId, isIDS)]
+	elif flag == 'N':
+		return ['N', None]
+	else:
+		return ['OK', None]

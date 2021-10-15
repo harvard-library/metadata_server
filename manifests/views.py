@@ -105,18 +105,18 @@ def view(request, view_type, document_id):
         # drs: check AMS to see if this is a restricted obj
         # TODO:  move this check into get_manifest() for hollis
         if (('drs' == parts["source"]) or ('ids' == parts['source'])):
-	    ams_redirect = None
-	    if ('drs' == parts["source"]):
-              ams_redirect = ams.getAMSredirectUrl(request.COOKIES, parts["id"]) 
-	    elif ('ids' == parts['source']): 
-	      ams_redirect = ams.getAMSredirectUrl(request.COOKIES, parts["id"], isIDS=True)
-	    if ams_redirect == None: 
+	        ams_redirect = None
+        if ('drs' == parts["source"]):
+            ams_redirect = ams.getAMSredirectUrl(request.COOKIES, parts["id"]) 
+        elif ('ids' == parts['source']): 
+	        ams_redirect = ams.getAMSredirectUrl(request.COOKIES, parts["id"], isIDS=True)
+        if ams_redirect == None: 
 	        return HttpResponse("Invalid object id", status=404) 
-	    if ams_redirect[0] == 'N':
-                return HttpResponse("The object you have requested is not intended for delivery", status=403) # 403 HttpResponse object
-            elif ams_redirect[0] == 'R':
-		if ams_redirect[1] != None:
-                    return HttpResponseRedirect(ams_redirect[1])
+        if ams_redirect[0] == 'N':
+            return HttpResponse("The object you have requested is not intended for delivery", status=403) # 403 HttpResponse object
+        elif ams_redirect[0] == 'R':
+            if ams_redirect[1] != None:
+                return HttpResponseRedirect(ams_redirect[1])
 
         if parts['source'] == 'ext':
             success = True
@@ -153,15 +153,15 @@ def view(request, view_type, document_id):
 
             # Window objects - what gets displayed
 	    if parts['source'] == 'ids':
-	      mfwobject = {"loadedManifest": uri,
+             mfwobject = {"loadedManifest": uri,
 			"bottomPanel": False,
 			"sidePanel": False,
 			"displayLayout": False,
 			"availableViews": ['ImageView'],
 			"viewType": parts["view"] }
-	    else:
-              mfwobject = {"loadedManifest": uri,
-                         "viewType": parts["view"] }
+        else:
+            mfwobject = {"loadedManifest": uri,
+                "viewType": parts["view"] }
 
             if view_type == "view-dev": #mirador 3 preview
               mfwobject = {"loadedManifest": uri,
@@ -193,10 +193,10 @@ def view(request, view_type, document_id):
         if (view_type == "view-dev"):
             return render(request, 'manifests/dev.html', view_locals)
         else:
-	    if parts['source'] == 'ids':
-	      return render(request, 'manifests/ids.html', view_locals)
-	    else:
-              return render(request, 'manifests/manifest.html', view_locals)
+            if parts['source'] == 'ids':
+                return render(request, 'manifests/ids.html', view_locals)
+            else:
+                return render(request, 'manifests/manifest.html', view_locals)
     else:
         return HttpResponse("The requested document ID(s) %s could not be displayed" % document_id, status=404) # 404 HttpResponse object
 
@@ -221,16 +221,16 @@ def manifest(request, document_id):
     #check ams
     ams_redirect = None
     if ('drs' == source):
-	ams_redirect = ams.getAMSredirectUrl(request.COOKIES, id)
+	    ams_redirect = ams.getAMSredirectUrl(request.COOKIES, id)
     elif ('ids' == source):
-	ams_redirect = ams.getAMSredirectUrl(request.COOKIES, id, isIDS=True)
+	    ams_redirect = ams.getAMSredirectUrl(request.COOKIES, id, isIDS=True)
     if ams_redirect == None:
-	return HttpResponse("Invalid object id", status=404)
+	    return HttpResponse("Invalid object id", status=404)
     if ams_redirect[0] == 'N':
         return HttpResponse("The object you have requested is not intended for delivery", status=403) # 403 HttpResponse object
     elif ams_redirect[0] == 'R':
-	if ams_redirect[1] != None:
-            return HttpResponseRedirect(ams_redirect[1])
+	    if ams_redirect[1] != None:
+                return HttpResponseRedirect(ams_redirect[1])
 
     (success, response_doc, real_id, real_source) = get_manifest(id, source, False, host, cookie)
     if success:
@@ -258,7 +258,7 @@ def delete(request, document_id):
         models.delete_manifest(id, source)
         return HttpResponse("Document ID %s has been deleted" % document_id)
     else:
-	logger.debug("Failed delete request for document id %s - does not exist in db" % document_id)
+        logger.debug("Failed delete request for document id %s - does not exist in db" % document_id)
         return HttpResponse("Document ID %s does not exist in the database" % document_id, status=404)
 
 # Force refresh a single document
@@ -340,10 +340,10 @@ def get_mets(document_id, source, cookie=None):
     mets_url = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_OBJ_QUERY
     header = {'x-requested-with': 'XMLHttpRequest'}
     try:
-	response = webclient.get(mets_url, cookie)
-    except urllib2.HTTPError, err:
-	logger.debug("Failed solr request %s" % mets_url)
-	return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
+	    response = webclient.get(mets_url, cookie)
+    except urllib2.HTTPError as err:
+	    logger.debug("Failed solr request %s" % mets_url)
+	    return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
     mets_json = json.loads(response.read())
     #response_doc = settings.METS_HEADER + mets_json['response']['docs'][0]['object_file_sec_raw'] + \
     #mets_json['response']['docs'][0]['object_structmap_raw'] + settings.METS_FOOTER
@@ -360,7 +360,7 @@ def get_ids(document_id, source, cookie=None):
     header = {'x-requested-with': 'XMLHttpRequest'}
     try:
         response = webclient.get(ids_url, cookie)
-    except urllib2.HTTPError, err:
+    except urllib2.HTTPError as err:
         logger.debug("Failed solr request %s" % mets_url)
         return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
     ids_json = json.loads(response.read())
@@ -378,10 +378,10 @@ def get_mods(document_id, source, cookie=None):
     try:
         #response = urllib2.urlopen(mods_url)
         response = webclient.get(mods_url, cookie)
-    except urllib2.HTTPError, err:
+    except urllib2.HTTPError as err:
         if err.code == 500 or err.code == 403: ## TODO
             # document does not exist in DRS
-	    logger.debug("Failed mods request %s" % mods_url)
+            logger.debug("Failed mods request %s" % mods_url)
             return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 
     mods = unicode(response.read(), encoding="utf-8")
@@ -392,10 +392,10 @@ def get_huam(document_id, source):
     huam_url = HUAM_API_URL+document_id+"?apikey="+HUAM_API_KEY
     try:
         response = urllib2.urlopen(huam_url)
-    except urllib2.HTTPError, err:
+    except urllib2.HTTPError as err:
         if err.code == 500 or err.code == 403: ## TODO
             # document does not exist in DRS
-	    logger.debug("Failed huam request %s" % huam_url)
+            logger.debug("Failed huam request %s" % huam_url)
             return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 
     huam = unicode(response.read(), encoding="utf-8")
@@ -434,8 +434,8 @@ def get_manifest(document_id, source, force_refresh, host, cookie=None):
             (success, response) = get_mods(document_id, source, cookie)
         elif data_type == "mets":
             (success, response) = get_mets(document_id, source, cookie)
-	elif data_type == "ids":
-	    (success, response) = get_ids(document_id, source, cookie)
+        elif data_type == "ids":
+	        (success, response) = get_ids(document_id, source, cookie)
         elif data_type == "huam":
             (success, response) = get_huam(document_id, source)
         else:
@@ -456,8 +456,8 @@ def get_manifest(document_id, source, force_refresh, host, cookie=None):
                 return get_manifest(id, 'drs', False, host, cookie)
         elif data_type == "mets":
             converted_json = mets.main(response, document_id, source, host, cookie)
-	elif data_type == "ids":
-	    converted_json = ids.main(response, document_id, source, host, cookie)
+        elif data_type == "ids":
+	        converted_json = ids.main(response, document_id, source, host, cookie)
         elif data_type == "huam":
             converted_json = huam.main(response, document_id, source, host)
         else:

@@ -215,12 +215,12 @@ def process_struct_divs(div, ranges, ivar):
 	# when the top level div is a PAGE
 	if is_page(div):
 		p_range = process_page(div, ivar)
-                if p_range: 
-                        ranges.append(p_range)
-        else:
-                subdivs = div.xpath('./mets:div', namespaces = XMLNS)
-                if len(subdivs) > 0:
-                        ranges.append(process_intermediate(div, ivar))
+		if p_range: 
+			ranges.append(p_range)
+		else:
+			subdivs = div.xpath('./mets:div', namespaces = XMLNS)
+			if len(subdivs) > 0:
+				ranges.append(process_intermediate(div, ivar))
 
 	#logger.debug("process_st_divs: ranges: " + str(ranges) ) 
 	return ranges
@@ -464,44 +464,44 @@ def main(data, document_id, source, host, cookie=None):
 
 		not_paged = True 
 		while not_paged:
-        	  try:
-			metadata_url =  metadata_url_base + cursormark_val
-            		response = webclient.get(metadata_url, cookie)
-        	  except urllib2.HTTPError, err:
-			not_paged = False
-            		logger.debug("Failed solr file metadata request %s" % metadata_url)
-            		return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
-        	  md_json = json.loads(response.read())
+		  try:
+		  	metadata_url =  metadata_url_base + cursormark_val
+			response = webclient.get(metadata_url, cookie)
+		  except urllib2.HTTPError as err:
+			  not_paged = False
+			  logger.debug("Failed solr file metadata request %s" % metadata_url)
+			  return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
+		  md_json = json.loads(response.read())
 		  for md in md_json['response']['docs']:
 		  #for md in md_json:
-			if (('object_huldrsadmin_accessFlag_string' in md) and ('file_id_num' not in md)):
-				access_flag = md['object_huldrsadmin_accessFlag_string']
-				if access_flag == "N":
-				  return (False, HttpResponse("Document ID %s is not intended for delivery and cannot be indexed." % document_id, status=404))
-				else:
-				  continue
+		  	if (('object_huldrsadmin_accessFlag_string' in md) and ('file_id_num' not in md)):
+				  access_flag = md['object_huldrsadmin_accessFlag_string']
+				  if access_flag == "N":
+					  return (False, HttpResponse("Document ID %s is not intended for delivery and cannot be indexed." % document_id, status=404))
+				  else:
+				    continue
 			if (('file_mix_imageHeight_num' in md) and ('file_mix_imageWidth_num' in md)):
-				instVar.drs2ImageHeights.append(md['file_mix_imageHeight_num'])
-				instVar.drs2ImageWidths.append(md['file_mix_imageWidth_num'])
-				instVar.drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
+				  instVar.drs2ImageHeights.append(md['file_mix_imageHeight_num'])
+				  instVar.drs2ImageWidths.append(md['file_mix_imageWidth_num'])
+				  instVar.drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
 			else: #call ids (info.json request)
-				file_ext = md['file_path_raw'][-3:]
-				if (file_ext == 'jp2' or file_ext == 'tif' or file_ext == 'jpg' or file_ext == 'gif'):
-				  logger.debug("solr missing image dimensions - making info.json call for image id " + str(md['file_id_num']) )
-				  if 'object_huldrsadmin_accessFlag_string' in md:
-				    instVar.drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
-				  try: 
-				    info_resp = webclient.get(imageUriBase.replace("https","http") + str(md['file_id_num']) + imageInfoSuffix, cookie)
-				    iiif_info = json.load(info_resp)
-				    instVar.drs2ImageHeights.append(iiif_info['height'])
-				    instVar.drs2ImageWidths.append(iiif_info['width'])
-				  except urllib2.HTTPError, err:
-				    logger.debug("failed to get image dimensions for image id " + str(md['file_id_num']) )
-				else:
-				  continue
+				  file_ext = md['file_path_raw'][-3:]
+				  if (file_ext == 'jp2' or file_ext == 'tif' or file_ext == 'jpg' or file_ext == 'gif'):
+				    logger.debug("solr missing image dimensions - making info.json call for image id " + str(md['file_id_num']) )
+				    if 'object_huldrsadmin_accessFlag_string' in md:
+				      instVar.drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
+				    try: 
+				      info_resp = webclient.get(imageUriBase.replace("https","http") + str(md['file_id_num']) + imageInfoSuffix, cookie)
+				      iiif_info = json.load(info_resp)
+				      instVar.drs2ImageHeights.append(iiif_info['height'])
+				      instVar.drs2ImageWidths.append(iiif_info['width'])
+				    except urllib2.HTTPError as err:
+				      logger.debug("failed to get image dimensions for image id " + str(md['file_id_num']) )
+				  else:
+				    continue
 		  next_cursormark = quote_plus(md_json['nextCursorMark'])
 		  if next_cursormark == cursormark_val:
-			not_paged = False
+			  not_paged = False
 		  cursormark_val = next_cursormark
 			
 	rangeList = []
