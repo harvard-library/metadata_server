@@ -175,7 +175,7 @@ def process_intermediate(div, instance_var, new_ranges=None):
 		#logger.debug("process_intermediate: returning a new_range w/ len 1")
                 return {get_rangeKey(div): new_ranges[0].values()[0]}
 
-	rkey = get_rangeKey(div)
+        #rkey = get_rangeKey(div)
 	#logger.debug("process_intermediate: returning ranges for int div: " + div.get('LABEL') + " new_ranges size: " + str(len(new_ranges))  + " range key: " + rkey)
 	#logger.debug("process_intermediate: new_ranges: " + str(new_ranges) )
         return {get_rangeKey(div): new_ranges}
@@ -309,6 +309,7 @@ def main(data, document_id, source, host, cookie=None):
 	instVar = InstanceVar()
 
 	drs2json = None
+	manifestLabel = None
 	if 'response' in data:
 	#if 'object_structmap_raw' in data:
 		drs2json = data['response']['docs'][0]
@@ -343,7 +344,6 @@ def main(data, document_id, source, host, cookie=None):
 			metsLabel = drs2json['object_mets_label_text']
 		if metsLabel != None:
 			manifestLabel = metsLabel
-
 		modsName = None
 		if ('object_mods_name_text' in drs2json and len(drs2json['object_mods_name_text']) > 0):
 			modsName = drs2json['object_mods_name_text'][0]
@@ -443,7 +443,7 @@ def main(data, document_id, source, host, cookie=None):
 
 	#logger.debug("dom check: images and structs..." )
 	images = dom.xpath('/mets:mets/mets:fileSec/mets:fileGrp/mets:file[starts-with(@MIMETYPE, "image/")]', namespaces=XMLNS)
-        struct = dom.xpath('/mets:mets/mets:structMap/mets:div[@TYPE="CITATION"]/mets:div', namespaces=XMLNS)
+	struct = dom.xpath('/mets:mets/mets:structMap/mets:div[@TYPE="CITATION"]/mets:div', namespaces=XMLNS)
 	#logger.debug("dom check: images and structs found." )
 
 	# Check if the object has a stitched version(s) already made.  Use only those
