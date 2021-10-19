@@ -6,7 +6,7 @@ import urllib
 from urllib.parse import quote_plus
 from django.conf import settings
 from django.http import HttpResponse
-from manifests import webclient
+from . import webclient
 from os import environ
 
 from logging import getLogger

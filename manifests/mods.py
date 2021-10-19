@@ -2,9 +2,9 @@
 
 from lxml import etree
 import json, sys
-import urllib
+import urllib, re
 from django.conf import settings
-import webclient, re
+from . import webclient
 from os import environ
 
 XMLNS = {'mods': 'http://www.loc.gov/mods/v3'}
