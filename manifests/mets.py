@@ -620,7 +620,7 @@ def main(data, document_id, source, host, cookie=None):
 			cvsjson['images'][0]['resource']['width'] = infojson['width']
 
 		#dedup split node canvases
-		if uniqCanvases.has_key(cvs['image']) == False:
+		if uniqCanvases.__contains__(cvs['image']) == False:
 			canvases.append(cvsjson)
 			uniqCanvases[cvs['image']] = True 
 
