@@ -137,7 +137,7 @@ def get_rangeKey(div):
                 else:
                         return seq_s
         # Intermediates
-	else:
+        else:
                 label = div.get('LABEL', "").strip()
                 f, l = get_intermediate_seq_values(div[0], div[-1])
                 display_ss = ""
