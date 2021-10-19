@@ -570,8 +570,11 @@ def main(data, document_id, source, host, cookie=None):
 			if infojson['access_flag'] == "N":
 			  continue
 		formats = []
+		fmt = "image/jpeg"
 		if 'formats' in infojson:
 			formats = infojson['formats']
+			if "gif" in formats:
+				fmt = "image/gif"
 		else:
 			formats = infojson['profile'][1]['formats']
 			if "gif" in formats:
