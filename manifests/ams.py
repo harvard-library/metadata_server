@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import urllib2, requests
+import requests
 import re, json
 from os import environ
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest

@@ -2,8 +2,8 @@
 
 from lxml import etree
 import json, sys, re
-import urllib2
-from urllib import quote_plus
+import urllib
+from urllib.parse import quote_plus
 from django.conf import settings
 from django.http import HttpResponse
 import webclient
@@ -423,7 +423,7 @@ def main(data, document_id, source, host, cookie=None):
 		hollisID = hollisCheck[0].strip()
 		seeAlso = HOLLIS_PUBLIC_URL.format(hollisID.rjust(9,"0"))
 		try:
-			response = urllib2.urlopen(HOLLIS_API_URL+hollisID).read()
+			response = urllib.request.urlopen(HOLLIS_API_URL+hollisID).read()
 		except:
 			logger.debug("HOLLIS lookup failed for Hollis id: " + hollisID)
 		else:
@@ -467,7 +467,7 @@ def main(data, document_id, source, host, cookie=None):
 		  try:
 		  	metadata_url =  metadata_url_base + cursormark_val
 			response = webclient.get(metadata_url, cookie)
-		  except urllib2.HTTPError as err:
+		  except urllib.request.HTTPError as err:
 			  not_paged = False
 			  logger.debug("Failed solr file metadata request %s" % metadata_url)
 			  return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
@@ -495,7 +495,7 @@ def main(data, document_id, source, host, cookie=None):
 				      iiif_info = json.load(info_resp)
 				      instVar.drs2ImageHeights.append(iiif_info['height'])
 				      instVar.drs2ImageWidths.append(iiif_info['width'])
-				    except urllib2.HTTPError as err:
+				    except urllib.request.HTTPError as err:
 				      logger.debug("failed to get image dimensions for image id " + str(md['file_id_num']) )
 				  else:
 				    continue

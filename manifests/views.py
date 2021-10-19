@@ -9,7 +9,7 @@ from manifests import ids
 from os import environ
 import re
 import json
-import urllib2
+import urllib.request
 import requests
 import webclient
 import base64
@@ -341,7 +341,7 @@ def get_mets(document_id, source, cookie=None):
 	header = {'x-requested-with': 'XMLHttpRequest'}
 	try:
 		response = webclient.get(mets_url, cookie)
-	except urllib2.HTTPError as err:
+	except urllib.error.HTTPError as err:
 		logger.debug("Failed solr request %s" % mets_url)
 		return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
 	mets_json = json.loads(response.read())
@@ -360,7 +360,7 @@ def get_ids(document_id, source, cookie=None):
 	header = {'x-requested-with': 'XMLHttpRequest'}
 	try:
 		response = webclient.get(ids_url, cookie)
-	except urllib2.HTTPError as err:
+	except urllib.error.HTTPError as err:
 		logger.debug("Failed solr request %s" % mets_url)
 		return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
 	ids_json = json.loads(response.read())
@@ -378,7 +378,7 @@ def get_mods(document_id, source, cookie=None):
 	try:
 		#response = urllib2.urlopen(mods_url)
 		response = webclient.get(mods_url, cookie)
-	except urllib2.HTTPError as err:
+	except urllib.error.HTTPError as err:
 		if err.code == 500 or err.code == 403: ## TODO
 			# document does not exist in DRS
 			logger.debug("Failed mods request %s" % mods_url)
@@ -391,8 +391,8 @@ def get_mods(document_id, source, cookie=None):
 def get_huam(document_id, source):
 	huam_url = HUAM_API_URL+document_id+"?apikey="+HUAM_API_KEY
 	try:
-		response = urllib2.urlopen(huam_url)
-	except urllib2.HTTPError as err:
+		response = urllib.request.urlopen(huam_url)
+	except urllib.error.HTTPError as err:
 		if err.code == 500 or err.code == 403: ## TODO
 			# document does not exist in DRS
 			logger.debug("Failed huam request %s" % huam_url)

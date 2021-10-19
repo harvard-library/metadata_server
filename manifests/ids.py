@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import json, sys
-import urllib2, requests
+import requests
 from urlparse import urlparse
 from django.conf import settings
 from os import environ

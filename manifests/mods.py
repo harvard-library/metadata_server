@@ -2,7 +2,7 @@
 
 from lxml import etree
 import json, sys
-import urllib2
+import urllib
 from django.conf import settings
 import webclient, re
 from os import environ
