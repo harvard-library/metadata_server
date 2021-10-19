@@ -209,7 +209,7 @@ def get_intermediate_seq_values(first, last):
         return first_vals, last_vals
 
 def process_struct_divs(div, ranges, ivar):
-        """Toplevel processing function.  Run over contents of the CITATION div (or the stitched subdiv if present)."""
+	"""Toplevel processing function.  Run over contents of the CITATION div (or the stitched subdiv if present)."""
 	rangeKey = get_rangeKey(div)
 
 	# when the top level div is a PAGE
