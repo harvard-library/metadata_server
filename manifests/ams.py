@@ -37,13 +37,13 @@ def getAccessFlag(drsId):
       return ''
 
 def checkCookie(cookies, drsId, isIDS=False):
-	if 'hulaccess' in cookies:
-		return None
-	else:  #redirect to AMS
-		if (isIDS):
-			return amsRedirectIdsBase + drsId
-	  	else:
-			return amsRedirectBase + drsId
+  if 'hulaccess' in cookies:
+    return None
+  else:  #redirect to AMS
+    if (isIDS):
+      return amsRedirectIdsBase + drsId
+    else:
+      return amsRedirectBase + drsId
 
 def getAMSredirectUrl(cookies, drsId, isIDS=False):
 	flag = getAccessFlag(drsId)
