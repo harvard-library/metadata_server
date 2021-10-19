@@ -8,6 +8,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from . import webclient
 from os import environ
+from functools import reduce
 
 from logging import getLogger
 logger = getLogger(__name__)
