@@ -94,7 +94,7 @@ def process_page(sd, ivar):
                 info['label'] = label
                 info['image'] = display_image
                 #if info not in canvasInfo: #accept split intermediate/page nodes
-		ivar.canvasInfo.append(info)
+                ivar.canvasInfo.append(info)
                 my_range = {}
                 my_range[label] = ivar.imageHash[fid]["img"]
 
