@@ -219,10 +219,10 @@ def process_struct_divs(div, ranges, ivar):
 		p_range = process_page(div, ivar)
 		if p_range: 
 			ranges.append(p_range)
-		else:
-			subdivs = div.xpath('./mets:div', namespaces = XMLNS)
-			if len(subdivs) > 0:
-				ranges.append(process_intermediate(div, ivar))
+	else:
+		subdivs = div.xpath('./mets:div', namespaces = XMLNS)
+		if len(subdivs) > 0:
+			ranges.append(process_intermediate(div, ivar))
 
 	logger.debug("process_st_divs: ranges: " + str(ranges) ) 
 	return ranges
