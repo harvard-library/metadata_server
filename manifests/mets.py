@@ -163,7 +163,7 @@ def process_intermediate(div, instance_var, new_ranges=None):
                 if is_page(sd):
                         my_range = process_page(sd, instance_var)
                 else:
-						#logger.debug("process_intermediate: processing int div: " + div.get('LABEL') )
+                        logger.debug("process_intermediate: processing int div: " + div.get('LABEL') )
                         my_range = process_intermediate(sd, instance_var)
 						#logger.debug("process_intermediate: my_range: " + str(my_range) )
                 if my_range:
