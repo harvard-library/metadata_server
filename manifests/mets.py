@@ -206,7 +206,8 @@ def get_intermediate_seq_values(first, last):
 
         if last.get('TYPE') == 'PAGE':
                 last_vals = {"seq": last.get('ORDER'), "page": page_num(last)}
-        logger.debug("get intermediate seq vals: " + first_vals + " " + last_vals)
+        
+		#logger.debug("get intermediate seq vals: " + first_vals + " " + last_vals)
         return first_vals, last_vals
 
 def process_struct_divs(div, ranges, ivar):
