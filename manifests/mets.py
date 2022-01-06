@@ -163,22 +163,22 @@ def process_intermediate(div, instance_var, new_ranges=None):
                 if is_page(sd):
                         my_range = process_page(sd, instance_var)
                 else:
-			#logger.debug("process_intermediate: processing int div: " + div.get('LABEL') )
+			logger.debug("process_intermediate: processing int div: " + div.get('LABEL') )
                         my_range = process_intermediate(sd, instance_var)
-			#logger.debug("process_intermediate: my_range: " + str(my_range) )
+			logger.debug("process_intermediate: my_range: " + str(my_range) )
                 if my_range:
-			#logger.debug("process_intermediate: appending ranges for int div: " + div.get('LABEL') + " range: " + str(my_range) )
+			logger.debug("process_intermediate: appending ranges for int div: " + div.get('LABEL') + " range: " + str(my_range) )
                         new_ranges.append(my_range)
 
         # this is for the books where every single page is labeled (like Book of Hours)
         # most books do not do this
         if len(new_ranges) == 1:
-		#logger.debug("process_intermediate: returning a new_range w/ len 1")
+		logger.debug("process_intermediate: returning a new_range w/ len 1")
                 return {get_rangeKey(div): new_ranges[0].values()[0]}
 
         #rkey = get_rangeKey(div)
-	#logger.debug("process_intermediate: returning ranges for int div: " + div.get('LABEL') + " new_ranges size: " + str(len(new_ranges))  + " range key: " + rkey)
-	#logger.debug("process_intermediate: new_ranges: " + str(new_ranges) )
+	logger.debug("process_intermediate: returning ranges for int div: " + div.get('LABEL') + " new_ranges size: " + str(len(new_ranges))  + " range key: " + rkey)
+	logger.debug("process_intermediate: new_ranges: " + str(new_ranges) )
         return {get_rangeKey(div): new_ranges}
 
 
@@ -206,7 +206,7 @@ def get_intermediate_seq_values(first, last):
 
         if last.get('TYPE') == 'PAGE':
                 last_vals = {"seq": last.get('ORDER'), "page": page_num(last)}
-
+		logger.debug("get intermediate seq vals: " + first_vals + " " + last_vals)
         return first_vals, last_vals
 
 def process_struct_divs(div, ranges, ivar):
@@ -223,7 +223,7 @@ def process_struct_divs(div, ranges, ivar):
 			if len(subdivs) > 0:
 				ranges.append(process_intermediate(div, ivar))
 
-	#logger.debug("process_st_divs: ranges: " + str(ranges) ) 
+	logger.debug("process_st_divs: ranges: " + str(ranges) ) 
 	return ranges
 
 def process_structMap(smap):
@@ -318,22 +318,22 @@ def main(data, document_id, source, host, cookie=None):
                    drs2json['object_structmap_raw'] + settings.METS_FOOTER
 
 
-	#logger.debug("LOADING object " + str(document_id) + " into the DOM tree" )
+	logger.debug("LOADING object " + str(document_id) + " into the DOM tree" )
 	data = re.sub('(?i)encoding=[\'\"]utf\-8[\'\"]','', data)
 	utf8_parser = etree.XMLParser(encoding='utf-8')
 	dom = etree.XML(data, parser=utf8_parser)
-	#logger.debug("object " + str(document_id) + " LOADED into the DOM tree" )
+	logger.debug("object " + str(document_id) + " LOADED into the DOM tree" )
 	# Check if this is a DRS2 object since some things, like hollis ID are in a different location
 
-	#logger.debug("dom check: mets label candidates..." )
+	logger.debug("dom check: mets label candidates..." )
 	mets_label_candidates = dom.xpath('/mets:mets/@LABEL', namespaces=XMLNS)
-	#logger.debug("dom check: mets label candidates found" )
+	logger.debug("dom check: mets label candidates found" )
 	if (len(mets_label_candidates) > 0) and (mets_label_candidates[0] != ""):
 		manifestLabel = mets_label_candidates[0]
 	else:
-		#logger.debug("dom check: title candidates...")
+		logger.debug("dom check: title candidates...")
 		mods_title_candidates = dom.xpath('//mods:mods/mods:titleInfo/mods:title', namespaces=XMLNS)
-		#logger.debug("dom check: title candidates found")
+		logger.debug("dom check: title candidates found")
 		if len(mods_title_candidates) > 0:
 			manifestLabel = mods_title_candidates[0].text
 		else:
@@ -401,9 +401,9 @@ def main(data, document_id, source, host, cookie=None):
 				manifestLabel = manifestLabel + "."
 
 	
-	#logger.debug("dom check: manifest types check..." )
+	logger.debug("dom check: manifest types check..." )
 	manifestType = dom.xpath('/mets:mets/@TYPE', namespaces=XMLNS)[0]
-	#logger.debug("dom check: manifest type found" )
+	logger.debug("dom check: manifest type found" )
 
 	if manifestType in ["PAGEDOBJECT", "PDS DOCUMENT"]:
 		viewingHint = "paged"
@@ -417,7 +417,7 @@ def main(data, document_id, source, host, cookie=None):
 	viewingDirection = 'left-to-right' # default
 	seeAlso = u""
 
-	#logger.debug("dom check: hollis check..." )
+	logger.debug("dom check: hollis check..." )
 	hollisCheck = dom.xpath('/mets:mets/mets:amdSec/mets:techMD/mets:mdWrap/mets:xmlData/hulDrsAdmin:hulDrsAdmin/hulDrsAdmin:drsObject/hulDrsAdmin:harvardMetadataLinks/hulDrsAdmin:metadataIdentifier[../hulDrsAdmin:metadataType/text()="Aleph"]/text()', namespaces=XMLNS)
 
 	if len(hollisCheck) > 0:
@@ -442,10 +442,10 @@ def main(data, document_id, source, host, cookie=None):
 
 	manifest_uri = manifestUriBase + "%s:%s" % (source, document_id)
 
-	#logger.debug("dom check: images and structs..." )
+	logger.debug("dom check: images and structs..." )
 	images = dom.xpath('/mets:mets/mets:fileSec/mets:fileGrp/mets:file[starts-with(@MIMETYPE, "image/")]', namespaces=XMLNS)
 	struct = dom.xpath('/mets:mets/mets:structMap/mets:div[@TYPE="CITATION"]/mets:div', namespaces=XMLNS)
-	#logger.debug("dom check: images and structs found." )
+	logger.debug("dom check: images and structs found." )
 
 	# Check if the object has a stitched version(s) already made.  Use only those
 	# this has been intentionally removed to show full drs structure instead -cg
@@ -630,9 +630,9 @@ def main(data, document_id, source, host, cookie=None):
 	mfjson['sequences'][0]['canvases'] = canvases
 	mfjson['structures'] = iiif2_toc
 
-	#logger.debug("Dumping json for DRS2 object " + str(document_id) )
+	logger.debug("Dumping json for DRS2 object " + str(document_id) )
 	output = json.dumps(mfjson, indent=4, sort_keys=True)
-	#logger.debug("Dumping complete for DRS2 object " + str(document_id) )
+	logger.debug("Dumping complete for DRS2 object " + str(document_id) )
 	instVar = None
 	return output
 
