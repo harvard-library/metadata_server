@@ -243,6 +243,8 @@ def manifest(request, document_id):
 # Delete any document from db
 def delete(request, document_id):
 	request_ip = request.META['REMOTE_ADDR']
+	if request_ip is None: #LIBDRS-8313 temporary hack
+		request_ip = "128.103.229.19"
 	if not all_matching_cidrs(request_ip, IIIF_MGMT_ACL):
 	  if not all_matching_cidrs(get_xfwd_ip(request), IIIF_MGMT_ACL):
 		  return HttpResponse("Access Denied.", status=403)
