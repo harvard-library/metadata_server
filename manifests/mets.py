@@ -324,7 +324,7 @@ def main(data, document_id, source, host, cookie=None):
 	data = re.sub('(?i)encoding=[\'\"]utf\-8[\'\"]','', data)
 	utf8_parser = etree.XMLParser(encoding='utf-8')
 	dom = etree.XML(data, parser=utf8_parser)
-	logger.debug("object " + str(document_id) + " LOADED into the DOM tree" )
+	#logger.debug("object " + str(document_id) + " LOADED into the DOM tree" )
 	# Check if this is a DRS2 object since some things, like hollis ID are in a different location
 
 	#logger.debug("dom check: mets label candidates..." )
