@@ -162,7 +162,6 @@ def view(request, view_type, document_id):
 		else:
 			mfwobject = {"loadedManifest": uri,
 				"viewType": parts["view"] }
-				
 			if view_type == "view-dev": #mirador 3 preview
 			  mfwobject = {"loadedManifest": uri,
 						   "thumbnailNavigationPosition": "far-bottom"}
