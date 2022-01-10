@@ -163,22 +163,23 @@ def process_intermediate(div, instance_var, new_ranges=None):
                 if is_page(sd):
                         my_range = process_page(sd, instance_var)
                 else:
-			#logger.debug("process_intermediate: processing int div: " + div.get('LABEL') )
+                        #logger.debug("process_intermediate: processing int div: " + div.get('LABEL') )
                         my_range = process_intermediate(sd, instance_var)
-			#logger.debug("process_intermediate: my_range: " + str(my_range) )
+                        #logger.debug("process_intermediate: my_range: " + str(my_range) )
                 if my_range:
-			#logger.debug("process_intermediate: appending ranges for int div: " + div.get('LABEL') + " range: " + str(my_range) )
+                        #logger.debug("process_intermediate: appending ranges for int div: " + div.get('LABEL') + " range: " + str(my_range) )
                         new_ranges.append(my_range)
 
         # this is for the books where every single page is labeled (like Book of Hours)
         # most books do not do this
-        if len(new_ranges) == 1:
-		#logger.debug("process_intermediate: returning a new_range w/ len 1")
-                return {get_rangeKey(div): new_ranges[0].values()[0]}
+		#### 1/6/2021 cg- this breaks nested labels! - problematic
+        #if len(new_ranges) == 1:
+                #logger.debug("process_intermediate: returning a new_range w/ len 1, div: " + div.get('LABEL') )
+                #return {get_rangeKey(div): list(new_ranges[0].values())[0]}
 
         #rkey = get_rangeKey(div)
-	#logger.debug("process_intermediate: returning ranges for int div: " + div.get('LABEL') + " new_ranges size: " + str(len(new_ranges))  + " range key: " + rkey)
-	#logger.debug("process_intermediate: new_ranges: " + str(new_ranges) )
+		#logger.debug("process_intermediate: returning ranges for int div: " + div.get('LABEL') + " new_ranges size: " + str(len(new_ranges))  + " range key: " + rkey)
+		#logger.debug("process_intermediate: new_ranges: " + str(new_ranges) )
         return {get_rangeKey(div): new_ranges}
 
 
@@ -206,7 +207,8 @@ def get_intermediate_seq_values(first, last):
 
         if last.get('TYPE') == 'PAGE':
                 last_vals = {"seq": last.get('ORDER'), "page": page_num(last)}
-
+        
+		#logger.debug("get intermediate seq vals: " + first_vals + " " + last_vals)
         return first_vals, last_vals
 
 def process_struct_divs(div, ranges, ivar):
@@ -218,10 +220,10 @@ def process_struct_divs(div, ranges, ivar):
 		p_range = process_page(div, ivar)
 		if p_range: 
 			ranges.append(p_range)
-		else:
-			subdivs = div.xpath('./mets:div', namespaces = XMLNS)
-			if len(subdivs) > 0:
-				ranges.append(process_intermediate(div, ivar))
+	else:
+		subdivs = div.xpath('./mets:div', namespaces = XMLNS)
+		if len(subdivs) > 0:
+			ranges.append(process_intermediate(div, ivar))
 
 	#logger.debug("process_st_divs: ranges: " + str(ranges) ) 
 	return ranges
