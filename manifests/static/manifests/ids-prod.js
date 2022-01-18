@@ -182,8 +182,8 @@ $(function() {
             last_idx = parts.length - 1,
 	    drs_match = parts[last_idx].match(/drs:(\d+)/),
             drs_id = drs_match && drs_match[1],
-            ids_match = parts[last_idx].match(/ids:(\d+)/),
-            ids_id = ids_match && ids_match[1],
+            /*ids_match = parts[last_idx].match(/ids:(\d+)/),
+            ids_id = ids_match && ids_match[1],*/
             focusType = mirWindow.currentImageMode,
             n = mirWindow.focusModules[focusType].currentImgIndex + 1;
         if (mirWindow.id === omit_id) {
@@ -192,9 +192,9 @@ $(function() {
         else if (drs_match) {
           return 'drs:' + drs_id + '$' + n + ftype_alias[focusType];
         }
-        else if (ids_match) {
+        /*else if (ids_match) {
           return 'ids:' + ids_id + '$' + n + ftype_alias[focusType];
-        }
+        }*/
         else {
           return "ext:" + Base64.encode(uri).replace(/\+/g, '-').replace(/\//g, '_') + '$' + n + ftype_alias[focusType];
         }
