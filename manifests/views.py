@@ -166,15 +166,15 @@ def view(request, view_type, document_id):
 			  mfwobject = {"loadedManifest": uri,
 						   "thumbnailNavigationPosition": "far-bottom"}
 
-			# Load manifest as JSON, get sequence info, use canvasID to page into object
-			mfjson = json.loads(response)["sequences"][0]["canvases"]
-			try:
-				if parts["seq"] and 0 < parts["seq"] <= len(mfjson):
-					mfwobject["canvasID"] = mfjson[parts["seq"] - 1]["@id"]
-			except(ValueError):
-				pass
+		# Load manifest as JSON, get sequence info, use canvasID to page into object
+		mfjson = json.loads(response)["sequences"][0]["canvases"]
+		try:
+			if parts["seq"] and 0 < parts["seq"] <= len(mfjson):
+				mfwobject["canvasID"] = mfjson[parts["seq"] - 1]["@id"]
+		except(ValueError):
+			pass
 
-			manifests_wobjects.append(json.dumps(mfwobject))
+		manifests_wobjects.append(json.dumps(mfwobject))
 
 	if len(manifests_data) > 0:
 		view_locals = {'path_data':          path_data,
