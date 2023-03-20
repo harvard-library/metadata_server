@@ -559,7 +559,9 @@ def main(data, document_id, source, host, cookie=None):
 				response = webclient.get(imageUriBase.replace("https","http") + cvs['image'] + imageInfoSuffix, cookie)
 				infojson = json.load(response)
 				infocount = infocount + 1
-			except:
+			except Exception as err:
+				logger.error("FATAL: Could not find image dimensions for id " + cvs['image'])
+				logger.error("{}", err)
 				#infojson['width'] = ''
 				#infojson['height'] = ''
 				#infojson['tile_width'] = ''
