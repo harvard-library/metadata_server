@@ -560,8 +560,7 @@ def main(data, document_id, source, host, cookie=None):
 				infojson = json.load(response)
 				infocount = infocount + 1
 			except Exception as err:
-				logger.error("FATAL: Could not find image dimensions for id " + cvs['image'])
-				logger.error("{}", err)
+				logger.error("FATAL: Could not find image dimensions for id " + cvs['image'], exc_info=True)
 				#infojson['width'] = ''
 				#infojson['height'] = ''
 				#infojson['tile_width'] = ''
