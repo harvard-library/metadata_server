@@ -79,6 +79,11 @@ IIIF = {
     "license":		"http://nrs.harvard.edu/urn-3:hul.ois:hlviewerterms"
 }
 
+# default width and height in case calls to md server fail
+DEFAULT_WIDTH = os.environ.get('DEFAULT_WIDTH', 1200)
+DEFAULT_HEIGHT = os.environ.get('DEFAULT_HEIGHT', 1200)
+
+
 #permitted subnet for iiif index/delete/refresh methods
 IIIF_MGMT_SUBNET = os.environ.get('IIIF_MGMT_SUBNET', '128.103.151.0/24')
 
