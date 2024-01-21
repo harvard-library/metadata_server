@@ -17,6 +17,7 @@ collections.Iterable = collections.abc.Iterable
 collections.Mapping = collections.abc.Mapping
 collections.MutableSet = collections.abc.MutableSet
 collections.MutableMapping = collections.abc.MutableMapping
+collections.Sequence = collections.abc.Sequence
 
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
