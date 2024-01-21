@@ -1,8 +1,8 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.conf import settings
 
 from proxy import views
 
-urlpatterns = patterns('',
+urlpatterns = [
                        url(r'^(?P<method>[^/]*)/(?P<record_id>[^/?]*)$', views.proxy, name='proxy')
-                       ,)
+                       ]
