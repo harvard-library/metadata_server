@@ -156,6 +156,14 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 )
 
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': ['manifests/templates/manifests'],
+        'APP_DIRS': True
+    }
+]
+
 
 #logging setup
 LOGGING = {
