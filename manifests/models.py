@@ -14,8 +14,8 @@ INDEX_TYPE = {"drs": MONGO_INDEX, "via": "via", "hollis": "hollis", "huam" : "hu
 
 #Connect to mongo db
 def get_connection():
-  #client = MongoClient(MONGO_URL, ssl=True, ssl_cert_reqs=ssl.CERT_REQUIRED, ssl_ca_certs=MONGO_SSL_CERT, maxPoolSize=1)
-  client = MongoClient(MONGO_URL, tls=True, tlsCertificateKeyFile=MONGO_SSL_CERT, maxPoolSize=1)
+  client = MongoClient(MONGO_URL, ssl=True, ssl_cert_reqs=ssl.CERT_REQUIRED, ssl_ca_certs=MONGO_SSL_CERT, maxPoolSize=1)
+  # client = MongoClient(MONGO_URL, tls=True, tlsCertificateKeyFile=MONGO_SSL_CERT, maxPoolSize=1)
   return client
 
 # Gets the content of a manifest, returns JSON
