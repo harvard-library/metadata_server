@@ -24,6 +24,9 @@ SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = os.environ.get('DEBUG', False) == 'True'
 TEMPLATE_DEBUG = DEBUG
 
+# ALLOWED_HOSTS: set to ['*'] to prevent logs from filling up
+ALLOWED_HOSTS=['*']
+
 # Elasticsearch vars
 ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL', 'localhost:9200')
 ELASTICSEARCH_INDEX = os.environ.get('ELASTICSEARCH_INDEX', 'manifests')
