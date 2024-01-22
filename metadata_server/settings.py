@@ -24,9 +24,6 @@ SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = os.environ.get('DEBUG', False) == 'True'
 TEMPLATE_DEBUG = DEBUG
 
-# ALLOWED_HOSTS: set to prevent logs from filling up
-ALLOWED_HOSTS=['*']
-
 # Elasticsearch vars
 ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL', 'localhost:9200')
 ELASTICSEARCH_INDEX = os.environ.get('ELASTICSEARCH_INDEX', 'manifests')
@@ -65,7 +62,8 @@ METS_FOOTER = "</mets>"
 
 
 #ALLOWED_HOSTS = [x for x in os.environ.get('ALLOWED_HOSTS','').split(";") if x != '']
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '.lib.harvard.edu']
+#ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '.lib.harvard.edu']
+ALLOWED_HOSTS=['*']
 
 HTTP_PROTOCOL = os.environ.get('HTTP_PROTOCOL', 'http')
 
