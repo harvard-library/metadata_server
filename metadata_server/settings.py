@@ -24,7 +24,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = os.environ.get('DEBUG', False) == 'True'
 TEMPLATE_DEBUG = DEBUG
 
-# ALLOWED_HOSTS: set to ['*'] to prevent logs from filling up
+# ALLOWED_HOSTS: set to prevent logs from filling up
 ALLOWED_HOSTS=['*']
 
 # Elasticsearch vars
