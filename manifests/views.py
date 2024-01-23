@@ -34,6 +34,7 @@ IIIF_MGMT_ACL = (environ.get("IIIF_MGMT_ACL","128.103.151.0/24,10.34.5.254,10.40
 CORS_WHITELIST = (environ.get("CORS_WHITELIST", "http://harvard.edu")).split(',') 
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
 CAPTION_API_URL = (environ.get("CAPTION_API","http://ids.lib.harvard.edu:8080/ids/lookup?id="))
+VERSION = "v1.6.10"
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext": "ext", "ids": "ids" }
 
@@ -476,3 +477,7 @@ def get_manifest(document_id, source, force_refresh, host, cookie=None):
 def get_xfwd_ip(request):
 	if 'HTTP_X_FORWARDED_FOR' in request.META:
 	 return( request.META['HTTP_X_FORWARDED_FOR'].split(",")[0].strip() )
+
+# Version URL - return the current version of this app
+def version(request):
+	return render(request, 'manifests/version.html', {'version' : VERSION})
