@@ -12,5 +12,6 @@ urlpatterns = [
     # Same terrible hack from manifests/urls.py, empty view_type is NON OPTIONAL
     url(r'^(?P<view_type>)images/(?P<filename>.*)$', views.get_image),
     url(r'^(?P<view_type>)+.*skins.*$', views.clean_url),
+    url('^version/', views.version, name="version"),
     url('', views.version, name="version")
 ]
