@@ -4,9 +4,9 @@
 <head>
   <link rel="stylesheet" type="text/css" href="{% static 'manifests/prod/css/mirador-combined.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'manifests/prod.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'slicknav.min.css' %}">
   <link rel="icon" type="image/x-icon" href="https://library.harvard.edu/sites/default/files/favicon_0.ico"/>
   <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-  <link rel="stylesheet" type="text/css" href="{% static 'slicknav.min.css' %}">
   <script src="{% static 'jquery.slicknav.min.js' %}"></script> 
   <title>IIIF Presentation Server ({{ version }})</title>
   <script>
@@ -19,7 +19,7 @@
    });
    -->
   </script>
-<head>
+</head>
 <body>
 <div class="mirador-main-menu-bar"> 
 
@@ -34,7 +34,9 @@
 <div>
 <p/>
 <center>
-<h2>IIIF Presentation Server ({{ version }})</h2> 
+<h2>IIIF Presentation Server ({{ version }})</h2>
+<p/>
+<a href="http://nrs.harvard.edu/urn-3:hul.ois:hlviewerhelp">Help</a>
 </center>
 </div>
 
