@@ -96,11 +96,12 @@ def main(data, document_id, source, host, cookie=None):
 		      if (infoReq.status_code == 200):
 		        info_json = json.loads(infoReq.text)
 		        if ('height' in info_json.keys()):
-		          cvs['file_mix_imageHeight_num'] = info_json['height']
+		          cvs['file_mix_imageHeight_num'] = int(info_json['height'])
 		        if ('width' in info_json.keys()):
-	 	          cvs['file_mix_imageWidth_num'] = info_json['width'] 
+	 	          cvs['file_mix_imageWidth_num'] = int(info_json['width']) 
 		    except:
-		      pass
+		      cvs['file_mix_imageWidth_num'] = int(settings.DEFAULT_WIDTH)
+		      cvs['file_mix_imageHeight_num'] = int(settings.DEFAULT_HEIGHT)
 
 		cvsjson = {
 			"@id": manifest_uri + "/canvas/canvas-%s.json" % str(cvs['file_id_num']),
