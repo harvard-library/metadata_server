@@ -2,18 +2,40 @@
 
 <!DOCTYPE html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <link rel="stylesheet" type="text/css" href="{% static 'manifests/prod/css/mirador-combined.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'manifests/prod.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'slicknav.min.css' %}"> 
   <link rel="icon" type="image/x-icon" href="https://library.harvard.edu/sites/default/files/favicon_0.ico"/>
-  <script src="{% static 'base64.min.js' %}"></script>
-
-  <title>Harvard Mirador Viewer</title>
-</head>
+  <title>IIIF Presentation Server ({{ version }})</title>
+  <script>
+   <!--
+   $(function() {
+	$('.user-buttons').slicknav({
+          label: 'Menu',
+          prependTo: '.mirador-main-menu-bar'
+  	});
+   });
+   -->
+  </script>
+<head>
 <body>
+<div class="mirador-main-menu-bar"> 
 
-IIIF Presentation Server (iiif) - {{ version }}
+<div class="slicknav_menu"><a href="#" aria-haspopup="true" tabindex="0" class="slicknav_btn slicknav_collapsed"><ul class="slicknav_nav slicknav_hidden" aria-hidden="true" role="menu" style="display: none;"><li><a class="help" href="#no-op" role="menuitem" tabindex="-1"><span class="fa fa-question-circle"></span> Help</a></li></ul></div>
+
+
+<ul class="user-logo mirador-main-menu"><li><a id="harvard-bug" href="http://lib.harvard.edu">Harvard Library</a></li></ul>
+<ul class="user-buttons mirador-main-menu"><li><a class="help" href="http://nrs.harvard.edu/urn-3:hul.ois:hlviewerhelp"><span class="fa fa-question-circle"></span> Help</a></li></ul>
+</div>
+<p>
+<br>
+<div>
+<p/>
+<center>
+<h2>IIIF Presentation Server ({{ version }})</h2> 
+</center>
+</div>
 
 </body>
 </html>
+
