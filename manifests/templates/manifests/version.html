@@ -1,0 +1,19 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <link rel="stylesheet" type="text/css" href="{% static 'manifests/prod/css/mirador-combined.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'manifests/prod.css' %}">
+  <link rel="icon" type="image/x-icon" href="https://library.harvard.edu/sites/default/files/favicon_0.ico"/>
+  <script src="{% static 'base64.min.js' %}"></script>
+
+  <title>Harvard Mirador Viewer</title>
+</head>
+<body>
+
+IIIF Presentation Server (iiif) - {{ version }}
+
+</body>
+</html>
