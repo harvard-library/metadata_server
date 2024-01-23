@@ -617,10 +617,10 @@ def main(data, document_id, source, host, cookie=None):
 			}
 		}
 		if ( ('height' in infojson) and ('width' in infojson) ):
-			cvsjson['height'] = infojson['height']
-			cvsjson['width'] = infojson['width']
-			cvsjson['images'][0]['resource']['height'] = infojson['height']
-			cvsjson['images'][0]['resource']['width'] = infojson['width']
+			cvsjson['height'] = int(infojson['height'])
+			cvsjson['width'] = int(infojson['width'])
+			cvsjson['images'][0]['resource']['height'] = int(infojson['height'])
+			cvsjson['images'][0]['resource']['width'] = int(infojson['width'])
 
 		#dedup split node canvases
 		if uniqCanvases.__contains__(cvs['image']) == False:
