@@ -32,7 +32,7 @@ IIIF_MGMT_ACL = (environ.get("IIIF_MGMT_ACL","128.103.151.0/24,10.34.5.254,10.40
 CORS_WHITELIST = (environ.get("CORS_WHITELIST", "http://harvard.edu")).split(',') 
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
 CAPTION_API_URL = (environ.get("CAPTION_API","http://ids.lib.harvard.edu:8080/ids/lookup?id="))
-VERSION = "v1.6.24"
+VERSION = "v1.6.25"
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext": "ext", "ids": "ids" }
 
@@ -103,18 +103,19 @@ def view(request, view_type, document_id):
 
 		# drs: check AMS to see if this is a restricted obj
 		# TODO:  move this check into get_manifest() for hollis
+		drs_object = False
+		ams_redirect = None
 		if (('drs' == parts["source"]) or ('ids' == parts['source'])):
-			ams_redirect = None
 			drs_object = True
 		if ('drs' == parts["source"]):
 			ams_redirect = ams.getAMSredirectUrl(request.COOKIES, parts["id"]) 
 		elif ('ids' == parts['source']): 
 			ams_redirect = ams.getAMSredirectUrl(request.COOKIES, parts["id"], isIDS=True)
-		if (ams_redirect == None and drs_object == True): 
+		if (drs_object == True and ams_redirect == None): 
 			return HttpResponse("Invalid object id", status=404) 
-		if (ams_redirect[0] == 'N' and drs_object == True):
+		if (drs_object == True and ams_redirect[0] == 'N'):
 			return HttpResponse("The object you have requested is not intended for delivery", status=403) # 403 HttpResponse object
-		elif (ams_redirect[0] == 'R' and drs_object == True):
+		elif (drs_object == True and ams_redirect[0] == 'R'):
 			if ams_redirect[1] != None:
 				return HttpResponseRedirect(ams_redirect[1])
 
