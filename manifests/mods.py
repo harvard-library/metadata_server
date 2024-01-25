@@ -4,7 +4,6 @@ from lxml import etree
 import json, sys
 import requests, re
 from django.conf import settings
-from . import webclient
 from os import environ
 
 XMLNS = {'mods': 'http://www.loc.gov/mods/v3'}
@@ -56,9 +55,8 @@ def main(data, document_id, source, host, cookie=None):
 	for (counter, im) in enumerate(images):
 		info = {}
 		info['label'] = str(counter+1)
-		#response = urllib2.urlopen(im)
-		response = webclient.get(im, cookie)
-		ids_url = response.geturl()
+		response = requests.get(im, allow_redirects=True)
+		ids_url = response.url
 		url_idx = ids_url.rfind('/')
 		q_idx = ids_url.rfind('?') # and before any ? in URL
 		if q_idx != -1:
