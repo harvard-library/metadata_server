@@ -121,7 +121,7 @@ def view(request, view_type, document_id):
 
 		if parts['source'] == 'ext':
 			success = True
-			response = (requests.get(base64.urlsafe_b64decode(parts["id"].encode('ascii')))).text
+			response = (requests.get(base64.urlsafe_b64decode(parts["id"].encode('ascii')))).json()
 			real_source = parts["source"]
 		else:
 			#print source, id
