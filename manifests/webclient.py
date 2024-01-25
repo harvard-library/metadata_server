@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import urllib
+"""DEPRECATED: Use requests.get instead"""
 
 def get(url, cookie_value=None):
     opener = urllib.request.build_opener()
