@@ -2,13 +2,12 @@
 
 from lxml import etree
 import json, sys, re
-import urllib
 from urllib.parse import quote_plus
 from django.conf import settings
 from django.http import HttpResponse
-from . import webclient
 from os import environ
 from functools import reduce
+import requests
 
 from logging import getLogger
 logger = getLogger(__name__)
@@ -426,21 +425,22 @@ def main(data, document_id, source, host, cookie=None):
 		hollisID = hollisCheck[0].strip()
 		seeAlso = HOLLIS_PUBLIC_URL.format(hollisID.rjust(9,"0"))
 		try:
-			response = urllib.request.urlopen(HOLLIS_API_URL+hollisID).read()
+			response = requests.get(HOLLIS_API_URL+hollisID).text
+			if (response.code != 200):
+				logger.debug("HOLLIS lookup failed for Hollis id: " + hollisID)
+			else:
+				response_data = re.sub('(?i)encoding=[\'\"]utf\-8[\'\"]','', response)
+				mods_dom = etree.XML(response_data)
+				hollis_langs = set(mods_dom.xpath('/mods:mods/mods:language/mods:languageTerm/text()', namespaces=XMLNS))
+				citeAs = mods_dom.xpath('/mods:mods/mods:note[@type="preferred citation"]/text()', namespaces=XMLNS)
+				titleInfo = mods_dom.xpath('/mods:mods/mods:titleInfo/mods:title/text()', namespaces=XMLNS)[0]
+				if len(citeAs) > 0:
+					manifestLabel = citeAs[0] + " " + titleInfo
+				# intersect both sets and determine if there are common elements
+				if len(hollis_langs & right_to_left_langs) > 0:
+					viewingDirection = 'right-to-left'
 		except:
 			logger.debug("HOLLIS lookup failed for Hollis id: " + hollisID)
-		else:
-			response_data = re.sub('(?i)encoding=[\'\"]utf\-8[\'\"]','', response)
-			response_doc = unicode(response_data, encoding="utf-8")
-			mods_dom = etree.XML(response_doc)
-			hollis_langs = set(mods_dom.xpath('/mods:mods/mods:language/mods:languageTerm/text()', namespaces=XMLNS))
-			citeAs = mods_dom.xpath('/mods:mods/mods:note[@type="preferred citation"]/text()', namespaces=XMLNS)
-			titleInfo = mods_dom.xpath('/mods:mods/mods:titleInfo/mods:title/text()', namespaces=XMLNS)[0]
-			if len(citeAs) > 0:
-				manifestLabel = citeAs[0] + " " + titleInfo
-			# intersect both sets and determine if there are common elements
-			if len(hollis_langs & right_to_left_langs) > 0:
-				viewingDirection = 'right-to-left'
 
 	manifest_uri = manifestUriBase + "%s:%s" % (source, document_id)
 
@@ -469,12 +469,17 @@ def main(data, document_id, source, host, cookie=None):
 		while not_paged:
 		  try:
 		     metadata_url =  metadata_url_base + cursormark_val
-		     response = webclient.get(metadata_url, cookie)
-		  except urllib.request.HTTPError as err:
+		     cookies = {'hulaccess': cookie}
+		     response = requests.get(metadata_url, cookies=cookies)
+		     if (response.code != 200):
+		       not_paged = False
+		       logger.debug("Failed solr file metadata request %s" % metadata_url)
+		       return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
+		  except:
 			  not_paged = False
 			  logger.debug("Failed solr file metadata request %s" % metadata_url)
 			  return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
-		  md_json = json.loads(response.read())
+		  md_json = response.json() #json.loads(response.read())
 		  for md in md_json['response']['docs']:
 		  #for md in md_json:
 		    if (('object_huldrsadmin_accessFlag_string' in md) and ('file_id_num' not in md)):
@@ -494,12 +499,21 @@ def main(data, document_id, source, host, cookie=None):
 		            if 'object_huldrsadmin_accessFlag_string' in md:
 		              instVar.drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
 		            try: 
-		              info_resp = webclient.get(imageUriBase.replace("https","http") + str(md['file_id_num']) + imageInfoSuffix, cookie)
-		              iiif_info = json.load(info_resp)
-		              instVar.drs2ImageHeights.append(iiif_info['height'])
-		              instVar.drs2ImageWidths.append(iiif_info['width'])
-		            except urllib.request.HTTPError as err:
-		              logger.debug("failed to get image dimensions for image id " + str(md['file_id_num']) )
+		              url = imageUriBase.replace("https","http") + str(md['file_id_num']) + imageInfoSuffix
+		              cookies = {'hulaccess': cookie}
+		              iiif_resp = requests.get(url, cookies=cookies)
+		              if (iiif_resp.code != 200):
+		                logger.debug("failed to get image dimensions for image id " + str(md['file_id_num']) + " - using defaults")
+		                instVar.drs2ImageHeights.append(settings.DEFAULT_HEIGHT)
+		                instVar.drs2ImageWidths.append(settings.DEFAULT_WIDTH)
+		              else:
+		                iiif_info = iiif_resp.json()
+		                instVar.drs2ImageHeights.append(iiif_info['height'])
+		                instVar.drs2ImageWidths.append(iiif_info['width'])
+		            except:
+		              logger.debug("failed to get image dimensions for image id " + str(md['file_id_num']) + " - using defaults")
+		              instVar.drs2ImageHeights.append(settings.DEFAULT_HEIGHT)
+		              instVar.drs2ImageWidths.append(settings.DEFAULT_WIDTH)
 		            else:
 		              continue
 		  next_cursormark = quote_plus(md_json['nextCursorMark'])
@@ -559,8 +573,19 @@ def main(data, document_id, source, host, cookie=None):
 				md_url = imageUriBase.replace("https","http") + cvs['image'] + imageInfoSuffix
 				if (DEBUG):
 					logger.debug("missing image md, calling: " + md_url)
-				response = webclient.get(md_url, cookie)
-				infojson = json.load(response)
+				cookies = {'hulaccess': cookie}
+				md_resp = requests.get(md_url, cookies=cookies)
+				if (md_resp.code == 200):
+					md_json = md_resp.json()
+					infojson['width'] = md_json['width']
+					infojson['height'] = md_json['height']
+					infojson['formats'] = ['jpg']
+				else:
+					logger.error("FATAL: Could not find image dimensions for id " + cvs['image'], exc_info=True)
+					infojson['width'] = int(settings.DEFAULT_WIDTH)
+					infojson['height'] = int(settings.DEFAULT_HEIGHT)
+					infojson['formats'] = ['jpg']
+					infojson['scale_factors'] = [1]
 				infocount = infocount + 1
 			except Exception as err:
 				logger.error("FATAL: Could not find image dimensions for id " + cvs['image'], exc_info=True)

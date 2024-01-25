@@ -9,9 +9,7 @@ from manifests import ids
 from os import environ
 import re
 import json
-import urllib.request
 import requests
-from . import webclient
 import base64
 from logging import getLogger
 logger = getLogger(__name__)
@@ -34,7 +32,7 @@ IIIF_MGMT_ACL = (environ.get("IIIF_MGMT_ACL","128.103.151.0/24,10.34.5.254,10.40
 CORS_WHITELIST = (environ.get("CORS_WHITELIST", "http://harvard.edu")).split(',') 
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
 CAPTION_API_URL = (environ.get("CAPTION_API","http://ids.lib.harvard.edu:8080/ids/lookup?id="))
-VERSION = "v1.6.18"
+VERSION = "v1.6.21"
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext": "ext", "ids": "ids" }
 
@@ -121,8 +119,7 @@ def view(request, view_type, document_id):
 
 		if parts['source'] == 'ext':
 			success = True
-			response = webclient.get(base64.urlsafe_b64decode(parts["id"].encode('ascii'))).read()
-			real_id = parts["id"]
+			response = (requests.get(base64.urlsafe_b64decode(parts["id"].encode('ascii')))).text
 			real_source = parts["source"]
 		else:
 			#print source, id
@@ -340,11 +337,10 @@ def get_mets(document_id, source, cookie=None):
 	mets_url = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_OBJ_QUERY
 	header = {'x-requested-with': 'XMLHttpRequest'}
 	try:
-		response = webclient.get(mets_url, cookie)
-	except urllib.error.HTTPError as err:
+		mets_json = (requests.get(mets_url)).json()
+	except:
 		logger.debug("Failed solr request %s" % mets_url)
 		return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
-	mets_json = json.loads(response.read())
 	#response_doc = settings.METS_HEADER + mets_json['response']['docs'][0]['object_file_sec_raw'] + \
 	#mets_json['response']['docs'][0]['object_structmap_raw'] + settings.METS_FOOTER
 	response_doc = mets_json
@@ -359,11 +355,10 @@ def get_ids(document_id, source, cookie=None):
 	ids_url = settings.SOLR_BASE + settings.SOLR_FILE_QUERY_PREFIX + document_id + settings.SOLR_AMS_FILE_QUERY
 	header = {'x-requested-with': 'XMLHttpRequest'}
 	try:
-		response = webclient.get(ids_url, cookie)
-	except urllib.error.HTTPError as err:
-		logger.debug("Failed solr request %s" % mets_url)
+		ids_json = (requests.get(ids_url)).json()
+	except:
+		logger.debug("Failed solr request %s" % ids_url)
 		return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
-	ids_json = json.loads(response.read())
 	response_doc = ids_json    
 	numFound = ids_json['response']['numFound']
 	if numFound == 0:
@@ -376,29 +371,31 @@ def get_mods(document_id, source, cookie=None):
 	mods_url = MODS_DRS_URL+source+"/"+document_id
 	#print mods_url
 	try:
-		#response = urllib2.urlopen(mods_url)
-		response = webclient.get(mods_url, cookie)
-	except urllib.error.HTTPError as err:
-		if err.code == 500 or err.code == 403: ## TODO
+		mods = (requests.get(mods_url)).text
+		if mods.code == 500 or mods.code == 403:
 			# document does not exist in DRS
 			logger.debug("Failed mods request %s" % mods_url)
 			return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
+	except:
+		# document does not exist in DRS
+		logger.debug("Failed mods request %s" % mods_url)
+		return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 
-	mods = unicode(response.read(), encoding="utf-8")
 	return (True, mods)
 
 # Gets HUAM JSON from HUAM API
 def get_huam(document_id, source):
 	huam_url = HUAM_API_URL+document_id+"?apikey="+HUAM_API_KEY
 	try:
-		response = urllib.request.urlopen(huam_url)
-	except urllib.error.HTTPError as err:
-		if err.code == 500 or err.code == 403: ## TODO
+		huam = requests.get(huam_url)
+		if huam.code == 500 or huam.code == 403: ## TODO
 			# document does not exist in DRS
 			logger.debug("Failed huam request %s" % huam_url)
 			return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
+	except:
+		logger.debug("Failed huam request %s" % huam_url)
+		return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 
-	huam = unicode(response.read(), encoding="utf-8")
 	return (True, huam)
 
 # Adds headers to Response for returning JSON that other Mirador instances can access

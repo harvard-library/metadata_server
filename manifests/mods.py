@@ -2,7 +2,7 @@
 
 from lxml import etree
 import json, sys
-import urllib, re
+import requests, re
 from django.conf import settings
 from . import webclient
 from os import environ
@@ -100,9 +100,8 @@ def main(data, document_id, source, host, cookie=None):
 	canvases = []
 
 	for cvs in canvasInfo:
-		#response = urllib2.urlopen(imageUriBase + cvs['image'] + imageInfoSuffix)
-		response = webclient.get(imageUriBase + cvs['image'] + imageInfoSuffix, cookie)
-		infojson = json.load(response)
+		cookies = {'hulaccess': cookie}
+		infojson = (requests.get(imageUriBase + cvs['image'] + imageInfoSuffix, cookies=cookies)).json()
 		cvsjson = {
 			"@id": manifest_uri + "/canvas/canvas-%s.json" % cvs['image'],
 			"@type": "sc:Canvas",
