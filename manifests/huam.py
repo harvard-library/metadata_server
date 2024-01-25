@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import json, sys
-import urllib.request
+import requests
 from django.conf import settings
 from os import environ
 
@@ -49,8 +49,8 @@ def main(data, document_id, source, host):
 			info['label'] = im["publiccaption"]
 		else:
 			info['label'] = str(counter+1)
-		response = urllib.request.urlopen(im["baseimageurl"])
-		ids_url = response.geturl()
+		response = requests.get(im["baseimageurl"], allow_redirects=True)
+		ids_url = response.url
 		url_idx = ids_url.rfind('/')
 		q_idx = ids_url.rfind('?') # and before any ? in URL
 		if q_idx != -1:
@@ -82,8 +82,8 @@ def main(data, document_id, source, host):
 	canvases = []
 
 	for cvs in canvasInfo:
-		response = urllib.request.urlopen(imageUriBase + cvs['image'] + imageInfoSuffix)
-		infojson = json.load(response)
+		response = requests.get(imageUriBase + cvs['image'] + imageInfoSuffix)
+		infojson = response.json()
 		cvsjson = {
 			"@id": manifest_uri + "/canvas/canvas-%s.json" % cvs['image'],
 			"@type": "sc:Canvas",
