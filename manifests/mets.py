@@ -425,20 +425,18 @@ def main(data, document_id, source, host, cookie=None):
 		hollisID = hollisCheck[0].strip()
 		seeAlso = HOLLIS_PUBLIC_URL.format(hollisID.rjust(9,"0"))
 		try:
-			response = requests.get(HOLLIS_API_URL+hollisID).text
-			if (response.code != 200):
-				logger.debug("HOLLIS lookup failed for Hollis id: " + hollisID)
-			else:
-				response_data = re.sub('(?i)encoding=[\'\"]utf\-8[\'\"]','', response)
-				mods_dom = etree.XML(response_data)
-				hollis_langs = set(mods_dom.xpath('/mods:mods/mods:language/mods:languageTerm/text()', namespaces=XMLNS))
-				citeAs = mods_dom.xpath('/mods:mods/mods:note[@type="preferred citation"]/text()', namespaces=XMLNS)
-				titleInfo = mods_dom.xpath('/mods:mods/mods:titleInfo/mods:title/text()', namespaces=XMLNS)[0]
-				if len(citeAs) > 0:
-					manifestLabel = citeAs[0] + " " + titleInfo
-				# intersect both sets and determine if there are common elements
-				if len(hollis_langs & right_to_left_langs) > 0:
-					viewingDirection = 'right-to-left'
+			response = requests.get(HOLLIS_API_URL+hollisID)
+			response.raise_for_status()
+			response_data = re.sub('(?i)encoding=[\'\"]utf\-8[\'\"]','', response.text)
+			mods_dom = etree.XML(response_data)
+			hollis_langs = set(mods_dom.xpath('/mods:mods/mods:language/mods:languageTerm/text()', namespaces=XMLNS))
+			citeAs = mods_dom.xpath('/mods:mods/mods:note[@type="preferred citation"]/text()', namespaces=XMLNS)
+			titleInfo = mods_dom.xpath('/mods:mods/mods:titleInfo/mods:title/text()', namespaces=XMLNS)[0]
+			if len(citeAs) > 0:
+				manifestLabel = citeAs[0] + " " + titleInfo
+			# intersect both sets and determine if there are common elements
+			if len(hollis_langs & right_to_left_langs) > 0:
+				viewingDirection = 'right-to-left'
 		except:
 			logger.debug("HOLLIS lookup failed for Hollis id: " + hollisID)
 
@@ -471,10 +469,7 @@ def main(data, document_id, source, host, cookie=None):
 		     metadata_url =  metadata_url_base + cursormark_val
 		     cookies = {'hulaccess': cookie}
 		     response = requests.get(metadata_url, cookies=cookies)
-		     if (response.code != 200):
-		       not_paged = False
-		       logger.debug("Failed solr file metadata request %s" % metadata_url)
-		       return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
+		     response.raise_for_status()
 		  except:
 			  not_paged = False
 			  logger.debug("Failed solr file metadata request %s" % metadata_url)
@@ -502,7 +497,7 @@ def main(data, document_id, source, host, cookie=None):
 		              url = imageUriBase.replace("https","http") + str(md['file_id_num']) + imageInfoSuffix
 		              cookies = {'hulaccess': cookie}
 		              iiif_resp = requests.get(url, cookies=cookies)
-		              if (iiif_resp.code != 200):
+		              if (iiif_resp.status_code != requests.codes.ok):
 		                logger.debug("failed to get image dimensions for image id " + str(md['file_id_num']) + " - using defaults")
 		                instVar.drs2ImageHeights.append(settings.DEFAULT_HEIGHT)
 		                instVar.drs2ImageWidths.append(settings.DEFAULT_WIDTH)
@@ -575,7 +570,7 @@ def main(data, document_id, source, host, cookie=None):
 					logger.debug("missing image md, calling: " + md_url)
 				cookies = {'hulaccess': cookie}
 				md_resp = requests.get(md_url, cookies=cookies)
-				if (md_resp.code == 200):
+				if (md_resp.status_code == requests.codes.ok):
 					md_json = md_resp.json()
 					infojson['width'] = md_json['width']
 					infojson['height'] = md_json['height']

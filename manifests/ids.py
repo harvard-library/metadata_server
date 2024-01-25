@@ -83,22 +83,25 @@ def main(data, document_id, source, host, cookie=None):
 		canvasLabel = " "
 		try:
 		  req = requests.get(captionServerBase + str(cvs['file_id_num']))
-		  if (req.status_code == 200):
-		    md_json = json.loads(req.text)
-		    if ('caption' in md_json.keys()):
-		      canvasLabel = md_json['caption']
+		  req.raise_for_status()
+		  if ('caption' in md_json.keys()):
+		     canvasLabel = md_json['caption']
 		except:
 		  pass
 
 		if ( ('file_mix_imageHeight_num' not in cvs.keys()) or ('file_mix_imageWidth_num' not in cvs.keys()) ):
 		    try: #call ids for info.json dimensions if missing from solr feed
 		      infoReq = requests.get(imageUriBase + str(cvs['file_id_num']) + '/info.json')
-		      if (infoReq.status_code == 200):
-		        info_json = json.loads(infoReq.text)
-		        if ('height' in info_json.keys()):
-		          cvs['file_mix_imageHeight_num'] = int(info_json['height'])
-		        if ('width' in info_json.keys()):
-	 	          cvs['file_mix_imageWidth_num'] = int(info_json['width']) 
+		      infoReq.raise_for_status()
+		      info_json = json.loads(infoReq.text)
+		      if ('height' in info_json.keys()):
+		        cvs['file_mix_imageHeight_num'] = int(info_json['height'])
+		      else:
+		        cvs['file_mix_imageHeight_num'] = int(settings.DEFAULT_HEIGHT)
+		      if ('width' in info_json.keys()):
+		         cvs['file_mix_imageWidth_num'] = int(info_json['width'])
+		      else:
+		         cvs['file_mix_imageWidth_num'] = int(settings.DEFAULT_WIDTH)
 		    except:
 		      cvs['file_mix_imageWidth_num'] = int(settings.DEFAULT_WIDTH)
 		      cvs['file_mix_imageHeight_num'] = int(settings.DEFAULT_HEIGHT)
