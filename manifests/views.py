@@ -32,7 +32,7 @@ IIIF_MGMT_ACL = (environ.get("IIIF_MGMT_ACL","128.103.151.0/24,10.34.5.254,10.40
 CORS_WHITELIST = (environ.get("CORS_WHITELIST", "http://harvard.edu")).split(',') 
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
 CAPTION_API_URL = (environ.get("CAPTION_API","http://ids.lib.harvard.edu:8080/ids/lookup?id="))
-VERSION = "v1.6.30"
+VERSION = "v1.6.31"
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext": "ext", "ids": "ids" }
 
@@ -132,6 +132,9 @@ def view(request, view_type, document_id):
 				location = "Unknown"
 				uri = str(base64.urlsafe_b64decode(parts["id"].encode('ascii')))
 				title = "Unknown"
+				#temporary debugging
+				logger.debug("External manifest uri: %s" % uri)
+				logger.debug("External manifest contents:\n%s" % response)
 			else:
 				title = models.get_manifest_title(real_id, real_source)
 				uri = settings.HTTP_PROTOCOL + "://%s/manifests/%s:%s" % (host,real_source,real_id)
