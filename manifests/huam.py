@@ -52,7 +52,7 @@ def main(data, document_id, source, host):
 			info['label'] = im["publiccaption"]
 		else:
 			info['label'] = str(counter+1)
-		response = requests.get(im["baseimageurl"], allow_redirects=True)
+		response = requests.head(im["baseimageurl"], allow_redirects=True)
 		ids_url = response.url
 		url_idx = ids_url.rfind('/')
 		q_idx = ids_url.rfind('?') # and before any ? in URL
@@ -66,7 +66,7 @@ def main(data, document_id, source, host):
 
 	# can add metadata key/value pairs
 	mfjson = {
-		"@context":"http://iiif.io/api/presentation/1/context.json",
+		"@context":"http://iiif.io/api/presentation/2/context.json",
 		"@id": manifest_uri,
 		"@type":"sc:Manifest",
 		"label":manifestLabel,

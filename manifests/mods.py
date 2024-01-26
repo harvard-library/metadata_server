@@ -58,7 +58,7 @@ def main(data, document_id, source, host, cookie=None):
 	for (counter, im) in enumerate(images):
 		info = {}
 		info['label'] = str(counter+1)
-		response = requests.get(im, allow_redirects=True)
+		response = requests.head(im, allow_redirects=True)
 		ids_url = response.url
 		url_idx = ids_url.rfind('/')
 		q_idx = ids_url.rfind('?') # and before any ? in URL
@@ -82,7 +82,7 @@ def main(data, document_id, source, host, cookie=None):
 		canvasInfo.append(info)
 
 	mfjson = {
-		"@context":"http://iiif.io/api/presentation/1/context.json",
+		"@context":"http://iiif.io/api/presentation/2/context.json",
 		"@id": manifest_uri,
 		"@type":"sc:Manifest",
 		"label":manifestLabel,
