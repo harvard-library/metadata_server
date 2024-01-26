@@ -97,7 +97,7 @@ def main(data, document_id, source, host, cookie=None):
 		      infoReq = requests.get(imageUriBase + str(cvs['file_id_num']) + '/info.json')
 		      infoReq.raise_for_status()
 		      info_json = json.loads(infoReq.text)
-		      logger.debug("single image manifest (ids) missing image dimensions from solr - making info.json call for image id " + str(cvs['file_id_num']) )
+		      logger.debug("ids: missing image dimensions from solr - making info.json call for image id " + str(cvs['file_id_num']) )
 		      if ('height' in info_json.keys()):
 		        cvs['file_mix_imageHeight_num'] = int(info_json['height'])
 		      else:

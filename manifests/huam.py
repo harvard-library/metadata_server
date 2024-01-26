@@ -5,6 +5,9 @@ import requests
 from django.conf import settings
 from os import environ
 
+from logging import getLogger
+logger = getLogger(__name__)
+
 imageUriBase =    settings.IIIF['imageUriBase']
 imageUriSuffix =  settings.IIIF['imageUriSuffix']
 imageInfoSuffix = settings.IIIF['imageInfoSuffix']
@@ -83,6 +86,11 @@ def main(data, document_id, source, host):
 
 	for cvs in canvasInfo:
 		response = requests.get(imageUriBase + cvs['image'] + imageInfoSuffix)
+		try:
+			response.raise_for_status()
+		except requests.exceptions.HTTPError as e:
+			logger.debug("huam: error getting image info for %s" % cvs['image'], exc_info=True)
+			continue
 		infojson = response.json()
 		cvsjson = {
 			"@id": manifest_uri + "/canvas/canvas-%s.json" % cvs['image'],
