@@ -32,7 +32,7 @@ IIIF_MGMT_ACL = (environ.get("IIIF_MGMT_ACL","128.103.151.0/24,10.34.5.254,10.40
 CORS_WHITELIST = (environ.get("CORS_WHITELIST", "http://harvard.edu")).split(',') 
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
 CAPTION_API_URL = (environ.get("CAPTION_API","http://ids.lib.harvard.edu:8080/ids/lookup?id="))
-VERSION = "v1.6.35"
+VERSION = "v1.6.36"
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext": "ext", "ids": "ids" }
 
@@ -105,6 +105,7 @@ def view(request, view_type, document_id):
 		# TODO:  move this check into get_manifest() for hollis
 		drs_object = False
 		ams_redirect = None
+		success = False
 		if (('drs' == parts["source"]) or ('ids' == parts['source'])):
 			drs_object = True
 		if ('drs' == parts["source"]):
@@ -150,6 +151,8 @@ def view(request, view_type, document_id):
 					   "title": title }
 
 			manifests_data.append(json.dumps(mfdata))
+		else:
+			return HttpResponse("Invalid object id", status=404) 
 
 			# Window objects - what gets displayed
 		if parts['source'] == 'ids':
@@ -351,7 +354,7 @@ def get_mets(document_id, source, cookie=None):
 	response_doc = mets_json
 	numFound = mets_json['response']['numFound']
 	if numFound == 0:
-	  return (False, response_doc)
+	  return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 	else:
 	  return (True, response_doc)
 
@@ -365,12 +368,12 @@ def get_ids(document_id, source, cookie=None):
 		ids_json = ids_resp.json()
 	except:
 		logger.debug("Failed solr request %s" % ids_url)
-		return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
+		return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 	response_doc = ids_json    
 	numFound = ids_json['response']['numFound']
 	if numFound == 0:
 	  logger.debug("Failed solr request %s" % ids_url)
-	  return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
+	  return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 	else:
 	  return (True, response_doc)
 
