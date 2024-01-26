@@ -32,7 +32,7 @@ IIIF_MGMT_ACL = (environ.get("IIIF_MGMT_ACL","128.103.151.0/24,10.34.5.254,10.40
 CORS_WHITELIST = (environ.get("CORS_WHITELIST", "http://harvard.edu")).split(',') 
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
 CAPTION_API_URL = (environ.get("CAPTION_API","http://ids.lib.harvard.edu:8080/ids/lookup?id="))
-VERSION = "v1.6.33"
+VERSION = "v1.6.34"
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext": "ext", "ids": "ids" }
 
@@ -369,7 +369,8 @@ def get_ids(document_id, source, cookie=None):
 	response_doc = ids_json    
 	numFound = ids_json['response']['numFound']
 	if numFound == 0:
-	  return (False, response_doc)
+	  logger.debug("Failed solr request %s" % ids_url)
+	  return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
 	else:
 	  return (True, response_doc)
 
@@ -395,6 +396,10 @@ def get_huam(document_id, source):
 		huam_resp = requests.get(huam_url)
 		huam_resp.raise_for_status()
 		huam = huam_resp.text
+		huam_json = huam_resp.json()
+		if ("error" in huam_json.keys()):
+			logger.debug("Failed huam request %s" % huam_url)
+			return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 	except:
 		logger.debug("Failed huam request %s" % huam_url)
 		return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))

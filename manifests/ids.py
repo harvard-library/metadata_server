@@ -83,6 +83,10 @@ def main(data, document_id, source, host, cookie=None):
 #	structure_canvases = []
 
 	for cvs in data['response']['docs']:
+		if ( ('file_huldrsadmin_accessFlag_string' in cvs.keys()) and
+	         ('file_huldrsadmin_accessFlag_string' == "N") ):
+			continue
+
 		canvasLabel = " "
 		try:
 		  req = requests.get(captionServerBase + str(cvs['file_id_num']))
