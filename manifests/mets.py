@@ -483,11 +483,11 @@ def main(data, document_id, source, host, cookie=None):
 			       return (False, HttpResponse("Document ID %s is not intended for delivery and cannot be indexed." % document_id, status=404))
 			    else:
 				    continue
-			if (('file_huldrsadmin_accessFlag_string' in md) and ('file_id_num' in md)):
-			    file_access_flag = md['file_huldrsadmin_accessFlag_string']
-			    if (file_access_flag == "N"):
-			        #skip this image
-				    continue
+		    if (('file_huldrsadmin_accessFlag_string' in md) and ('file_id_num' in md)):
+		        file_access_flag = md['file_huldrsadmin_accessFlag_string']
+		    if (file_access_flag == "N"):
+		            #skip this image
+		            continue
 		    if (('file_mix_imageHeight_num' in md) and ('file_mix_imageWidth_num' in md)):
 		          instVar.drs2ImageHeights.append(md['file_mix_imageHeight_num'])
 		          instVar.drs2ImageWidths.append(md['file_mix_imageWidth_num'])
