@@ -55,7 +55,7 @@ def main(data, document_id, source, host, cookie=None):
 	logger.debug("Images list", images)
 
 	s = requests.Session()
-        canvasInfo = []
+	canvasInfo = []
 	for (counter, im) in enumerate(images):
 		info = {}
 		info['label'] = str(counter+1)

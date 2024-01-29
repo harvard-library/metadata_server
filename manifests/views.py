@@ -32,26 +32,26 @@ IIIF_MGMT_ACL = (environ.get("IIIF_MGMT_ACL","128.103.151.0/24,10.34.5.254,10.40
 CORS_WHITELIST = (environ.get("CORS_WHITELIST", "http://harvard.edu")).split(',')
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
 CAPTION_API_URL = (environ.get("CAPTION_API","http://ids.lib.harvard.edu:8080/ids/lookup?id="))
-VERSION = "v1.6.39"
+VERSION = "v1.6.40"
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext": "ext", "ids": "ids" }
 
 def index(request, source=None):
 	request_ip = request.META['REMOTE_ADDR']
 	if not all_matching_cidrs(request_ip, IIIF_MGMT_ACL):
-	  if not all_matching_cidrs(get_xfwd_ip(request), IIIF_MGMT_ACL):
-		  return HttpResponse("Access Denied.", status=403)
+		if not all_matching_cidrs(get_xfwd_ip(request), IIIF_MGMT_ACL):
+			return HttpResponse("Access Denied.", status=403)
 	source = source if source else "drs"
 	document_ids = models.get_all_manifest_ids_with_type(source)
 	host = IIIF_MANIFEST_HOST
 	if host == None:
-	   host = request.META['HTTP_HOST']
+		host = request.META['HTTP_HOST']
 	cookie = request.COOKIES.get('hulaccess', None)
 	manifests = ({"uri": "/manifests/view/%s:%s" % (source, d_id), "title": (models.get_manifest_title(d_id, source) or "Untitled Item") + " (id: %s)" % d_id} for d_id in document_ids)
 	if source == "ids":
-	   return render(request, 'manifests/ids.html', {'manifests': manifests})
+		return render(request, 'manifests/ids.html', {'manifests': manifests})
 	else:
-	  return render(request, 'manifests/index.html', {'manifests': manifests})
+		return render(request, 'manifests/index.html', {'manifests': manifests})
 
 # view any number of MODS, METS, or HUAM objects
 def view(request, view_type, document_id):
@@ -97,7 +97,7 @@ def view(request, view_type, document_id):
 		ams_cookie = request.COOKIES['hulaccess']
 	host = IIIF_MANIFEST_HOST
 	if host == None:
-	  host = request.META['HTTP_HOST']
+		host = request.META['HTTP_HOST']
 	s = requests.Session()
 	for doc_id in doc_ids:
 		parts = parse_id(doc_id)
@@ -160,7 +160,7 @@ def view(request, view_type, document_id):
 
 			# Window objects - what gets displayed
 		if parts['source'] == 'ids':
-			 mfwobject = {"loadedManifest": uri,
+			mfwobject = {"loadedManifest": uri,
 			"bottomPanel": False,
 			"sidePanel": False,
 			"displayLayout": False,
@@ -170,7 +170,7 @@ def view(request, view_type, document_id):
 			mfwobject = {"loadedManifest": uri,
 				"viewType": parts["view"] }
 			if view_type == "view-dev": #mirador 3 preview
-			  mfwobject = {"loadedManifest": uri,
+				mfwobject = {"loadedManifest": uri,
 						   "thumbnailNavigationPosition": "far-bottom"}
 
 		# Load manifest as JSON, get sequence info, use canvasID to page into object
@@ -218,7 +218,7 @@ def manifest(request, document_id):
 	host = IIIF_MANIFEST_HOST
 
 	if host == None:
-	  host = request.META['HTTP_HOST']
+		host = request.META['HTTP_HOST']
 	cookie = request.COOKIES.get('hulaccess', None)
 	if len(parts) != 2:
 		return HttpResponse("Invalid document ID. Format: [data source]:[ID]", status=404)
@@ -254,8 +254,8 @@ def manifest(request, document_id):
 def delete(request, document_id):
 	request_ip = request.META['REMOTE_ADDR']
 	if not all_matching_cidrs(request_ip, IIIF_MGMT_ACL):
-	  if not all_matching_cidrs(get_xfwd_ip(request), IIIF_MGMT_ACL):
-		  return HttpResponse("Access Denied.", status=403)
+		if not all_matching_cidrs(get_xfwd_ip(request), IIIF_MGMT_ACL):
+			return HttpResponse("Access Denied.", status=403)
 	# Check if manifest exists
 	parts = document_id.split(":")
 	if len(parts) != 2:
@@ -276,12 +276,12 @@ def delete(request, document_id):
 def refresh(request, document_id):
 	request_ip = request.META['REMOTE_ADDR']
 	if not all_matching_cidrs(request_ip, IIIF_MGMT_ACL):
-	  if not all_matching_cidrs(get_xfwd_ip(request), IIIF_MGMT_ACL):
-		  return HttpResponse("Access Denied.", status=403)
+		if not all_matching_cidrs(get_xfwd_ip(request), IIIF_MGMT_ACL):
+			return HttpResponse("Access Denied.", status=403)
 	parts = document_id.split(":")
 	host = IIIF_MANIFEST_HOST
 	if host == None:
-	  host = request.META['HTTP_HOST']
+		host = request.META['HTTP_HOST']
 	cookie = request.COOKIES.get('hulaccess', None)
 	if len(parts) != 2:
 		return HttpResponse("Invalid document ID. Format: [data source]:[ID]", status=404)
@@ -309,13 +309,13 @@ def refresh(request, document_id):
 def refresh_by_source(request, source):
 	request_ip = request.META['REMOTE_ADDR']
 	if not all_matching_cidrs(request_ip, IIIF_MGMT_ACL):
-	  if not all_matching_cidrs(get_xfwd_ip(request), IIIF_MGMT_ACL):
-		  return HttpResponse("Access Denied.", status=403)
+		if not all_matching_cidrs(get_xfwd_ip(request), IIIF_MGMT_ACL):
+			return HttpResponse("Access Denied.", status=403)
 	document_ids = models.get_all_manifest_ids_with_type(source)
 	counter = 0
 	host = IIIF_MANIFEST_HOST
 	if host == None:
-	   host = request.META['HTTP_HOST']
+		host = request.META['HTTP_HOST']
 	cookie = request.COOKIES.get('hulaccess', None)
 	for id in document_ids:
 		(success, response_doc, real_id, real_source) = get_manifest(id, source, True,  host, cookie)
@@ -348,27 +348,25 @@ def clean_url(request, view_type):
 def get_mets(document_id, source, cookie=None):
 	#solr fetch replaces FDS call
 	mets_url = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_OBJ_QUERY
-	header = {'x-requested-with': 'XMLHttpRequest'}
 	try:
 		mets_resp = requests.get(mets_url)
 		mets_resp.raise_for_status()
 		mets_json = mets_resp.json()
 	except:
 		logger.debug("Failed solr request %s" % mets_url)
-		return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
+		return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 	#response_doc = settings.METS_HEADER + mets_json['response']['docs'][0]['object_file_sec_raw'] + \
 	#mets_json['response']['docs'][0]['object_structmap_raw'] + settings.METS_FOOTER
 	response_doc = mets_json
 	numFound = mets_json['response']['numFound']
 	if numFound == 0:
-	  return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
+		return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 	else:
 	  return (True, response_doc)
 
 # Gets IDS images from DRS
 def get_ids(document_id, source, cookie=None):
 	ids_url = settings.SOLR_BASE + settings.SOLR_FILE_QUERY_PREFIX + document_id + settings.SOLR_AMS_FILE_QUERY
-	header = {'x-requested-with': 'XMLHttpRequest'}
 	try:
 		ids_resp = requests.get(ids_url)
 		ids_resp.raise_for_status()
@@ -379,8 +377,8 @@ def get_ids(document_id, source, cookie=None):
 	response_doc = ids_json
 	numFound = ids_json['response']['numFound']
 	if numFound == 0:
-	  logger.debug("Failed solr request %s" % ids_url)
-	  return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
+		logger.debug("Failed solr request %s" % ids_url)
+		return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 	else:
 	  return (True, response_doc)
 
