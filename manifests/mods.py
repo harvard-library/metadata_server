@@ -54,11 +54,12 @@ def main(data, document_id, source, host, cookie=None):
 
 	logger.debug("Images list", images)
 
-	canvasInfo = []
+	s = requests.Session()
+        canvasInfo = []
 	for (counter, im) in enumerate(images):
 		info = {}
 		info['label'] = str(counter+1)
-		response = requests.head(im, allow_redirects=True)
+		response = s.head(im, allow_redirects=True)
 		ids_url = response.url
 		url_idx = ids_url.rfind('/')
 		q_idx = ids_url.rfind('?') # and before any ? in URL
@@ -100,9 +101,9 @@ def main(data, document_id, source, host, cookie=None):
 
 	canvases = []
 
+	s.cookies['hulaccess'] = cookie
 	for cvs in canvasInfo:
-		cookies = {'hulaccess': cookie}
-		r = requests.get(imageUriBase + cvs['image'] + imageInfoSuffix, cookies=cookies)
+		r = s.get(imageUriBase + cvs['image'] + imageInfoSuffix)
 		try:
 			r.raise_for_status()
 		except requests.exceptions.HTTPError as e:
@@ -141,7 +142,7 @@ def main(data, document_id, source, host, cookie=None):
  			}
 		}
 		canvases.append(cvsjson)
-
+	s.close()
 	mfjson['sequences'][0]['canvases'] = canvases
 	output = json.dumps(mfjson, indent=4, sort_keys=True)
 	return output

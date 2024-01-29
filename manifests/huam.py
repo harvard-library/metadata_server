@@ -45,6 +45,8 @@ def main(data, document_id, source, host):
 
 	#print "Images list", images
 
+	s = requests.Session()
+
 	canvasInfo = []
 	for (counter, im) in enumerate(images):
 		info = {}
@@ -52,7 +54,7 @@ def main(data, document_id, source, host):
 			info['label'] = im["publiccaption"]
 		else:
 			info['label'] = str(counter+1)
-		response = requests.head(im["baseimageurl"], allow_redirects=True)
+		response = s.head(im["baseimageurl"], allow_redirects=True)
 		ids_url = response.url
 		url_idx = ids_url.rfind('/')
 		q_idx = ids_url.rfind('?') # and before any ? in URL
@@ -85,7 +87,7 @@ def main(data, document_id, source, host):
 	canvases = []
 
 	for cvs in canvasInfo:
-		response = requests.get(imageUriBase + cvs['image'] + imageInfoSuffix)
+		response = s.get(imageUriBase + cvs['image'] + imageInfoSuffix)
 		try:
 			response.raise_for_status()
 		except requests.exceptions.HTTPError as e:
@@ -124,7 +126,7 @@ def main(data, document_id, source, host):
 			}
 		}
 		canvases.append(cvsjson)
-
+	s.close()
 	mfjson['sequences'][0]['canvases'] = canvases
 	output = json.dumps(mfjson, indent=4, sort_keys=True)
 	return output

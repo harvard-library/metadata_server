@@ -206,7 +206,7 @@ def get_intermediate_seq_values(first, last):
 
         if last.get('TYPE') == 'PAGE':
                 last_vals = {"seq": last.get('ORDER'), "page": page_num(last)}
-        
+
 		#logger.debug("get intermediate seq vals: " + first_vals + " " + last_vals)
         return first_vals, last_vals
 
@@ -217,14 +217,14 @@ def process_struct_divs(div, ranges, ivar):
 	# when the top level div is a PAGE
 	if is_page(div):
 		p_range = process_page(div, ivar)
-		if p_range: 
+		if p_range:
 			ranges.append(p_range)
 	else:
 		subdivs = div.xpath('./mets:div', namespaces = XMLNS)
 		if len(subdivs) > 0:
 			ranges.append(process_intermediate(div, ivar))
 
-	#logger.debug("process_st_divs: ranges: " + str(ranges) ) 
+	#logger.debug("process_st_divs: ranges: " + str(ranges) )
 	return ranges
 
 def process_structMap(smap):
@@ -368,7 +368,7 @@ def main(data, document_id, source, host, cookie=None):
 		modsTitle = None
 		if ('object_mods_title_text' in drs2json and len(drs2json['object_mods_title_text']) > 0):
 			modsTitle = drs2json['object_mods_title_text'][0]
-		
+
 		if modsDateIssued != None:
 			modsDate = modsDateIssued
 		if modsDateCreated != None:
@@ -387,7 +387,7 @@ def main(data, document_id, source, host, cookie=None):
 			if modsPlace != None:
 				manifestLabel = manifestLabel + " " + modsPlace
 			if modsPublisher != None:
-				if modsPublisher.endswith('.'): 
+				if modsPublisher.endswith('.'):
 					modsPublisher = modsPublisher[:-1]
 				if modsPlace != None:
 					manifestLabel = manifestLabel + ": " + modsPublisher
@@ -401,7 +401,7 @@ def main(data, document_id, source, host, cookie=None):
 			if (manifestLabel.endswith('.') is False):
 				manifestLabel = manifestLabel + "."
 
-	
+
 	#logger.debug("dom check: manifest types check..." )
 	manifestType = dom.xpath('/mets:mets/@TYPE', namespaces=XMLNS)[0]
 	#logger.debug("dom check: manifest type found" )
@@ -463,13 +463,13 @@ def main(data, document_id, source, host, cookie=None):
 		metadata_url_base = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_FILE_QUERY + settings.SOLR_CURSORMARK
 		cursormark_val = "*"
 
-		not_paged = True 
+		not_paged = True
 		s = requests.Session()
+		s.cookies['hulaccess'] = cookie
 		while not_paged:
 		  try:
 		     metadata_url =  metadata_url_base + cursormark_val
-		     cookies = {'hulaccess': cookie}
-		     response = s.get(metadata_url, cookies=cookies)
+		     response = s.get(metadata_url)
 		     response.raise_for_status()
 		  except:
 			  not_paged = False
@@ -499,10 +499,9 @@ def main(data, document_id, source, host, cookie=None):
 		            logger.debug("solr missing image dimensions - making info.json call for image id " + str(md['file_id_num']) )
 		            if 'object_huldrsadmin_accessFlag_string' in md:
 		              instVar.drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
-		            try: 
+		            try:
 		              url = imageUriBase.replace("https","http") + str(md['file_id_num']) + imageInfoSuffix
-		              cookies = {'hulaccess': cookie}
-		              iiif_resp = requests.get(url, cookies=cookies)
+		              iiif_resp = s.get(url)
 		              if (iiif_resp.status_code != requests.codes.ok):
 		                logger.debug("failed to get image dimensions for image id " + str(md['file_id_num']) + " - using defaults")
 		                instVar.drs2ImageHeights.append(settings.DEFAULT_HEIGHT)
@@ -654,7 +653,7 @@ def main(data, document_id, source, host, cookie=None):
 		#dedup split node canvases
 		if uniqCanvases.__contains__(cvs['image']) == False:
 			canvases.append(cvsjson)
-			uniqCanvases[cvs['image']] = True 
+			uniqCanvases[cvs['image']] = True
 
 	# build table of contents using Range and Structures
 	iiif2_toc = translate_ranges(rangeInfo, manifest_uri)

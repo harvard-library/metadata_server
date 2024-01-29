@@ -29,7 +29,7 @@ PDS_WS_URL = environ.get("PDS_WS_URL", "http://pds.lib.harvard.edu/pds/")
 IDS_VIEW_URL = environ.get("IDS_VIEW_URL", "https://ids.lib.harvard.edu/ids/")
 FTS_VIEW_URL = environ.get("FTS_VIEW_URL","http://fts.lib.harvard.edu/fts/search")
 IIIF_MGMT_ACL = (environ.get("IIIF_MGMT_ACL","128.103.151.0/24,10.34.5.254,10.40.4.69")).split(',')
-CORS_WHITELIST = (environ.get("CORS_WHITELIST", "http://harvard.edu")).split(',') 
+CORS_WHITELIST = (environ.get("CORS_WHITELIST", "http://harvard.edu")).split(',')
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
 CAPTION_API_URL = (environ.get("CAPTION_API","http://ids.lib.harvard.edu:8080/ids/lookup?id="))
 VERSION = "v1.6.38"
@@ -98,6 +98,7 @@ def view(request, view_type, document_id):
 	host = IIIF_MANIFEST_HOST
 	if host == None:
 	  host = request.META['HTTP_HOST']
+	s = requests.Session()
 	for doc_id in doc_ids:
 		parts = parse_id(doc_id)
 
@@ -109,11 +110,11 @@ def view(request, view_type, document_id):
 		if (('drs' == parts["source"]) or ('ids' == parts['source'])):
 			drs_object = True
 		if ('drs' == parts["source"]):
-			ams_redirect = ams.getAMSredirectUrl(request.COOKIES, parts["id"]) 
-		elif ('ids' == parts['source']): 
+			ams_redirect = ams.getAMSredirectUrl(request.COOKIES, parts["id"])
+		elif ('ids' == parts['source']):
 			ams_redirect = ams.getAMSredirectUrl(request.COOKIES, parts["id"], isIDS=True)
-		if (drs_object == True and ams_redirect == None): 
-			return HttpResponse("Invalid object id", status=404) 
+		if (drs_object == True and ams_redirect == None):
+			return HttpResponse("Invalid object id", status=404)
 		if (drs_object == True and ams_redirect[0] == 'N'):
 			return HttpResponse("The object you have requested is not intended for delivery", status=403) # 403 HttpResponse object
 		elif (drs_object == True and ams_redirect[0] == 'R'):
@@ -123,7 +124,7 @@ def view(request, view_type, document_id):
 		if parts['source'] == 'ext':
 			success = True
 			try:
-				response = (requests.get(base64.urlsafe_b64decode(parts["id"].encode('ascii')))).text
+				response = (s.get(base64.urlsafe_b64decode(parts["id"].encode('ascii')))).text
 			except:
 				success = False
 			real_source = parts["source"]
@@ -134,7 +135,7 @@ def view(request, view_type, document_id):
 		if success:
 			if parts['source'] == 'ext':
 				location = "Unknown"
-				uri = (base64.urlsafe_b64decode(parts["id"].encode('ascii'))).decode("utf-8") 
+				uri = (base64.urlsafe_b64decode(parts["id"].encode('ascii'))).decode("utf-8")
 				title = "Unknown"
 			else:
 				title = models.get_manifest_title(real_id, real_source)
@@ -155,7 +156,7 @@ def view(request, view_type, document_id):
 
 			manifests_data.append(json.dumps(mfdata))
 		else:
-			return HttpResponse("Invalid object id", status=404) 
+			return HttpResponse("Invalid object id", status=404)
 
 			# Window objects - what gets displayed
 		if parts['source'] == 'ids':
@@ -181,6 +182,7 @@ def view(request, view_type, document_id):
 			pass
 
 		manifests_wobjects.append(json.dumps(mfwobject))
+	s.close()
 
 	if len(manifests_data) > 0:
 		view_locals = {'path_data':          path_data,
@@ -372,7 +374,7 @@ def get_ids(document_id, source, cookie=None):
 	except:
 		logger.debug("Failed solr request %s" % ids_url)
 		return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
-	response_doc = ids_json    
+	response_doc = ids_json
 	numFound = ids_json['response']['numFound']
 	if numFound == 0:
 	  logger.debug("Failed solr request %s" % ids_url)
