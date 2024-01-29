@@ -6,6 +6,9 @@ import requests
 from django.conf import settings
 from os import environ
 
+from logging import getLogger
+logger = getLogger(__name__)
+
 #this creates manifests out of IDS (drs file object) images from solr.
 # cgoines 17 may 18
 
@@ -28,8 +31,10 @@ def main(data, document_id, source, host, cookie=None):
 	logo = settings.IIIF['logo'] % host
 
 	manifestLabel = " "
+
+	s = requests.Session()
 	try:
-	  req = requests.get(captionServerBase + document_id)
+	  req = s.get(captionServerBase + document_id)
 	  if (req.status_code == 200):
 	    md_json = json.loads(req.text)
 	    if ('caption' in md_json.keys()):
@@ -80,32 +85,40 @@ def main(data, document_id, source, host, cookie=None):
 #	structure_canvases = []
 
 	for cvs in data['response']['docs']:
+		if (cvs.get('file_huldrsadmin_accessFlag_string') == 'N'):
+			continue
+
 		canvasLabel = " "
 		try:
-		  req = requests.get(captionServerBase + str(cvs['file_id_num']))
-		  if (req.status_code == 200):
-		    md_json = json.loads(req.text)
-		    if ('caption' in md_json.keys()):
-		      canvasLabel = md_json['caption']
+		  req = s.get(captionServerBase + str(cvs['file_id_num']))
+		  req.raise_for_status()
+		  if ('caption' in md_json.keys()):
+		     canvasLabel = md_json['caption']
 		except:
 		  pass
 
 		if ( ('file_mix_imageHeight_num' not in cvs.keys()) or ('file_mix_imageWidth_num' not in cvs.keys()) ):
 		    try: #call ids for info.json dimensions if missing from solr feed
-		      infoReq = requests.get(imageUriBase + str(cvs['file_id_num']) + '/info.json')
-		      if (infoReq.status_code == 200):
-		        info_json = json.loads(infoReq.text)
-		        if ('height' in info_json.keys()):
-		          cvs['file_mix_imageHeight_num'] = info_json['height']
-		        if ('width' in info_json.keys()):
-	 	          cvs['file_mix_imageWidth_num'] = info_json['width'] 
+		      infoReq = s.get(imageUriBase + str(cvs['file_id_num']) + '/info.json')
+		      infoReq.raise_for_status()
+		      info_json = json.loads(infoReq.text)
+		      logger.debug("ids: missing image dimensions from solr - making info.json call for image id " + str(cvs['file_id_num']) )
+		      if ('height' in info_json.keys()):
+		        cvs['file_mix_imageHeight_num'] = int(info_json['height'])
+		      else:
+		        cvs['file_mix_imageHeight_num'] = int(settings.DEFAULT_HEIGHT)
+		      if ('width' in info_json.keys()):
+		         cvs['file_mix_imageWidth_num'] = int(info_json['width'])
+		      else:
+		         cvs['file_mix_imageWidth_num'] = int(settings.DEFAULT_WIDTH)
 		    except:
-		      pass
+		      cvs['file_mix_imageWidth_num'] = int(settings.DEFAULT_WIDTH)
+		      cvs['file_mix_imageHeight_num'] = int(settings.DEFAULT_HEIGHT)
 
 		cvsjson = {
 			"@id": manifest_uri + "/canvas/canvas-%s.json" % str(cvs['file_id_num']),
 			"@type": "sc:Canvas",
-			"label": canvasLabel, 
+			"label": canvasLabel,
 			"height": cvs['file_mix_imageHeight_num'],
 			"width": cvs['file_mix_imageWidth_num'],
 			"images": [
@@ -134,7 +147,7 @@ def main(data, document_id, source, host, cookie=None):
 			}
 		}
 		canvases.append(cvsjson)
-
+	s.close()
 	mfjson['sequences'][0]['canvases'] = canvases
 #	for canvas in canvases:
 #		structure_canvases.append(canvas['@id'])

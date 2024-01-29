@@ -1,9 +1,12 @@
 #!/usr/bin/python3
 
 import json, sys
-import urllib.request
+import requests
 from django.conf import settings
 from os import environ
+
+from logging import getLogger
+logger = getLogger(__name__)
 
 imageUriBase =    settings.IIIF['imageUriBase']
 imageUriSuffix =  settings.IIIF['imageUriSuffix']
@@ -42,6 +45,8 @@ def main(data, document_id, source, host):
 
 	#print "Images list", images
 
+	s = requests.Session()
+
 	canvasInfo = []
 	for (counter, im) in enumerate(images):
 		info = {}
@@ -49,8 +54,8 @@ def main(data, document_id, source, host):
 			info['label'] = im["publiccaption"]
 		else:
 			info['label'] = str(counter+1)
-		response = urllib.request.urlopen(im["baseimageurl"])
-		ids_url = response.geturl()
+		response = s.head(im["baseimageurl"], allow_redirects=True)
+		ids_url = response.url
 		url_idx = ids_url.rfind('/')
 		q_idx = ids_url.rfind('?') # and before any ? in URL
 		if q_idx != -1:
@@ -63,7 +68,7 @@ def main(data, document_id, source, host):
 
 	# can add metadata key/value pairs
 	mfjson = {
-		"@context":"http://iiif.io/api/presentation/1/context.json",
+		"@context":"http://iiif.io/api/presentation/2/context.json",
 		"@id": manifest_uri,
 		"@type":"sc:Manifest",
 		"label":manifestLabel,
@@ -82,8 +87,13 @@ def main(data, document_id, source, host):
 	canvases = []
 
 	for cvs in canvasInfo:
-		response = urllib.request.urlopen(imageUriBase + cvs['image'] + imageInfoSuffix)
-		infojson = json.load(response)
+		response = s.get(imageUriBase + cvs['image'] + imageInfoSuffix)
+		try:
+			response.raise_for_status()
+		except requests.exceptions.HTTPError as e:
+			logger.debug("huam: error getting image info for %s" % cvs['image'], exc_info=True)
+			continue
+		infojson = response.json()
 		cvsjson = {
 			"@id": manifest_uri + "/canvas/canvas-%s.json" % cvs['image'],
 			"@type": "sc:Canvas",
@@ -116,7 +126,7 @@ def main(data, document_id, source, host):
 			}
 		}
 		canvases.append(cvsjson)
-
+	s.close()
 	mfjson['sequences'][0]['canvases'] = canvases
 	output = json.dumps(mfjson, indent=4, sort_keys=True)
 	return output

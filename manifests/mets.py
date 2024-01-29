@@ -2,13 +2,12 @@
 
 from lxml import etree
 import json, sys, re
-import urllib
 from urllib.parse import quote_plus
 from django.conf import settings
 from django.http import HttpResponse
-from . import webclient
 from os import environ
 from functools import reduce
+import requests
 
 from logging import getLogger
 logger = getLogger(__name__)
@@ -207,7 +206,7 @@ def get_intermediate_seq_values(first, last):
 
         if last.get('TYPE') == 'PAGE':
                 last_vals = {"seq": last.get('ORDER'), "page": page_num(last)}
-        
+
 		#logger.debug("get intermediate seq vals: " + first_vals + " " + last_vals)
         return first_vals, last_vals
 
@@ -218,14 +217,14 @@ def process_struct_divs(div, ranges, ivar):
 	# when the top level div is a PAGE
 	if is_page(div):
 		p_range = process_page(div, ivar)
-		if p_range: 
+		if p_range:
 			ranges.append(p_range)
 	else:
 		subdivs = div.xpath('./mets:div', namespaces = XMLNS)
 		if len(subdivs) > 0:
 			ranges.append(process_intermediate(div, ivar))
 
-	#logger.debug("process_st_divs: ranges: " + str(ranges) ) 
+	#logger.debug("process_st_divs: ranges: " + str(ranges) )
 	return ranges
 
 def process_structMap(smap):
@@ -369,7 +368,7 @@ def main(data, document_id, source, host, cookie=None):
 		modsTitle = None
 		if ('object_mods_title_text' in drs2json and len(drs2json['object_mods_title_text']) > 0):
 			modsTitle = drs2json['object_mods_title_text'][0]
-		
+
 		if modsDateIssued != None:
 			modsDate = modsDateIssued
 		if modsDateCreated != None:
@@ -388,7 +387,7 @@ def main(data, document_id, source, host, cookie=None):
 			if modsPlace != None:
 				manifestLabel = manifestLabel + " " + modsPlace
 			if modsPublisher != None:
-				if modsPublisher.endswith('.'): 
+				if modsPublisher.endswith('.'):
 					modsPublisher = modsPublisher[:-1]
 				if modsPlace != None:
 					manifestLabel = manifestLabel + ": " + modsPublisher
@@ -402,7 +401,7 @@ def main(data, document_id, source, host, cookie=None):
 			if (manifestLabel.endswith('.') is False):
 				manifestLabel = manifestLabel + "."
 
-	
+
 	#logger.debug("dom check: manifest types check..." )
 	manifestType = dom.xpath('/mets:mets/@TYPE', namespaces=XMLNS)[0]
 	#logger.debug("dom check: manifest type found" )
@@ -426,13 +425,10 @@ def main(data, document_id, source, host, cookie=None):
 		hollisID = hollisCheck[0].strip()
 		seeAlso = HOLLIS_PUBLIC_URL.format(hollisID.rjust(9,"0"))
 		try:
-			response = urllib.request.urlopen(HOLLIS_API_URL+hollisID).read()
-		except:
-			logger.debug("HOLLIS lookup failed for Hollis id: " + hollisID)
-		else:
-			response_data = re.sub('(?i)encoding=[\'\"]utf\-8[\'\"]','', response)
-			response_doc = unicode(response_data, encoding="utf-8")
-			mods_dom = etree.XML(response_doc)
+			response = requests.get(HOLLIS_API_URL+hollisID)
+			response.raise_for_status()
+			response_data = re.sub('(?i)encoding=[\'\"]utf\-8[\'\"]','', response.text)
+			mods_dom = etree.XML(response_data)
 			hollis_langs = set(mods_dom.xpath('/mods:mods/mods:language/mods:languageTerm/text()', namespaces=XMLNS))
 			citeAs = mods_dom.xpath('/mods:mods/mods:note[@type="preferred citation"]/text()', namespaces=XMLNS)
 			titleInfo = mods_dom.xpath('/mods:mods/mods:titleInfo/mods:title/text()', namespaces=XMLNS)[0]
@@ -441,6 +437,8 @@ def main(data, document_id, source, host, cookie=None):
 			# intersect both sets and determine if there are common elements
 			if len(hollis_langs & right_to_left_langs) > 0:
 				viewingDirection = 'right-to-left'
+		except:
+			logger.debug("HOLLIS lookup failed for Hollis id: " + hollisID)
 
 	manifest_uri = manifestUriBase + "%s:%s" % (source, document_id)
 
@@ -465,16 +463,19 @@ def main(data, document_id, source, host, cookie=None):
 		metadata_url_base = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_FILE_QUERY + settings.SOLR_CURSORMARK
 		cursormark_val = "*"
 
-		not_paged = True 
+		not_paged = True
+		s = requests.Session()
+		s.cookies['hulaccess'] = cookie
 		while not_paged:
 		  try:
 		     metadata_url =  metadata_url_base + cursormark_val
-		     response = webclient.get(metadata_url, cookie)
-		  except urllib.request.HTTPError as err:
+		     response = s.get(metadata_url)
+		     response.raise_for_status()
+		  except:
 			  not_paged = False
 			  logger.debug("Failed solr file metadata request %s" % metadata_url)
 			  return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
-		  md_json = json.loads(response.read())
+		  md_json = response.json() #json.loads(response.read())
 		  for md in md_json['response']['docs']:
 		  #for md in md_json:
 		    if (('object_huldrsadmin_accessFlag_string' in md) and ('file_id_num' not in md)):
@@ -483,6 +484,11 @@ def main(data, document_id, source, host, cookie=None):
 			       return (False, HttpResponse("Document ID %s is not intended for delivery and cannot be indexed." % document_id, status=404))
 			    else:
 				    continue
+		    if (('file_huldrsadmin_accessFlag_string' in md) and ('file_id_num' in md)):
+		        file_access_flag = md['file_huldrsadmin_accessFlag_string']
+		    if (file_access_flag == "N"):
+		            #skip this image
+		            continue
 		    if (('file_mix_imageHeight_num' in md) and ('file_mix_imageWidth_num' in md)):
 		          instVar.drs2ImageHeights.append(md['file_mix_imageHeight_num'])
 		          instVar.drs2ImageWidths.append(md['file_mix_imageWidth_num'])
@@ -493,20 +499,28 @@ def main(data, document_id, source, host, cookie=None):
 		            logger.debug("solr missing image dimensions - making info.json call for image id " + str(md['file_id_num']) )
 		            if 'object_huldrsadmin_accessFlag_string' in md:
 		              instVar.drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
-		            try: 
-		              info_resp = webclient.get(imageUriBase.replace("https","http") + str(md['file_id_num']) + imageInfoSuffix, cookie)
-		              iiif_info = json.load(info_resp)
-		              instVar.drs2ImageHeights.append(iiif_info['height'])
-		              instVar.drs2ImageWidths.append(iiif_info['width'])
-		            except urllib.request.HTTPError as err:
-		              logger.debug("failed to get image dimensions for image id " + str(md['file_id_num']) )
+		            try:
+		              url = imageUriBase.replace("https","http") + str(md['file_id_num']) + imageInfoSuffix
+		              iiif_resp = s.get(url)
+		              if (iiif_resp.status_code != requests.codes.ok):
+		                logger.debug("failed to get image dimensions for image id " + str(md['file_id_num']) + " - using defaults")
+		                instVar.drs2ImageHeights.append(settings.DEFAULT_HEIGHT)
+		                instVar.drs2ImageWidths.append(settings.DEFAULT_WIDTH)
+		              else:
+		                iiif_info = iiif_resp.json()
+		                instVar.drs2ImageHeights.append(iiif_info['height'])
+		                instVar.drs2ImageWidths.append(iiif_info['width'])
+		            except:
+		              logger.debug("failed to get image dimensions for image id " + str(md['file_id_num']) + " - using defaults")
+		              instVar.drs2ImageHeights.append(settings.DEFAULT_HEIGHT)
+		              instVar.drs2ImageWidths.append(settings.DEFAULT_WIDTH)
 		            else:
 		              continue
 		  next_cursormark = quote_plus(md_json['nextCursorMark'])
 		  if next_cursormark == cursormark_val:
 			  not_paged = False
 		  cursormark_val = next_cursormark
-			
+		s.close()
 	rangeList = []
 	rangeInfo = []
 	for st in struct:
@@ -556,12 +570,27 @@ def main(data, document_id, source, host, cookie=None):
 		except: # image not in drs
 			try:
 				logger.debug("missing image dimensions - making info.json call for image id " + cvs['image']  )
-				response = webclient.get(imageUriBase.replace("https","http") + cvs['image'] + imageInfoSuffix, cookie)
-				infojson = json.load(response)
+				md_url = imageUriBase.replace("https","http") + cvs['image'] + imageInfoSuffix
+				if (DEBUG):
+					logger.debug("missing image md, calling: " + md_url)
+				cookies = {'hulaccess': cookie}
+				md_resp = requests.get(md_url, cookies=cookies)
+				if (md_resp.status_code == requests.codes.ok):
+					md_json = md_resp.json()
+					infojson['width'] = md_json['width']
+					infojson['height'] = md_json['height']
+					infojson['formats'] = ['jpg']
+				else:
+					logger.error("FATAL: Could not find image dimensions for id " + cvs['image'], exc_info=True)
+					infojson['width'] = int(settings.DEFAULT_WIDTH)
+					infojson['height'] = int(settings.DEFAULT_HEIGHT)
+					infojson['formats'] = ['jpg']
+					infojson['scale_factors'] = [1]
 				infocount = infocount + 1
-			except:
-				#infojson['width'] = ''
-				#infojson['height'] = ''
+			except Exception as err:
+				logger.error("FATAL: Could not find image dimensions for id " + cvs['image'], exc_info=True)
+				infojson['width'] = int(settings.DEFAULT_WIDTH)
+				infojson['height'] = int(settings.DEFAULT_HEIGHT)
 				#infojson['tile_width'] = ''
 				#infojson['tile_height'] = ''
 				infojson['formats'] = ['jpg']
@@ -616,15 +645,15 @@ def main(data, document_id, source, host, cookie=None):
 			}
 		}
 		if ( ('height' in infojson) and ('width' in infojson) ):
-			cvsjson['height'] = infojson['height']
-			cvsjson['width'] = infojson['width']
-			cvsjson['images'][0]['resource']['height'] = infojson['height']
-			cvsjson['images'][0]['resource']['width'] = infojson['width']
+			cvsjson['height'] = int(infojson['height'])
+			cvsjson['width'] = int(infojson['width'])
+			cvsjson['images'][0]['resource']['height'] = int(infojson['height'])
+			cvsjson['images'][0]['resource']['width'] = int(infojson['width'])
 
 		#dedup split node canvases
 		if uniqCanvases.__contains__(cvs['image']) == False:
 			canvases.append(cvsjson)
-			uniqCanvases[cvs['image']] = True 
+			uniqCanvases[cvs['image']] = True
 
 	# build table of contents using Range and Structures
 	iiif2_toc = translate_ranges(rangeInfo, manifest_uri)

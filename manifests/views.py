@@ -9,9 +9,7 @@ from manifests import ids
 from os import environ
 import re
 import json
-import urllib.request
 import requests
-from . import webclient
 import base64
 from logging import getLogger
 logger = getLogger(__name__)
@@ -31,9 +29,10 @@ PDS_WS_URL = environ.get("PDS_WS_URL", "http://pds.lib.harvard.edu/pds/")
 IDS_VIEW_URL = environ.get("IDS_VIEW_URL", "https://ids.lib.harvard.edu/ids/")
 FTS_VIEW_URL = environ.get("FTS_VIEW_URL","http://fts.lib.harvard.edu/fts/search")
 IIIF_MGMT_ACL = (environ.get("IIIF_MGMT_ACL","128.103.151.0/24,10.34.5.254,10.40.4.69")).split(',')
-CORS_WHITELIST = (environ.get("CORS_WHITELIST", "http://harvard.edu")).split(',') 
+CORS_WHITELIST = (environ.get("CORS_WHITELIST", "http://harvard.edu")).split(',')
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
 CAPTION_API_URL = (environ.get("CAPTION_API","http://ids.lib.harvard.edu:8080/ids/lookup?id="))
+VERSION = "v1.6.39"
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext": "ext", "ids": "ids" }
 
@@ -99,29 +98,35 @@ def view(request, view_type, document_id):
 	host = IIIF_MANIFEST_HOST
 	if host == None:
 	  host = request.META['HTTP_HOST']
+	s = requests.Session()
 	for doc_id in doc_ids:
 		parts = parse_id(doc_id)
 
 		# drs: check AMS to see if this is a restricted obj
 		# TODO:  move this check into get_manifest() for hollis
+		drs_object = False
+		ams_redirect = None
+		success = False
 		if (('drs' == parts["source"]) or ('ids' == parts['source'])):
-			ams_redirect = None
+			drs_object = True
 		if ('drs' == parts["source"]):
-			ams_redirect = ams.getAMSredirectUrl(request.COOKIES, parts["id"]) 
-		elif ('ids' == parts['source']): 
+			ams_redirect = ams.getAMSredirectUrl(request.COOKIES, parts["id"])
+		elif ('ids' == parts['source']):
 			ams_redirect = ams.getAMSredirectUrl(request.COOKIES, parts["id"], isIDS=True)
-		if ams_redirect == None: 
-			return HttpResponse("Invalid object id", status=404) 
-		if ams_redirect[0] == 'N':
+		if (drs_object == True and ams_redirect == None):
+			return HttpResponse("Invalid object id", status=404)
+		if (drs_object == True and ams_redirect[0] == 'N'):
 			return HttpResponse("The object you have requested is not intended for delivery", status=403) # 403 HttpResponse object
-		elif ams_redirect[0] == 'R':
+		elif (drs_object == True and ams_redirect[0] == 'R'):
 			if ams_redirect[1] != None:
 				return HttpResponseRedirect(ams_redirect[1])
 
 		if parts['source'] == 'ext':
 			success = True
-			response = webclient.get(base64.urlsafe_b64decode(parts["id"].encode('ascii'))).read()
-			real_id = parts["id"]
+			try:
+				response = (s.get(base64.urlsafe_b64decode(parts["id"].encode('ascii')))).text
+			except:
+				success = False
 			real_source = parts["source"]
 		else:
 			#print source, id
@@ -130,7 +135,7 @@ def view(request, view_type, document_id):
 		if success:
 			if parts['source'] == 'ext':
 				location = "Unknown"
-				uri = base64.urlsafe_b64decode(parts["id"].encode('ascii'))
+				uri = (base64.urlsafe_b64decode(parts["id"].encode('ascii'))).decode("utf-8")
 				title = "Unknown"
 			else:
 				title = models.get_manifest_title(real_id, real_source)
@@ -150,6 +155,8 @@ def view(request, view_type, document_id):
 					   "title": title }
 
 			manifests_data.append(json.dumps(mfdata))
+		else:
+			return HttpResponse("Invalid object id", status=404)
 
 			# Window objects - what gets displayed
 		if parts['source'] == 'ids':
@@ -175,6 +182,7 @@ def view(request, view_type, document_id):
 			pass
 
 		manifests_wobjects.append(json.dumps(mfwobject))
+	s.close()
 
 	if len(manifests_data) > 0:
 		view_locals = {'path_data':          path_data,
@@ -218,16 +226,19 @@ def manifest(request, document_id):
 	id = parts[1]
 
 	#check ams
+	drs_object = False
 	ams_redirect = None
 	if ('drs' == source):
 		ams_redirect = ams.getAMSredirectUrl(request.COOKIES, id)
+		drs_object = True
 	elif ('ids' == source):
 		ams_redirect = ams.getAMSredirectUrl(request.COOKIES, id, isIDS=True)
-	if ams_redirect == None:
+		drs_object = True
+	if (drs_object and ams_redirect == None):
 		return HttpResponse("Invalid object id", status=404)
-	if ams_redirect[0] == 'N':
+	if (drs_object and ams_redirect[0] == 'N'):
 		return HttpResponse("The object you have requested is not intended for delivery", status=403) # 403 HttpResponse object
-	elif ams_redirect[0] == 'R':
+	elif (drs_object and ams_redirect[0] == 'R'):
 		if ams_redirect[1] != None:
 				return HttpResponseRedirect(ams_redirect[1])
 
@@ -339,17 +350,18 @@ def get_mets(document_id, source, cookie=None):
 	mets_url = settings.SOLR_BASE + settings.SOLR_QUERY_PREFIX + document_id + settings.SOLR_OBJ_QUERY
 	header = {'x-requested-with': 'XMLHttpRequest'}
 	try:
-		response = webclient.get(mets_url, cookie)
-	except urllib.error.HTTPError as err:
+		mets_resp = requests.get(mets_url)
+		mets_resp.raise_for_status()
+		mets_json = mets_resp.json()
+	except:
 		logger.debug("Failed solr request %s" % mets_url)
 		return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
-	mets_json = json.loads(response.read())
 	#response_doc = settings.METS_HEADER + mets_json['response']['docs'][0]['object_file_sec_raw'] + \
 	#mets_json['response']['docs'][0]['object_structmap_raw'] + settings.METS_FOOTER
 	response_doc = mets_json
 	numFound = mets_json['response']['numFound']
 	if numFound == 0:
-	  return (False, response_doc)
+	  return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 	else:
 	  return (True, response_doc)
 
@@ -358,15 +370,17 @@ def get_ids(document_id, source, cookie=None):
 	ids_url = settings.SOLR_BASE + settings.SOLR_FILE_QUERY_PREFIX + document_id + settings.SOLR_AMS_FILE_QUERY
 	header = {'x-requested-with': 'XMLHttpRequest'}
 	try:
-		response = webclient.get(ids_url, cookie)
-	except urllib.error.HTTPError as err:
-		logger.debug("Failed solr request %s" % mets_url)
-		return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
-	ids_json = json.loads(response.read())
-	response_doc = ids_json    
+		ids_resp = requests.get(ids_url)
+		ids_resp.raise_for_status()
+		ids_json = ids_resp.json()
+	except:
+		logger.debug("Failed solr request %s" % ids_url)
+		return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
+	response_doc = ids_json
 	numFound = ids_json['response']['numFound']
 	if numFound == 0:
-	  return (False, response_doc)
+	  logger.debug("Failed solr request %s" % ids_url)
+	  return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 	else:
 	  return (True, response_doc)
 
@@ -375,29 +389,31 @@ def get_mods(document_id, source, cookie=None):
 	mods_url = MODS_DRS_URL+source+"/"+document_id
 	#print mods_url
 	try:
-		#response = urllib2.urlopen(mods_url)
-		response = webclient.get(mods_url, cookie)
-	except urllib.error.HTTPError as err:
-		if err.code == 500 or err.code == 403: ## TODO
-			# document does not exist in DRS
-			logger.debug("Failed mods request %s" % mods_url)
-			return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
+		mods_resp = requests.get(mods_url)
+		mods_resp.raise_for_status()
+		mods = mods_resp.text
+	except:
+		# document does not exist in DRS
+		logger.debug("Failed mods request %s" % mods_url)
+		return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 
-	mods = unicode(response.read(), encoding="utf-8")
 	return (True, mods)
 
 # Gets HUAM JSON from HUAM API
 def get_huam(document_id, source):
 	huam_url = HUAM_API_URL+document_id+"?apikey="+HUAM_API_KEY
 	try:
-		response = urllib.request.urlopen(huam_url)
-	except urllib.error.HTTPError as err:
-		if err.code == 500 or err.code == 403: ## TODO
-			# document does not exist in DRS
+		huam_resp = requests.get(huam_url)
+		huam_resp.raise_for_status()
+		huam = huam_resp.text
+		huam_json = huam_resp.json()
+		if ("error" in huam_json.keys()):
 			logger.debug("Failed huam request %s" % huam_url)
 			return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
+	except:
+		logger.debug("Failed huam request %s" % huam_url)
+		return (False, HttpResponse("The document ID %s does not exist" % document_id, status=404))
 
-	huam = unicode(response.read(), encoding="utf-8")
 	return (True, huam)
 
 # Adds headers to Response for returning JSON that other Mirador instances can access
@@ -476,3 +492,7 @@ def get_manifest(document_id, source, force_refresh, host, cookie=None):
 def get_xfwd_ip(request):
 	if 'HTTP_X_FORWARDED_FOR' in request.META:
 	 return( request.META['HTTP_X_FORWARDED_FOR'].split(",")[0].strip() )
+
+# Version URL - return the current version of this app
+def version(request):
+	return render(request, 'manifests/version.html', {'version' : VERSION})

@@ -2,10 +2,12 @@
 
 from lxml import etree
 import json, sys
-import urllib, re
+import requests, re
 from django.conf import settings
-from . import webclient
 from os import environ
+
+from logging import getLogger
+logger = getLogger(__name__)
 
 XMLNS = {'mods': 'http://www.loc.gov/mods/v3'}
 
@@ -50,15 +52,15 @@ def main(data, document_id, source, host, cookie=None):
 	## @displayLabel = Full Image, @note = Color digital image available, @note = Harvard Map Collection copy image
 	images = dom.xpath('/mods:mods//mods:location/mods:url[@displayLabel="Full Image" or contains(@note, "Color digital image") or contains(@note, "copy image")]/text()', namespaces=XMLNS)
 
-	print ("Images list", images)
+	logger.debug("Images list", images)
 
-	canvasInfo = []
+	s = requests.Session()
+        canvasInfo = []
 	for (counter, im) in enumerate(images):
 		info = {}
 		info['label'] = str(counter+1)
-		#response = urllib2.urlopen(im)
-		response = webclient.get(im, cookie)
-		ids_url = response.geturl()
+		response = s.head(im, allow_redirects=True)
+		ids_url = response.url
 		url_idx = ids_url.rfind('/')
 		q_idx = ids_url.rfind('?') # and before any ? in URL
 		if q_idx != -1:
@@ -81,7 +83,7 @@ def main(data, document_id, source, host, cookie=None):
 		canvasInfo.append(info)
 
 	mfjson = {
-		"@context":"http://iiif.io/api/presentation/1/context.json",
+		"@context":"http://iiif.io/api/presentation/2/context.json",
 		"@id": manifest_uri,
 		"@type":"sc:Manifest",
 		"label":manifestLabel,
@@ -99,10 +101,15 @@ def main(data, document_id, source, host, cookie=None):
 
 	canvases = []
 
+	s.cookies['hulaccess'] = cookie
 	for cvs in canvasInfo:
-		#response = urllib2.urlopen(imageUriBase + cvs['image'] + imageInfoSuffix)
-		response = webclient.get(imageUriBase + cvs['image'] + imageInfoSuffix, cookie)
-		infojson = json.load(response)
+		r = s.get(imageUriBase + cvs['image'] + imageInfoSuffix)
+		try:
+			r.raise_for_status()
+		except requests.exceptions.HTTPError as e:
+			logger.debug("mods: error getting image info for %s" % cvs['image'], exc_info=True)
+			continue
+		infojson = r.json()
 		cvsjson = {
 			"@id": manifest_uri + "/canvas/canvas-%s.json" % cvs['image'],
 			"@type": "sc:Canvas",
@@ -135,7 +142,7 @@ def main(data, document_id, source, host, cookie=None):
  			}
 		}
 		canvases.append(cvsjson)
-
+	s.close()
 	mfjson['sequences'][0]['canvases'] = canvases
 	output = json.dumps(mfjson, indent=4, sort_keys=True)
 	return output
