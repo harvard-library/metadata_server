@@ -464,11 +464,12 @@ def main(data, document_id, source, host, cookie=None):
 		cursormark_val = "*"
 
 		not_paged = True 
+		s = requests.Session()
 		while not_paged:
 		  try:
 		     metadata_url =  metadata_url_base + cursormark_val
 		     cookies = {'hulaccess': cookie}
-		     response = requests.get(metadata_url, cookies=cookies)
+		     response = s.get(metadata_url, cookies=cookies)
 		     response.raise_for_status()
 		  except:
 			  not_paged = False
@@ -520,7 +521,7 @@ def main(data, document_id, source, host, cookie=None):
 		  if next_cursormark == cursormark_val:
 			  not_paged = False
 		  cursormark_val = next_cursormark
-			
+		s.close()
 	rangeList = []
 	rangeInfo = []
 	for st in struct:
