@@ -467,59 +467,58 @@ def main(data, document_id, source, host, cookie=None):
 		s = requests.Session()
 		s.cookies['hulaccess'] = cookie
 		while not_paged:
-		  try:
-		     metadata_url =  metadata_url_base + cursormark_val
-		     response = s.get(metadata_url)
-		     response.raise_for_status()
-		  except:
-			  not_paged = False
-			  logger.debug("Failed solr file metadata request %s" % metadata_url)
-			  return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
-		  md_json = response.json() #json.loads(response.read())
-		  for md in md_json['response']['docs']:
-		  #for md in md_json:
-		    if (('object_huldrsadmin_accessFlag_string' in md) and ('file_id_num' not in md)):
-			    access_flag = md['object_huldrsadmin_accessFlag_string']
-			    if access_flag == "N":
-			       return (False, HttpResponse("Document ID %s is not intended for delivery and cannot be indexed." % document_id, status=404))
-			    else:
-				    continue
-		    if (('file_huldrsadmin_accessFlag_string' in md) and ('file_id_num' in md)):
-		        file_access_flag = md['file_huldrsadmin_accessFlag_string']
-		    if (file_access_flag == "N"):
-		            #skip this image
-		            continue
-		    if (('file_mix_imageHeight_num' in md) and ('file_mix_imageWidth_num' in md)):
-		          instVar.drs2ImageHeights.append(md['file_mix_imageHeight_num'])
-		          instVar.drs2ImageWidths.append(md['file_mix_imageWidth_num'])
-		          instVar.drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
-		    else: #call ids (info.json request)
-		          file_ext = md['file_path_raw'][-3:]
-		          if (file_ext == 'jp2' or file_ext == 'tif' or file_ext == 'jpg' or file_ext == 'gif'):
-		            logger.debug("solr missing image dimensions - making info.json call for image id " + str(md['file_id_num']) )
-		            if 'object_huldrsadmin_accessFlag_string' in md:
-		              instVar.drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
-		            try:
-		              url = imageUriBase.replace("https","http") + str(md['file_id_num']) + imageInfoSuffix
-		              iiif_resp = s.get(url)
-		              if (iiif_resp.status_code != requests.codes.ok):
-		                logger.debug("failed to get image dimensions for image id " + str(md['file_id_num']) + " - using defaults")
-		                instVar.drs2ImageHeights.append(settings.DEFAULT_HEIGHT)
-		                instVar.drs2ImageWidths.append(settings.DEFAULT_WIDTH)
-		              else:
-		                iiif_info = iiif_resp.json()
-		                instVar.drs2ImageHeights.append(iiif_info['height'])
-		                instVar.drs2ImageWidths.append(iiif_info['width'])
-		            except:
-		              logger.debug("failed to get image dimensions for image id " + str(md['file_id_num']) + " - using defaults")
-		              instVar.drs2ImageHeights.append(settings.DEFAULT_HEIGHT)
-		              instVar.drs2ImageWidths.append(settings.DEFAULT_WIDTH)
-		            else:
-		              continue
-		  next_cursormark = quote_plus(md_json['nextCursorMark'])
-		  if next_cursormark == cursormark_val:
-			  not_paged = False
-		  cursormark_val = next_cursormark
+			try:
+				metadata_url =  metadata_url_base + cursormark_val
+				response = s.get(metadata_url)
+				response.raise_for_status()
+			except:
+				not_paged = False
+				logger.debug("Failed solr file metadata request %s" % metadata_url)
+				return (False, HttpResponse("The document ID %s does not exist in solr index" % document_id, status=404))
+			md_json = response.json()
+			for md in md_json['response']['docs']:
+				if (('object_huldrsadmin_accessFlag_string' in md) and ('file_id_num' not in md)):
+					access_flag = md['object_huldrsadmin_accessFlag_string']
+					if access_flag == "N":
+						return (False, HttpResponse("Document ID %s is not intended for delivery and cannot be indexed." % document_id, status=404))
+					else:
+						continue
+				if (('file_huldrsadmin_accessFlag_string' in md) and ('file_id_num' in md)):
+						file_access_flag = md['file_huldrsadmin_accessFlag_string']
+				if (file_access_flag == "N"):
+					#skip this image
+					continue
+				if (('file_mix_imageHeight_num' in md) and ('file_mix_imageWidth_num' in md)):
+					instVar.drs2ImageHeights.append(md['file_mix_imageHeight_num'])
+					instVar.drs2ImageWidths.append(md['file_mix_imageWidth_num'])
+					instVar.drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
+				else: #call ids (info.json request)
+					file_ext = md['file_path_raw'][-3:]
+					if (file_ext == 'jp2' or file_ext == 'tif' or file_ext == 'jpg' or file_ext == 'gif'):
+						logger.debug("solr missing image dimensions - making info.json call for image id " + str(md['file_id_num']) )
+						if 'object_huldrsadmin_accessFlag_string' in md:
+							instVar.drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
+						try:
+							url = imageUriBase.replace("https","http") + str(md['file_id_num']) + imageInfoSuffix
+							iiif_resp = s.get(url)
+							if (iiif_resp.status_code != requests.codes.ok):
+								logger.debug("failed to get image dimensions for image id " + str(md['file_id_num']) + " - using defaults")
+								instVar.drs2ImageHeights.append(settings.DEFAULT_HEIGHT)
+								instVar.drs2ImageWidths.append(settings.DEFAULT_WIDTH)
+							else:
+								iiif_info = iiif_resp.json()
+								instVar.drs2ImageHeights.append(iiif_info['height'])
+								instVar.drs2ImageWidths.append(iiif_info['width'])
+						except:
+							logger.debug("failed to get image dimensions for image id " + str(md['file_id_num']) + " - using defaults")
+							instVar.drs2ImageHeights.append(settings.DEFAULT_HEIGHT)
+							instVar.drs2ImageWidths.append(settings.DEFAULT_WIDTH)
+						else:
+							continue
+		next_cursormark = quote_plus(md_json['nextCursorMark'])
+		if next_cursormark == cursormark_val:
+			not_paged = False
+		cursormark_val = next_cursormark
 		s.close()
 	rangeList = []
 	rangeInfo = []
@@ -599,7 +598,7 @@ def main(data, document_id, source, host, cookie=None):
 
 		if 'access_flag' in infojson:
 			if infojson['access_flag'] == "N":
-			  continue
+				continue
 		formats = []
 		fmt = "image/jpeg"
 		if 'formats' in infojson:
