@@ -32,7 +32,7 @@ IIIF_MGMT_ACL = (environ.get("IIIF_MGMT_ACL","128.103.151.0/24,10.34.5.254,10.40
 CORS_WHITELIST = (environ.get("CORS_WHITELIST", "http://harvard.edu")).split(',')
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
 CAPTION_API_URL = (environ.get("CAPTION_API","http://ids.lib.harvard.edu:8080/ids/lookup?id="))
-VERSION = "v1.6.38"
+VERSION = "v1.6.39"
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext": "ext", "ids": "ids" }
 
@@ -230,13 +230,15 @@ def manifest(request, document_id):
 	ams_redirect = None
 	if ('drs' == source):
 		ams_redirect = ams.getAMSredirectUrl(request.COOKIES, id)
+		drs_object = True
 	elif ('ids' == source):
 		ams_redirect = ams.getAMSredirectUrl(request.COOKIES, id, isIDS=True)
-	if (drs_object == True and ams_redirect == None):
+		drs_object = True
+	if (drs_object and ams_redirect == None):
 		return HttpResponse("Invalid object id", status=404)
-	if (drs_object == True and ams_redirect[0] == 'N'):
+	if (drs_object and ams_redirect[0] == 'N'):
 		return HttpResponse("The object you have requested is not intended for delivery", status=403) # 403 HttpResponse object
-	elif (drs_object == True and ams_redirect[0] == 'R'):
+	elif (drs_object and ams_redirect[0] == 'R'):
 		if ams_redirect[1] != None:
 				return HttpResponseRedirect(ams_redirect[1])
 
