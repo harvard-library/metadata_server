@@ -55,6 +55,7 @@ def main(data, document_id, source, host, cookie=None):
 	logger.debug("Images list", images)
 
 	s = requests.Session()
+	s.cookies['hulaccess'] = cookie
 	canvasInfo = []
 	for (counter, im) in enumerate(images):
 		info = {}
@@ -101,7 +102,6 @@ def main(data, document_id, source, host, cookie=None):
 
 	canvases = []
 
-	s.cookies['hulaccess'] = cookie
 	for cvs in canvasInfo:
 		r = s.get(imageUriBase + cvs['image'] + imageInfoSuffix)
 		try:
