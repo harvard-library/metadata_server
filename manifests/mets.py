@@ -310,6 +310,9 @@ def main(data, document_id, source, host, cookie=None):
 
 	instVar = InstanceVar()
 
+	s = requests.Session()
+	s.cookies['hulaccess'] = cookie
+
 	drs2json = None
 	manifestLabel = None
 	if 'response' in data:
@@ -425,7 +428,7 @@ def main(data, document_id, source, host, cookie=None):
 		hollisID = hollisCheck[0].strip()
 		seeAlso = HOLLIS_PUBLIC_URL.format(hollisID.rjust(9,"0"))
 		try:
-			response = requests.get(HOLLIS_API_URL+hollisID)
+			response = s.get(HOLLIS_API_URL+hollisID)
 			response.raise_for_status()
 			response_data = re.sub('(?i)encoding=[\'\"]utf\-8[\'\"]','', response.text)
 			mods_dom = etree.XML(response_data)
@@ -464,8 +467,6 @@ def main(data, document_id, source, host, cookie=None):
 		cursormark_val = "*"
 
 		not_paged = True
-		s = requests.Session()
-		s.cookies['hulaccess'] = cookie
 		while not_paged:
 			try:
 				metadata_url =  metadata_url_base + cursormark_val
@@ -515,11 +516,10 @@ def main(data, document_id, source, host, cookie=None):
 							instVar.drs2ImageWidths.append(settings.DEFAULT_WIDTH)
 						else:
 							continue
-		next_cursormark = quote_plus(md_json['nextCursorMark'])
-		if next_cursormark == cursormark_val:
-			not_paged = False
-		cursormark_val = next_cursormark
-		s.close()
+			next_cursormark = quote_plus(md_json['nextCursorMark'])
+			if next_cursormark == cursormark_val:
+				not_paged = False
+			cursormark_val = next_cursormark
 	rangeList = []
 	rangeInfo = []
 	for st in struct:
@@ -572,8 +572,7 @@ def main(data, document_id, source, host, cookie=None):
 				md_url = imageUriBase.replace("https","http") + cvs['image'] + imageInfoSuffix
 				if (DEBUG):
 					logger.debug("missing image md, calling: " + md_url)
-				cookies = {'hulaccess': cookie}
-				md_resp = requests.get(md_url, cookies=cookies)
+				md_resp = s.get(md_url)
 				if (md_resp.status_code == requests.codes.ok):
 					md_json = md_resp.json()
 					infojson['width'] = md_json['width']
@@ -654,6 +653,8 @@ def main(data, document_id, source, host, cookie=None):
 			canvases.append(cvsjson)
 			uniqCanvases[cvs['image']] = True
 
+	s.close()
+	
 	# build table of contents using Range and Structures
 	iiif2_toc = translate_ranges(rangeInfo, manifest_uri)
 
