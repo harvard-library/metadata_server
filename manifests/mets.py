@@ -59,6 +59,10 @@ class InstanceVar:
 		self.drs2ImageWidths = []
 		self.drs2ImageHeights = []
 		self.drs2AccessFlags = []
+		self.fileAccessFlags = []
+		# dict of images with file access flag = N 
+		# do NOT include these images in the manifest
+		self.suppressCanvas = {}
 
 
 
@@ -90,6 +94,9 @@ def process_page(sd, ivar):
         my_range = None
 
         if display_image:
+                #return none if the image is not intended for delivery
+                if label in ivar.suppressCanvas:
+                    return None
                 info = {}
                 info['label'] = label
                 info['image'] = display_image
@@ -484,15 +491,16 @@ def main(data, document_id, source, host, cookie=None):
 						return (False, HttpResponse("Document ID %s is not intended for delivery and cannot be indexed." % document_id, status=404))
 					else:
 						continue
-				if (('file_huldrsadmin_accessFlag_string' in md) and ('file_id_num' in md)):
-						file_access_flag = md['file_huldrsadmin_accessFlag_string']
-				if (file_access_flag == "N"):
-					#skip this image
-					continue
+				# if (('file_huldrsadmin_accessFlag_string' in md) and ('file_id_num' in md)):
+				# 		file_access_flag = md['file_huldrsadmin_accessFlag_string']
+				# if (file_access_flag == "N"):
+				# 	#skip this image
+				# 	continue
 				if (('file_mix_imageHeight_num' in md) and ('file_mix_imageWidth_num' in md)):
 					instVar.drs2ImageHeights.append(md['file_mix_imageHeight_num'])
 					instVar.drs2ImageWidths.append(md['file_mix_imageWidth_num'])
 					instVar.drs2AccessFlags.append(md['object_huldrsadmin_accessFlag_string'])
+					instVar.fileAccessFlags.append(md['file_huldrsadmin_accessFlag_string'])
 				else: #call ids (info.json request)
 					file_ext = md['file_path_raw'][-3:]
 					if (file_ext == 'jp2' or file_ext == 'tif' or file_ext == 'jpg' or file_ext == 'gif'):
@@ -520,14 +528,14 @@ def main(data, document_id, source, host, cookie=None):
 			if next_cursormark == cursormark_val:
 				not_paged = False
 			cursormark_val = next_cursormark
-	rangeList = []
-	rangeInfo = []
-	for st in struct:
-		ranges = process_struct_divs(st, [], instVar)
-		if ranges: #dedup thumbnail bar
-			rangeList.extend(ranges)
+	# rangeList = []
+	# rangeInfo = []
+	# for st in struct:
+	# 	ranges = process_struct_divs(st, [], instVar)
+	# 	if ranges: #dedup thumbnail bar
+	# 		rangeList.extend(ranges)
 
-	rangeInfo = [{"Table of Contents" : rangeList}]
+	# rangeInfo = [{"Table of Contents" : rangeList}]
 
 	mfjson = {
 		"@context":"http://iiif.io/api/presentation/2/context.json",
@@ -564,7 +572,7 @@ def main(data, document_id, source, host, cookie=None):
 			#note replace this w/ drs2InfoFormats
 			infojson['formats'] = ['jpg']
 			infojson['scale_factors'] = [1]
-			infojson['access_flag'] = instVar.drs2AccessFlags[infocount]
+			infojson['access_flag'] = instVar.fileAccessFlags[infocount]
 			infocount = infocount + 1
 		except: # image not in drs
 			try:
@@ -597,6 +605,7 @@ def main(data, document_id, source, host, cookie=None):
 
 		if 'access_flag' in infojson:
 			if infojson['access_flag'] == "N":
+				instVar.suppressCanvas[cvs['label']] = True
 				continue
 		formats = []
 		fmt = "image/jpeg"
@@ -654,6 +663,15 @@ def main(data, document_id, source, host, cookie=None):
 			uniqCanvases[cvs['image']] = True
 
 	s.close()
+
+	rangeList = []
+	rangeInfo = []
+	for st in struct:
+		ranges = process_struct_divs(st, [], instVar)
+		if ranges: #dedup thumbnail bar
+			rangeList.extend(ranges)
+
+	rangeInfo = [{"Table of Contents" : rangeList}]
 	
 	# build table of contents using Range and Structures
 	iiif2_toc = translate_ranges(rangeInfo, manifest_uri)
