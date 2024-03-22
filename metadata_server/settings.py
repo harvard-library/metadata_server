@@ -173,14 +173,14 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'debug.log'),
+            'filename': os.environ.get('LOG_FILE', '/proc/1/fd/1')
         },
     },
     'loggers': {
         'manifests': {
             'handlers': ['file'],
             'level': 'DEBUG',
-            'propagate': True,
+            'propagate': True
         },
     },
 }
