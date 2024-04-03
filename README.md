@@ -64,3 +64,7 @@ cap $STAGE manage:refresh $SOURCE(:$IDENTIFIER)
 ## Dev Notes
 
 Additional notes of interest to developers located [here](DEV_NOTES.md).
+
+## Continuous Integration for K8s
+
+The Continuous Integration Workflow github action in `.github/workflows/ci.yml` in the IDS-INFRA repo is triggered whenever a new PR is created on the main branch. It will automatically pull down the repo and build a new image of the app using the Dockerfile in the app's repo.  Note that this is built using the `apache_base` image [https://github.huit.harvard.edu/LTS/apache_base]. The base image does not need to be rebuilt in most cases except when apache itself needs to be updated. To do that, pull down the `apache_base` image from its repo and follow its readme on how to build and publish manually to artifactory. Then redeploy the app images triggering the CI github action.
