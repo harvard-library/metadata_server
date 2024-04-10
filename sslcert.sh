@@ -1,0 +1,2 @@
+#!/bin/bash
+openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj "/C=US/ST=Massachusetts/L=Cambridge/O=Library Technology Services/CN=iiif.lib.harvard.edu" -extensions SAN -reqexts SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[SAN]\nsubjectAltName=DNS:*.lib.harvard.edu,DNS:*.hul.harvard.edu,DNS:*.lts.harvard.edu")) -keyout /etc/apache2/ssl/apache-ssl.key -out /etc/apache2/ssl/apache-ssl.crt
