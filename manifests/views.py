@@ -32,7 +32,7 @@ IIIF_MGMT_ACL = (environ.get("IIIF_MGMT_ACL","128.103.151.0/24,10.34.5.254,10.40
 CORS_WHITELIST = (environ.get("CORS_WHITELIST", "http://harvard.edu")).split(',')
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
 CAPTION_API_URL = (environ.get("CAPTION_API","http://ids.lib.harvard.edu:8080/ids/lookup?id="))
-VERSION = "v1.6.44"
+VERSION = "v1.6.45"
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext": "ext", "ids": "ids" }
 
