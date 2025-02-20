@@ -29,7 +29,7 @@ RUN DEBIAN_FRONTEND=non-interactive && \
     sed -i '/uWSGI/c\uwsgi' /home/app/appbuild/requirements.txt && \
     curl -o /home/app/appbuild/global-bundle.pem https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem
 
-FROM artifactory.huit.harvard.edu/lts/apache_base:latest
+FROM artifactory.huit.harvard.edu/lts/apache_base:1.0.0
 
 ENV APP_NAME="metadata_server"
 ENV APP_ID_NUMBER=54422
