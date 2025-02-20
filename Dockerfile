@@ -15,7 +15,7 @@ ENV APP_LOCATION_LOC=${APP_LOCATION}
 
 RUN DEBIAN_FRONTEND=non-interactive && \
     apt-get update -y && \
-    apt-get install -y curl git && \
+    apt-get install -y git && \
     groupadd -g ${APP_ID_NUMBER} ${APP_ID_NAME} && \
     useradd -u ${APP_ID_NUMBER} -g www-data -m -d /home/${APP_ID_NAME} -s /sbin/false ${APP_ID_NAME} && \
     cd /home/${APP_ID_NAME} && \
@@ -42,7 +42,7 @@ COPY requirements.txt /root/requirements.txt
 RUN cd /root && \
     apt-get update -y && \
     apt-get upgrade -y && \
-    apt-get install -y libffi-dev locales libcap2-bin apache2 libapache2-mod-wsgi-py3 curl pkg-config cmake unzip libxml2-dev libxslt1-dev python3 python3-pip build-essential supervisor ca-certificates && \
+    apt-get install -y libffi-dev locales libcap2-bin apache2 libapache2-mod-wsgi-py3 pkg-config cmake unzip libxml2-dev libxslt1-dev python3 python3-pip build-essential supervisor ca-certificates && \
     pip3 install pip-tools && \
     apt-get clean && \
     a2enmod rewrite && \
