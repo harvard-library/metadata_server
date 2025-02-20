@@ -46,6 +46,7 @@ RUN cd /root && \
     pip3 install pip-tools && \
     apt-get clean && \
     a2enmod rewrite && \
+    apt-get remove -y gcc && \
     groupadd -g ${APP_ID_NUMBER} ${APP_ID_NAME} && \
     useradd -u ${APP_ID_NUMBER} -g www-data -m -d /home/${APP_ID_NAME} -s /sbin/false ${APP_ID_NAME} && \
     chown -R ${APP_ID_NAME}:www-data /var/log/supervisor && \
