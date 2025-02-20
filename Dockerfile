@@ -3,7 +3,7 @@ MAINTAINER Chip Goines <chip_goines@harvard.edu>
 # Borrowed Heavily from Default Docker File for Loris.
 
 # Initialize Ubuntu environment with required packages.
-ARG APP_VERSION='v1.5.3'
+ARG APP_VERSION='v1.6.45'
 ARG APP_LOCATION='https://github.com/harvard-library/metadata_server.git'
 
 ENV APP_NAME="metadata_server"
