@@ -46,7 +46,6 @@ RUN cd /root && \
     pip3 install pip-tools && \
     apt-get clean && \
     a2enmod rewrite && \
-    apt-get remove -y gcc && \
     groupadd -g ${APP_ID_NUMBER} ${APP_ID_NAME} && \
     useradd -u ${APP_ID_NUMBER} -g www-data -m -d /home/${APP_ID_NAME} -s /sbin/false ${APP_ID_NAME} && \
     chown -R ${APP_ID_NAME}:www-data /var/log/supervisor && \
@@ -61,6 +60,7 @@ COPY supervisor /etc/supervisor/
 COPY --from=builder --chown=ids:www-data /home/app/appbuild /home/ids/appbuild
 RUN mv /home/ids/appbuild /home/ids/${APP_NAME} && \
     cd /home/ids/${APP_NAME} && pip3 install -r /root/requirements.txt && \
+    apt-get remove -y gcc && \
     sed -i 's/USER=www-data/USER=${APP_ID_NAME}/' /etc/apache2/envvars
 
 WORKDIR /home/${APP_ID_NAME}/${APP_NAME}
