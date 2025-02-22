@@ -502,5 +502,5 @@ def healthcheck(request):
 	health_resp = requests.get(url)
 	if health_resp.status_code != 200:
 		return HttpResponse("Healthcheck failed", status=500)
-	else
+	else:
 		return HttpResponse("OK", status=200)
