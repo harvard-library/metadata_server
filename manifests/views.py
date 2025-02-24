@@ -32,7 +32,7 @@ IIIF_MGMT_ACL = (environ.get("IIIF_MGMT_ACL","128.103.151.0/24,10.34.5.254,10.40
 CORS_WHITELIST = (environ.get("CORS_WHITELIST", "http://harvard.edu")).split(',')
 IIIF_MANIFEST_HOST = environ.get("IIIF_MANIFEST_HOST")
 CAPTION_API_URL = (environ.get("CAPTION_API","http://ids.lib.harvard.edu:8080/ids/lookup?id="))
-VERSION = "v1.7.0"
+VERSION = "v1.7.1"
 
 sources = {"drs": "mets", "via": "mods", "hollis": "mods", "huam" : "huam", "ext": "ext", "ids": "ids" }
 
@@ -497,8 +497,7 @@ def version(request):
 
 # Healthcheck URL - return a 200 OK
 def healthcheck(request):
-	drsid = environ.get("HEALTHCHECK_ID")
-	url = f"http://localhost:8080/manifests/drs:{drsid}"
+	url = environ.get("HEALTHCHECK_URL")
 	health_resp = requests.get(url)
 	if health_resp.status_code != 200:
 		return HttpResponse("Healthcheck failed", status=500)
