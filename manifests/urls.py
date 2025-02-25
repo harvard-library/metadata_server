@@ -5,6 +5,7 @@ from manifests import views
 
 urlpatterns = [
     url(r'^demo$', views.demo, name='demo'),
+    url(r'^health$', views.healthcheck, name='healthcheck'),
     url(r'^(?P<view_type>view(-dev)?)/(?P<document_id>([a-z]+:[^;]+;?)+)$', views.view, name='view'),
     url(r'^(?P<document_id>[a-z]+:[A-Za-z\d]+)$', views.manifest, name='manifest'),
 
