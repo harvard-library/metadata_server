@@ -12,7 +12,7 @@ var DownloadButton = {
     '<ul class="dropdown download-list">',
     '{{#each imageUrls}}',
     '<li class="{{#if (eq this "#")}}disabled {{/if}}image-link" title="Download entire image as jpeg ({{this.sizeLabel}})" id="{{this.id}}">',
-    '<a href="{{this.href}}">',
+    '<a href="{{this.href}}" target="_blank">',
     '<i class="fa fa-file-image-o fa-lg fa-fw"></i>{{this.sizeLabel}}: <span class="dimensions">{{this.title}}</span> px',
     '</a></li>',
     '{{/each}}',
