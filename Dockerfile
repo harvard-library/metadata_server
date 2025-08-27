@@ -12,14 +12,14 @@ ENV APP_ID_NAME=ids
 
 ENV APP_VERSION_LOC=${APP_VERSION}
 ENV APP_LOCATION_LOC=${APP_LOCATION}
-
+COPY --chown=${APP_ID_NUMBER} . /home/${APP_ID_NAME}/${APP_NAME}
 RUN DEBIAN_FRONTEND=non-interactive && \
     apt-get update -y && \
-    apt-get install -y git && \
+    apt-get install -y git curl && \
     groupadd -g ${APP_ID_NUMBER} ${APP_ID_NAME} && \
     useradd -u ${APP_ID_NUMBER} -g www-data -m -d /home/${APP_ID_NAME} -s /sbin/false ${APP_ID_NAME} && \
     cd /home/${APP_ID_NAME} && \
-    git clone -b ${APP_VERSION_LOC} ${APP_LOCATION_LOC} && \
+#    git clone -b ${APP_VERSION_LOC} ${APP_LOCATION_LOC} && \
     mkdir -p /home/${APP_ID_NAME}/tmp && \
     chown -R ${APP_ID_NAME}:www-data /home/${APP_ID_NAME} && \
     chmod -R g+w /home/${APP_ID_NAME} && \
